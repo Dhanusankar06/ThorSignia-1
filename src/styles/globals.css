@@ -1,0 +1,771 @@
+/* app/globals.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Swiper styles - ensure these are imported BEFORE your custom styles if you intend to override */
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+/* @import 'swiper/css/autoplay'; *//* Only if using autoplay module and need its specific styles */
+
+
+@layer base {
+  :root {
+    /* Light Theme Variables (HSL) - Based on your palette */
+    --background: 0 0% 100%;       /* White #FFFFFF */
+    --foreground: 252 81% 9%;      /* Dark #0F0326 (for text on light bg) */
+    --card: 0 0% 100%;             /* White #FFFFFF */
+    --card-foreground: 252 81% 9%; /* Dark #0F0326 */
+    --popover: 0 0% 100%;          /* White #FFFFFF */
+    --popover-foreground: 252 81% 9%; /* Dark #0F0326 */
+    --primary: 93 48% 50%;         /* Brand Green #88BF42 */
+    --primary-foreground: 0 0% 100%; /* White #FFFFFF (text color on primary button) */
+    --secondary: 240 1% 90%;       /* Lighter Gray (Example for secondary background/hover) */
+    --secondary-foreground: 240 1% 53%; /* Muted Gray #696869 (for secondary text/borders) */
+    --muted: 240 1% 90%;           /* Lighter Gray */
+    --muted-foreground: 240 1% 53%; /* Muted Gray #696869 */
+    --accent: 93 48% 50%;          /* Brand Green #88BF42 (can use for accent backgrounds/hovers) */
+    --accent-foreground: 252 81% 9%; /* Dark #0F0326 (text color on accent background) */
+    --destructive: 0 84.2% 60.2%;  /* Keep existing red */
+    --destructive-foreground: 0 0% 98%; /* Keep existing white */
+    --border: 240 1% 53%;          /* Muted Gray #696869 */
+    --input: 240 1% 53%;           /* Muted Gray #696869 */
+    --ring: 93 48% 50%;            /* Brand Green #88BF42 (focus ring color) */
+    --radius: 0.5rem;              /* Keep radius */
+
+    /* Custom variables if needed outside the standard set */
+    --brand-green: 93 48% 50%; /* Brand Green #88BF42 (keeping for specific references if any) */
+    /* Removed --brand-cayan as it's not in the new palette */
+  }
+
+  .dark {
+    /* Dark Theme Variables (HSL) - Based on your palette */
+    --background: 252 81% 9%;      /* Dark #0F0326 */
+    --foreground: 0 0% 100%;       /* White #FFFFFF */
+    --card: 252 70% 12%;           /* Slightly lighter dark for card background */
+    --card-foreground: 0 0% 100%;  /* White #FFFFFF */
+    --popover: 252 81% 9%;         /* Dark #0F0326 */
+    --popover-foreground: 0 0% 100%; /* White #FFFFFF */
+    --primary: 93 48% 50%;         /* Brand Green #88BF42 */
+    --primary-foreground: 0 0% 100%; /* White #FFFFFF */
+    --secondary: 240 1% 20%;       /* Darker Gray (Example for secondary background/hover) */
+    --secondary-foreground: 0 0% 100%; /* White #FFFFFF (text on dark background) */
+    --muted: 240 1% 20%;           /* Darker Gray */
+    --muted-foreground: 0 0% 100%; /* White #FFFFFF */
+    --accent: 93 48% 50%;          /* Brand Green #88BF42 */
+    --accent-foreground: 0 0% 100%; /* White #FFFFFF */
+    --destructive: 0 62.8% 30.6%;  /* Keep existing red */
+    --destructive-foreground: 0 0% 98%; /* Keep existing white */
+    --border: 240 1% 30%;          /* Medium Dark Gray */
+    --input: 240 1% 30%;           /* Medium Dark Gray */
+    --ring: 93 48% 60%;            /* Lighter Green for contrast against dark BG */
+
+    /* Custom variables if needed */
+     --brand-green: 93 48% 50%; /* Brand Green #88BF42 */
+    }
+}
+
+@layer base {
+  * {
+    /* Applies the border color variable */
+    @apply border-border;
+  }
+  body {
+     /* Applies the background and text colors from the variables */
+     @apply bg-background text-foreground;
+  }
+
+  /* Removed explicit hero text color overrides */
+  /* .hero-animated-bg .text-white { color: white; } */
+  /* .hero-animated-bg .brand-green-text { color: #88bf42; } */
+}
+
+
+/* --- Hero Background Animated Blobs --- */
+.hero-animated-bg {
+  position: relative;
+  overflow: hidden;
+  /* Set background color from the new palette */
+  background-color: #0F0326; /* Dark Background color from palette */
+}
+
+/* Blob Styles */
+.hero-bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(150px); /* Increased blur for a softer effect */
+  opacity: 0.35; /* Adjusted opacity */
+  z-index: 0;
+  pointer-events: none; /* Ensure blobs don't interfere with mouse events */
+  mix-blend-mode: screen; /* Optional: Blend modes can create cool effects on dark backgrounds */
+}
+
+/* Specific styles for each blob - Using HSLA with variables for color */
+.hero-bg-blob-1 {
+  width: 500px; /* Adjust size */
+  height: 500px; /* Adjust size */
+  /* Changed from Cayan Blue to Brand Green variant */
+  background: radial-gradient(circle, hsla(var(--primary), 0.9), transparent 70%);
+  top: 5%;
+  left: 10%;
+  animation: moveBlob1 35s ease-in-out infinite alternate;
+}
+
+.hero-bg-blob-2 {
+  width: 600px; /* Adjust size */
+  height: 600px; /* Adjust size */
+   /* Kept Brand Green (using variable) */
+  background: radial-gradient(circle, hsla(var(--primary), 0.8), transparent 65%);
+  bottom: 10%;
+  right: 15%;
+  animation: moveBlob2 40s ease-in-out infinite alternate-reverse; /* Added reverse for variety */
+}
+
+.hero-bg-blob-3 {
+  width: 450px; /* Adjust size */
+  height: 450px; /* Adjust size */
+   /* Changed from Cayan Blue to Brand Green variant */
+  background: radial-gradient(circle, hsla(var(--primary), 0.7), transparent 75%);
+  /* Center it initially */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: moveBlob3 30s ease-in-out infinite alternate;
+}
+
+.hero-bg-blob-4 {
+    width: 550px; /* Adjust size */
+    height: 550px; /* Adjust size */
+    /* Kept Brand Green (using variable) */
+    background: radial-gradient(circle, hsla(var(--primary), 0.6), transparent 60%);
+    bottom: 0%;
+    left: 25%;
+    animation: moveBlob4 45s ease-in-out infinite alternate-reverse; /* Added reverse for variety */
+}
+
+/* Keyframes for blob movement animations - kept as they are movement based */
+@keyframes moveBlob1 {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate(calc(50vw - 400px), 100px) scale(1.1) rotate(15deg); } /* Example complex movement */
+  100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+}
+
+@keyframes moveBlob2 {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate(-200px, -200px) scale(0.9) rotate(-20deg); }
+  100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+}
+
+@keyframes moveBlob3 {
+  /* Start and end relative to its initial -50%, -50% translation */
+  0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  50% { transform: translate(calc(-50% + 200px), calc(-50% + 150px)) scale(1.2) rotate(10deg); }
+  100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+}
+
+@keyframes moveBlob4 {
+   0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate(calc(50vw - 100px), -200px) scale(1.15) rotate(-5deg); }
+   100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+}
+
+
+/* --- React Type Animation Cursor --- */
+.Typewriter__cursor {
+    /* Use the current text color (inherited from parent) */
+    color: currentColor;
+    vertical-align: text-bottom; /* Align with text */
+    /* The blinking animation is usually handled by the library */
+}
+
+/* Optional: If you had a custom blinking cursor before, remove its styles */
+
+
+/* --- Hero Gradient Button Style - MODIFIED TO BE SOLID PRIMARY COLOR --- */
+/* Based on the table description "Primary Button | #88BF42 | Use bold green for attention-grabbing CTAs" */
+.btn-hero-gradient {
+  /* Removed the gradient and hardcoded color */
+  background-color: hsl(var(--primary)); /* Use primary color variable */
+  color: hsl(var(--primary-foreground)); /* Use primary foreground color variable */
+  border: none;
+  /* Keep Tailwind padding/font-size classes from page.tsx */
+  /* background-size: 200% auto; *//* Not needed for solid color */
+  /* Transition properties */
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Adjusted transition property */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.btn-hero-gradient:hover {
+  /* Removed background-position */
+  /* Example hover effect: slight darken or adjust opacity */
+  background-color: hsla(var(--primary), 0.9); /* Slightly darker/more opaque primary */
+  color: hsl(var(--primary-foreground)); /* Keep text color */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+}
+
+/* --- Hero Glass Panel Style --- */
+.hero-glass-panel {
+  background: hsla(var(--background), 0.2); /* Semi-transparent dark background variable */
+  border: 1px solid hsla(var(--primary), 0.3); /* Subtle border using primary variable with transparency */
+  border-radius: 15px; /* Rounded corners */
+  backdrop-filter: blur(20px); /* Apply the blur effect to elements behind it */
+  -webkit-backdrop-filter: blur(20px); /* Safari compatibility */
+  box-shadow: 0 8px 32px 0 hsla(var(--background), 0.3); /* Subtle shadow using dark background variable */
+  animation: floatPanel 6s ease-in-out infinite alternate; /* Apply floating animation */
+  /* Add padding in page.tsx using Tailwind classes like py-12 px-8 */
+}
+/* Assuming floatPanel keyframes are defined elsewhere if needed,
+   or remove the animation property if not defined. */
+
+
+/* --- Scrolling Logos Marquee Animation Keyframes --- */
+@keyframes marquee-rtl {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+@keyframes marquee-ltr {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Define utility classes for the animation */
+.animate-marquee-rtl {
+  animation: marquee-rtl var(--duration, 20s) linear infinite;
+  will-change: transform;
+  position: relative;
+}
+
+.animate-marquee-ltr {
+  animation: marquee-ltr var(--duration, 20s) linear infinite;
+  will-change: transform;
+  position: relative;
+}
+
+/* Optional: Hide scrollbar for the scrolling container */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
+
+/* --- Swiper Navigation and Pagination Styles - Updated to use Variables --- */
+/* Style for the pagination dots */
+.swiper-pagination-bullet {
+  /* Changed from #d1d5db to use muted background variable */
+  background-color: hsl(var(--muted)) !important;
+  opacity: 0.8 !important;
+}
+
+.swiper-pagination-bullet-active {
+  /* Changed from #88bf42 to use primary color variable */
+  background-color: hsl(var(--primary)) !important;
+  opacity: 1 !important;
+}
+
+/* Style for navigation arrows */
+/* Note: These might be overridden by more specific classes in page.tsx if you used custom arrow divs there */
+.swiper-button-next,
+.swiper-button-prev {
+  /* Changed from #88bf42 to use primary color variable */
+  color: hsl(var(--primary)) !important;
+}
+
+/* --- Blob Animation Keyframes for AI Business Structure Section --- */
+@keyframes blob {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+.animate-blob {
+  animation: blob 7s infinite ease-in-out;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+
+
+
+@theme inline {
+  --animate-aurora: aurora 60s linear infinite;
+  @keyframes aurora {
+    from {
+      background-position:
+        50% 50%,
+        50% 50%;
+    }
+    to {
+      background-position:
+        350% 50%,
+        350% 50%;
+    }
+  }
+}
+/* Add this to your global CSS file (e.g., src/app/globals.css) */
+
+/* Class applied to the motion.div wrapper around the Card */
+.why-hire-card-wrapper {
+  /* Ensure relative positioning for the pseudo-element */
+  position: relative;
+  /* Add a default subtle shadow if you want, or rely only on hover shadow */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease-in-out; /* Animate default shadow if present */
+}
+
+/* Pseudo-element for the gradient border */
+.why-hire-card-wrapper::before {
+  content: '';
+  position: absolute;
+  /* Adjust inset to control border thickness */
+  /* e.g., -1.5px for a 1.5px border */
+  inset: -2px;
+  z-index: -1; /* Place behind the card */
+  /* Define your gradient here. Use colors matching your theme. */
+  /* Example using accent colors: */
+  background: linear-gradient(to right bottom, #88bf42, #7aad3a, #88bf42);
+  /* Match the card's border-radius */
+  border-radius: theme('borderRadius.lg');
+  opacity: 0; /* Start hidden */
+  transition: opacity 0.3s ease-in-out; /* Animate opacity for smooth appearance */
+  pointer-events: none; /* Allow clicks to pass through to the card content */
+}
+
+/* Show the pseudo-element on hover of the wrapper */
+.why-hire-card-wrapper:hover::before {
+  opacity: 1;
+}
+
+/* Optional: Ensure the Card itself has a background to cover the pseudo-element center */
+/* Your Card already has bg-gray-50/dark:bg-gray-700, which is good */
+.gradientBorderTag {
+  position: relative; /* Needed for positioning the pseudo-element */
+  padding: 2px; /* This creates the space for the 'border' effect. Adjust thickness here. */
+  border-radius: 9999px; /* Makes the container fully rounded */
+  overflow: hidden; /* Ensures the gradient is clipped to the rounded shape */
+  display: inline-block; 
+}
+.gradientBorderTag::before {
+  content: '';
+  position: absolute;
+  /* Position it to cover the entire container */
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1; /* Place it behind the content */
+  border-radius: inherit; /* Inherit the roundedness from the parent */
+
+  /* Define your gradient here */
+  /* Example: a vibrant techy gradient */
+  background: linear-gradient(to right, #00c6ff, #0072ff, #9067ef);
+
+  /* Optional: Add animation to the gradient background itself for a "moving gradient" effect */
+  /* background-size: 200% 200%; */
+  /* animation: gradient-animation 5s ease infinite; */
+}
+
+
+@keyframes gradient-animation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+/* SuccessStoryCard.module.css */
+
+/* This class will be applied to the individual card element */
+.card {
+  position: relative; /* Needed for positioning the pseudo-element */
+  overflow: hidden; /* Ensures the pseudo-element stays within the card's rounded corners */
+  /* Tailwind classes will handle padding, background, border-radius, shadow */
+
+  /* Transition for the hover effect (scale, shadow handled by Tailwind) */
+  /* Add a subtle border animation on hover using a pseudo-element */
+}
+
+/* Pseudo-element for the animated gradient border effect */
+.card::before {
+  content: '';
+  position: absolute;
+  /* Position it slightly outside the card to create the border space */
+  top: -2px;
+  right: -2px;
+  bottom: -2px;
+  left: -2px;
+  z-index: -1; /* Place it behind the content */
+  border-radius: inherit; /* Inherit the roundedness from the parent */
+
+  /* Initial state: Invisible */
+  opacity: 0;
+
+  /* Gradient background for the 'border' */
+  /* Example vibrant gradient, adjust colors as needed */
+  background: linear-gradient(45deg, #32CD32, #00FF7F, #32CD32); /* Shades of green for border */
+  background-size: 200% 200%; /* Larger size to allow background movement */
+
+  /* Transition for the hover effect */
+  transition: opacity 0.4s ease-out, background-position 1.5s ease-in-out; /* Animate opacity and background position */
+}
+
+/* State on hover */
+.card:hover::before {
+  opacity: 1; /* Make visible on hover */
+  background-position: 100% 100%; /* Move the gradient background on hover */
+}
+
+
+ @keyframes gradient-move {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.card::before {
+    
+    animation: gradient-move 8s linear infinite; 
+} 
+
+@layer utilities {
+  /* Hide scrollbars for marquee sections */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@layer components {  /* Animation for right-to-left scrolling */  .animate-marquee-rtl {    animation: marquee-rtl var(--duration, 60s) linear infinite;  }  /* Animation for left-to-right scrolling */  .animate-marquee-ltr {    animation: marquee-ltr var(--duration, 50s) linear infinite;  }    /* Animation pause on hover */  .hover\:pause-animation:hover {    animation-play-state: paused;  }}
+
+@keyframes marquee-rtl {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-ltr {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+} 
+
+/* Pulse animations for nodes in the AI visualization */
+@keyframes pulse-0 {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 0 0 rgba(136, 191, 66, 0.4);
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 0 0 0 10px rgba(136, 191, 66, 0);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 0 0 rgba(136, 191, 66, 0);
+  }
+}
+
+@keyframes pulse-1 {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 0 0 rgba(136, 191, 66, 0.4);
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 0 0 10px rgba(136, 191, 66, 0);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 0 0 rgba(136, 191, 66, 0);
+  }
+}
+
+@keyframes pulse-2 {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 0 0 rgba(136, 191, 66, 0.4);
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.15);
+    box-shadow: 0 0 0 10px rgba(136, 191, 66, 0);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 0 0 rgba(136, 191, 66, 0);
+  }
+}
+
+/* Float animations for particles in the AI visualization */
+@keyframes float-0 {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-15px) translateX(10px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.3;
+  }
+}
+
+@keyframes float-1 {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(15px) translateX(-10px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.3;
+  }
+}
+
+@keyframes float-2 {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-10px) translateX(-10px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.3;
+  }
+} 
+
+/* Keyframes for node animations in the AI Visualization */
+@keyframes pulse-node {
+  0% { transform: scale(1); opacity: 0.8; box-shadow: 0 0 0 0 rgba(136, 191, 66, 0.4); }
+  50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 0 10px rgba(136, 191, 66, 0); }
+  100% { transform: scale(1); opacity: 0.8; box-shadow: 0 0 0 0 rgba(136, 191, 66, 0); }
+}
+
+/* Keyframes for data particle animations in the AI Visualization */
+@keyframes float-particle {
+  0% { transform: translateY(0) translateX(0); opacity: 0.4; }
+  50% { transform: translateY(-10px) translateX(10px); opacity: 0.8; }
+  100% { transform: translateY(0) translateX(0); opacity: 0.4; }
+}
+
+/* Orbit animations for nodes around the central hub */
+@keyframes orbit-1 {
+  0% { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+}
+
+@keyframes orbit-2 {
+  0% { transform: rotate(60deg) translateX(120px) rotate(-60deg); }
+  100% { transform: rotate(420deg) translateX(120px) rotate(-420deg); }
+}
+
+@keyframes orbit-3 {
+  0% { transform: rotate(120deg) translateX(120px) rotate(-120deg); }
+  100% { transform: rotate(480deg) translateX(120px) rotate(-480deg); }
+}
+
+@keyframes orbit-4 {
+  0% { transform: rotate(180deg) translateX(120px) rotate(-180deg); }
+  100% { transform: rotate(540deg) translateX(120px) rotate(-540deg); }
+}
+
+@keyframes orbit-5 {
+  0% { transform: rotate(240deg) translateX(120px) rotate(-240deg); }
+  100% { transform: rotate(600deg) translateX(120px) rotate(-600deg); }
+}
+
+@keyframes orbit-6 {
+  0% { transform: rotate(300deg) translateX(120px) rotate(-300deg); }
+  100% { transform: rotate(660deg) translateX(120px) rotate(-660deg); }
+}
+
+/* Connection line pulse animation */
+@keyframes pulse-line {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+  100% { opacity: 0.3; }
+} 
+
+/* Enhanced AI Visualization Animations */
+@keyframes ai-central-pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(136, 191, 66, 0.4); }
+  50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(136, 191, 66, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(136, 191, 66, 0); }
+}
+
+@keyframes ai-dot-float {
+  0% { transform: translate(0, 0); opacity: 0.3; }
+  50% { transform: translate(10px, -10px); opacity: 0.8; }
+  100% { transform: translate(0, 0); opacity: 0.3; }
+}
+
+@keyframes ai-connection-pulse {
+  0% { opacity: 0.2; height: 1px; }
+  50% { opacity: 0.8; height: 2px; }
+  100% { opacity: 0.2; height: 1px; }
+}
+
+@keyframes ai-node-orbit {
+  0% { transform: rotate(0deg) translateX(0) scale(1); }
+  50% { transform: rotate(180deg) translateX(10px) scale(1.1); }
+  100% { transform: rotate(360deg) translateX(0) scale(1); }
+}
+
+@keyframes ai-data-stream {
+  0% { width: 0; opacity: 0.2; }
+  50% { width: 25px; opacity: 0.9; }
+  100% { width: 0; opacity: 0.2; }
+}
+
+.ai-brain-container {
+  background: rgba(15, 3, 38, 0.6);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-central-node {
+  animation: ai-central-pulse 3s infinite ease-in-out;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.ai-connection {
+  position: absolute;
+  background: linear-gradient(90deg, rgba(136, 191, 66, 0.8) 0%, rgba(255, 255, 255, 0.3) 100%);
+  z-index: 2;
+  transform-origin: left center;
+}
+
+.ai-orbit-node {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 0 15px rgba(136, 191, 66, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 5;
+}
+
+.ai-orbit-node:hover {
+  transform: scale(1.2) !important;
+  box-shadow: 0 0 20px rgba(136, 191, 66, 0.5);
+}
+
+.ai-data-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  z-index: 1;
+}
+
+.ai-data-stream {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(136, 191, 66, 0.5), rgba(255, 255, 255, 0.3));
+  animation: ai-data-stream 3s infinite ease-in-out;
+  z-index: 1;
+}
+
+/* Custom Swiper Styles for Testimonials */
+.testimonials-swiper .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background-color: #d1d5db;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.testimonials-swiper .swiper-pagination-bullet-active {
+  width: 30px;
+  border-radius: 5px;
+  background-color: #88BF42;
+  opacity: 1;
+}
+
+.testimonials-swiper .swiper-slide {
+  height: auto; /* Allow slides to be different heights */
+}
+
+/* Add any additional styles you need */ 
+@keyframes particle-sway-fade {
+  0% { transform: translateY(0) translateX(0); opacity: 0.3; }
+  50% { transform: translateY(-10px) translateX(5px); opacity: 0.7; }
+  100% { transform: translateY(5px) translateX(-5px); opacity: 0.5; }
+}
+/* New Keyframes for the Network Visualization */
+
+/* Node Pulse/Glow */
+@keyframes network-node-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+    box-shadow: 0 0 8px rgba(136, 191, 66, 0.5); /* Initial/End glow */
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 1;
+    box-shadow: 0 0 15px rgba(136, 191, 66, 0.9); /* Peak pulse/glow */
+  }
+}
+
+/* Particle Flow (More directional) */
+@keyframes data-flow-particle {
+    0% { transform: translate(0, 0); opacity: 0.2; }
+    25% { opacity: 1; }
+    100% { transform: translate(var(--travel-x), var(--travel-y)); opacity: 0.2; }
+}
+
+/* Line/Connection Pulse */
+@keyframes connection-pulse {
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.5; }
+}
+
+/* Line/Connection Flow (Simulates data moving) */
+@keyframes connection-flow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+
+/* Simple Fade In/Out */
+@keyframes fade-in-out {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.7; }
+}
+
+/* Animation pause on hover */
+.hover\:pause-animation:hover {
+  animation-play-state: paused;
+}
