@@ -24,7 +24,15 @@ MAX_REQUESTS = 5  # Maximum 5 requests
 RATE_LIMIT_WINDOW = 60  # per minute (60 seconds)
 
 # Define upload folder for resumes
-UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'uploads')
+import tempfile
+
+if "VERCEL" in os.environ or os.environ.get("VERCEL_ENV"):
+    # Use /tmp/uploads for Vercel/serverless
+    UPLOAD_FOLDER = os.path.join(tempfile.gettempdir(), "uploads")
+else:
+    # Use local uploads folder for development
+    UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'uploads')
+
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
