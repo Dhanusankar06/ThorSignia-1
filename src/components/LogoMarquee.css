@@ -1,0 +1,78 @@
+/* Logo Marquee Animation Styles */
+.logo-marquee {
+  overflow: hidden;
+  width: 100%;
+}
+
+.logo-marquee-track {
+  display: flex;
+  animation: marquee 25s linear infinite;
+  width: max-content;
+}
+
+.logo-marquee-track-reverse {
+  display: flex;
+  animation: marquee-reverse 25s linear infinite;
+  width: max-content;
+}
+
+.logo-item {
+  padding: 1rem;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10rem;
+  height: 6rem;
+  margin: 0 0.75rem;
+  transition: all 0.3s;
+}
+
+.logo-item:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border-color: #88bf42;
+  transform: scale(1.05);
+}
+
+.logo-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: filter 0.3s;
+}
+
+.logo-img:hover {
+  filter: brightness(110%);
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Dark mode support */
+.dark .logo-item {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+.dark .logo-item:hover {
+  border-color: #88bf42;
+} 

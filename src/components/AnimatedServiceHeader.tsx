@@ -1,0 +1,311 @@
+'use client'
+
+import * as React from 'react'
+import { Link } from "react-router-dom"
+import { ChevronDown } from "lucide-react"
+import { motion } from "framer-motion"
+
+export default function AnimatedServiceHeader() {
+  const [particles, setParticles] = React.useState<any[]>([])
+  
+  React.useEffect(() => {
+    // Create particles for animation
+    const generateParticles = () => {
+      const newParticles = []
+      for (let i = 0; i < 50; i++) {
+        newParticles.push({
+          id: i,
+          x: Math.random() * 100,
+          y: Math.random() * 100,
+          size: Math.random() * 8 + 2,
+          color: i % 3 === 0 ? '#88BF42' : (i % 3 === 1 ? '#009898' : '#0F0326'),
+          duration: Math.random() * 20 + 10,
+          delay: Math.random() * 5
+        })
+      }
+      setParticles(newParticles)
+    }
+    
+    generateParticles()
+  }, [])
+
+  const scrollToNextSection = (e: any) => {
+    e.preventDefault()
+    const nextSection = document.querySelector('#service-tabs')
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  return (
+    <div className="relative w-full">
+      <div className="h-[70vh] max-h-[800px] bg-black flex flex-col justify-center items-center px-6 py-12 relative overflow-hidden my-8 w-full shadow-lg">
+        {/* Animated grid lines overlay */}
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiIGQ9Ik0wIDIwaDIwVjBoLTIweiIvPjwvZz48L3N2Zz4=')] z-10 opacity-60">
+          <motion.div 
+            className="absolute inset-0 bg-[#88BF42]/10"
+            animate={{ 
+              opacity: [0.05, 0.1, 0.05], 
+              scale: [1, 1.05, 1],
+            }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
+        
+        {/* Glowing circle background */}
+        <motion.div
+          className="absolute rounded-full h-[300px] w-[300px] md:h-[500px] md:w-[500px] bg-gradient-to-r from-[#88BF42]/20 via-[#009898]/20 to-[#88BF42]/10 blur-3xl"
+          style={{ 
+            filter: 'blur(60px)',
+            background: 'radial-gradient(circle, rgba(136,191,66,0.2) 0%, rgba(0,152,152,0.1) 50%, rgba(0,0,0,0) 70%)'
+          }}
+          animate={{ 
+            scale: [1, 1.1, 1],
+            opacity: [0.4, 0.6, 0.4]
+          }}
+          transition={{ 
+            duration: 10, 
+            repeat: Infinity, 
+            ease: "easeInOut" 
+          }}
+        />
+        
+        {/* Animated wave overlay */}
+        <svg className="absolute inset-0 w-full h-full z-0" preserveAspectRatio="none">
+          <motion.path
+            d="M0,128 C100,90 200,96 300,128 C400,160 500,120 600,96 C700,72 800,112 900,128 L900,320 L0,320 Z"
+            initial={{ d: "M0,128 C100,90 200,96 300,128 C400,160 500,120 600,96 C700,72 800,112 900,128 L900,320 L0,320 Z" }}
+            animate={{ 
+              d: [
+                "M0,128 C100,90 200,96 300,128 C400,160 500,120 600,96 C700,72 800,112 900,128 L900,320 L0,320 Z",
+                "M0,96 C100,128 200,160 300,128 C400,96 500,90 600,128 C700,160 800,144 900,96 L900,320 L0,320 Z",
+                "M0,128 C100,90 200,96 300,128 C400,160 500,120 600,96 C700,72 800,112 900,128 L900,320 L0,320 Z"
+              ]
+            }}
+            transition={{ 
+              duration: 15, 
+              repeat: Infinity, 
+              ease: "easeInOut" 
+            }}
+            fill="rgba(136, 191, 66, 0.05)"
+          />
+          <motion.path
+            d="M0,160 C100,180 200,140 300,120 C400,100 500,140 600,160 C700,180 800,140 900,120 L900,320 L0,320 Z"
+            initial={{ d: "M0,160 C100,180 200,140 300,120 C400,100 500,140 600,160 C700,180 800,140 900,120 L900,320 L0,320 Z" }}
+            animate={{ 
+              d: [
+                "M0,160 C100,180 200,140 300,120 C400,100 500,140 600,160 C700,180 800,140 900,120 L900,320 L0,320 Z",
+                "M0,120 C100,100 200,180 300,160 C400,140 500,100 600,120 C700,140 800,180 900,160 L900,320 L0,320 Z",
+                "M0,160 C100,180 200,140 300,120 C400,100 500,140 600,160 C700,180 800,140 900,120 L900,320 L0,320 Z"
+              ]
+            }}
+            transition={{ 
+              duration: 10, 
+              repeat: Infinity, 
+              ease: "easeInOut",
+              delay: 0.5
+            }}
+            fill="rgba(0, 152, 152, 0.05)"
+          />
+        </svg>
+        
+        {/* Digital rain effect */}
+        <div className="absolute inset-0 z-0 overflow-hidden opacity-30">
+          {Array.from({ length: 20 }).map((_, i) => (
+            <motion.div
+              key={`rain-${i}`}
+              className="absolute top-0 w-[1px] bg-gradient-to-b from-[#88BF42] via-[#88BF42]/50 to-transparent"
+              style={{
+                left: `${Math.random() * 100}%`,
+                height: `${Math.random() * 30 + 10}%`,
+                opacity: Math.random() * 0.5 + 0.2
+              }}
+              animate={{
+                y: ['-100%', '100%'],
+                opacity: [0, 0.8, 0]
+              }}
+              transition={{
+                duration: Math.random() * 5 + 5,
+                repeat: Infinity,
+                ease: "linear",
+                delay: Math.random() * 2
+              }}
+            />
+          ))}
+        </div>
+        
+        {/* Floating particles with glow */}
+        {particles.map((particle) => (
+          <motion.div
+            key={particle.id}
+            className="absolute rounded-full z-0"
+            style={{
+              left: `${particle.x}%`,
+              top: `${particle.y}%`,
+              backgroundColor: particle.color,
+              width: particle.size,
+              height: particle.size,
+              opacity: 0.6,
+              boxShadow: `0 0 ${particle.size * 2}px ${particle.color}`
+            }}
+            animate={{
+              x: [0, Math.random() * 100 - 50, 0],
+              y: [0, Math.random() * 100 - 50, 0],
+              scale: [1, Math.random() + 0.5, 1],
+              opacity: [0.4, 0.8, 0.4]
+            }}
+            transition={{
+              duration: particle.duration,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: particle.delay
+            }}
+          />
+        ))}
+        
+        <div className="max-w-4xl text-center z-20">
+          {/* Circular background for title */}
+          <motion.div 
+            className="absolute w-[300px] h-[300px] md:w-[600px] md:h-[600px] rounded-full bg-gradient-to-r from-[#88BF42]/5 to-[#009898]/5 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0"
+            animate={{
+              scale: [1, 1.05, 1],
+              rotate: [0, 5, 0]
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          
+          {/* Intro Text */}
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="text-sm uppercase tracking-wide text-[#88BF42] font-medium mb-4 relative"
+          >
+            Our Enterprise AI Solutions
+          </motion.div>
+
+          {/* Main Heading with letter staggering */}
+          <div className="overflow-hidden">
+            <motion.h1 
+              className="text-4xl md:text-6xl font-extrabold text-white leading-tight"
+              initial={{ y: 100 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              {Array.from("AI Services That Drive").map((letter, index) => (
+                <motion.span
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    duration: 0.6, 
+                    delay: 0.05 * index + 0.2,
+                    ease: "easeOut"
+                  }}
+                  className="inline-block"
+                >
+                  {letter === " " ? "\u00A0" : letter}
+                </motion.span>
+              ))}
+            </motion.h1>
+          </div>
+          
+          <div className="overflow-hidden">
+            <motion.h1 
+              className="text-4xl md:text-6xl font-extrabold text-[#88BF42] leading-tight"
+              initial={{ y: 100 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
+            >
+              {Array.from("Business Results").map((letter, index) => (
+                <motion.span
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    duration: 0.6, 
+                    delay: 0.05 * index + 0.8,
+                    ease: "easeOut"
+                  }}
+                  className="inline-block"
+                >
+                  {letter === " " ? "\u00A0" : letter}
+                </motion.span>
+              ))}
+            </motion.h1>
+          </div>
+
+          {/* Subheading */}
+          <motion.p 
+            initial={{ opacity: 0, scaleX: 0.9 }}
+            animate={{ opacity: 1, scaleX: 1 }}
+            transition={{ duration: 0.7, delay: 1.3 }}
+            className="text-gray-300 text-lg max-w-2xl mx-auto mt-6"
+          >
+            Discover our range of AI-powered solutions designed to solve real business challenges and deliver measurable ROI.
+          </motion.p>
+
+          {/* Call-to-Action Buttons */}
+          <motion.div 
+            className="flex flex-col sm:flex-row gap-4 mt-8 justify-center"
+          >
+            <motion.button
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 1.5 }}
+              onClick={scrollToNextSection}
+              className="bg-[#88BF42] text-black px-6 py-3 rounded-md shadow-lg hover:shadow-xl hover:bg-[#88BF42]/90 transition-all"
+              whileHover={{ 
+                scale: 1.05,
+                boxShadow: "0 0 20px rgba(136, 191, 66, 0.5)"
+              }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Explore Services
+            </motion.button>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 1.6 }}
+              whileHover={{ 
+                scale: 1.05,
+                boxShadow: "0 0 20px rgba(0, 152, 152, 0.3)"
+              }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Link
+                to="/contact"
+                className="border-2 border-[#009898] text-[#009898] px-6 py-3 rounded-md hover:bg-[#009898] hover:text-white transition-colors block"
+              >
+                Contact Us
+              </Link>
+            </motion.div>
+          </motion.div>
+
+          {/* Scroll Down Indicator */}
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.8 }}
+            className="mt-12 flex justify-center"
+          >
+            <motion.div
+              animate={{ 
+                y: [0, 10, 0],
+                boxShadow: ["0 0 0px rgba(136, 191, 66, 0)", "0 0 10px rgba(136, 191, 66, 0.5)", "0 0 0px rgba(136, 191, 66, 0)"]
+              }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <ChevronDown className="text-[#88BF42] w-10 h-10" />
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+    </div>
+  )
+} 
