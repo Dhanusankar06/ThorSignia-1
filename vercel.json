@@ -2,10 +2,10 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/index.py",
+      "src": "vercel_app.py",
       "use": "@vercel/python",
       "config": {
-        "buildCommand": "pip install -r ../../requirements.txt && python ../../vercel_deploy.py"
+        "maxLambdaSize": "50mb"
       }
     },
     {
@@ -30,7 +30,7 @@
     },
     {
       "src": "/api/(.*)",
-      "dest": "/api/index.py",
+      "dest": "/vercel_app.py",
       "headers": {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",

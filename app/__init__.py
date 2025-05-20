@@ -91,6 +91,8 @@ def create_app():
         
         # Register blueprints
         app.register_blueprint(contacts.bp)
+        from api.index import api_bp
+        app.register_blueprint(api_bp)
         
         # Create database tables (if they don't exist)
         db.create_all()

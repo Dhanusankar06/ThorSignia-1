@@ -1,7 +1,10 @@
-from flask import Flask, Response, request, jsonify, make_response
+from flask import Flask, Response, request, jsonify, make_response, Blueprint
+
+api_bp = Blueprint('api', __name__)
+
 from app import create_app, db
 from app.models.contact import Contact
-from assessment import Assessment
+from api.assessment import Assessment
 from app.services.email_service import EmailService
 import re
 import logging
@@ -10,7 +13,8 @@ from functools import wraps
 import os
 from werkzeug.utils import secure_filename
 
-app = create_app()
+api_bp = Blueprint('api', __name__)
+
 logger = logging.getLogger(__name__)
 
 # Simple in-memory rate limiting store
@@ -68,14 +72,14 @@ def sanitize_input(text):
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/api/health', methods=['GET'])
+@api_bp.route('/api/health', methods=['GET'])
 def api_health():
     """Health check endpoint."""
     response = jsonify({'status': 'ok', 'message': 'Thor Signia API is running'})
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
-@app.route('/api/contacts', methods=['POST', 'OPTIONS'])
+@api_bp.route('/api/contacts', methods=['POST', 'OPTIONS'])
 @rate_limit
 def create_contact():
     """Create a new contact submission."""
@@ -172,7 +176,7 @@ def create_contact():
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response, 500 
 
-@app.route('/api/assessments', methods=['POST', 'OPTIONS'])
+@api_bp.route('/api/assessments', methods=['POST', 'OPTIONS'])
 @rate_limit
 def create_assessment():
     """Create a new cybersecurity assessment submission."""
@@ -250,7 +254,7 @@ def create_assessment():
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response, 500
 
-@app.route('/api/careers/apply', methods=['POST', 'OPTIONS'])
+@api_bp.route('/api/careers/apply', methods=['POST', 'OPTIONS'])
 @rate_limit
 def apply_career():
     """Handle resume upload for career applications."""
