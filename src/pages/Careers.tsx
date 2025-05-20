@@ -81,6 +81,7 @@ const Careers = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
+  const [company, setCompany] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleApplyClick = (jobTitle: string) => {
@@ -109,7 +110,7 @@ const Careers = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!name || !email || !mobileNumber) {
+    if (!name || !email || !mobileNumber || !company) {
       setError('Please fill in all fields.');
       return;
     }
@@ -123,6 +124,7 @@ const Careers = () => {
     formData.append('name', name);
     formData.append('email', email);
     formData.append('mobile_number', mobileNumber);
+    formData.append('company', company);
 
     fetch('/api/careers/apply', {
       method: 'POST',
@@ -137,6 +139,7 @@ const Careers = () => {
           setName('');
           setEmail('');
           setMobileNumber('');
+          setCompany('');
           alert('Resume submitted for ' + selectedJob + '!');
         }
       })
@@ -152,6 +155,7 @@ const Careers = () => {
     setName('');
     setEmail('');
     setMobileNumber('');
+    setCompany('');
   };
 
   return (
