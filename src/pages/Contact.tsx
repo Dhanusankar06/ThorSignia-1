@@ -92,27 +92,39 @@ const ContactPage = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    // Show success state
-    setIsSubmitted(true);
-    setIsLoading(false);
-    
-    // Reset after 5 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        requestType: '',
-        message: '',
-        authorizeContact: false
+    try {
+      const response = await fetch('/api/contacts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.firstName + ' ' + formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          company: '', // Add company if you have a field
+          message: formData.message
+        })
       });
-    }, 5000);
+      if (!response.ok) throw new Error('Failed to submit contact form.');
+      setIsSubmitted(true);
+    } catch (error) {
+      alert('There was an error submitting the form. Please try again.');
+    } finally {
+      setIsLoading(false);
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          requestType: '',
+          message: '',
+          authorizeContact: false
+        });
+      }, 5000);
+    }
   };
 
   return (
