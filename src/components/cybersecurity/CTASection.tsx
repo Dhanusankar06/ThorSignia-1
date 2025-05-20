@@ -1,7 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const CTASection: React.FC = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    company: '',
+    message: ''
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await fetch('/api/assessments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      if (!response.ok) throw new Error('Failed to submit assessment.');
+      setIsSubmitted(true);
+    } catch (err) {
+      setError('There was an error submitting the assessment. Please try again.');
+    } finally {
+      setIsLoading(false);
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setFormData({ name: '', email: '', company: '', message: '' });
+      }, 5000);
+    }
+  };
+
   return (
     <section className="py-20 bg-gradient-to-b from-[#0f0326] to-[#0f0326]/90 relative overflow-hidden">
       {/* Background pattern */}
@@ -60,54 +98,80 @@ const CTASection: React.FC = () => {
             className="bg-[#0f0326] rounded-xl border border-[#696869]/20 p-8 shadow-lg"
           >
             <h3 className="text-2xl font-bold text-white mb-6">Request Your Free Assessment</h3>
-            <form className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-[#696869] mb-2">Full Name</label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  className="w-full px-4 py-3 bg-[#0f0326]/50 border border-[#696869]/30 rounded-lg focus:outline-none focus:border-[#88bf42] text-white"
-                  placeholder="John Doe"
-                />
+            {isSubmitted ? (
+              <div className="text-center py-8">
+                <div className="mb-4 text-green-400 text-2xl font-semibold">Thank you!</div>
+                <p>Your assessment request has been submitted. We'll contact you soon.</p>
               </div>
-              <div>
-                <label htmlFor="email" className="block text-[#696869] mb-2">Email Address</label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  className="w-full px-4 py-3 bg-[#0f0326]/50 border border-[#696869]/30 rounded-lg focus:outline-none focus:border-[#88bf42] text-white"
-                  placeholder="you@company.com"
-                />
-              </div>
-              <div>
-                <label htmlFor="company" className="block text-[#696869] mb-2">Company</label>
-                <input 
-                  type="text" 
-                  id="company" 
-                  className="w-full px-4 py-3 bg-[#0f0326]/50 border border-[#696869]/30 rounded-lg focus:outline-none focus:border-[#88bf42] text-white"
-                  placeholder="Your Company"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-[#696869] mb-2">Message</label>
-                <textarea 
-                  id="message" 
-                  rows={4}
-                  className="w-full px-4 py-3 bg-[#0f0326]/50 border border-[#696869]/30 rounded-lg focus:outline-none focus:border-[#88bf42] text-white resize-none"
-                  placeholder="Tell us about your security needs..."
-                ></textarea>
-              </div>
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full py-4 bg-[#88bf42] text-white font-semibold rounded-lg hover:bg-opacity-90 transition-all"
-              >
-                Submit Request
-              </motion.button>
-              <p className="text-[#696869] text-sm text-center">
-                We respect your privacy. Your information will never be shared.
-              </p>
-            </form>
+            ) : (
+              <form className="space-y-6" onSubmit={handleSubmit}>
+                <div>
+                  <label htmlFor="name" className="block text-[#696869] mb-2">Full Name</label>
+                  <input 
+                    type="text" 
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 bg-[#0f0326]/50 border border-[#696869]/30 rounded-lg focus:outline-none focus:border-[#88bf42] text-white"
+                    placeholder="John Doe"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-[#696869] mb-2">Email Address</label>
+                  <input 
+                    type="email" 
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 bg-[#0f0326]/50 border border-[#696869]/30 rounded-lg focus:outline-none focus:border-[#88bf42] text-white"
+                    placeholder="you@company.com"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="company" className="block text-[#696869] mb-2">Company</label>
+                  <input 
+                    type="text" 
+                    id="company"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 bg-[#0f0326]/50 border border-[#696869]/30 rounded-lg focus:outline-none focus:border-[#88bf42] text-white"
+                    placeholder="Your Company"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="message" className="block text-[#696869] mb-2">Message</label>
+                  <textarea 
+                    id="message"
+                    name="message"
+                    rows={4}
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 bg-[#0f0326]/50 border border-[#696869]/30 rounded-lg focus:outline-none focus:border-[#88bf42] text-white resize-none"
+                    placeholder="Tell us about your security needs..."
+                  ></textarea>
+                </div>
+                <motion.button
+                  type="submit"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  disabled={isLoading}
+                  className="w-full py-4 bg-[#88bf42] text-white font-semibold rounded-lg hover:bg-opacity-90 transition-all disabled:opacity-60"
+                >
+                  {isLoading ? 'Submitting...' : 'Submit Request'}
+                </motion.button>
+                {error && <p className="text-red-400 text-sm text-center">{error}</p>}
+                <p className="text-[#696869] text-sm text-center">
+                  We respect your privacy. Your information will never be shared.
+                </p>
+              </form>
+            )}
           </motion.div>
         </div>
       </div>
