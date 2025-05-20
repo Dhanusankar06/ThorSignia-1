@@ -71,6 +71,7 @@ const ContactPage = () => {
     lastName: '',
     email: '',
     phone: '',
+    company: '',
     requestType: '',
     message: '',
     authorizeContact: false
@@ -102,7 +103,7 @@ const ContactPage = () => {
           name: formData.firstName + ' ' + formData.lastName,
           email: formData.email,
           phone: formData.phone,
-          company: '', // Add company if you have a field
+          company: formData.company,
           message: formData.message
         })
       });
@@ -247,6 +248,20 @@ const ContactPage = () => {
                       />
                     </motion.div>
                   </div>
+
+                  {/* Company Field */}
+                  <motion.div variants={fadeIn} className="space-y-2">
+                    <Label htmlFor="company" className="text-[#0F0326]">Company*</Label>
+                    <Input
+                      id="company"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleChange}
+                      placeholder="Your company name"
+                      required
+                      className="border-gray-200 focus:border-[#88BF42] focus:ring-[#88BF42]/20 transition-all"
+                    />
+                  </motion.div>
                   
                   <motion.div variants={fadeIn} className="space-y-2">
                     <Label htmlFor="email" className="text-[#0F0326]">Email*</Label>
