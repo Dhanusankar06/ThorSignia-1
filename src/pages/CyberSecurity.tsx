@@ -17,7 +17,7 @@ export default function CyberSecurity() {
       <Navbar />
       
       {/* Add a wrapper div with proper spacing for all sections */}
-      <div className="mt-16"> {/* This mt-16 creates space for the fixed navbar */}
+      <div>
         {/* Cybersecurity sections */}
         <Hero />
         <ServiceOverview />

@@ -8,10 +8,11 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Loader2, Mail, Linkedin, Twitter, Instagram, Github, CheckCircle2 } from 'lucide-react';
+import { Loader2, Mail, Linkedin, Twitter, Instagram, Github, CheckCircle2, MapPin, Phone, Facebook } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { TextGenerateEffect } from '@/components/layout/text-generate-effect';
 
 // Animation variants
 const fadeIn = {
@@ -132,55 +133,67 @@ const ContactPage = () => {
     <div className="min-h-screen bg-gradient-to-b from-white to-[#f5f8ff]">
       <Navbar />
       {/* Hero Section */}
-      <section className="pt-32 pb-20 md:pt-40 md:pb-24 relative overflow-hidden">
-        {/* Hero background image with blur */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="/download.jpeg"
-            alt="Contact Us Hero"
-            className="object-cover object-center w-full h-full"
-            style={{ position: 'absolute', inset: 0, zIndex: 0 }}
-          />
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+      <section className="relative w-full">
+        <div className="h-[45vh] max-h-[420px] relative overflow-hidden w-full flex flex-col justify-center items-center px-0 py-12 bg-gradient-to-r from-[#0B0F19] to-[#171E2E]">
+          {/* SVG grid pattern overlay */}
+          <div className="absolute inset-0 opacity-10 z-0">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="contact-hero-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#88bf42" strokeWidth="0.5" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#contact-hero-grid)" />
+            </svg>
+          </div>
+          {/* Animated floating dots */}
+          {Array.from({ length: 16 }).map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute rounded-full"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                width: `${Math.random() * 4 + 2}px`,
+                height: `${Math.random() * 4 + 2}px`,
+                background: i % 2 === 0 ? '#88bf42' : '#009898',
+                opacity: 0.16 + Math.random() * 0.16
+              }}
+              animate={{
+                y: [0, -10, 0],
+                opacity: [0.16, 0.32, 0.16],
+              }}
+              transition={{
+                duration: Math.random() * 8 + 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: i * 0.3
+              }}
+            />
+          ))}
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-radial from-transparent via-white to-transparent opacity-70 z-0" />
+          <div className="max-w-2xl mx-auto text-center z-10 relative">
+            {/* Main Heading - split color */}
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-4">
+              <span className="block text-white">Start the Conversation..</span>
+              <span className="block text-[#88BF42]">Build the Future.</span>
+            </h1>
+            {/* Subheading */}
+            <p className="text-white/80 text-base md:text-lg mb-8 max-w-lg mx-auto">
+              Power your business with intelligent voice, chat, and campaign automation.
+            </p>
+            {/* Buttons */}
+            <div className="flex justify-center gap-4 mt-2">
+              <Link
+                to="/services"
+                className="bg-white text-[#88BF42] border border-[#88BF42] px-6 py-3 rounded-md font-semibold shadow hover:bg-[#88BF42] hover:text-white transition-all text-base inline-block"
+              >
+                Our Solutions
+              </Link>
+            </div>
+          </div>
         </div>
-        
-        <div className="absolute inset-0 bg-gradient-to-b from-[#88bf42]/30 to-transparent z-0"></div>
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={staggerChildren}
-            className="max-w-3xl mx-auto text-center"
-          >
-            <motion.h1 
-              variants={fadeIn}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white"
-            >
-              Get in Touch with <span className="text-[#88BF42]">Thorsignia</span>
-            </motion.h1>
-            
-            <motion.p 
-              variants={fadeIn}
-              className="text-lg md:text-xl text-white/90 leading-relaxed mb-8"
-            >
-              We'd love to hear from you. Let's build something intelligent together.
-            </motion.p>
-          </motion.div>
-        </div>
-        
-        {/* Decorative elements */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.5 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#88BF42]/30 filter blur-3xl z-0"
-        />
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.3 }}
-          transition={{ duration: 1, delay: 0.7 }}
-          className="absolute bottom-10 left-10 w-48 h-48 rounded-full bg-[#88BF42]/40 filter blur-2xl z-0"
-        />
       </section>
       
       {/* Main Content */}
@@ -358,29 +371,44 @@ const ContactPage = () => {
                 variants={fadeIn}
                 className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100"
               >
-                <h2 className="text-2xl font-bold text-[#0F0326] mb-6">Our Office</h2>
-                
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="font-medium text-[#0F0326]">Address</h3>
-                    <p className="text-[#696869]">945, 1st Floor, 5th Main Rd, Sector 7<br /> HSR Layout, Bengaluru, Karnataka 560102</p>
-                  </div>
-                  
-                  <div>
-                    <h3 className="font-medium text-[#0F0326]">Phone</h3>
-                    <p className="text-[#696869]">+(91) 90080 97780</p>
-                  </div>
-                  
-                  <div>
-                    <h3 className="font-medium text-[#0F0326]">Email</h3>
-                    <p className="text-[#88BF42]">contact@thorsignia.com</p>
-                  </div>
-                  
-                  <div>
-                    <h3 className="font-medium text-[#0F0326]">Hours</h3>
-                    <p className="text-[#696869]">Monday - Friday: 9:00 AM - 6:00 PM<br />Saturday - Sunday: Closed</p>
-                  </div>
-                </div>
+                <h2 className="text-2xl font-bold text-[#0F0326] mb-6 flex items-center gap-2"><MapPin className="inline-block w-6 h-6 text-[#88BF42] mr-1" />Our Office</h2>
+<p className="text-[#696869] mb-4"> <span className="text-[#88BF42]">Visit Us or Get in Touch With Our Team </span><br></br>We’re more than happy to connect with you! Whether you have questions, need expert guidance, or are exploring innovative ways to grow your business — our dedicated team is here to help. Reach out today and discover how our cutting-edge solutions can drive your success and transform your vision into reality.</p>
+<div className="space-y-4">
+  <div className="flex items-center gap-2">
+    <MapPin className="w-5 h-5 text-[#88BF42]" />
+    <div>
+      <h3 className="font-medium text-[#0F0326]">Address</h3>
+      <p className="text-[#696869]">HSR Layout 7th sector, Bengaluru, Karnataka</p>
+    </div>
+  </div>
+  <div className="flex items-center gap-2">
+    <Phone className="w-5 h-5 text-[#88BF42]" />
+    <div>
+      <h3 className="font-medium text-[#0F0326]">Phone</h3>
+      <p className="text-[#696869]">+(91) 90080 97780</p>
+    </div>
+  </div>
+  <div className="flex items-center gap-2">
+    <Mail className="w-5 h-5 text-[#88BF42]" />
+    <div>
+      <h3 className="font-medium text-[#0F0326]">Email</h3>
+      <p>contact@thorsignia.com</p>
+    </div>
+  </div>
+  <div className="flex items-center gap-2">
+    <svg className="w-5 h-5 text-[#88BF42]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 17l4 4 4-4m0-5V3m-4 4v10" /></svg>
+    <div>
+      <h3 className="font-medium text-[#0F0326]">Hours</h3>
+      <p className="text-[#696869]">Monday - Friday: 9:00 AM - 6:00 PM<br />Saturday - Sunday: Closed</p>
+    </div>
+  </div>
+  <div className="flex items-center gap-3 mt-4">
+    <a href="https://www.linkedin.com/company/thorsignia" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><Linkedin className="w-5 h-5 text-[#88BF42] hover:text-[#0F0326] transition" /></a>
+    <a href="https://twitter.com/thorsignia" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><Twitter className="w-5 h-5 text-[#88BF42] hover:text-[#0F0326] transition" /></a>
+    <a href="https://instagram.com/thorsignia" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram className="w-5 h-5 text-[#88BF42] hover:text-[#0F0326] transition" /></a>
+    <a href="https://facebook.com/thorsignia" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook className="w-5 h-5 text-[#88BF42] hover:text-[#0F0326] transition" /></a>
+  </div>
+</div>
               </motion.div>
               
               {/* Map */}
@@ -392,56 +420,26 @@ const ContactPage = () => {
                 className="bg-white rounded-2xl shadow-lg p-4 border border-gray-100 overflow-hidden"
               >
                 <div className="aspect-video w-full rounded-lg overflow-hidden">
-                  <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0968143526147!2d-122.40058638468204!3d37.78532921975701!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085807ded297e89%3A0xcfd61a4f48b4427!2sSan%20Francisco%2C%20CA%2094105!5e0!3m2!1sen!2sus!4v1654234534567!5m2!1sen!2sus"
-                    width="100%" 
-                    height="100%" 
-                    style={{ border: 0 }} 
-                    allowFullScreen 
-                    loading="lazy" 
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.7688247016406!2d77.63390781482143!3d12.920080790887566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15b8bb5b0b5b%3A0x3a5c9b5b5b5b5b5b!2sThor%20Signia!5e0!3m2!1sen!2sin!4v1621234567890!5m2!1sen!2sin"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                    title="Thorsignia Office Location"
+                    title="Thor Signia Office Location"
                   />
                 </div>
-              </motion.div>
-              
-              {/* Social Links */}
-              <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeIn}
-                className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100"
-              >
-                <h2 className="text-2xl font-bold text-[#0F0326] mb-6">Connect With Us</h2>
-                
-                <div className="flex flex-wrap gap-4">
-                  <Link to="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-                    <motion.div 
-                      whileHover={{ scale: 1.1 }}
-                      className="w-12 h-12 rounded-full bg-[#0077B5]/10 flex items-center justify-center text-[#0077B5] hover:bg-[#0077B5] hover:text-white transition-all"
-                    >
-                      <Linkedin size={20} />
-                    </motion.div>
-                  </Link>
-                  
-                  <Link to="https://twitter.com" target="_blank" rel="noopener noreferrer">
-                    <motion.div 
-                      whileHover={{ scale: 1.1 }}
-                      className="w-12 h-12 rounded-full bg-[#1DA1F2]/10 flex items-center justify-center text-[#1DA1F2] hover:bg-[#1DA1F2] hover:text-white transition-all"
-                    >
-                      <Twitter size={20} />
-                    </motion.div>
-                  </Link>
-                  
-                  <Link to="https://instagram.com" target="_blank" rel="noopener noreferrer">
-                    <motion.div 
-                      whileHover={{ scale: 1.1 }}
-                      className="w-12 h-12 rounded-full bg-[#E4405F]/10 flex items-center justify-center text-[#E4405F] hover:bg-[#E4405F] hover:text-white transition-all"
-                    >
-                      <Instagram size={20} />
-                    </motion.div>
-                  </Link>
+                <div className="mt-3 text-center">
+                  <a 
+                    href="https://maps.app.goo.gl/rxrFiU2zt523tX9y7" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-[#88BF42] hover:text-[#0F0326] font-medium flex items-center justify-center gap-2 transition-colors"
+                  >
+                    <MapPin className="w-4 h-4" /> Visit Thor Signia on Google Maps
+                  </a>
                 </div>
               </motion.div>
             </div>

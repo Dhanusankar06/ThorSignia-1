@@ -2,7 +2,9 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-
+import { ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Link as RouterLink } from 'react-router-dom';
 const RedTeamingPage = () => {
   return (
     <div className="bg-white min-h-screen">
@@ -46,20 +48,20 @@ const RedTeamingPage = () => {
                 Simulate sophisticated cyber attacks to test your defense capabilities. Our red team identifies security gaps through real-world attack scenarios.
               </p>
               <div className="flex flex-wrap gap-4">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-[#88bf42] text-white font-semibold rounded-lg shadow-lg hover:bg-[#7aab3a] transition-all"
-                >
-                  Get Started
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 border-2 border-[#0f0326] text-[#0f0326] font-semibold rounded-lg hover:bg-[#0f0326] hover:text-white transition-all"
-                >
-                  Learn More
-                </motion.button>
+              <Button
+  size="lg" // This prop might also influence padding/font size depending on the Button component.
+           // You might not even need it if you're overriding everything with utility classes.
+  className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white w-full sm:w-auto h-14 text-lg" // Increased height to h-14, text to text-lg
+  asChild
+>
+  <RouterLink
+    to="/contact"
+    className="flex items-center justify-center" // Add flex utilities to RouterLink for better icon alignment
+  >
+  Schedule a Red Team Exercise <ArrowRight className="ml-2 h-5 w-5" /> {/* Corrected icon height and width */}
+  </RouterLink>
+</Button>
+               
               </div>
             </motion.div>
             
@@ -362,17 +364,19 @@ const RedTeamingPage = () => {
               >
                 Our red team exercises provide valuable insights into your security posture from an attacker's perspective, helping you identify and address vulnerabilities before they can be exploited.
               </motion.p>
-              <motion.button
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-[#88bf42] text-white font-semibold rounded-lg shadow-lg hover:bg-[#7aab3a] transition-all"
-              >
-                Schedule a Red Team Exercise
-              </motion.button>
+              <Button
+  size="lg" // This prop might also influence padding/font size depending on the Button component.
+           // You might not even need it if you're overriding everything with utility classes.
+  className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white w-full sm:w-auto h-14 text-lg" // Increased height to h-14, text to text-lg
+  asChild
+>
+  <RouterLink
+    to="/contact"
+    className="flex items-center justify-center" // Add flex utilities to RouterLink for better icon alignment
+  >
+  Schedule a Red Team Exercise <ArrowRight className="ml-2 h-5 w-5" /> {/* Corrected icon height and width */}
+  </RouterLink>
+</Button>
             </div>
           </div>
         </div>

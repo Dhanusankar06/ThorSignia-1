@@ -2,16 +2,8 @@
 
 import * as React from 'react'
 import { Link } from "react-router-dom"
-import { ChevronDown, CheckSquare, PieChart, TrendingUp, Users, Award } from "lucide-react"
+import { ChevronDown } from "lucide-react"
 import { motion } from "framer-motion"
-
-const caseIcons = [
-  { icon: <CheckSquare className="w-6 h-6 text-white" />, color: '#88BF42' },
-  { icon: <PieChart className="w-6 h-6 text-white" />, color: '#009898' },
-  { icon: <TrendingUp className="w-6 h-6 text-white" />, color: '#0F0326' },
-  { icon: <Users className="w-6 h-6 text-white" />, color: '#88BF42' },
-  { icon: <Award className="w-6 h-6 text-white" />, color: '#009898' },
-]
 
 export default function AnimatedCaseStudiesHeader() {
   const scrollToNextSection = (e: any) => {
@@ -24,62 +16,44 @@ export default function AnimatedCaseStudiesHeader() {
   
   return (
     <div className="relative w-full">
-      <div className="h-[70vh] max-h-[800px] bg-gradient-to-br from-[#0F0326]/5 via-white to-[#009898]/5 flex flex-col justify-center items-center px-6 py-12 relative overflow-hidden rounded-xl my-8 mx-4 md:mx-8 lg:mx-16 shadow-lg">
-        {/* 3D card animations - background */}
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Rotating case study cards */}
-          {[...Array(8)].map((_, i) => (
+      <div className="h-[70vh] max-h-[800px] relative overflow-hidden w-full flex flex-col justify-center items-center px-0 py-12 bg-gradient-to-r from-[#0B0F19] to-[#171E2E]">
+        {/* Minimal background: SVG grid + floating dots (like AI Services hero) */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          {/* SVG grid pattern overlay */}
+          <div className="absolute inset-0 opacity-10">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="case-studies-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#88bf42" strokeWidth="0.5" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#case-studies-grid)" />
+            </svg>
+          </div>
+          {/* Soft floating dots for accent */}
+          {Array.from({ length: 16 }).map((_, i) => (
             <motion.div
               key={i}
-              className="absolute"
+              className="absolute rounded-full"
               style={{
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
-                perspective: '1000px'
+                width: `${Math.random() * 4 + 2}px`,
+                height: `${Math.random() * 4 + 2}px`,
+                background: i % 2 === 0 ? '#88bf42' : '#009898',
+                opacity: 0.16 + Math.random() * 0.16
               }}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 0.4, scale: 1 }}
+              animate={{
+                y: [0, -10, 0],
+                opacity: [0.16, 0.32, 0.16],
+              }}
               transition={{
-                duration: 0.8,
-                delay: i * 0.2,
-                ease: "easeOut"
+                duration: Math.random() * 8 + 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: i * 0.3
               }}
-            >
-              <motion.div
-                className="bg-gradient-to-br from-white/80 to-white/60 backdrop-blur-sm rounded-lg shadow-lg p-4 absolute z-0"
-                style={{
-                  width: `${Math.random() * 100 + 100}px`,
-                  height: `${Math.random() * 50 + 70}px`,
-                  transformStyle: 'preserve-3d',
-                  boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
-                }}
-                animate={{
-                  rotateX: [0, 10, -5, 0],
-                  rotateY: [0, -15, 10, 0],
-                  z: [0, 30, -20, 0],
-                }}
-                transition={{
-                  duration: 10 + Math.random() * 10,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: i * 0.6
-                }}
-              >
-                <div className="absolute top-2 left-2 rounded-full" style={{ 
-                  width: '24px', 
-                  height: '24px', 
-                  backgroundColor: caseIcons[i % caseIcons.length].color 
-                }}>
-                  {caseIcons[i % caseIcons.length].icon}
-                </div>
-                <div className="w-full h-2 bg-gray-200 rounded mt-8">
-                  <div className="h-full rounded" style={{ 
-                    width: `${Math.random() * 60 + 40}%`,
-                    backgroundColor: caseIcons[i % caseIcons.length].color 
-                  }}></div>
-                </div>
-              </motion.div>
-            </motion.div>
+            />
           ))}
         </div>
         
@@ -118,7 +92,7 @@ export default function AnimatedCaseStudiesHeader() {
             transition={{ duration: 0.8, delay: 0.3 }}
           >
             <motion.span
-              className="relative inline-block text-[#0F0326]"
+              className="relative inline-block text-white drop-shadow-lg"
               initial={{ 
                 rotateX: 45,
                 y: -20,

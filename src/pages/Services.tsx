@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link, useLocation } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import AnimatedServiceHeader from '@/components/AnimatedServiceHeader';
 import { 
   MessageCircle, 
@@ -49,9 +50,9 @@ import '../services-animations.css';
 const servicesData = [
   {
     id: 1,
-    title: "Conversational Voice Interfaces",
+    title: "Intelligent Voice Automation",
     icon: <MessageCircle className="h-8 w-8" />,
-    description: "Advanced conversational AI agents that handle customer inquiries with human-like interactions",
+    description: "Experience revolutionary customer service with advanced conversational AI agents. These intelligent systems understand natural language, handle complex and multi-turn inquiries with human-like interactions, and provide 24/7 support, seamlessly integrating with your existing communication channels.",
     color: "bg-[#1c9f1e]",
     bgColor: "bg-[#1c9f1e]/10",
     hoverBgColor: "group-hover:bg-[#1c9f1e]/20",
@@ -60,22 +61,13 @@ const servicesData = [
       "Handles complex, multi-turn conversations naturally",
       "Seamless integration with existing communication channels"
     ],
-    features: [
-      "Natural language understanding with contextual memory",
-      "Sentiment analysis and emotional intelligence",
-      "Custom voice personality matching your brand tone"
-    ],
-    caseStudy: {
-      title: "Doctor Dreams",
-      description: "Implemented AI voice agents for student inquiries about medical education abroad, reducing response time and improving student satisfaction.",
-      metrics: ["42% reduction in call volume", "18% improvement in CSAT", "95% first-call resolution"]
-    }
+
   },
   {
     id: 2,
-    title: "Smart Social Media Manager",
+    title: "Social Engagement Automation",
     icon: <Globe className="h-8 w-8" />,
-    description: "AI-powered content creation and scheduling for optimal social media engagement",
+    description: "Boost your social media presence with AI-powered automation. This service leverages artificial intelligence to generate engaging content at scale, optimize posting schedules based on audience behavior, and automate interactions to drive growth and maximize engagement across all your platforms.",
     color: "bg-[#10b4b7]",
     bgColor: "bg-[#10b4b7]/10",
     hoverBgColor: "group-hover:bg-[#10b4b7]/20",
@@ -84,22 +76,14 @@ const servicesData = [
       "Automated audience growth and engagement",
       "Data-driven performance optimization"
     ],
-    features: [
-      "AI content creation tailored to each platform",
-      "Automated scheduling and posting optimization",
-      "Sentiment tracking and community management"
-    ],
-    caseStudy: {
-      title: "E-commerce Retailer",
-      description: "Increased social engagement by 215% while reducing content creation costs by 65%. Generated 3.2x more qualified leads through personalized content.",
-      metrics: ["215% increase in engagement", "65% reduction in content costs", "320% more qualified leads"]
-    }
+
+
   },
   {
     id: 3,
-    title: "AI Lead Conversion Engine",
+    title: "AI-Powered Lead Intelligence",
     icon: <LineChart className="h-8 w-8" />,
-    description: "Intelligent lead identification, qualification, and nurturing to fill your sales pipeline",
+    description: "Supercharge your sales funnel with AI-powered lead intelligence. Our system intelligently identifies and qualifies high-potential leads by analyzing vast data sets, automates personalized nurturing sequences to build relationships, and continuously optimizes strategies to fill your pipeline and drive higher conversion rates.",
     color: "bg-[#9ac857]",
     bgColor: "bg-[#9ac857]/10",
     hoverBgColor: "group-hover:bg-[#9ac857]/20",
@@ -108,22 +92,14 @@ const servicesData = [
       "Personalized nurturing sequences at scale",
       "Higher conversion rates through AI optimization"
     ],
-    features: [
-      "Predictive lead scoring and qualification",
-      "Automated multi-channel nurturing sequences",
-      "Behavioral analytics and engagement tracking"
-    ],
-    caseStudy: {
-      title: "B2B Technology Provider",
-      description: "Achieved 78% increase in qualified leads and 42% higher conversion rate. Reduced cost per acquisition by 54% while scaling lead volume.",
-      metrics: ["78% more qualified leads", "42% higher conversion rate", "54% lower acquisition cost"]
-    }
+
+
   },
   {
     id: 4,
-    title: "Interactive Ai Chat bots",
+    title: "Interactive AI Chatbots",
     icon: <MessageCircle className="h-8 w-8" />,
-    description: "Conversational AI that understands context and provides personalized customer experiences",
+    description: "Deploy interactive AI chatbots that go beyond simple FAQs. These intelligent bots understand conversation context, provide instant 24/7 support, deliver personalized experiences based on user data, and can seamlessly hand off complex queries to human agents when needed, enhancing overall customer satisfaction.",
     color: "bg-[#1c9f1e]",
     bgColor: "bg-[#1c9f1e]/10",
     hoverBgColor: "group-hover:bg-[#1c9f1e]/20",
@@ -132,22 +108,13 @@ const servicesData = [
       "Seamless handoff between AI and human agents",
       "Personalized experiences based on user data"
     ],
-    features: [
-      "Contextual understanding with persistent memory",
-      "Multi-platform deployment (web, mobile, messaging)",
-      "Real-time personalization and recommendation"
-    ],
-    caseStudy: {
-      title: "Anthill IQ",
-      description: "Implemented smart chat interface for workspace inquiries and bookings, enabling immediate responses to potential clients and improving space utilization rates.",
-      metrics: ["Immediate response time", "82% autonomous resolution", "36% increase in client satisfaction"]
-    }
+
   },
   {
     id: 5,
-    title: "Smart Champaign Intelligence",
+    title: "Automated Campaign Orchestration",
     icon: <Database className="h-8 w-8" />,
-    description: "Self-optimizing ad campaigns that maximize ROI through continuous AI learning",
+    description: "Streamline and maximize your marketing efforts with automated campaign orchestration. Our AI unifies messaging across all customer touchpoints, continuously learns and self-optimizes ad campaigns in real-time by adjusting targeting, bids, and creatives, ensuring superior ROI and performance without manual intervention.",
     color: "bg-[#10b4b7]",
     bgColor: "bg-[#10b4b7]/10",
     hoverBgColor: "group-hover:bg-[#10b4b7]/20",
@@ -156,22 +123,14 @@ const servicesData = [
       "Self-optimizing campaigns that improve over time",
       "Superior ROI through AI-powered targeting"
     ],
-    features: [
-      "Cross-channel campaign automation and optimization",
-      "Dynamic creative generation and testing",
-      "Real-time performance analytics and adaptation"
-    ],
-    caseStudy: {
-      title: "Retail Chain",
-      description: "Increased marketing ROI by 127% while reducing campaign management time by 65%. Achieved 3.8x higher conversion rate through personalized messaging.",
-      metrics: ["127% higher marketing ROI", "65% less management time", "380% higher conversion rate"]
-    }
+
+
   },
   {
     id: 6,
-    title: "Cyber Security",
+    title: "AI-Powered Threat Detection",
     icon: <Shield className="h-8 w-8" />,
-    description: "Advanced AI-driven cyber security solutions to protect your business from evolving digital threats.",
+    description: "Safeguard your digital assets with advanced AI-powered threat detection. Our system uses artificial intelligence to analyze vast amounts of data in real-time, identifying and responding to evolving cyber threats like malware, phishing attempts, and network intrusions. It also automates vulnerability assessments and provides continuous monitoring for proactive protection.",
     color: "bg-[#9ac857]",
     bgColor: "bg-[#9ac857]/10",
     hoverBgColor: "group-hover:bg-[#9ac857]/20",
@@ -180,16 +139,8 @@ const servicesData = [
       "Automated vulnerability assessment",
       "Continuous monitoring and alerting"
     ],
-    features: [
-      "AI-powered intrusion detection system",
-      "Automated incident response workflows",
-      "Comprehensive security analytics dashboard"
-    ],
-    caseStudy: {
-      title: "Global Tech Solutions",
-      description: "Deployed AI-based cyber security platform, reducing breach incidents by 87% and improving response time by 60%.",
-      metrics: ["87% fewer breach incidents", "60% faster response time", "24/7 threat monitoring"]
-    }
+
+
   }
 ];
 
@@ -295,245 +246,7 @@ const ServicesPage = () => {
     setActiveService(service);
   }, []);
   
-  const services = [
-    {
-      id: "ai-voice-agents",
-      title: "Conversational Voice Interfaces",
-      icon: <MessageCircle className="h-10 w-10" />,
-      shortDescription: "Human-like voice assistants for seamless customer interactions",
-      fullDescription: "Our AI Voice Agents provide human-like conversations that can handle complex customer inquiries, appointment scheduling, and issue resolution. These intelligent agents understand context, remember conversation history, and can even detect customer sentiment to provide appropriate responses.",
-      benefits: [
-        "24/7 customer support without staffing constraints",
-        "Handles multiple conversations simultaneously",
-        "Consistent quality across every interaction",
-        "Seamless escalation to human agents when needed",
-        "Supports multiple languages and accents"
-      ],
-      features: [
-        {
-          name: "Natural Language Processing",
-          description: "Advanced NLP capabilities that understand context and nuance"
-        },
-        {
-          name: "Voice Recognition",
-          description: "Industry-leading voice recognition with 98% accuracy"
-        },
-        {
-          name: "Sentiment Analysis",
-          description: "Real-time emotion detection to tailor conversation approach"
-        },
-        {
-          name: "Multi-channel Integration",
-          description: "Connects with phone systems, websites, apps, and messaging platforms"
-        }
-      ],
-      caseStudy: {
-        company: "Doctor Dreams",
-        result: "Reduced inquiry response time by 65% while improving student satisfaction ratings by 28%"
-      },
-      color: "#10b4b7",
-      bgColor: "bg-[#10b4b7]/10",
-      textColor: "text-[#10b4b7]",
-      demo: <VoiceAgentDemo />
-    },
-    {
-      id: "ai-chatbots",
-      title: "Smart Chat Interfaces",
-      icon: <MessageCircle className="h-10 w-10" />,
-      shortDescription: "Intelligent text-based assistants for websites and messaging platforms",
-      fullDescription: "Our AI Chatbots deliver personalized, contextual conversations across your digital channels. Using advanced machine learning algorithms, they continuously improve their responses based on interactions, providing increasingly effective customer support and lead qualification.",
-      benefits: [
-        "Instant responses to customer inquiries",
-        "Qualification and nurturing of website leads",
-        "Reduced support ticket volume",
-        "Data collection for business insights",
-        "Personalized product recommendations"
-      ],
-      features: [
-        {
-          name: "Omnichannel Deployment",
-          description: "Single chatbot solution across website, social media, and messaging apps"
-        },
-        {
-          name: "Knowledge Base Integration",
-          description: "Pulls from your existing documentation for accurate, consistent answers"
-        },
-        {
-          name: "Persistent Memory",
-          description: "Remembers user preferences and previous interactions"
-        },
-        {
-          name: "Proactive Engagement",
-          description: "Initiates conversations based on user behavior triggers"
-        }
-      ],
-      caseStudy: {
-        company: "Anthill IQ",
-        result: "70% reduction in inquiry response time and 42% increase in workspace booking conversion rates"
-      },
-      color: "#10b4b7",
-      bgColor: "bg-[#10b4b7]/15",
-      textColor: "text-[#10b4b7]",
-      demo: <ChatbotDemo />
-    },
-    {
-      id: "lead-generation",
-      title: "AI-Driven Lead Funnels",
-      icon: <LineChart className="h-10 w-10" />,
-      shortDescription: "AI-powered lead qualification and nurturing for enhanced conversions",
-      fullDescription: "Our Lead Generation AI identifies, qualifies, and nurtures potential customers through personalized engagement. By analyzing behavior patterns and engagement signals, our solution focuses your sales team's efforts on the most promising opportunities.",
-      benefits: [
-        "Automated qualification of inbound leads",
-        "Personalized nurturing sequences",
-        "Predictive lead scoring",
-        "Sales intelligence for improved conversion rates",
-        "Integration with major CRM platforms"
-      ],
-      features: [
-        {
-          name: "Intent Detection",
-          description: "Identifies purchase intent through behavioral analysis"
-        },
-        {
-          name: "Automated Follow-up",
-          description: "Multi-touch sequences personalized to prospect interests"
-        },
-        {
-          name: "CRM Integration",
-          description: "Seamless data flow with Salesforce, HubSpot, and more"
-        },
-        {
-          name: "Performance Analytics",
-          description: "Comprehensive reporting on lead quality and conversion metrics"
-        }
-      ],
-      caseStudy: {
-        company: "Vertex Manufacturing",
-        result: "Increased qualified sales opportunities by 58% while reducing cost per lead by 32%"
-      },
-      color: "#1c9f1e",
-      bgColor: "bg-[#1c9f1e]/10",
-      textColor: "text-[#1c9f1e]",
-    },
-    {
-      id: "social-media",
-      title: "Autonomous Social Management",
-      icon: <Globe className="h-10 w-10" />,
-      shortDescription: "AI-driven content creation and campaign management",
-      fullDescription: "Our Social Media Automation solution uses AI to create, schedule, and optimize content across all your social channels. From generating engaging posts to identifying optimal posting times, our platform ensures consistent brand presence with minimal manual effort.",
-      benefits: [
-        "Content creation tailored to each platform",
-        "Optimal posting schedule based on audience analysis",
-        "Automated engagement with followers",
-        "Competition monitoring and insights",
-        "Comprehensive performance analytics"
-      ],
-      features: [
-        {
-          name: "Content Generation",
-          description: "AI creates platform-specific posts based on your brand voice"
-        },
-        {
-          name: "Visual Asset Creation",
-          description: "Generate on-brand images and graphics for social posts"
-        },
-        {
-          name: "Engagement Automation",
-          description: "Intelligent responses to comments and direct messages"
-        },
-        {
-          name: "Trend Analysis",
-          description: "Identifies trending topics relevant to your industry"
-        }
-      ],
-      caseStudy: {
-        company: "Urban Lifestyle Brand",
-        result: "200% increase in engagement rates and 85% reduction in social media management time"
-      },
-      color: "#1c9f1e",
-      bgColor: "bg-[#1c9f1e]/15",
-      textColor: "text-[#1c9f1e]",
-    },
-    {
-      id: "ad-campaign",
-      title: "Omnichannel Engagement",
-      icon: <Database className="h-10 w-10" />,
-      shortDescription: "Self-optimizing ad campaigns that maximize ROI",
-      fullDescription: "Our Ad & Campaign Automation platform leverages AI to create, test, and optimize digital advertising across channels. The system continuously learns from performance data to allocate budget where it will generate the highest return on investment.",
-      benefits: [
-        "Dynamic budget allocation across platforms",
-        "Automated A/B testing of creative elements",
-        "Audience segmentation and targeting refinement",
-        "Continuous performance optimization",
-        "Cross-channel attribution modeling"
-      ],
-      features: [
-        {
-          name: "Creative Generation",
-          description: "AI-assisted ad copy and creative asset development"
-        },
-        {
-          name: "Budget Optimization",
-          description: "Automatic reallocation based on performance metrics"
-        },
-        {
-          name: "Audience Discovery",
-          description: "Identifies and tests new potential customer segments"
-        },
-        {
-          name: "Competitive Analysis",
-          description: "Monitors competitor advertising strategies and performance"
-        }
-      ],
-      caseStudy: {
-        company: "Horizon E-Commerce",
-        result: "Reduced cost per acquisition by 47% while increasing ROAS from 3.2x to 7.8x"
-      },
-      color: "#9ac857",
-      bgColor: "bg-[#9ac857]/10",
-      textColor: "text-[#9ac857]",
-    },
-    {
-      id: "custom-solutions",
-      title: "Tailored AI Architectures",
-      icon: <Settings className="h-10 w-10" />,
-      shortDescription: "Tailored AI implementation for your unique business challenges",
-      fullDescription: "Our Custom AI Solutions team works closely with your business to identify, develop, and implement AI capabilities that address your unique challenges. From predictive analytics to process automation, we build solutions that create sustainable competitive advantage.",
-      benefits: [
-        "Solutions tailored to your specific business needs",
-        "Integration with existing systems and processes",
-        "Proprietary AI models that become your IP",
-        "Phased implementation approach",
-        "Ongoing optimization and support"
-      ],
-      features: [
-        {
-          name: "Discovery Workshop",
-          description: "Collaborative sessions to identify high-value AI opportunities"
-        },
-        {
-          name: "Proof of Concept",
-          description: "Rapid development of minimal viable solutions to validate approach"
-        },
-        {
-          name: "Enterprise Integration",
-          description: "Seamless connection with your existing technology stack"
-        },
-        {
-          name: "Knowledge Transfer",
-          description: "Training for your team to maximize value from AI solutions"
-        }
-      ],
-      caseStudy: {
-        company: "SGF FAB Industries",
-        result: "Custom computer vision system reduced production defects by 73% and improved quality control efficiency by 62%"
-      },
-      color: "#9ac857",
-      bgColor: "bg-[#9ac857]/15",
-      textColor: "text-[#9ac857]",
-    }
-  ];
-
+  
   // Industry data for the Industries Served section
   const industries = [
     {
@@ -1032,7 +745,7 @@ const ServicesPage = () => {
       <AnimatedServiceHeader />
       
       {/* Service Tabs Section (Target for scroll) */}
-      <section id="service-tabs" className="pt-8">
+      <section id="service-tabs">
         {/* Empty section for scroll target */}
       </section>
       
@@ -1139,14 +852,7 @@ const ServicesPage = () => {
                             </div>
                                       </div>
                               </div><br></br>
-                <Button
-                asChild
-                className="bg-[#88bf42] text-white py-6 px-8 rounded-lg transition-all duration-300 group backdrop-blur-sm mx-auto block text-center w-full sm:w-auto">
-                <Link to="/contact" className="flex items-center justify-center">
-                  Schedule a Consultation
-                  <ArrowRight className="ml-2 h-5 w-5 transition-transform hover:[#88bf42]" />
-                </Link>
-              </Button>
+                
               </div>
             </div>
           </div>
@@ -1219,7 +925,7 @@ const ServicesPage = () => {
                 </div>
                         <div>
                           <h3 className="text-xl font-bold text-gray-900 group-hover:text-[#10b4b7] transition-colors">{service.title}</h3>
-                          <p className="text-sm text-gray-500">{index % 2 === 0 ? "Enterprise AI Solutions" : "Automated AI Systems"}</p>
+                          
               </div>
             </div>
             
@@ -1245,38 +951,9 @@ const ServicesPage = () => {
               </div>
               
                       {/* Case study with enhanced styling */}
-                      <div className="mt-auto">
-                        <div className={`p-3 sm:p-4 rounded-lg ${service.bgColor}/10 border border-${service.bgColor}/20 mb-3 sm:mb-4`}>
-                          <div className="flex items-start">
-                            <Award className={`h-5 w-5 mt-0.5 mr-3 ${service.color.replace('bg-', 'text-')}`} />
-                  <div>
-                              <h5 className="font-medium text-gray-900">{service.caseStudy.title}</h5>
-                              <p className="text-sm text-gray-600 mt-1">{service.caseStudy.metrics[0]}</p>
-                  </div>
-                </div>
-                </div>
+                      
                 
-                        <div className="flex items-center justify-between pt-3 sm:pt-4 border-t border-gray-100">
-                          <div>
-                            <span className="text-sm font-medium text-gray-900">Success Case</span>
-                            <div className="flex items-center text-xs text-gray-500">
-                              <span>View case studies</span>
-                </div>
-                    </div>
-                          <Button 
-                            asChild
-                            variant="outline" 
-                            className={`border-[#88bf42] text-[#88bf42] hover:bg-[#88bf42] hover:text-white transition-all duration-300 group`}
-                          >
-                            <Link to={`/contact#contact-form`} className="flex items-center">
-                              Enquire Now
-                              <span className="ml-1 sm:ml-2 relative w-3 sm:w-4">
-                                <ArrowRight className="h-3 sm:h-4 w-3 sm:w-4 absolute transition-transform duration-300 left-0" />
-                              </span>
-                            </Link>
-                          </Button>
-                    </div>
-                  </div>
+                  
                     </div>
                   </div>
                 </div>
@@ -1381,15 +1058,12 @@ const ServicesPage = () => {
                   <div className="text-xs text-gray-500">Improved Efficiency</div>
                 </div>
               </div>
-              <div className="flex gap-2 mt-auto flex-col sm:flex-row">
-                <Button variant="outline" className="border-[#88bf42] text-[#88bf42] text-sm">Visit Website</Button>
-                <Button className="bg-[#88bf42] text-white text-sm">Full Case Study <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" /></Button>
-              </div>
+             
             </div>
             {/* Card 2: Doctor Dreams */}
             <div className="rounded-2xl shadow-lg p-4 sm:p-6 md:p-8 flex flex-col h-full relative">
               <div className="mb-4 rounded-lg overflow-hidden bg-white border border-gray-200 flex items-center justify-center">
-                <img src="/assets/doctor-dreams.jpg" alt="Doctor Dreams" className="w-full h-48 object-cover" />
+                <img src="/assets/Doctor-dreams.jpg" alt="Doctor Dreams" className="w-full h-48 object-cover" />
               </div>
               <h3 className="text-lg font-bold text-[#10b4b7] mt-4 mb-1">Doctor Dreams</h3>
               <p className="text-xs text-gray-500 mb-4">Medical Education Consultancy</p>
@@ -1420,15 +1094,12 @@ const ServicesPage = () => {
                   <div className="text-xs text-gray-500">Higher Satisfaction</div>
                 </div>
               </div>
-              <div className="flex gap-2 mt-auto flex-col sm:flex-row">
-                <Button variant="outline" className="border-[#88bf42] text-[#88bf42] text-sm">Visit Website</Button>
-                <Button className="bg-[#88bf42] text-white text-sm">Full Case Study <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" /></Button>
-              </div>
+             
             </div>
             {/* Card 3: Anthill IQ */}
             <div className="rounded-2xl shadow-lg p-4 sm:p-6 md:p-8 flex flex-col h-full relative">
               <div className="mb-4 rounded-lg overflow-hidden bg-white border border-gray-200 flex items-center justify-center">
-                <img src="/assets/anthill-iq.jpg" alt="Anthill IQ" className="w-full h-48 object-cover" />
+                <img src="/assets/Anthill.jpg" alt="Anthill IQ" className="w-full h-48 object-cover" />
               </div>
               <h3 className="text-lg font-bold text-[#10b4b7] mt-4 mb-1">Anthill IQ</h3>
               <p className="text-xs text-gray-500 mb-4">Collaborative Workspace Solutions</p>
@@ -1437,7 +1108,7 @@ const ServicesPage = () => {
                   <Users className="h-5 w-5 text-[#10b4b7]" />
                 </div>
                 <div>
-                  <div className="text-sm font-semibold text-gray-900">Real Estate & Workspace</div>
+                  <div className="text-sm font-semibold text-gray-900">Premium Workspace Provider</div>
                   <div className="text-xs text-gray-500">Co-working Space Provider</div>
                 </div>
               </div>
@@ -1459,10 +1130,7 @@ const ServicesPage = () => {
                   <div className="text-xs text-gray-500">Higher Conversion</div>
                 </div>
               </div>
-              <div className="flex gap-2 mt-auto flex-col sm:flex-row">
-                <Button variant="outline" className="border-[#88bf42] text-[#88bf42] text-sm">Visit Website</Button>
-                <Button className="bg-[#88bf42] text-white text-sm">Full Case Study <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" /></Button>
-              </div>
+              
             </div>
           </div>
         </div>
@@ -1517,10 +1185,12 @@ const ServicesPage = () => {
                       variant="ghost"
                       className="text-[#88bf42] hover:text-[#9ac857] p-0 group"
                     >
-                      <span className="flex items-center">
+                      <RouterLink to="/awards" className="flex items-center">
+                        <span className="flex items-center">
                         View All
                         <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                       </span>
+                    </RouterLink>
                     </Button>
             </div>
           </div>
@@ -1578,12 +1248,10 @@ const ServicesPage = () => {
           asChild
           className="bg-[#88bf42] text-white rounded-full w-12 h-12 sm:w-16 sm:h-16 shadow-xl flex items-center justify-center group transform hover:scale-110 transition-all duration-300"
         >
-          <Link to="/contact#contact-form">
-            <div className="flex flex-col items-center">
-              <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6 group-hover:hidden" />
-              <Lightbulb className="h-5 w-5 sm:h-6 sm:w-6 hidden group-hover:block" />
-              <span className="text-xs mt-0.5 sm:mt-1 font-medium">Quote</span>
-            </div>
+          <Link to="/contact#contact-form" className="flex flex-col items-center">
+            <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6 group-hover:hidden" />
+            <Lightbulb className="h-5 w-5 sm:h-6 sm:w-6 hidden group-hover:block" />
+            <span className="text-xs mt-0.5 sm:mt-1 font-medium">Quote</span>
           </Link>
         </Button>
       </div>

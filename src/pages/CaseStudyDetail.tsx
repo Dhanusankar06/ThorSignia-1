@@ -157,7 +157,7 @@ const CaseStudyDetail = () => {
           <div className="max-w-6xl mx-auto">
             <div className="flex flex-col md:flex-row items-start justify-between">
               <div>
-                <Link to="/case-studies" className="inline-flex items-center text-black bg-white border border-[#10b4b7] hover:bg-[#10b4b7] hover:text-white px-4 py-2 rounded-lg shadow mb-6 transition duration-200 mt-20 md:mt-0 font-semibold">
+                <Link to="/case-studies" className="inline-flex items-center text-black bg-white border hover:bg-[#88bf42] hover:text-white px-4 py-2 rounded-lg shadow mb-6 transition duration-200 mt-20 md:mt-0 font-semibold">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   <span>Back to Case Studies</span>
                 </Link>
@@ -165,7 +165,7 @@ const CaseStudyDetail = () => {
                   <img 
                     src={caseStudy.logo} 
                     alt={`${caseStudy.company} logo`} 
-                    className="h-16 md:h-20 bg-white/90 p-2 rounded-lg shadow-lg border border-gray-200"
+                    className="h-16 md:h-20 bg-white/90 p-2 rounded-lg shadow-lg"
                   />
                 </div>
                 <div className="flex mb-4 mt-2">
@@ -176,20 +176,20 @@ const CaseStudyDetail = () => {
                     {caseStudy.category}
                   </span>
                 </div>
-                <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 text-black drop-shadow-none">
+                <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 text-white drop-shadow-none">
                   {caseStudy.title}
                 </h1>
-                <p className="text-lg text-black max-w-2xl mb-8">
+                <p className="text-lg text-white max-w-2xl mb-8">
                   {caseStudy.summary}
                 </p>
-                <div className="flex flex-wrap gap-6 mb-6 bg-[#f8f9fa] rounded-xl p-4 shadow border border-gray-100">
+                <div className="flex flex-wrap gap-6 mb-6 rounded-xl p-4 shadow ">
                   <div className="flex items-center min-w-[140px]">
                     <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-[#10b4b7]/10 shadow">
                       <BarChart className="w-5 h-5 text-[#88bf42]" />
                     </div>
                     <div>
-                      <p className="text-black text-sm">ROI</p>
-                      <p className="text-black font-bold text-lg">{caseStudy.roi}</p>
+                      <p className="text-white text-sm">ROI</p>
+                      <p className="text-white font-bold text-lg">{caseStudy.roi}</p>
                     </div>
                   </div>
                   <div className="flex items-center min-w-[140px]">
@@ -197,8 +197,8 @@ const CaseStudyDetail = () => {
                       <Clock className="w-5 h-5 text-[#88bf42]" />
                     </div>
                     <div>
-                      <p className="text-black text-sm">Timeframe</p>
-                      <p className="text-black font-bold text-lg">{caseStudy.timeframe}</p>
+                      <p className="text-white text-sm">Timeframe</p>
+                      <p className="text-white font-bold text-lg">{caseStudy.timeframe}</p>
                     </div>
                   </div>
                   <div className="flex items-center min-w-[140px]">
@@ -206,8 +206,8 @@ const CaseStudyDetail = () => {
                       <Users className="w-5 h-5 text-[#88bf42]" />
                     </div>
                     <div>
-                      <p className="text-black text-sm">Team Size</p>
-                      <p className="text-black font-bold text-lg">{caseStudy.teamSize}</p>
+                      <p className="text-white text-sm">Team Size</p>
+                      <p className="text-white font-bold text-lg">{caseStudy.teamSize}</p>
                     </div>
                   </div>
                   <div className="flex items-center min-w-[180px]">
@@ -215,8 +215,8 @@ const CaseStudyDetail = () => {
                       <Award className="w-5 h-5 text-[#88bf42]" />
                     </div>
                     <div>
-                      <p className="text-black text-sm">Key Metric</p>
-                      <p className="text-black font-bold text-lg">{caseStudy.keyMetric}</p>
+                      <p className="text-white text-sm">Key Metric</p>
+                      <p className="text-white font-bold text-lg">{caseStudy.keyMetric}</p>
                     </div>
                   </div>
                 </div>

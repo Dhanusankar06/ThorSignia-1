@@ -12,7 +12,9 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
-
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import { ChevronDown } from 'lucide-react';
 // Example icons (same)
 import { CheckCircle, Rocket, Users, DollarSign, Briefcase, TrendingUp, Brain, Database, Code, GitBranch, Lightbulb } from 'lucide-react';
 
@@ -70,6 +72,7 @@ const WhyHireSection = ({ reasons = whyHireReasons }) => {
   };
 
   return (
+  
       <section
           className="py-20 bg-white"
       >
@@ -119,6 +122,149 @@ const WhyHireSection = ({ reasons = whyHireReasons }) => {
           </div>
       </section>
   );
+};
+const faqItems = [
+    {
+        question: "What types of AI engineers can I hire through your platform?",
+        answer: "We offer a diverse pool of AI engineers specializing in machine learning, deep learning, computer vision, NLP, robotics, and more. All our engineers are thoroughly vetted for both technical expertise and communication skills."
+    },
+    {
+        question: "How long does it take to hire an AI engineer?",
+        answer: "Typically, you can start interviewing matched candidates within 48-72 hours of submitting your requirements. The entire process from submission to onboarding can be completed in 1-2 weeks."
+    },
+    {
+        question: "What are your engagement models?",
+        answer: "We offer flexible engagement models including full-time hiring, project-based contracts, and hourly arrangements. You can choose the model that best fits your project needs and budget."
+    },
+    {
+        question: "How do you ensure the quality of AI engineers?",
+        answer: "Our rigorous vetting process includes technical assessments, coding challenges, project portfolio reviews, and communication skills evaluation. Only the top 5% of applicants make it to our platform."
+    },
+    {
+        question: "What if the engineer isn't a good fit?",
+        answer: "We offer a replacement guarantee within the first two weeks of engagement. If you're not satisfied with the engineer's performance, we'll quickly provide alternative candidates at no additional cost."
+    }
+];
+
+// FAQ Section Component
+const FAQSection = () => {
+    const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+    const toggleFAQ = (index: number) => {
+        setActiveIndex(activeIndex === index ? null : index);
+    };
+
+    const textVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+    };
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.3
+            },
+        },
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 },
+    };
+
+    const answerVariants = {
+        hidden: { opacity: 0, height: 0, marginTop: 0, marginBottom: 0, paddingTop: 0, paddingBottom: 0 },
+        visible: {
+            opacity: 1,
+            height: 'auto',
+            marginTop: '1rem', // Corresponds to mb-4
+            marginBottom: '1rem', // Corresponds to mb-4
+            paddingTop: '1rem', // Corresponds to py-4 in original AccordionContent
+            paddingBottom: '1rem', // Corresponds to py-4 in original AccordionContent
+            transition: { duration: 0.3, ease: "easeInOut" }
+        },
+        exit: {
+            opacity: 0,
+            height: 0,
+            marginTop: 0,
+            marginBottom: 0,
+            paddingTop: 0,
+            paddingBottom: 0,
+            transition: { duration: 0.2, ease: "easeInOut" }
+        }
+    };
+
+
+    return (
+        <section className="py-20 bg-white">
+            <div className="container mx-auto px-4">
+                <motion.div
+                    className="text-center mb-16"
+                    initial="hidden"
+                    whileInView="visible" // Use whileInView for scroll-triggered animation
+                    viewport={{ once: true, amount: 0.3 }} // Trigger when 30% is visible
+                    variants={textVariants}
+                >
+                    <h2 className="text-3xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+                    <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                        Find answers to common questions about hiring AI engineers through our platform
+                    </p>
+                </motion.div>
+
+                <motion.div
+                    className="max-w-3xl mx-auto space-y-4" // Added space-y-4 here
+                    initial="hidden"
+                    whileInView="visible" // Use whileInView for scroll-triggered animation
+                    viewport={{ once: true, amount: 0.2 }} // Trigger when 20% is visible
+                    variants={containerVariants}
+                >
+                    {faqItems.map((item, index) => (
+                        <motion.div
+                            key={index}
+                            variants={itemVariants}
+                            className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden" // Added overflow-hidden for cleaner animation
+                        >
+                            {/* This div acts as the AccordionItem */}
+                            <button // Changed to button for accessibility and click handling
+                                onClick={() => toggleFAQ(index)}
+                                className="w-full flex justify-between items-center text-left px-6 py-4 focus:outline-none"
+                                aria-expanded={activeIndex === index}
+                                aria-controls={`faq-answer-${index}`}
+                            >
+                                <span className="font-semibold text-gray-900">{item.question}</span>
+                                <motion.div
+                                    animate={{ rotate: activeIndex === index ? 180 : 0 }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    <ChevronDown className={`w-5 h-5 text-gray-500 transition-transform duration-200`} />
+                                </motion.div>
+                            </button>
+
+                            <AnimatePresence initial={false}>
+                                {activeIndex === index && (
+                                    <motion.div
+                                        id={`faq-answer-${index}`}
+                                        key="content"
+                                        initial="hidden"
+                                        animate="visible"
+                                        exit="exit"
+                                        variants={answerVariants}
+                                        className="px-6" // Original AccordionContent had px-6 pb-4. pb-4 is handled by answerVariants margin/padding
+                                        // overflow="hidden" // Ensure content doesn't spill during animation
+                                    >
+                                        <p className="text-gray-600">{item.answer}</p>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </motion.div>
+                    ))}
+                </motion.div>
+            </div>
+        </section>
+    );
 };
 
 WhyHireSection.defaultProps = {
@@ -632,9 +778,11 @@ const HireEngineers = () => {
     const displayedEngineers = showAll ? engineers : engineers.slice(0, 6);
 
     return (
-        <>
+        <div className="min-h-screen flex flex-col">
+            <Navbar />
+
             {/* Hero Section (uses framer-motion) */}
-            <section className="bg-[#0F0326] flex-col h-[300px] md:h-[400px] relative overflow-hidden">
+            <section className="bg-[#0F0326] flex-col h-[300px] md:h-[400px] min-h-[700px] relative overflow-hidden">
                 {/* Sparkles Animation (same) */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     {[...Array(40)].map((_, i) => {
@@ -719,7 +867,9 @@ const HireEngineers = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="relative flex flex-col gap-4 items-center justify-center px-4 text-center h-full"
+               
+                     className="relative flex flex-col gap-4 items-center justify-center px-4 text-center h-full"
+  
                 >
                     <div className="text-3xl md:text-5xl font-bold text-white text-center">
                         AI Engineering <span className='text-[#88BF42]'>Expertise</span>
@@ -733,7 +883,7 @@ const HireEngineers = () => {
             {/* Engineers Section (uses framer-motion and react-router-dom useNavigate) */}
             <section className="py-20 bg-white">
                 <div className="container mx-auto px-4">
-                    <motion.div
+                    <motion.div 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
@@ -826,10 +976,14 @@ const HireEngineers = () => {
             {/* 6. Previous Engagements / Successes Section */}
             <SuccessStoriesSection />
 
+            {/* 7. FAQ Section */}
+            <FAQSection />
+
             {/* 7. CTA Section */}
             <CTASection />
 
-        </>
+            <Footer />
+        </div>
     );
 };
 

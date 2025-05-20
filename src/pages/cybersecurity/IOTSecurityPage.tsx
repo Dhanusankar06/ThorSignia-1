@@ -2,7 +2,9 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-
+import { ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Link as RouterLink } from 'react-router-dom';
 const IOTSecurityPage = () => {
   // Simplified animation variants
   const fadeIn = {
@@ -68,13 +70,19 @@ const IOTSecurityPage = () => {
                 Comprehensive security for connected devices and operational technology in the age of Industry 4.0 and smart systems.
               </p>
               <div className="flex flex-col sm:flex-row items-center sm:items-stretch gap-4 justify-center lg:justify-start w-full">
-                <motion.button
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="px-10 py-4 bg-[#88bf42] text-white font-semibold rounded-lg shadow-lg hover:bg-opacity-90 transition-all text-lg w-full sm:w-auto"
-                >
-                  Secure Your IoT Ecosystem
-                </motion.button>
+              <Button
+  size="lg" // This prop might also influence padding/font size depending on the Button component.
+           // You might not even need it if you're overriding everything with utility classes.
+  className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white w-full sm:w-auto h-14 text-lg" // Increased height to h-14, text to text-lg
+  asChild
+>
+  <RouterLink
+    to="/contact"
+    className="flex items-center justify-center" // Add flex utilities to RouterLink for better icon alignment
+  >
+Secure Your IoT Ecosystem <ArrowRight className="ml-2 h-5 w-5" /> {/* Corrected icon height and width */}
+  </RouterLink>
+</Button>
               </div>
             </motion.div>
             
@@ -428,13 +436,19 @@ const IOTSecurityPage = () => {
                   transition={{ duration: 0.6, delay: 0.2 }}
                   className="md:w-1/3 w-full flex justify-center md:justify-end"
                 >
-                  <motion.button
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="px-6 py-3 bg-[#88bf42] text-white font-semibold rounded-lg shadow-lg hover:bg-opacity-90 transition-all text-base w-full sm:max-w-[220px]"
-                  >
-                    Get a Security Assessment
-                  </motion.button>
+                   <Button
+  size="lg" // This prop might also influence padding/font size depending on the Button component.
+           // You might not even need it if you're overriding everything with utility classes.
+  className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white w-full sm:w-auto h-14 text-lg" // Increased height to h-14, text to text-lg
+  asChild
+>
+  <RouterLink
+    to="/contact"
+    className="flex items-center justify-center" // Add flex utilities to RouterLink for better icon alignment
+  >
+   Get a Security Assessment <ArrowRight className="ml-2 h-5 w-5" /> {/* Corrected icon height and width */}
+  </RouterLink>
+</Button>
                 </motion.div>
               </div>
             </div>

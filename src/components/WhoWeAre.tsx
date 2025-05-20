@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Spotlight } from "./layout/spotlight-new";
+
 import { RocketIcon, LayersIcon } from "lucide-react";
 import useMobileHover from "./useMobileHover";
 
@@ -41,8 +41,8 @@ const Card = ({ icon, title, content }: CardProps) => {
 
 export default function WhoWeAre() {
   return (
-    <div className="min-h-[600px] w-full rounded-md flex flex-col items-center justify-start antialiased relative overflow-hidden py-16 md:py-20 lg:py-12 bg-gradient-to-b from-[#88bf42]/[0.03] via-white to-[#0F0326]/[0.03]">
-      <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" />
+    <div className="min-h-[600px] w-full rounded-md flex flex-col items-center justify-start antialiased relative overflow-hidden py-16 md:py-20 lg:py-12">
+      
       <div className="p-4 max-w-7xl mx-auto relative z-10 w-full">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#0F0326] to-[#88BF42] inline-block text-center mb-4">
@@ -62,7 +62,7 @@ export default function WhoWeAre() {
           <Card
             icon={<LayersIcon className="w-8 h-8 text-[#88bf42]"/>}
             title="Operational Excellence"
-            content="Innovatively managing technical issues in your business process has fetched us the tag of world-class service provider. We provide our clients with feasible costs and help them run more efficiently. Through our operational efficiency, we work towards handling complexities which in turn upgrades enterprise value. We offer a plethora of digital services which has consistently reinforced the goodwill of our company."
+            content="Innovatively managing technical issues in your business process has fetched us the tag of world-class service provider. Through our operational efficiency, we work towards handling complexities which in turn upgrades enterprise value. We offer a plethora of digital services which has consistently reinforced the goodwill of our company."
           />
         </div>
       </div>

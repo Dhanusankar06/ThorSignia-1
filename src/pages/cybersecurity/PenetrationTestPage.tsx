@@ -2,6 +2,9 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { Link as RouterLink } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { ArrowRight } from 'lucide-react';
 
 const PenetrationTestPage = () => {
   // Custom testimonials for Penetration Testing
@@ -158,20 +161,20 @@ const PenetrationTestPage = () => {
                 Our comprehensive penetration testing services identify and address security vulnerabilities before they can be exploited by malicious actors.
               </p>
               <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-[#88bf42] text-white font-semibold rounded-lg shadow-lg hover:bg-[#7aab3a] transition-all"
-                >
-                  Request a Penetration Test
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 border-2 border-[#0f0326] text-[#0f0326] font-semibold rounded-lg hover:bg-[#0f0326] hover:text-white transition-all"
-                >
-                  Learn More
-                </motion.button>
+              <Button
+  size="lg" // This prop might also influence padding/font size depending on the Button component.
+           // You might not even need it if you're overriding everything with utility classes.
+  className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white w-full sm:w-auto h-14 text-lg" // Increased height to h-14, text to text-lg
+  asChild
+>
+  <RouterLink
+    to="/contact"
+    className="flex items-center justify-center" // Add flex utilities to RouterLink for better icon alignment
+  >
+  Request a Penetration Test <ArrowRight className="ml-2 h-5 w-5" /> {/* Corrected icon height and width */}
+  </RouterLink>
+</Button>
+                
               </div>
             </motion.div>
             
@@ -317,13 +320,20 @@ const PenetrationTestPage = () => {
             <p className="text-gray-300 max-w-3xl mx-auto text-xl mb-10">
               Our expert penetration testers are ready to identify and help remediate vulnerabilities in your systems before they can be exploited.
             </p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-10 py-4 bg-[#88bf42] text-white font-semibold rounded-lg shadow-lg hover:bg-opacity-90 transition-all text-lg"
-            >
-              Schedule Your Penetration Test
-            </motion.button>
+            <Button
+  size="lg" // This prop might also influence padding/font size depending on the Button component.
+           // You might not even need it if you're overriding everything with utility classes.
+  className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white w-full sm:w-auto h-14 text-lg" // Increased height to h-14, text to text-lg
+  asChild
+>
+  <RouterLink
+    to="/contact"
+    className="flex items-center justify-center" // Add flex utilities to RouterLink for better icon alignment
+  >
+            
+              Schedule Your Penetration Test <ArrowRight className="ml-2 h-5 w-5" /> {/* Corrected icon height and width */}
+            </RouterLink>
+          </Button>
           </motion.div>
         </div>
       </section>

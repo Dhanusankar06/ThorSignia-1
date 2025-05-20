@@ -3,7 +3,9 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-
+import { ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Link as RouterLink } from 'react-router-dom';
 const OffensiveSecurityPage = () => {
   // Custom testimonials for Offensive Security
   const offensiveSecurityTestimonials = [
@@ -159,20 +161,20 @@ const OffensiveSecurityPage = () => {
                 Proactively identify and address security vulnerabilities through advanced ethical hacking techniques and comprehensive red team operations.
               </p>
               <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-[#88bf42] text-white font-semibold rounded-lg shadow-lg hover:bg-[#7aab3a] transition-all"
-                >
-                  Request Consultation
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 border-2 border-[#0f0326] text-[#0f0326] font-semibold rounded-lg hover:bg-[#0f0326] hover:text-white transition-all"
-                >
-                  View Case Studies
-                </motion.button>
+              <Button
+  size="lg" // This prop might also influence padding/font size depending on the Button component.
+           // You might not even need it if you're overriding everything with utility classes.
+  className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white w-full sm:w-auto h-14 text-lg" // Increased height to h-14, text to text-lg
+  asChild
+>
+  <RouterLink
+    to="/contact"
+    className="flex items-center justify-center" // Add flex utilities to RouterLink for better icon alignment
+  >
+  Request a Ethical Hacking Test <ArrowRight className="ml-2 h-5 w-5" /> {/* Corrected icon height and width */}
+  </RouterLink>
+</Button>
+                
               </div>
             </motion.div>
             
@@ -304,13 +306,19 @@ const OffensiveSecurityPage = () => {
             <p className="text-gray-300 max-w-3xl mx-auto text-xl mb-10">
               Our offensive security experts are ready to help you identify and address vulnerabilities in your systems before malicious actors can exploit them.
             </p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-10 py-4 bg-[#88bf42] text-white font-semibold rounded-lg shadow-lg hover:bg-opacity-90 transition-all text-lg"
-            >
-              Schedule Your Security Assessment
-            </motion.button>
+            <Button
+  size="lg" // This prop might also influence padding/font size depending on the Button component.
+           // You might not even need it if you're overriding everything with utility classes.
+  className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white w-full sm:w-auto h-14 text-lg" // Increased height to h-14, text to text-lg
+  asChild
+>
+  <RouterLink
+    to="/contact"
+    className="flex items-center justify-center" // Add flex utilities to RouterLink for better icon alignment
+  >
+  Schedule a Ethical Hacking Assessment <ArrowRight className="ml-2 h-5 w-5" /> {/* Corrected icon height and width */}
+  </RouterLink>
+</Button>
           </motion.div>
         </div>
       </section>

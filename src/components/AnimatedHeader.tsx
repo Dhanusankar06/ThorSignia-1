@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom" // Still imported but not used in logic
 import { ChevronDown } from "lucide-react"
 import { motion, useAnimation } from "framer-motion"
 
@@ -13,7 +13,7 @@ interface MousePosition {
 export default function AnimatedHeader() {
   const [mousePosition, setMousePosition] = React.useState<MousePosition>({ x: 0, y: 0 })
   const lastCall = React.useRef(0)
-  const controls = useAnimation()
+  const controls = useAnimation() // This still doesn't seem to be used
 
   // Throttled mouse move effect
   React.useEffect(() => {
@@ -21,7 +21,8 @@ export default function AnimatedHeader() {
     
     const handleMouseMove = (event: MouseEvent) => {
       const now = Date.now()
-      if (now - lastCall.current >= 16) { // ~60fps
+      // Throttle to roughly 60fps
+      if (now - lastCall.current >= 16) { 
         lastCall.current = now
         setMousePosition({
           x: event.clientX,
@@ -30,31 +31,34 @@ export default function AnimatedHeader() {
       }
     }
 
-    // Start animation loop
+    // Start animation loop (currently not doing anything with mouse position for Framer Motion)
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate)
     }
     
-    animationFrameId = requestAnimationFrame(animate)
+    animationFrameId = requestAnimationFrame(animate) 
     window.addEventListener('mousemove', handleMouseMove)
     
     // Cleanup
     return () => {
       window.removeEventListener('mousemove', handleMouseMove)
-      cancelAnimationFrame(animationFrameId)
+      cancelAnimationFrame(animationFrameId) 
     }
-  }, [])
+  }, []) 
 
+  // This function is kept for the down arrow if you still want it to scroll to a section
   const scrollToNextSection = (e: any) => {
     e.preventDefault()
-    const nextSection = document.querySelector('#our-purpose')
+    const nextSection = document.querySelector('#our-purpose') 
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: 'smooth' })
     }
   }
+
   return (
     <div className="relative w-full">
-      <section className="h-[70vh] max-h-[800px] bg-gradient-to-r from-white via-[#f8faf4] to-white flex flex-col justify-center items-center px-6 py-12 relative overflow-hidden rounded-xl my-8 mx-4 md:mx-8 lg:mx-16 shadow-lg">
+      {/* Hero Section - Full width, dark background */}
+      <section className="h-[70vh] max-h-[800px] bg-[#0f0326] flex flex-col justify-center items-center px-6 py-12 relative overflow-hidden">
         {/* Background Blob */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.5, x: -200, y: -200 }}
@@ -73,15 +77,17 @@ export default function AnimatedHeader() {
           className="absolute bg-[#88BF42]/30 blur-[64px] rounded-full w-[700px] h-[700px] top-[10%] left-[-20%] md:left-[10%] z-[-1]"
         />
 
-        {/* Cursor-Following Glow */}
+        {/* Cursor-Following Glow - UPDATED OPACITY */}
         <div 
-          className="absolute w-full h-full pointer-events-none z-0"
+          className="absolute inset-0 pointer-events-none z-0" 
           style={{ 
-            background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(136, 191, 66, 0.2) 0%, transparent 70%)` 
+            // Increased opacity from 0.2 to 0.4 for a brighter glow
+            background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(136, 191, 66, 0.4) 0%, transparent 70%)` 
           }}
         />
         
-        <div className="max-w-4xl text-center z-10">
+        {/* Content Container */}
+        <div className="max-w-4xl text-center z-10"> 
           {/* Intro Text */}
           <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -98,7 +104,7 @@ export default function AnimatedHeader() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <h1 className="text-4xl md:text-6xl font-extrabold text-[#0F0326] leading-tight">
+          <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
             Empowering Business
           </h1>
           <h1 className="text-4xl md:text-6xl font-extrabold text-[#88BF42] leading-tight">
@@ -111,7 +117,7 @@ export default function AnimatedHeader() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-[#696869] text-lg max-w-2xl mx-auto mt-4"
+          className="text-gray-300 text-lg max-w-2xl mx-auto mt-4" 
         >
           Transform your enterprise with cutting-edge AI solutions that drive growth, efficiency, and innovation.
         </motion.p>
@@ -121,20 +127,17 @@ export default function AnimatedHeader() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex gap-4 mt-6 justify-center"
+          className="flex gap-4 mt-6 justify-center" 
         >
-          <button
-            onClick={scrollToNextSection}
-            className="bg-[#0F0326] text-white px-6 py-3 rounded-md shadow hover:bg-[#88BF42] hover:text-[#0F0326] transition-colors"
+          {/* Link to Contact page */}
+          <Link
+            to="/contact" 
+            className="bg-[#88BF42] text-[#0F0326] px-6 py-3 rounded-md shadow hover:text-white transition-colors font-semibold" // Added hover:bg-[#009898] for clarity
           >
             Get Started
-          </button>
-          <button
-            onClick={scrollToNextSection}
-            className="border border-[#88BF42] text-[#88BF42] px-6 py-3 rounded-md hover:bg-[#88BF42] hover:text-white transition-colors"
-          >
-            Learn More
-          </button>
+          </Link>
+
+          {/* Learn More button removed */}
         </motion.div>
 
         {/* Scroll Down Indicator */}
@@ -147,7 +150,7 @@ export default function AnimatedHeader() {
           <ChevronDown className="text-[#88BF42] w-10 h-10" />
         </motion.div>
         </div>
-        </section>
-      </div>
+      </section>
+    </div>
   )
 }

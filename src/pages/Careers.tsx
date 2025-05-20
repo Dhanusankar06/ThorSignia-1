@@ -163,14 +163,49 @@ const Careers = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-[#f8f9fa] text-black">
-        <div className="container mx-auto px-4 md:px-6 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Careers at <span className="text-[#9ac857]">Thor</span><span className="text-[#10b4b7]"> Signia</span>
-          </h1>
-          <p className="text-lg max-w-2xl mx-auto mb-8">
-            Join <span className="text-[#9ac857]">Thor</span><span className="text-[#10b4b7]"> Signia</span> and help shape the future of AI. We're looking for passionate, creative minds to build, innovate, and grow with us.
-          </p>
+      <section className="relative w-full">
+        <div className="h-[45vh] max-h-[420px] relative overflow-hidden w-full flex flex-col justify-center items-center px-0 py-12 bg-gradient-to-r from-[#0B0F19] to-[#171E2E]">
+          {/* SVG grid pattern overlay */}
+          <div className="absolute inset-0 opacity-10 z-0">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="careers-hero-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#88bf42" strokeWidth="0.5" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#careers-hero-grid)" />
+            </svg>
+          </div>
+          
+          {/* Animated floating dots */}
+          {Array.from({ length: 16 }).map((_, i) => (
+            <div
+              key={i}
+              className="absolute rounded-full"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                width: `${Math.random() * 4 + 2}px`,
+                height: `${Math.random() * 4 + 2}px`,
+                background: i % 2 === 0 ? '#88bf42' : '#009898',
+                opacity: 0.16 + Math.random() * 0.16
+              }}
+            />
+          ))}
+          
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-radial from-transparent via-white to-transparent opacity-10 z-0" />
+          
+          <div className="max-w-2xl mx-auto text-center z-10 relative">
+            {/* Main Heading - split color */}
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4">
+              <span className="block text-white">Join Our</span>
+              <span className="block text-[#88BF42]">Innovative Team</span>
+            </h1>
+            <p className="text-base md:text-lg text-white max-w-2xl mx-auto mb-8">
+              Help shape the future of AI at <span className="text-[#88bf42]">Thor</span> <span className="text-[#10b4b7]">Signia</span>. We're looking for passionate, creative minds to build, innovate, and grow with us.
+            </p>
+          </div>
         </div>
       </section>
 

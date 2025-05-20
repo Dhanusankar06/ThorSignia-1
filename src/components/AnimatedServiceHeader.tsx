@@ -39,7 +39,7 @@ export default function AnimatedServiceHeader() {
 
   return (
     <div className="relative w-full">
-      <div className="h-[70vh] max-h-[800px] bg-black flex flex-col justify-center items-center px-6 py-12 relative overflow-hidden my-8 w-full shadow-lg">
+      <div className="h-[70vh] max-h-[800px] bg-black flex flex-col justify-center items-center px-6 py-12 relative overflow-hidden w-full shadow-lg">
         {/* Animated grid lines overlay */}
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiIGQ9Ik0wIDIwaDIwVjBoLTIweiIvPjwvZz48L3N2Zz4=')] z-10 opacity-60">
           <motion.div 

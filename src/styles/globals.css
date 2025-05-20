@@ -1,15 +1,14 @@
 /* app/globals.css */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 /* Swiper styles - ensure these are imported BEFORE your custom styles if you intend to override */
 @import 'swiper/css';
 @import 'swiper/css/navigation';
 @import 'swiper/css/pagination';
 /* @import 'swiper/css/autoplay'; *//* Only if using autoplay module and need its specific styles */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   :root {

@@ -1,21 +1,123 @@
-import { useState } from 'react'; // Remove useEffect import
+import { useState, useEffect, useCallback } from 'react'; // Added useCallback
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Award, Trophy, Star, X } from "lucide-react"; // Remove Share icon
-import { Link } from 'react-router-dom';
+import { Award, Trophy, Star, X } from "lucide-react";
 // Import animation components
 import { Fade, Slide } from 'react-awesome-reveal';
+// Import useLocation from react-router-dom
+import { Link, useLocation } from 'react-router-dom'; 
+
+// Import Particles library components
+// With these
+import { Particles } from "@tsparticles/react";
+import { loadSlim } from "@tsparticles/slim";
+import type { Engine } from "@tsparticles/engine";
 
 const AwardsPage = () => {
-  // Add state for showing award details
   const [selectedAward, setSelectedAward] = useState(null);
   const [showAwardModal, setShowAwardModal] = useState(false);
 
+  // Get the current location object from react-router-dom
+  const location = useLocation(); 
+
+  // --- Existing useEffect for body overflow ---
+  useEffect(() => {
+    if (showAwardModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [showAwardModal]);
+  // ------------------------------------------
+
+  // --- MODIFIED useEffect to scroll to top on location change ---
+  useEffect(() => {
+    // Scroll to the top of the page whenever the location changes
+    window.scrollTo(0, 0);
+    // Add 'location' to the dependency array
+  }, [location]); 
+  // ----------------------------------------------------------
+
+  // Initialize particles
+  const particlesInit = useCallback(async (engine: Engine) => {
+    await loadSlim(engine);
+  }, []);
+
+  const particlesOptions = {
+    particles: {
+      number: {
+        value: 50,
+        density: {
+          enable: true,
+          value_area: 800
+        }
+      },
+      color: {
+        value: "#88bf42"
+      },
+      shape: {
+        type: "circle"
+      },
+      opacity: {
+        value: 0.5,
+        random: true
+      },
+      size: {
+        value: 3,
+        random: true
+      },
+      line_linked: {
+        enable: true,
+        distance: 150,
+        color: "#88bf42",
+        opacity: 0.4,
+        width: 1
+      },
+      move: {
+        enable: true,
+        speed: 2,
+        direction: "none",
+        random: false,
+        straight: false,
+        out_mode: "out",
+        bounce: false
+      }
+    },
+    interactivity: {
+      detect_on: "canvas",
+      events: {
+        onhover: {
+          enable: true,
+          mode: "grab"
+        },
+        onclick: {
+          enable: true,
+          mode: "push"
+        }
+      },
+      modes: {
+        grab: {
+          distance: 140,
+          line_linked: {
+            opacity: 1
+          }
+        },
+        push: {
+          particles_nb: 4
+        }
+      }
+    },
+    retina_detect: true
+  };
+
   // Function to open award details modal
   const openAwardDetails = (award) => {
-    // Ensure award has an image property
     const awardWithDefaults = {
       ...award,
       image: award.image || getDefaultAwardImage(award.organization)
@@ -23,8 +125,7 @@ const AwardsPage = () => {
     
     setSelectedAward(awardWithDefaults);
     setShowAwardModal(true);
-    // Prevent scrolling when modal is open
-    document.body.style.overflow = 'hidden';
+    // Overflow handled by useEffect
   };
 
   // Function to get default award image based on organization
@@ -32,7 +133,7 @@ const AwardsPage = () => {
     const imageMap = {
       "World Business Conclave": "https://images.unsplash.com/photo-1625314868143-20e93ce3ff33?w=800&auto=format&fit=crop",
       "Tech Excellence Awards": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&auto=format&fit=crop",
-      "Global Technology Awards": "https://media.istockphoto.com/id/2209208710/photo/deep-learning-ai-network-gpu-abstract-lines-background-futuristic-neon-led-fluorescent-light.webp?b=1&s=612x612&w=0&k=20&c=cRyZyavn8yLSthySse2cotblSXb0gPASJndSwTZlk_M=",
+      "Global Technology Awards": "https://media.istockphoto.com/id/2209208710/photo/deep-learning-ai-network-gpu-abstract-lines-background-futuristic-neon-led-fluorescent-light.webp?a=1&b=1&s=612x612&w=0&k=20&c=cRyZyavn8yLSthySse2cotblSXb0gPASJndSwTZlk_M=",
       "Technology Leadership Awards": "https://images.unsplash.com/photo-1507146153580-69a1fe6d8aa1?w=800&auto=format&fit=crop",
       "Healthcare Technology Excellence": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&auto=format&fit=crop",
       "World Economic Forum": "https://images.unsplash.com/photo-1567427018141-0584cfcbf1b8?w=800&auto=format&fit=crop",
@@ -45,11 +146,12 @@ const AwardsPage = () => {
     return imageMap[organization] || "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&auto=format&fit=crop";
   };
 
+
   // Function to close award details modal
   const closeAwardModal = () => {
     setShowAwardModal(false);
-    // Restore scrolling
-    document.body.style.overflow = 'auto';
+    setSelectedAward(null);
+    // Overflow handled by useEffect
   };
 
   const awards = [
@@ -128,7 +230,6 @@ const AwardsPage = () => {
     }
   ];
 
-  // Featured awards with images for the top section
   const featuredAwards = [
     {
       name: "World Business Conclave India AI Award",
@@ -158,29 +259,41 @@ const AwardsPage = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
 
-      {/* Hero Section - Enhanced padding for better mobile responsiveness */}
-      <section className="pt-36 sm:pt-38 md:pt-40 pb-10 sm:pb-12 md:pb-16 bg-gradient-to-br from-[#009898]/10 to-[#2c3037]/10 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-1/3 h-1/3 bg-[#009898]/10 rounded-br-full opacity-50 z-0"></div>
-        <div className="absolute bottom-0 right-0 w-1/4 h-1/4 bg-[#2c3037]/10 rounded-tl-full opacity-40 z-0"></div>
-        <div className="container mx-auto px-5 sm:px-4 md:px-6 relative z-10 max-w-6xl hover:shadow-xl rounded-2xl backdrop-blur-[2px] bg-white/5 py-6 sm:py-8 md:py-12 border border-white/10">
-          <div className="max-w-3xl mx-auto text-center">
-            <Fade triggerOnce direction="up" delay={50}> {/* Animate Hero Badge */}
-              <div className="inline-block px-3 sm:px-4 py-1.5 mb-3 sm:mb-4 md:mb-6 rounded-full bg-[#009898]/20 text-[#009898] font-medium text-sm animate-fade-in border border-[#009898]/30 shadow-inner shadow-[#009898]/5 mt-2">
-            Industry Recognition
-            </div>
-            </Fade>
-            <Fade triggerOnce direction="up" delay={150}> {/* Animate Hero Heading */}
-              <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-4 md:mb-6 text-gray-900 animate-slide-up">
-              Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#009898] to-[#2c3037]">Award-Winning</span> Excellence
+      {/* Hero Section */}
+      <section className="pt-36 sm:pt-38 md:pt-40 pb-10 sm:pb-12 md:pb-16 bg-[#0F0326] relative overflow-hidden">
+        
+        {/* --- Particles Background --- */}
+        {/* Position absolute to cover the section, z-0 to be behind content */}
+        <div className="absolute inset-0 z-0">
+        <Particles
+  id="tsparticles-awards-hero"
+  init={particlesInit}
+  options={particlesOptions}
+/>
+        </div>
+        {/* -------------------------- */}
+
+        {/* Existing background shapes - Ensure they are at z-0 or lower */}
+        <div className="absolute top-0 left-0 w-1/3 h-1/3 bg-[#88bf42] rounded-br-full opacity-50 z-0"></div>
+        <div className="absolute bottom-0 right-0 w-1/3 h-1/3 bg-[#88bf42] rounded-tl-full opacity-50 z-0"></div>
+       
+        {/* Content (Title, Paragraph) - Ensure it has a higher z-index */}
+          <div className="max-w-3xl mx-auto text-center relative z-10"> {/* Added relative and z-10 */}
+           
+            <Fade triggerOnce direction="up" delay={150}>
+              {/* Removed animate-slide-up as Fade handles animation */}
+              <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-4 md:mb-6 text-gray-900">
+              <span className="text-transparent bg-clip-text bg-white">Our Award-Winning</span><span className="text-[#88bf42]"> Excellence</span>
             </h1>
             </Fade>
-            <Fade triggerOnce direction="up" delay={250}> {/* Animate Hero Paragraph */}
-              <p className="text-base md:text-lg lg:text-xl text-gray-700 mb-6 md:mb-8 animate-slide-up mx-2 md:mx-0" style={{animationDelay: '0.2s'}}>
+            <Fade triggerOnce direction="up" delay={250}>
+               {/* Removed animate-slide-up as Fade handles animation */}
+              <p className="text-base md:text-lg lg:text-xl text-white mb-6 md:mb-8 mx-2 md:mx-0">
             Celebrating innovation, leadership, and excellence in AI technology
             </p>
             </Fade>
           </div>
-        </div>
+      
       </section>
 
 
@@ -188,23 +301,18 @@ const AwardsPage = () => {
       <section className="bg-white py-8 md:py-12">
         <div className="container mx-auto px-4 md:px-6 hover:scale-[1.01] transition-transform duration-300">
 
-          {/* --- ADDED SEPARATOR HERE --- */}
-          <Fade triggerOnce delay={350}> {/* Animate the separator */}
-            <div className="flex items-center justify-center my-8 md:my-12"> {/* my-12 adds vertical space */}
-              <div className="flex-grow h-px bg-gray-300"></div> {/* Left Line */}
-              <Star className="h-5 w-5 md:h-6 md:w-6 text-[#009898] mx-3 md:mx-4" /> {/* Icon */}
-              <div className="flex-grow h-px bg-gray-300"></div> {/* Right Line */}
+          <Fade triggerOnce delay={350}>
+            <div className="flex items-center justify-center my-8 md:my-12">
+              <div className="flex-grow h-px bg-gray-300"></div>
+              <Star className="h-5 w-5 md:h-6 md:w-6 text-[#88bf42] mx-3 md:mx-4" />
+              <div className="flex-grow h-px bg-gray-300"></div>
             </div>
           </Fade>
-          {/* --- END SEPARATOR --- */}
-
 
           <div className="max-w-3xl mx-auto text-center mb-8 md:mb-16">
-            {/* Animate the Heading (adjust delay) */}
             <Fade triggerOnce direction="up" delay={450}>
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6 text-gray-900">Featured Recognition</h2>
             </Fade>
-            {/* Animate the Paragraph (adjust delay) */}
             <Fade triggerOnce direction="up" delay={550}>
               <p className="text-base md:text-lg text-gray-700">
                 Highlighting our most prestigious industry awards
@@ -212,30 +320,24 @@ const AwardsPage = () => {
             </Fade>
           </div>
 
-          {/* Animate the Grid container with cascade for the cards (adjust delay) */}
           <Fade triggerOnce cascade damping={0.1} direction="up" delay={650}>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
               {featuredAwards.map((award, index) => (
-                // Individual items within the cascade will be animated automatically
                 <div key={index} className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#009898]/90 via-[#009898]/60 to-transparent z-10"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#88bf42]/40 via-[#88bf42]/20 to-transparent z-10"></div>
 
-                  {/* Background Image */}
                   <img
                     src={award.image}
                     alt={award.name}
                     className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                   />
 
-                  {/* Award Icon */}
-                  <div className="absolute top-6 right-6 z-20">
-                    <div className="bg-gradient-to-r from-[#009898] to-[#88bf42] p-3 rounded-full shadow-lg">
+                  <div className="absolute top-6 right-6 z-20 text-white">
+                    <div className="bg-gradient-to-r from-[#88bf42] to-[#88bf42] p-3 rounded-full shadow-lg">
                       {award.icon}
                     </div>
                   </div>
 
-                  {/* Content */}
                   <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
                     <div className="flex items-center mb-2">
                       <span className="text-[#88bf42]/80 text-sm font-semibold">{award.date || award.year}</span>
@@ -243,7 +345,6 @@ const AwardsPage = () => {
                       <span className="text-gray-300 text-sm">{award.organization}</span>
                     </div>
                     <h3 className="text-xl font-bold text-white mb-2">{award.name}</h3>
-                     {/* Ensure Button has a single child if needed */}
                     <Button 
                       variant="outline" 
                       className="bg-transparent border-white text-white hover:bg-white/20 mt-2 group"
@@ -260,44 +361,37 @@ const AwardsPage = () => {
                 </div>
               ))}
             </div>
-          </Fade> {/* Close Fade cascade wrapper */}
+          </Fade>
         </div>
       </section>
 
-      {/* Awards Timeline (Animations already added) */}
-      <section className="py-20 bg-gradient-to-br from-[#009898]/5 to-[#2c3037]/5">
+      {/* Awards Timeline */}
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4 md:px-6">
-          {/* Animate the Heading */}
           <Fade triggerOnce direction="up" delay={100}>
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900 text-center">Awards Timeline</h2>
           </Fade>
-          {/* Animate the Paragraph */}
           <Fade triggerOnce direction="up" delay={200}>
             <p className="text-lg text-gray-700 text-center mb-16">
               Our journey of recognition throughout the years
             </p>
           </Fade>
 
-
           <div className="space-y-16">
             {awards.map((yearGroup, index) => (
               <div key={index}>
-                 {/* Animate the year heading */}
                  <Fade triggerOnce direction="right" delay={100}>
                    <div className="flex items-center mb-8">
-                     <div className="p-4 bg-[#88bf42] hover:bg-[#009898] text-white text-xl font-bold rounded-lg">
+                     <div className="p-4 bg-[#88bf42] hover:bg-[#0f0326]/40 text-white text-xl font-bold rounded-lg">
                        {yearGroup.year}
                      </div>
-                     <div className="ml-4 h-1 flex-1 bg-gradient-to-r from-[#009898] to-[#88bf42]"></div>
+                     <div className="ml-4 h-1 flex-1 bg-gradient-to-r from-[#88bf42] to-[#88bf42]"></div>
                    </div>
                  </Fade>
 
-                 {/* Animate the award cards within the grid with cascade */}
-                 {/* This Fade with cascade is already correctly placed around the grid */}
                  <Fade triggerOnce cascade damping={0.1} direction="up" delay={200}>
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
                      {yearGroup.awards.map((award, awardIndex) => (
-                       // Each Card is a child being animated by the cascade
                        <Card key={awardIndex} className={`hover:shadow-lg transition-shadow overflow-hidden ${award.featured ? 'border-2 border-[#009898]' : ''}`}>
                          {award.featured && (
                            <div className="h-1.5 bg-gradient-to-r from-[#009898] to-[#88bf42]"></div>
@@ -317,7 +411,7 @@ const AwardsPage = () => {
 
                            <div className="mt-4">
                              <Button 
-                               className={`w-full ${award.featured ? 'bg-[#88bf42]' : 'bg-[#009898]'} hover:bg-[#009898] text-white`}
+                               className={`w-full ${award.featured ? 'bg-[#88bf42]' : 'bg-[#0f0326]/90'} hover:bg-[#0f0326]/60  text-white`}
                                onClick={() => openAwardDetails({...award, year: yearGroup.year})}
                              >
                                <span>Read Full Story</span>
@@ -349,13 +443,13 @@ const AwardsPage = () => {
                   alt={selectedAward.name}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-[#009898]/80 to-[#009898]/95"></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-[#88bf42]/80 to-[#88bf42]/95"></div>
               </div>
               
               {/* Close Button */}
               <button 
                 onClick={closeAwardModal}
-                className="absolute top-4 right-4 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full transition-colors z-20"
+                className="absolute top-4 right-4 bg-[#88bf42]/20 hover:bg-[#88bf42]/40 text-white p-2 rounded-full transition-colors z-20"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -363,8 +457,8 @@ const AwardsPage = () => {
               {/* Award Title - Positioned over the background image */}
               <div className="absolute bottom-0 left-0 w-full p-6 text-white">
                 <div className="flex items-center space-x-2 mb-2">
-                  <div className="p-1.5 rounded-md bg-white/20">
-                    {selectedAward.icon || <Trophy className="h-4 w-4" />}
+                  <div className="p-1.5 rounded-md bg-[#88bf42]/20 text-white">
+                    {selectedAward.icon || (selectedAward.featured ? <Trophy className="h-4 w-4" /> : <Award className="h-4 w-4" />)}
                   </div>
                   <span className="text-sm font-medium">{selectedAward.organization}</span>
                   <span className="text-white/70">•</span>
@@ -387,8 +481,8 @@ const AwardsPage = () => {
                     />
                   </div>
                   
-                  <div className="mt-6 bg-gradient-to-br from-[#009898]/5 to-[#2c3037]/5 p-5 rounded-lg">
-                    <h4 className="font-semibold mb-3 text-[#009898] flex items-center">
+                  <div className="mt-6 bg-gradient-to-br from-[#88bf42]/5 to-[#2c3037]/5 p-5 rounded-lg">
+                    <h4 className="font-semibold mb-3 text-[#88bf42] flex items-center">
                       <Star className="h-4 w-4 mr-2 flex-shrink-0" />
                       <span>Award Highlights</span>
                     </h4>
@@ -442,7 +536,7 @@ const AwardsPage = () => {
                   {/* Bottom Actions */}
                   <div className="flex flex-wrap gap-3 mt-8">
                     <Button 
-                      className="bg-[#009898] hover:bg-[#007a7a] text-white"
+                      className="bg-[#0f0326] hover:bg-[#0f0326]/60 text-white"
                       onClick={closeAwardModal}
                     >
                       Close Details
@@ -458,4 +552,4 @@ const AwardsPage = () => {
   );
 };
 
-export default AwardsPage; 
+export default AwardsPage;
