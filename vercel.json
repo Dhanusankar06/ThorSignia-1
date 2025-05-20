@@ -3,7 +3,10 @@
   "builds": [
     {
       "src": "api/index.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": {
+        "buildCommand": "pip install -r ../../requirements.txt && python ../../vercel_deploy.py"
+      }
     },
     {
       "src": "package.json",
@@ -46,6 +49,5 @@
     "VERCEL": "1",
     "FLASK_ENV": "production",
     "PORT": "5000"
-  },
-  "buildCommand": "pip install -r requirements.txt && python vercel_deploy.py"
-} 
+  }
+}
