@@ -6,11 +6,11 @@ const ServiceOverview: React.FC = () => {
     <section className="py-20 bg-gradient-to-b from-white to-white/95">
       <div className="max-w-7xl mx-auto px-4">
         {/* Hero visual illustration */}
-        <div className="flex flex-col items-center justify-center mb-10">
+        <div className="flex flex-col items-center justify-center mb-8 sm:mb-10">
           <img 
             src="/images/cyber-hero-shield.svg" 
             alt="Cybersecurity Hero" 
-            className="w-32 md:w-48 mb-4 drop-shadow-lg animate-float"
+            className="w-24 sm:w-32 md:w-48 mb-4 drop-shadow-lg animate-float"
             style={{ animation: 'float 3s ease-in-out infinite' }}
           />
           <style>{`
@@ -43,7 +43,7 @@ const ServiceOverview: React.FC = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
         >
           {/* Feature 1 */}
           <div className="bg-white/70 border border-[#88bf42]/20 p-6 rounded-lg hover:shadow-xl transition-all duration-300 hover:border-[#009898]/40">

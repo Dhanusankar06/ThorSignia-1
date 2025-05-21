@@ -1,7 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import demovideo from './demovideo.tsx';
+// Adjust the import path for your Button component
+// This assumes your Button component is in src/components/ui/button.jsx or .tsx
 import { Button } from "../components/ui/button";
+import ChatbotDemo from '../components/ChatbotDemo';
 import {
   Play,
   ArrowRight,
@@ -37,6 +41,7 @@ import 'swiper/css/pagination';
 
 import { clsx } from 'clsx';
 import '../styles/globals.css';
+import ProductDemoSection from './demovideo.tsx';
 
 
 // Trusted By Logos Data
@@ -280,40 +285,48 @@ const HomePage = () => {
         <section className="relative bg-[#0F0326] text-white overflow-hidden">
           <div className="container mx-auto px-4 py-16 md:py-20 lg:py-24 relative z-10">
             <div className="flex flex-col lg:flex-row items-center gap-8 md:gap-12">
-              <div className="lg:w-1/2 text-center lg:text-left">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4 md:mb-6">
-                    Automate <br className="hidden md:block"/>
-                    Conversations. <br className="hidden md:block"/>
-                    <span className="text-[#88BF42]">Accelerate Growth.</span>
-                  </h1>
-                  <p className="text-base md:text-lg text-white mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0">
-                    Power your business with intelligent voice, chat, and campaign automation.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mt-8">
-      <Button
-                              size="lg" // This prop might also influence padding/font size depending on the Button component.
-                                      // You might not even need it if you're overriding everything with utility classes.
-                              className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white w-full sm:w-auto h-14 text-lg" // Increased height to h-14, text to text-lg
-                              asChild
-                            >
-                              <RouterLink
-                                to="/contact"
-                                className="flex items-center justify-center" // Add flex utilities to RouterLink for better icon alignment
-                              >
-                              Request Demo <ArrowRight className="ml-2 h-5 w-5" /> {/* Corrected icon height and width */}
-        </RouterLink>
-      </Button>
-                            <Button asChild variant="outline" className="border-[#88bf42] text-[#88bf42] text-base md:text-lg px-6 md:px-8 py-3 h-auto rounded-md hover:bg-[#eaf4d6]">
-                <RouterLink to="/services">
-          Our Solutions
-        </RouterLink>
-      </Button>
-    </div>
+            <div className="lg:w-1/2 text-center lg:text-left">
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+  >
+    <h1 className="text-[36px] md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4 md:mb-6">
+  Automate 
+  <span className="block md:inline"> Conversations.</span><br className="hidden md:block" />
+  <span className="text-[#88BF42]">Accelerate Growth.</span>
+</h1>
+
+    <p className="text-base md:text-lg text-white mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0">
+      Power your business with intelligent voice, chat, and campaign automation.
+    </p>
+  
+
+                  <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 justify-center lg:justify-start mt-8">
+  <Button
+    className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white w-52 sm:w-auto h-12 text-base px-4"
+    asChild
+  >
+    <RouterLink
+      to="/contact"
+      className="flex items-center justify-center"
+    >
+      Request Demo <ArrowRight className="ml-2 h-4 w-4" />
+    </RouterLink>
+  </Button>
+
+  <Button
+    asChild
+    variant="outline"
+    className="border-[#88bf42] text-[#88bf42] text-base md:text-base px-4 md:px-6 py-2 h-12 w-52 sm:w-auto rounded-md hover:bg-[#eaf4d6]"
+  >
+    <RouterLink to="/services">
+      Our Solutions
+    </RouterLink>
+  </Button>
+</div>
+
+
                 </motion.div>
               </div>
               <div className="lg:w-1/2 w-full relative h-[350px] md:h-[450px] lg:h-[500px] max-w-lg mx-auto lg:mx-0">
@@ -447,12 +460,12 @@ const HomePage = () => {
               variants={staggerChildren} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
             >
               {[
-                { emoji: '🎙️', title: 'Intelligent Voice Automation', desc: 'Intelligent systems for making or receiving calls with natural conversations powered by AI.', link: '/services#intelligent-voice-automation' },
-                { emoji: '💬', title: 'Social Engagement Automation', desc: 'Automate posting, replies, DMs, and performance analysis across all social channels.', link: '/services#social-engagement-automation' },
-                { emoji: '🧠', title: 'AI-Powered Lead Intelligence', desc: 'Identify, qualify, and convert potential customers into hot leads with AI-driven insights.', link: '/services#ai-powered-lead-intelligence' },
-                { emoji: '🤖', title: 'Conversational AI Chatbots', desc: 'Intelligent chatbots for instant assistance and engagement with your customers.', link: '/services#interactive-ai-chatbots' },
-                { emoji: '📊', title: 'Automated Campaign Orchestration', desc: 'Automate advertising campaigns and optimize performance across multiple channels.', link: '/services#automated-campaign-orchestration' },
-                { emoji: '🛡️', title: 'AI-Powered Threat Detection', desc: 'Leverage AI to constantly monitor for threats, identify anomalies, and protect your systems.', link: '/services#ai-powered-threat-detection' }
+                { emoji: '🎙️', title: 'Intelligent Voice Automation', desc: 'Intelligent systems for making or receiving calls with natural conversations powered by AI.', link: '/services/voice-automation' },
+                { emoji: '💬', title: 'Social Engagement Automation', desc: 'Automate posting, replies, DMs, and performance analysis across all social channels.', link: '/services/social-automation' },
+                { emoji: '🧠', title: 'AI-Powered Lead Intelligence', desc: 'Identify, qualify, and convert potential customers into hot leads with AI-driven insights.', link: '/services/lead-intelligence' },
+                { emoji: '🤖', title: 'Conversational AI Chatbots', desc: 'Intelligent chatbots for instant assistance and engagement with your customers.', link: '/services/ai-agents' },
+                { emoji: '📊', title: 'Automated Campaign Orchestration', desc: 'Automate advertising campaigns and optimize performance across multiple channels.', link: '/services/campaign-orchestration' },
+                { emoji: '🛡️', title: 'AI-Powered Threat Detection', desc: 'Leverage AI to constantly monitor for threats, identify anomalies, and protect your systems.', link: '/services/threat-detection' }
               ].map((service, index) => (
                  <motion.div
                     key={`service-${index}`} variants={itemVariants}
@@ -562,48 +575,7 @@ const HomePage = () => {
         </motion.section>
 
         {/* 5. Mini Product Demo Teasers */}
-        <section className="py-16 md:py-20 bg-white text-gray-900">
-          <div className="container mx-auto px-4">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerChildren} className="text-center mb-12 md:mb-16">
-              <motion.div variants={itemVariants} className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 mb-4">
-                <span className="text-[#88BF42] text-sm md:text-base font-semibold">Product Demos</span>
-                </motion.div>
-              <motion.h2 variants={itemVariants} className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4">
-                See Our <span className="text-[#88BF42]">AI in Action</span>
-              </motion.h2>
-              <motion.p variants={itemVariants} className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
-                Watch our product demos to see how our AI solutions work in real-world scenarios.
-              </motion.p>
-            </motion.div>
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerChildren} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {[
-                { title: 'AI Voice Agent in Action', desc: 'See how our AI voice agents handle customer inquiries naturally and efficiently.', thumb: '/assets/ai-voice-demo.jpg', time: '2:45', link: '/demo/voice-ai' },
-                { title: 'Lead Capture to Call Demo', desc: 'Watch our AI automatically qualify leads and initiate follow-up calls.', thumb: '/assets/lead-capture-demo.jpg', time: '3:12', link: '/demo/lead-capture' },
-                { title: 'How Campaign Automation Works', desc: 'Learn how our AI optimizes ad campaigns for maximum performance.', thumb: '/assets/campaign-automation-demo.jpg', time: '4:05', link: '/demo/campaign-automation' },
-              ].map((demo, index) => (
-                <motion.div key={`demo-${index}`} variants={itemVariants} className="bg-white rounded-xl overflow-hidden shadow-lg">
-                  <RouterLink to={demo.link} className="relative group cursor-pointer block">
-                    <div className="h-40 md:h-48 relative overflow-hidden">
-                      <img src={demo.thumb} alt={demo.title} className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-                      </div>
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/30">
-                      <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#88BF42] flex items-center justify-center">
-                        <Play className="h-7 w-7 md:h-8 md:w-8 text-white ml-1" />
-                        </div>
-                      </div>
-                  </RouterLink>
-                  <div className="p-4 md:p-6">
-                    <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2">{demo.title}</h3>
-                    <p className="text-gray-700 text-sm mb-3 md:mb-4">{demo.desc}</p>
-                    <div className="flex items-center text-[#88BF42] mt-auto text-sm md:text-base">
-                        <span className="font-medium">{demo.time}</span>
-                      </div>
-                    </div>
-                  </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </section>
+        <ProductDemoSection />
 
         {/* 6. Case Study Preview */}
         <section className="py-16 md:py-20 bg-white">
@@ -615,7 +587,12 @@ const HomePage = () => {
                 <RouterLink to="/case-studies/sgf-fab-industries" className="block relative rounded-xl overflow-hidden shadow-xl group">
                   <div className="aspect-video bg-[#F5F8FF] relative">
                     {/* Image src kept, updated alt text */}
-                    <img src="/assets/images.jpeg" alt="SGF FAB Industries quality control case study" className="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy"/>
+                    <img
+                      src="/assets/images.png"
+                      alt="SGF FAB Industries quality control case study"
+                      className="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0F0326]/80 to-transparent p-4 md:p-6">
                       {/* Updated Company Name */}
                       <div className="text-white text-sm md:text-base font-medium">SGF FAB Industries</div>
@@ -632,7 +609,7 @@ const HomePage = () => {
                 </motion.div>
 
                 {/* Updated Case Study Title */}
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0F0326] mb-2 md:mb-3">AI-Powered Quality Control System</h2>
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-4">AI-Powered Quality <span className="text-[#88BF42]">Control System</span> </h2>
 
                 {/* Updated Description Paragraph */}
                 <p className="text-base md:text-lg text-[#696869] mb-4 md:mb-6 max-w-prose mx-auto md:mx-0">
@@ -640,29 +617,32 @@ const HomePage = () => {
                 </p>
 
                 {/* Updated Metrics Grid */}
-                <div className="grid grid-cols-3 gap-4 sm:gap-6 mb-4 md:mb-8 justify-items-center md:justify-items-start">
-                  {/* Metric 1: ROI */}
-                  <div className="text-center sm:text-left">
-                    <div className="text-2xl md:text-3xl font-bold text-[#88BF42]">285%</div>
-                    <div className="text-[10px] md:text-xs text-[#696869]">ROI</div>
-                  </div>
-                  {/* Metric 2: Timeframe */}
-                  <div className="text-center sm:text-left">
-                    <div className="text-2xl md:text-3xl font-bold text-[#88BF42]">8 months</div>
-                    <div className="text-[10px] md:text-xs text-[#696869]">Timeframe</div>
-                  </div>
-                   {/* Metric 3: Keeping structure, updating content for manufacturing context */}
-                   <div className="text-center sm:text-left col-span-3 sm:col-span-1">
-                     <div className="text-2xl md:text-3xl font-bold text-[#88BF42]">Improved</div> {/* Placeholder value */}
-                     <div className="text-[10px] md:text-xs text-[#696869]">Defect Reduction</div> {/* Placeholder description */}
-                   </div>
-                </div>
+                <div className="flex flex-row flex-wrap justify-center md:justify-start gap-6 mb-6 text-center md:text-left">
+  {/* Metric 1: ROI */}
+  <div>
+    <div className="text-2xl md:text-3xl font-bold text-[#88BF42] mb-1">285%</div>
+    <div className="text-base md:text-lg font-medium text-[#0F0326]">ROI</div>
+  </div>
+
+  {/* Metric 2: Timeframe */}
+  <div>
+    <div className="text-2xl md:text-3xl font-bold text-[#88BF42] mb-1">8 months</div>
+    <div className="text-base md:text-lg font-medium text-[#0F0326]">Timeframe</div>
+  </div>
+
+  {/* Metric 3: Defect Reduction */}
+  <div>
+    <div className="text-2xl md:text-3xl font-bold text-[#88BF42] mb-1">Improved</div>
+    <div className="text-base md:text-lg font-medium text-[#0F0326]">Defect Reduction</div>
+  </div>
+</div>
+
 
                 {/* Updated Button Link */}
-                <Button asChild className="bg-[#0F0326] hover:bg-[#1A0645] text-white text-sm md:text-base px-6 md:px-8 py-3 md:py-4 h-auto rounded-md mx-auto md:mx-0">
+                <Button asChild className="bg-[#0F0326] hover:bg-[#1A0645] text-white text-sm md:text-base px-6 md:px-8 py-3 md:py-4 h-auto w-52 rounded-md mx-auto md:mx-0">
                   {/* Updated RouterLink path */}
                   <RouterLink to="/case-studies/sgf-fab-industries">
-                  View Full Case Study <ArrowRight className="ml-2 h-4 w-4" /> {/* Assuming ArrowRight icon component exists */}
+                  View Full Case Study <ArrowRight className="ml-2 h-3 w-3" /> {/* Assuming ArrowRight icon component exists */}
                   </RouterLink>
                 </Button>
               </div>
@@ -801,22 +781,7 @@ const HomePage = () => {
               </Swiper>
               <div className="swiper-pagination-custom text-center mt-6"></div> {/* Pagination element outside Swiper, but styled by Swiper */}
               <div className="mt-6 md:mt-8 flex flex-col items-center">
-                <div className="flex justify-center gap-3 md:gap-4">
-                  <button
-                    className="testimonial-prev w-9 h-9 md:w-10 md:h-10 rounded-full bg-white shadow-md flex items-center justify-center text-[#88BF42] hover:bg-[#88BF42] hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                    aria-label="Previous testimonial"
-                    onClick={() => swiperRef.current?.slidePrev()}
-                  >
-                    <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
-                  </button>
-                  <button
-                     className="testimonial-next w-9 h-9 md:w-10 md:h-10 rounded-full bg-white shadow-md flex items-center justify-center text-[#88BF42] hover:bg-[#88BF42] hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                     aria-label="Next testimonial"
-                     onClick={() => swiperRef.current?.slideNext()}
-                  >
-                    <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
-                  </button>
-                </div>
+                
               </div>
             </div>
           </div>
@@ -851,12 +816,12 @@ const HomePage = () => {
               Join the AI revolution and stay ahead of the competition with our cutting-edge solutions.
             </motion.p>
             <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-3 md:gap-4">
-              <Button asChild className="bg-[#88bf42] hover:bg-[#7aad3a] text-white text-base md:text-lg px-6 md:px-8 py-3 h-auto rounded-md">
+              <Button asChild className="bg-[#88bf42] hover:bg-[#7aad3a] text-white text-base md:text-lg px-6 md:px-8 py-3 h-auto w-52 rounded-md">
                 <RouterLink to="/contact">Get Started Today</RouterLink>
                 </Button>
-              <Button asChild variant="outline" className="border-[#88bf42] text-[#88bf42] text-base md:text-lg px-6 md:px-8 py-3 h-auto rounded-md hover:bg-[#eaf4d6]">
+              {/* <Button asChild variant="outline" className="border-[#88bf42] text-[#88bf42] text-base md:text-lg px-6 md:px-8 py-3 h-auto w-70 rounded-md hover:bg-[#eaf4d6]">
                 <RouterLink to="/contact#consultation">Schedule a Consultation</RouterLink>
-                </Button>
+                </Button> */}
             </motion.div>
           </div>
         </motion.section>
@@ -874,7 +839,9 @@ const HomePage = () => {
           </motion.div>
         )}
       </AnimatePresence>
+      <ChatbotDemo />
     </div>
+  
   );
 }
 

@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ChatbotDemo from '@/components/ChatbotDemo';
+
 import { Button } from "@/components/ui/button";
 import { 
   BarChart, 
@@ -313,7 +315,7 @@ const CaseStudyDetail = () => {
                     title="Client Testimonial" 
                     accentColor="#10b4b7" 
                   />
-                  <div className="bg-[#f8f9fa] rounded-xl shadow p-8 border border-gray-100 relative">
+                  <div className="bg-[#f8f9fa] rounded-xl shadow-md overflow-hidden p-8 border border-gray-100 relative">
                     <div className="absolute top-0 left-0 right-0 h-2 rounded-t-xl bg-[#88bf42]">
                     </div>
                     <div className="flex items-start">
@@ -548,6 +550,7 @@ const CaseStudyDetail = () => {
       </section>
       
       <Footer />
+      <ChatbotDemo />
     </div>
   );
 };

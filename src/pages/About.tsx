@@ -8,6 +8,7 @@ import CompanyAnthem from '@/components/CompanyAnthem'
 import CoreValues from '@/components/CoreValues'
 import AnimatedHeader from '@/components/AnimatedHeader'
 import WhoWeAre from '@/components/WhoWeAre'
+import ChatbotDemo from '@/components/ChatbotDemo'
 
 
 export default function AboutPage() {
@@ -24,6 +25,7 @@ export default function AboutPage() {
 
       {/* Footer */}
       <Footer />
+      <ChatbotDemo />
     </div>
   )
 }

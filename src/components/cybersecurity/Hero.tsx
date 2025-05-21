@@ -1,9 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
     <div className="relative overflow-hidden bg-gradient-to-r from-[#0B0F19] to-[#171E2E]">
+
       {/* Abstract background pattern */}
       <div className="absolute inset-0 z-0">
         {/* Hexagonal grid pattern */}
@@ -72,13 +74,13 @@ const Hero = () => {
         />
       </div>
 
-      <div className="relative z-10 px-4 md:px-8 py-12 md:py-16 lg:py-20 max-w-7xl mx-auto">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
+      <div className="relative z-10 px-4 md:px-8 py-10 md:py-16 lg:py-20 max-w-7xl mx-auto">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="lg:w-1/2 text-center lg:text-left"
+            className="w-full lg:w-1/2 text-center lg:text-left"
           >
             <div className="inline-block px-4 py-2 mb-6 bg-gradient-to-r from-[#3563E9]/10 to-[#88bf42]/10 rounded-full">
               <span className="text-gradient bg-gradient-to-r from-[#3563E9] to-[#88bf42] font-medium text-sm">Advanced Cybersecurity Solutions</span>
@@ -93,25 +95,29 @@ const Hero = () => {
               advanced encryption, and comprehensive protection for your critical digital assets.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <motion.button 
-                whileHover={{ scale: 1.02, boxShadow: "0 5px 20px rgba(136, 191, 66, 0.3)" }}
-                whileTap={{ scale: 0.98 }}
-                className="bg-gradient-to-r from-[#88bf42] to-[#75a835] text-white px-8 py-4 rounded-xl font-semibold text-base transition-all shadow-lg"
-              >
-                Start Free Assessment
-              </motion.button>
-              
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start w-full">
+              <Link to="/services" className="w-full sm:w-auto">
+  <motion.button 
+    whileHover={{ scale: 1.02, boxShadow: "0 5px 20px rgba(136, 191, 66, 0.3)" }}
+    whileTap={{ scale: 0.98 }}
+    className="bg-gradient-to-r from-[#88bf42] to-[#75a835] text-white px-8 py-4 rounded-xl font-semibold text-base transition-all shadow-lg w-full sm:w-auto"
+  >
+    Start Free Assessment
+  </motion.button>
+</Link>
+
+              {/* 
               <motion.button 
                 whileHover={{ scale: 1.02, backgroundColor: "#ffffff10" }}
                 whileTap={{ scale: 0.98 }}
-                className="border border-white/20 text-white px-8 py-4 rounded-xl font-semibold text-base transition-all backdrop-blur-sm"
+                className="border border-white/20 text-white px-8 py-4 rounded-xl font-semibold text-base transition-all backdrop-blur-sm w-full sm:w-auto"
               >
                 Watch Demo
-              </motion.button>
+              </motion.button> 
+              */}
             </div>
             
-            <div className="mt-12 grid grid-cols-2 gap-6">
+            <div className="mt-8 grid grid-cols-1 xs:grid-cols-2 gap-4 sm:gap-6 w-full">
               <div className="bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="w-10 h-10 rounded-lg bg-[#3563E9]/20 flex items-center justify-center">
@@ -142,7 +148,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:w-1/2 mt-12 lg:mt-0"
+            className="w-full lg:w-1/2 mt-10 lg:mt-0"
           >
             <div className="relative">
               <div className="absolute -inset-1 bg-gradient-to-r from-[#3563E9] to-[#88bf42] opacity-30 blur-lg rounded-2xl"></div>

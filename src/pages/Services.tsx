@@ -43,7 +43,7 @@ import {
   Clock
 } from 'lucide-react';
 import ChatbotDemo from '@/components/ChatbotDemo';
-import VoiceAgentDemo from '@/components/VoiceAgentDemo';
+// import VoiceAgentDemo from '@/components/VoiceAgentDemo';
 import { PinContainer } from '@/components/ui/3d-pin';
 import '../services-animations.css';
 // Services data from ServicesSection.tsx
@@ -1173,26 +1173,26 @@ const ServicesPage = () => {
                   </div>
                 </div>
                 
-                  <div className="flex items-center justify-between bg-gray-50 p-6 rounded-xl border border-gray-100">
-                    <div className="flex items-center">
-                      <Award className="h-8 w-8 text-[#9ac857] mr-4" />
-                      <div>
-                        <h3 className="font-bold text-gray-900">Awards & Recognition</h3>
-                        <p className="text-sm text-gray-600">Excellence in AI Implementation</p>
-                </div>
-              </div>
-                    <Button
-                      variant="ghost"
-                      className="text-[#88bf42] hover:text-[#9ac857] p-0 group"
-                    >
-                      <RouterLink to="/awards" className="flex items-center">
-                        <span className="flex items-center">
-                        View All
-                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                      </span>
-                    </RouterLink>
-                    </Button>
-            </div>
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-50 p-6 rounded-xl border border-gray-100 gap-4 sm:gap-0">
+  <div className="flex items-center">
+    <Award className="h-7 w-7 sm:h-8 sm:w-8 text-[#9ac857] mr-3 sm:mr-4" />
+    <div>
+      <h3 className="font-bold text-gray-900 text-base sm:text-lg">Awards & Recognition</h3>
+      <p className="text-xs sm:text-sm text-gray-600">Excellence in AI Implementation</p>
+    </div>
+  </div>
+  <Button
+    variant="ghost"
+    className="text-[#88bf42] hover:text-[#9ac857] px-2 py-2 sm:p-0 group w-full sm:w-auto text-sm sm:text-base justify-center"
+  >
+    <RouterLink to="/awards" className="flex items-center w-full sm:w-auto justify-center">
+      <span className="flex items-center">
+        View All
+        <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
+      </span>
+    </RouterLink>
+  </Button>
+</div>
           </div>
         </div>
           </div>
@@ -1243,7 +1243,7 @@ const ServicesPage = () => {
       </section>
       
       {/* Floating Quote Button */}
-      <div className="fixed bottom-4 sm:bottom-8 right-4 sm:right-8 z-50">
+      {/* <div className="fixed bottom-4 sm:bottom-8 right-4 sm:right-8 z-50">
         <Button 
           asChild
           className="bg-[#88bf42] text-white rounded-full w-12 h-12 sm:w-16 sm:h-16 shadow-xl flex items-center justify-center group transform hover:scale-110 transition-all duration-300"
@@ -1254,9 +1254,10 @@ const ServicesPage = () => {
             <span className="text-xs mt-0.5 sm:mt-1 font-medium">Quote</span>
           </Link>
         </Button>
-      </div>
+      </div> */}
       
       <Footer />
+      <ChatbotDemo />
     </div>
   );
 };

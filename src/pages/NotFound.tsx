@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ChatbotDemo from '@/components/ChatbotDemo';
 
 const NotFound = () => {
   const location = useLocation();
@@ -26,6 +27,7 @@ const NotFound = () => {
         </div>
       </div>
       <Footer />
+      <ChatbotDemo />
     </div>
   );
 };

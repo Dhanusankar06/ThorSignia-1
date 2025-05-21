@@ -57,25 +57,28 @@ const Footer = () => {
                 </Link>
               </li>
               <li className="transition-transform hover:translate-x-1">
-                <Link to="/about" className="text-gray-300 hover:text-white transition-colors">About Us</Link>
+                <Link to="/about#top" className="text-gray-300 hover:text-white transition-colors">About Us</Link>
               </li>
               <li className="transition-transform hover:translate-x-1">
-                <Link to="/services" className="text-gray-300 hover:text-white transition-colors">Services</Link>
+                <Link to="/services#top" className="text-gray-300 hover:text-white transition-colors">Services</Link>
               </li>
               <li className="transition-transform hover:translate-x-1">
-                <Link to="/case-studies" className="text-gray-300 hover:text-white transition-colors">Case Studies</Link>
+                <Link to="/cyber-security#top" className="text-gray-300 hover:text-white transition-colors">Cyber Security</Link>
               </li>
               <li className="transition-transform hover:translate-x-1">
-                <Link to="/ai-engineers" className="text-gray-300 hover:text-white transition-colors">AI Engineers</Link>
+                <Link to="/case-studies#top" className="text-gray-300 hover:text-white transition-colors">Case Studies</Link>
               </li>
               <li className="transition-transform hover:translate-x-1">
-                <Link to="/awards" className="text-gray-300 hover:text-white transition-colors">Awards</Link>
+                <Link to="/ai-engineers#top" className="text-gray-300 hover:text-white transition-colors">AI Engineers</Link>
               </li>
               <li className="transition-transform hover:translate-x-1">
-                <Link to="/blog" className="text-gray-300 hover:text-white transition-colors">Blog</Link>
+                <Link to="/awards#top" className="text-gray-300 hover:text-white transition-colors">Awards</Link>
               </li>
               <li className="transition-transform hover:translate-x-1">
-                <Link to="/contact" className="text-gray-300 hover:text-white transition-colors">Contact Us</Link>
+                <Link to="/blog#top" className="text-gray-300 hover:text-white transition-colors">Blog</Link>
+              </li>
+              <li className="transition-transform hover:translate-x-1">
+                <Link to="/contact#top" className="text-gray-300 hover:text-white transition-colors">Contact Us</Link>
               </li>
             </ul>
           </div>
@@ -88,18 +91,18 @@ const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-start group">
                 <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center mr-3 text-[#88bf42] group-hover:bg-white/20 transition-colors">
-                  <MapPin className="w-4 h-4" />
+                  <MapPin className="w-4 h-4"/>
                 </div>
-                <span className="text-gray-300">945, 1st Floor, 5th Main Rd, Sector 7, HSR Layout, Bengaluru, Karnataka 560102</span>
+                <span className="text-gray-300">945, 1st Floor,<br/> 5th Main Rd,<br/> Sector 7, HSR Layout,<br/> Bengaluru,<br /> Karnataka 560102</span>
               </li>
               <li className="flex items-start group">
-                <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center mr-3 text-[#009898] group-hover:bg-white/20 transition-colors">
+              <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center mr-3 text-[#88bf42] group-hover:bg-white/20 transition-colors">
                   <Mail className="w-4 h-4" />
                 </div>
                 <span className="text-gray-300">info@thorsignia.in</span>
               </li>
               <li className="flex items-start group">
-                <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center mr-3 text-[#88bf42] group-hover:bg-white/20 transition-colors">
+              <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center mr-3 text-[#88bf42] group-hover:bg-white/20 transition-colors">
                   <Phone className="w-4 h-4" />
                 </div>
                 <span className="text-gray-300">+91 90080 97780</span>
@@ -114,9 +117,9 @@ const Footer = () => {
               © {new Date().getFullYear()} Thor Signia. All rights reserved.
             </p>
             <div className="flex space-x-6">
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors font-medium">Privacy Policy</a>
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors font-medium">Terms of Service</a>
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors font-medium">Cookie Policy</a>
+              <Link to="/PrivacyPolicy#top" className="text-gray-400 hover:text-white text-sm transition-colors font-medium">Privacy Policy</Link>
+              <Link to="/TermsAndConditions#top" className="text-gray-400 hover:text-white text-sm transition-colors font-medium">Terms and Conditions</Link>
+              <Link to="/RefundPolicy#top" className="text-gray-400 hover:text-white text-sm transition-colors font-medium">Refund Policy</Link>
             </div>
           </div>
         </div>

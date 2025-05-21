@@ -179,81 +179,25 @@ export default function AnimatedServiceHeader() {
           />
           
           {/* Intro Text */}
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-sm uppercase tracking-wide text-[#88BF42] font-medium mb-4 relative"
-          >
+          <div className="text-sm uppercase tracking-wide text-[#88BF42] font-medium mb-4 relative">
             Our Enterprise AI Solutions
-          </motion.div>
+          </div>
 
-          {/* Main Heading with letter staggering */}
-          <div className="overflow-hidden">
-            <motion.h1 
-              className="text-4xl md:text-6xl font-extrabold text-white leading-tight"
-              initial={{ y: 100 }}
-              animate={{ y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            >
-              {Array.from("AI Services That Drive").map((letter, index) => (
-                <motion.span
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ 
-                    duration: 0.6, 
-                    delay: 0.05 * index + 0.2,
-                    ease: "easeOut"
-                  }}
-                  className="inline-block"
-                >
-                  {letter === " " ? "\u00A0" : letter}
-                </motion.span>
-              ))}
-            </motion.h1>
-          </div>
-          
-          <div className="overflow-hidden">
-            <motion.h1 
-              className="text-4xl md:text-6xl font-extrabold text-[#88BF42] leading-tight"
-              initial={{ y: 100 }}
-              animate={{ y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-            >
-              {Array.from("Business Results").map((letter, index) => (
-                <motion.span
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ 
-                    duration: 0.6, 
-                    delay: 0.05 * index + 0.8,
-                    ease: "easeOut"
-                  }}
-                  className="inline-block"
-                >
-                  {letter === " " ? "\u00A0" : letter}
-                </motion.span>
-              ))}
-            </motion.h1>
-          </div>
+          {/* Main Heading */}
+          <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
+            AI Services That Drive Business Results
+          </h1>
 
           {/* Subheading */}
-          <motion.p 
-            initial={{ opacity: 0, scaleX: 0.9 }}
-            animate={{ opacity: 1, scaleX: 1 }}
-            transition={{ duration: 0.7, delay: 1.3 }}
-            className="text-gray-300 text-lg max-w-2xl mx-auto mt-6"
-          >
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto mt-6">
             Discover our range of AI-powered solutions designed to solve real business challenges and deliver measurable ROI.
-          </motion.p>
+          </p>
 
           {/* Call-to-Action Buttons */}
           <motion.div 
             className="flex flex-col sm:flex-row gap-4 mt-8 justify-center"
           >
-            <motion.button
+            {/* <motion.button
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 1.5 }}
@@ -267,7 +211,7 @@ export default function AnimatedServiceHeader() {
             >
               Explore Services
             </motion.button>
-            
+             */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -280,7 +224,7 @@ export default function AnimatedServiceHeader() {
             >
               <Link
                 to="/contact"
-                className="border-2 border-[#009898] text-[#009898] px-6 py-3 rounded-md hover:bg-[#009898] hover:text-white transition-colors block"
+                className="border-2 border-[#009898] text-[#009898] px-6 py-3 rounded-md hover:bg-[#88BF42] hover:text-white transition-colors block"
               >
                 Contact Us
               </Link>

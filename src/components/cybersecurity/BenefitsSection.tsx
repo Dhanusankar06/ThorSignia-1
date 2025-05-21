@@ -118,9 +118,9 @@ const BenefitsSection: React.FC = () => {
             <div className="text-[#e0e0e0] text-xs mt-1">Fewer Incidents</div>
           </div>
         </div>
-        {/* Horizontally scrollable benefit cards on mobile */}
-        <div className="overflow-x-auto pb-4">
-          <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 min-w-[600px] md:min-w-0">
+        {/* Benefit cards */}
+        <div className="pb-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {benefits.map((benefit, index) => (
               <BenefitCard
                 key={index}

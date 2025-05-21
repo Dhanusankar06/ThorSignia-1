@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from 'react'; // Added useCallback
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ChatbotDemo from '@/components/ChatbotDemo';
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Award, Trophy, Star, X } from "lucide-react";
@@ -429,125 +431,7 @@ const AwardsPage = () => {
       </section>
 
       <Footer />
-
-      {/* Award Details Modal */}
-      {showAwardModal && selectedAward && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4 backdrop-blur-sm overflow-y-auto">
-          <div className="bg-white rounded-xl max-w-5xl w-full max-h-[90vh] shadow-2xl my-8 flex flex-col">
-            {/* Modal Header */}
-            <div className="relative">
-              {/* Background Image with Overlay */}
-              <div className="h-32 md:h-40 w-full relative">
-                <img 
-                  src={selectedAward.image} 
-                  alt={selectedAward.name}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-[#88bf42]/80 to-[#88bf42]/95"></div>
-              </div>
-              
-              {/* Close Button */}
-              <button 
-                onClick={closeAwardModal}
-                className="absolute top-4 right-4 bg-[#88bf42]/20 hover:bg-[#88bf42]/40 text-white p-2 rounded-full transition-colors z-20"
-              >
-                <X className="h-5 w-5" />
-              </button>
-              
-              {/* Award Title - Positioned over the background image */}
-              <div className="absolute bottom-0 left-0 w-full p-6 text-white">
-                <div className="flex items-center space-x-2 mb-2">
-                  <div className="p-1.5 rounded-md bg-[#88bf42]/20 text-white">
-                    {selectedAward.icon || (selectedAward.featured ? <Trophy className="h-4 w-4" /> : <Award className="h-4 w-4" />)}
-                  </div>
-                  <span className="text-sm font-medium">{selectedAward.organization}</span>
-                  <span className="text-white/70">•</span>
-                  <span className="text-sm">{selectedAward.date || selectedAward.year}</span>
-                </div>
-                <h3 className="text-2xl md:text-3xl font-bold">{selectedAward.name}</h3>
-              </div>
-            </div>
-            
-            {/* Modal Content - Made scrollable */}
-            <div className="flex-1 overflow-y-auto">
-              <div className="flex flex-col md:flex-row">
-                {/* Award Image */}
-                <div className="md:w-1/2 p-6 md:p-8">
-                  <div className="rounded-xl overflow-hidden shadow-lg border border-gray-100">
-                    <img 
-                      src={selectedAward.image} 
-                      alt={selectedAward.name}
-                      className="w-full h-48 sm:h-64 md:h-72 object-cover hover:scale-105 transition-transform duration-700"
-                    />
-                  </div>
-                  
-                  <div className="mt-6 bg-gradient-to-br from-[#88bf42]/5 to-[#2c3037]/5 p-5 rounded-lg">
-                    <h4 className="font-semibold mb-3 text-[#88bf42] flex items-center">
-                      <Star className="h-4 w-4 mr-2 flex-shrink-0" />
-                      <span>Award Highlights</span>
-                    </h4>
-                    <ul className="space-y-3">
-                      <li className="flex items-start">
-                        <div className="mr-2 mt-1 text-[#88bf42] flex-shrink-0">
-                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                          </svg>
-                        </div>
-                        <span className="text-sm sm:text-base">Recognized for innovation in AI technology</span>
-                      </li>
-                      <li className="flex items-start">
-                        <div className="mr-2 mt-1 text-[#88bf42] flex-shrink-0">
-                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                          </svg>
-                        </div>
-                        <span className="text-sm sm:text-base">Selected from hundreds of global nominees</span>
-                      </li>
-                      <li className="flex items-start">
-                        <div className="mr-2 mt-1 text-[#88bf42] flex-shrink-0">
-                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                          </svg>
-                        </div>
-                        <span className="text-sm sm:text-base">Praised for measurable business impact and results</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                
-                {/* Award Details */}
-                <div className="p-6 md:p-8 md:w-1/2">
-                  <div className="mb-6">
-                    <h4 className="text-lg font-semibold mb-3 text-gray-900">About This Award</h4>
-                    <div className="border-l-4 border-[#009898] pl-4 py-1 italic">
-                      <p className="text-gray-700 text-sm sm:text-base">{selectedAward.description}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="mb-6">
-                    <h4 className="text-lg font-semibold mb-3 text-gray-900">Impact & Recognition</h4>
-                    <p className="text-gray-700 mb-4 text-sm sm:text-base">
-                      This award represents a significant milestone in our journey to transform enterprise AI implementation. 
-                      The {selectedAward.organization} recognized our commitment to innovation, ethical AI practices, and 
-                      measurable business outcomes for our clients.
-                    </p>
-                  </div>
-                  
-                  {/* Bottom Actions */}
-                  <div className="flex flex-wrap gap-3 mt-8">
-                    <Button 
-                      className="bg-[#0f0326] hover:bg-[#0f0326]/60 text-white"
-                      onClick={closeAwardModal}
-                    >
-                      Close Details
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <ChatbotDemo />
     </div>
   );
 };

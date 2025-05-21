@@ -3,6 +3,7 @@
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ChatbotDemo from '@/components/ChatbotDemo';
 
 // Import cybersecurity components
 import Hero from '@/components/cybersecurity/Hero';
@@ -27,6 +28,7 @@ export default function CyberSecurity() {
       </div>
       
       <Footer />
+      <ChatbotDemo />
     </div>
   );
 } 

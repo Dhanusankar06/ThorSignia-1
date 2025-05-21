@@ -105,15 +105,15 @@ const navItems: NavItem[] = [
   },
   {
     title: "About",
-    href: "/about",
+    href: "/about#top",
     dropdown: false,
   },
   {
     title: "Services",
-    href: "/services",
+    href: "/services#top",
     dropdown: true,
-    mainIcon: "Settings", // Icon for the main Services box
-    mainDescription: "Explore all our cutting-edge Enterprise AI Solutions.", // Description for the main Services box
+    mainIcon: "Settings", 
+    mainDescription: "Explore all our cutting-edge Enterprise AI Solutions.", 
     items: [
       {
         title: "Intelligent Voice Automation",
@@ -147,17 +147,17 @@ const navItems: NavItem[] = [
        },
     ],
   },
-    { // Moved Cybersecurity up to be next to Services
+    { 
     title: "Cybersecurity",
-    href: "/cyber-security",
+    href: "/cyber-security#top",
     dropdown: false,
   },
   {
     title: "Case Studies",
-    href: "/case-studies",
+    href: "/case-studies#top",
     dropdown: true,
-    mainIcon: "Database", // Icon for the main Case Studies box
-    mainDescription: "Discover how our AI solutions deliver measurable results for clients.", // Description for the main Case Studies box
+    mainIcon: "Database", 
+    mainDescription: "Discover how our AI solutions deliver measurable results for clients.",
     items: [
       {
         title: "AI-Powered Quality Control System",
@@ -198,23 +198,23 @@ const navItems: NavItem[] = [
   },
   {
     title: "Blog",
-    href: "/blog",
+    href: "/blog#top",
     dropdown: false,
 
   },
   {
     title: "AI Engineers",
-    href: "/ai-engineers",
+    href: "/ai-engineers#top",
     dropdown: false,
   },
   {
     title: "Awards",
-    href: "/awards",
+    href: "/awards#top",
     dropdown: false,
   },
   {
     title: "Careers",
-    href: "/careers",
+    href: "/careers#top",
     dropdown: false,
   },
 ];
@@ -311,7 +311,7 @@ export default function Navbar() {
 
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-background backdrop-blur">
       <div className="container flex h-16 items-center justify-between">
         {/* Logo Link */}
         <Link to="/" className="flex items-center space-x-2" onClick={handleNavLinkClick}>
@@ -320,7 +320,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-4" ref={desktopNavRef}>
+        <div className="hidden md:flex items-center gap-2" ref={desktopNavRef}>
           {navItems.map((item) => (
             <div key={item.title} className="relative group h-full flex items-center">
               {item.dropdown ? (
@@ -328,7 +328,7 @@ export default function Navbar() {
                 <button
                   onClick={() => toggleDropdown(item.title)}
                   className={cn(
-                    "text-sm font-medium transition-colors h-full flex items-center px-2",
+                    "text-sm font-medium transition-colors h-full flex items-center px-2 whitespace-nowrap", // Added whitespace-nowrap to prevent wrapping
                     "hover:text-[#88bf42]",
                     // Active state based on URL match
                     isDropdownTriggerActiveByUrl(item) ? "text-[#88bf42] border-b-2 border-[#88bf42]" : "text-foreground border-b-2 border-transparent",
@@ -353,7 +353,7 @@ export default function Navbar() {
                 <Link
                   to={item.href}
                   className={cn(
-                    "text-sm font-medium transition-colors hover:text-[#88bf42] h-full flex items-center px-2",
+                    "text-sm font-medium transition-colors hover:text-[#88bf42] h-full flex items-center px-2 whitespace-nowrap", // Added whitespace-nowrap to prevent wrapping
                     pathname === item.href ? "text-[#88bf42] border-b-2 border-[#88bf42]" : "text-foreground border-b-2 border-transparent",
                      "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   )}

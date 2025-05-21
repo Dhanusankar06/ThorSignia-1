@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import Index from "./pages/Index";
 import ContactPage from "./pages/Contact";
@@ -17,8 +17,11 @@ import CaseStudyDetail from "./pages/CaseStudyDetail";
 import Careers from "./pages/Careers";
 import NotFound from "./pages/NotFound";
 import CyberSecurity from "@/pages/CyberSecurity";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsAndConditions from "./pages/TermsAndConditions";
+import RefundPolicy from "./pages/RefundPolicy";
 
-// Import cybersecurity service pages
+
 import PenetrationTestPage from "@/pages/cybersecurity/PenetrationTestPage";
 import CloudSecurityPage from "@/pages/cybersecurity/CloudSecurityPage";
 import OffensiveSecurityPage from "@/pages/cybersecurity/OffensiveSecurityPage";
@@ -27,7 +30,6 @@ import IOTSecurityPage from "@/pages/cybersecurity/IOTSecurityPage";
 import VCISOPage from "@/pages/cybersecurity/VCISOPage";
 import SecurityTrainingPage from "@/pages/cybersecurity/SecurityTrainingPage";
 
-import { useEffect } from 'react';
 
 const queryClient = new QueryClient();
 
@@ -52,16 +54,17 @@ const App = () => (
           <Route path="/careers" element={<Careers />} />
           <Route path="/cyber-security" element={<CyberSecurity />} />
           
-          {/* Cybersecurity service pages */}
           <Route path="/penetration-testing" element={<PenetrationTestPage />} />
           <Route path="/cloud-security" element={<CloudSecurityPage />} />
           <Route path="/offensive-security" element={<OffensiveSecurityPage />} />
           <Route path="/red-teaming" element={<RedTeamingPage />} />
           <Route path="/iot-security" element={<IOTSecurityPage />} />
           <Route path="/vciso-services" element={<VCISOPage />} />
-          <Route path="/security-training" element={<SecurityTrainingPage />} />
+
+          <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
+          <Route path="/TermsAndConditions" element={<TermsAndConditions />} />
+          <Route path="/RefundPolicy" element={<RefundPolicy />} />
           
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

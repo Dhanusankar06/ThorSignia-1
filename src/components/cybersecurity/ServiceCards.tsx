@@ -65,15 +65,15 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, icon, del
         transition={{ duration: 0.5, delay: delay * 0.1 }}
         className="bg-white rounded-xl overflow-hidden group cursor-pointer h-full flex flex-col border border-gray-200 hover:border-[#88bf42]/50 hover:shadow-xl transition-all duration-300"
       >
-        <div className="p-6 lg:p-8 flex flex-col h-full">
-          <div className="mb-6">
-            <div className="w-14 h-14 bg-[#88bf42]/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#88bf42]/20 transition-all">
-              <img src={icon} alt={title} className="w-7 h-7" />
+        <div className="p-5 sm:p-6 lg:p-8 flex flex-col h-full">
+          <div className="mb-5 sm:mb-6">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#88bf42]/10 rounded-xl flex items-center justify-center mb-3 sm:mb-4 group-hover:bg-[#88bf42]/20 transition-all">
+              <img src={icon} alt={title} className="w-6 h-6 sm:w-7 sm:h-7" />
             </div>
-            <h3 className="text-xl font-bold text-[#0f0326] mb-3 group-hover:text-[#88bf42] transition-colors duration-300">{title}</h3>
-            <p className="text-[#696869] leading-relaxed">{description}</p>
+            <h3 className="text-lg sm:text-xl font-bold text-[#0f0326] mb-2 sm:mb-3 group-hover:text-[#88bf42] transition-colors duration-300">{title}</h3>
+            <p className="text-[#696869] text-sm sm:text-base leading-relaxed">{description}</p>
           </div>
-          <div className="mt-auto pt-4 flex items-center text-[#88bf42] font-medium">
+          <div className="mt-auto pt-3 sm:pt-4 flex items-center text-[#88bf42] font-medium">
             <span className="mr-2">Learn more</span>
             <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
