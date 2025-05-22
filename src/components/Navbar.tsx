@@ -219,7 +219,7 @@ const navItems: NavItem[] = [
   },
   {
     title: "Contact",
-    href: "/careers#top",
+    href: "/contact#top",
     dropdown: false,
   },
 
