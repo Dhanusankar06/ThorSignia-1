@@ -46,7 +46,7 @@ export default function OurJourney() {
         <h2 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#0F0326] to-[#88BF42] inline-block text-center mb-4">
           Our Journey
         </h2>
-        <p className="text-lg text-[#0F0326] text-center mt-2">
+        <p className="text-[18px] text-[#0F0326] text-center mt-2">
           A story of growth, innovation, and impact
         </p>
       </div>
@@ -95,7 +95,7 @@ export default function OurJourney() {
               <h3 className="text-2xl font-bold text-black">
                 {milestone.metric}
               </h3>
-              <p className="text-base text-black">{milestone.description}</p>
+              <p className="text-[18px] text-black text-center md:text-left">{milestone.description}</p>
             </div>
           </motion.div>
         ))}

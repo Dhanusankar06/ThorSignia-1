@@ -316,7 +316,7 @@ const ServicesPage = () => {
       return (
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden h-full">
           {/* Demo header */}
-          <div className="bg-gradient-to-r from-[#10b4b7] to-[#1c9f1e] text-white p-4 rounded-t-xl">
+          <div className="bg-gradient-to-r from-[#88BF42] to-[#1c9f1e] text-white p-4 rounded-t-xl">
             <div className="flex items-center">
               <div className="mr-3">
                 <div className="relative">
@@ -333,9 +333,9 @@ const ServicesPage = () => {
             <div className="flex flex-col h-full">
               {/* Agent avatar */}
               <div className="mb-4 flex justify-center">
-                <div className="w-20 h-20 bg-gradient-to-r from-[#10b4b7]/20 to-[#9ac857]/20 rounded-full flex items-center justify-center">
+                <div className="w-20 h-20 bg-gradient-to-r from-[#88BF42]/20 to-[#9ac857]/20 rounded-full flex items-center justify-center">
                   <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                    {cloneElement(activeService.icon, { className: 'h-8 w-8 text-[#10b4b7]' })}
+                    {cloneElement(activeService.icon, { className: 'h-8 w-8 text-[#88BF42]' })}
                   </div>
                 </div>
               </div>
@@ -348,7 +348,7 @@ const ServicesPage = () => {
               
               {/* Waveform */}
               <div className="bg-gray-50 rounded-lg p-4 mb-4 flex items-center justify-center h-24">
-                <Waves className="w-full h-12 text-[#10b4b7]" />
+                <Waves className="w-full h-12 text-[#88BF42]" />
               </div>
               
               {/* Chat exchange */}
@@ -380,7 +380,7 @@ const ServicesPage = () => {
       return (
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden h-full">
           {/* Demo header */}
-          <div className="bg-gradient-to-r from-[#10b4b7] to-[#1c9f1e] text-white p-4 rounded-t-xl">
+          <div className="bg-gradient-to-r from-[#88BF42] to-[#1c9f1e] text-white p-4 rounded-t-xl">
             <div className="flex items-center">
               <div className="mr-3">
                 <div className="relative">
@@ -397,9 +397,9 @@ const ServicesPage = () => {
             <div className="flex flex-col h-full">
               {/* Agent avatar */}
               <div className="mb-4 flex justify-center">
-                <div className="w-20 h-20 bg-gradient-to-r from-[#10b4b7]/20 to-[#9ac857]/20 rounded-full flex items-center justify-center">
+                <div className="w-20 h-20 bg-gradient-to-r from-[#88BF42]/20 to-[#9ac857]/20 rounded-full flex items-center justify-center">
                   <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                    {cloneElement(activeService.icon, { className: 'h-8 w-8 text-[#10b4b7]' })}
+                    {cloneElement(activeService.icon, { className: 'h-8 w-8 text-[#88BF42]' })}
                   </div>
                 </div>
               </div>
@@ -444,7 +444,7 @@ const ServicesPage = () => {
       return (
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden h-full">
           {/* Demo header */}
-          <div className="bg-gradient-to-r from-[#10b4b7] to-[#1c9f1e] text-white p-4 rounded-t-xl">
+          <div className="bg-gradient-to-r from-[#88BF42] to-[#1c9f1e] text-white p-4 rounded-t-xl">
             <div className="flex items-center">
               <div className="mr-3">
                 <div className="relative">
@@ -461,9 +461,9 @@ const ServicesPage = () => {
             <div className="flex flex-col h-full">
               {/* Agent avatar */}
               <div className="mb-4 flex justify-center">
-                <div className="w-20 h-20 bg-gradient-to-r from-[#10b4b7]/20 to-[#9ac857]/20 rounded-full flex items-center justify-center">
+                <div className="w-20 h-20 bg-gradient-to-r from-[#88BF42]/20 to-[#9ac857]/20 rounded-full flex items-center justify-center">
                   <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                    {cloneElement(activeService.icon, { className: 'h-8 w-8 text-[#10b4b7]' })}
+                    {cloneElement(activeService.icon, { className: 'h-8 w-8 text-[#88BF42]' })}
                   </div>
                 </div>
               </div>
@@ -508,7 +508,7 @@ const ServicesPage = () => {
       return (
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden h-full">
           {/* Demo header */}
-          <div className="bg-gradient-to-r from-[#10b4b7] to-[#1c9f1e] text-white p-4 rounded-t-xl">
+          <div className="bg-gradient-to-r from-[#88BF42] to-[#1c9f1e] text-white p-4 rounded-t-xl">
             <div className="flex items-center">
               <div className="mr-3">
                 <div className="relative">
@@ -525,9 +525,9 @@ const ServicesPage = () => {
             <div className="flex flex-col h-full">
               {/* Agent avatar */}
               <div className="mb-4 flex justify-center">
-                <div className="w-20 h-20 bg-gradient-to-r from-[#10b4b7]/20 to-[#9ac857]/20 rounded-full flex items-center justify-center">
+                <div className="w-20 h-20 bg-gradient-to-r from-[#88BF42]/20 to-[#9ac857]/20 rounded-full flex items-center justify-center">
                   <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                    {cloneElement(activeService.icon, { className: 'h-8 w-8 text-[#10b4b7]' })}
+                    {cloneElement(activeService.icon, { className: 'h-8 w-8 text-[#88BF42]' })}
                   </div>
                 </div>
               </div>
@@ -540,7 +540,7 @@ const ServicesPage = () => {
               
               {/* Waveform */}
               <div className="bg-gray-50 rounded-lg p-4 mb-4 flex items-center justify-center h-24">
-                <Waves className="w-full h-12 text-[#10b4b7]" />
+                <Waves className="w-full h-12 text-[#88BF42]" />
               </div>
               
               {/* Chat exchange */}
@@ -572,7 +572,7 @@ const ServicesPage = () => {
       return (
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden h-full">
           {/* Demo header */}
-          <div className="bg-gradient-to-r from-[#10b4b7] to-[#1c9f1e] text-white p-4 rounded-t-xl">
+          <div className="bg-gradient-to-r from-[#88BF42] to-[#1c9f1e] text-white p-4 rounded-t-xl">
             <div className="flex items-center">
               <div className="mr-3">
                 <div className="relative">
@@ -589,9 +589,9 @@ const ServicesPage = () => {
             <div className="flex flex-col h-full">
               {/* Agent avatar */}
               <div className="mb-4 flex justify-center">
-                <div className="w-20 h-20 bg-gradient-to-r from-[#10b4b7]/20 to-[#9ac857]/20 rounded-full flex items-center justify-center">
+                <div className="w-20 h-20 bg-gradient-to-r from-[#88BF42]/20 to-[#9ac857]/20 rounded-full flex items-center justify-center">
                   <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                    {cloneElement(activeService.icon, { className: 'h-8 w-8 text-[#10b4b7]' })}
+                    {cloneElement(activeService.icon, { className: 'h-8 w-8 text-[#88BF42]' })}
                   </div>
                 </div>
               </div>
@@ -637,7 +637,7 @@ const ServicesPage = () => {
       return (
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden h-full">
           {/* Demo header */}
-          <div className="bg-gradient-to-r from-[#10b4b7] to-[#1c9f1e] text-white p-4 rounded-t-xl">
+          <div className="bg-gradient-to-r from-[#88BF42] to-[#1c9f1e] text-white p-4 rounded-t-xl">
             <div className="flex items-center">
               <div className="mr-3">
                 <div className="relative">
@@ -654,9 +654,9 @@ const ServicesPage = () => {
             <div className="flex flex-col h-full">
               {/* Agent avatar */}
               <div className="mb-4 flex justify-center">
-                <div className="w-20 h-20 bg-gradient-to-r from-[#10b4b7]/20 to-[#9ac857]/20 rounded-full flex items-center justify-center">
+                <div className="w-20 h-20 bg-gradient-to-r from-[#88BF42]/20 to-[#9ac857]/20 rounded-full flex items-center justify-center">
                   <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                    {cloneElement(activeService.icon, { className: 'h-8 w-8 text-[#10b4b7]' })}
+                    {cloneElement(activeService.icon, { className: 'h-8 w-8 text-[#88BF42]' })}
                   </div>
                 </div>
               </div>
@@ -669,7 +669,7 @@ const ServicesPage = () => {
               
               {/* Waveform */}
               <div className="bg-gray-50 rounded-lg p-4 mb-4 flex items-center justify-center h-24">
-                <Waves className="w-full h-12 text-[#10b4b7]" />
+                <Waves className="w-full h-12 text-[#88BF42]" />
               </div>
               
               {/* Chat exchange */}
@@ -762,7 +762,7 @@ const ServicesPage = () => {
               <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-6 relative backdrop-blur-sm mx-auto text-center md:text-left">
   Transforming Business Operations <br className="hidden md:block" />
   Through Advanced AI
-  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 w-12 h-1 bg-gradient-to-r from-[#10b4b7] to-[#9ac857] rounded-full animate-[fadeIn_2s_ease-in-out_1s]"></div>
+  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 w-12 h-1 bg-gradient-to-r from-[#88BF42] to-[#9ac857] rounded-full animate-[fadeIn_2s_ease-in-out_1s]"></div>
 </h2>
 
 
@@ -821,7 +821,7 @@ const ServicesPage = () => {
                 {/* Stats grid */}
                 <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-100 p-8 relative z-10">
                   <div className="grid grid-cols-2 gap-8">
-                    <div className="text-center p-4 bg-gradient-to-br from-[#10b4b7]/5 to-[#10b4b7]/10 rounded-xl backdrop-blur-sm">
+                    <div className="text-center p-4 bg-gradient-to-br from-[#88BF42]/5 to-[#10b4b7]/10 rounded-xl backdrop-blur-sm">
                       <h3 className="text-4xl font-bold mb-2">98%</h3>
                       <p className="text-gray-700 text-sm">Customer Satisfaction</p>
             </div>
@@ -836,7 +836,7 @@ const ServicesPage = () => {
                       <p className="text-gray-700 text-sm">Automated Support</p>
                       </div>
                       
-                    <div className="text-center p-4 bg-gradient-to-br from-[#10b4b7]/5 to-[#10b4b7]/10 rounded-xl backdrop-blur-sm">
+                    <div className="text-center p-4 bg-gradient-to-br from-[#88BF42]/5 to-[#10b4b7]/10 rounded-xl backdrop-blur-sm">
                       <h3 className="text-4xl font-bold mb-2">3.2x</h3>
                       <p className="text-gray-700 text-sm">ROI Increase</p>
                                     </div>
@@ -844,7 +844,7 @@ const ServicesPage = () => {
                   
                   <div className="mt-8 bg-gray-50/80 backdrop-blur-sm p-4 rounded-xl border border-gray-100">
                     <div className="flex items-start">
-                      <div className="mr-4 p-2 rounded-full bg-[#10b4b7]/10 text-[#10b4b7]">
+                      <div className="mr-4 p-2 rounded-full bg-[#10b4b7]/10 text-[#88BF42]">
                         <Award className="h-6 w-6" />
                                       </div>
                       <div>
@@ -873,7 +873,7 @@ const ServicesPage = () => {
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 relative">
               Our Enterprise AI Services
-              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-gradient-to-r from-[#10b4b7] to-[#9ac857] rounded-full animate-[fadeIn_2s_ease-in-out]"></div>
+              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-gradient-to-r from-[#88BF42] to-[#9ac857] rounded-full animate-[fadeIn_2s_ease-in-out]"></div>
             </h2>
             <p className="text-lg text-gray-700">
               Comprehensive range of AI solutions tailored for enterprise needs and business growth
@@ -926,7 +926,7 @@ const ServicesPage = () => {
                           {cloneElement(service.icon, { className: "h-6 w-6 text-white" })}
                 </div>
                         <div>
-                          <h3 className="text-xl font-bold text-gray-900 group-hover:text-[#10b4b7] transition-colors">{service.title}</h3>
+                          <h3 className="text-xl font-bold text-gray-900 group-hover:text-[#88BF42] transition-colors">{service.title}</h3>
                           
               </div>
             </div>
@@ -990,7 +990,7 @@ const ServicesPage = () => {
                 </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 relative">
               Industries We Serve
-              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-gradient-to-r from-[#10b4b7] to-[#9ac857] rounded-full animate-[fadeIn_2s_ease-in-out_1s]"></div>
+              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-gradient-to-r from-[#88BF42] to-[#9ac857] rounded-full animate-[fadeIn_2s_ease-in-out_1s]"></div>
             </h2>
             <p className="text-lg text-gray-700">
               Tailored AI solutions designed for the unique challenges of your industry
@@ -1002,7 +1002,7 @@ const ServicesPage = () => {
               <div key={index} className="rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 reveal-on-scroll opacity-0 overflow-hidden p-0 border border-gray-200 bg-white">
                 <div className="relative z-10 rounded-xl p-4 sm:p-6">
                   <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                    {cloneElement(activeService.icon, { className: 'h-8 w-8 text-[#10b4b7]' })}
+                    {cloneElement(activeService.icon, { className: 'h-8 w-8 text-[#88BF42]' })}
                   </div>
                   <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3">{industry.name}</h3>
                   <p className="text-gray-700 text-sm sm:text-base mb-0">
@@ -1031,11 +1031,11 @@ const ServicesPage = () => {
               <div className="mb-4 rounded-lg overflow-hidden">
                 <img src="/assets/ai-visual-inspection.jpg" alt="AI-Powered Quality Control System" className="w-full h-48 object-cover" />
               </div>
-              <h3 className="text-lg font-bold text-[#10b4b7] mt-4 mb-1">SGF FAB INDUSTRIES</h3>
+              <h3 className="text-lg font-bold text-[#88BF42] mt-4 mb-1">SGF FAB INDUSTRIES</h3>
               <p className="text-xs text-gray-500 mb-4">THE PEOPLE OF QUALITY AND SAFETY</p>
               <div className="flex items-center mb-4">
                 <div className="w-8 h-8 rounded-full bg-[#10b4b7]/10 flex items-center justify-center mr-3">
-                  <Building className="h-5 w-5 text-[#10b4b7]" />
+                  <Building className="h-5 w-5 text-[#88BF42]" />
                 </div>
                 <div>
                   <div className="text-sm font-semibold text-gray-900">Manufacturing Industry</div>
@@ -1067,11 +1067,11 @@ const ServicesPage = () => {
               <div className="mb-4 rounded-lg overflow-hidden bg-white border border-gray-200 flex items-center justify-center">
                 <img src="/assets/Doctor-dreams.jpg" alt="Doctor Dreams" className="w-full h-48 object-cover" />
               </div>
-              <h3 className="text-lg font-bold text-[#10b4b7] mt-4 mb-1">Doctor Dreams</h3>
+              <h3 className="text-lg font-bold text-[#88BF42] mt-4 mb-1">Doctor Dreams</h3>
               <p className="text-xs text-gray-500 mb-4">Medical Education Consultancy</p>
               <div className="flex items-center mb-4">
                 <div className="w-8 h-8 rounded-full bg-[#10b4b7]/10 flex items-center justify-center mr-3">
-                  <Landmark className="h-5 w-5 text-[#10b4b7]" />
+                  <Landmark className="h-5 w-5 text-[#88BF42]" />
                 </div>
                 <div>
                   <div className="text-sm font-semibold text-gray-900">Education Sector</div>
@@ -1103,11 +1103,11 @@ const ServicesPage = () => {
               <div className="mb-4 rounded-lg overflow-hidden bg-white border border-gray-200 flex items-center justify-center">
                 <img src="/assets/Anthill.jpg" alt="Anthill IQ" className="w-full h-48 object-cover" />
               </div>
-              <h3 className="text-lg font-bold text-[#10b4b7] mt-4 mb-1">Anthill IQ</h3>
+              <h3 className="text-lg font-bold text-[#88BF42] mt-4 mb-1">Anthill IQ</h3>
               <p className="text-xs text-gray-500 mb-4">Collaborative Workspace Solutions</p>
               <div className="flex items-center mb-4">
                 <div className="w-8 h-8 rounded-full bg-[#10b4b7]/10 flex items-center justify-center mr-3">
-                  <Users className="h-5 w-5 text-[#10b4b7]" />
+                  <Users className="h-5 w-5 text-[#88BF42]" />
                 </div>
                 <div>
                   <div className="text-sm font-semibold text-gray-900">Premium Workspace Provider</div>
@@ -1151,10 +1151,10 @@ const ServicesPage = () => {
                 <div className="absolute -bottom-6 -right-6 w-40 h-40 bg-[#10b4b7]/10 rounded-full blur-md"></div>
                 
                 <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 relative z-10">
-                  <div className="p-6 mb-8 bg-gradient-to-br from-[#10b4b7]/5 to-[#9ac857]/5 rounded-xl border border-[#10b4b7]/10">
+                  <div className="p-6 mb-8 bg-gradient-to-br from-[#88BF42]/5 to-[#9ac857]/5 rounded-xl border border-[#10b4b7]/10">
                     <div className="flex mb-4">
                       <div className="p-2 rounded-full bg-[#10b4b7]/10 mr-4">
-                        <Sparkles className="h-6 w-6 text-[#10b4b7]" />
+                        <Sparkles className="h-6 w-6 text-[#88BF42]" />
                     </div>
                       <div>
                         <h3 className="text-xl font-bold text-gray-900">Innovation Partner</h3>
@@ -1204,7 +1204,7 @@ const ServicesPage = () => {
                 Our Difference
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 relative text-center">
-  Why <span className="text-[#9ac857]">Thor</span> <span className="text-[#10b4b7]">Signia</span>?
+  Why <span className="text-[#9ac857]">Thor</span> <span className="text-[#88BF42]">Signia</span>?
   <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-28 h-1 bg-[#9ac857] rounded-full"></div>
 </h2>
 
@@ -1218,8 +1218,8 @@ const ServicesPage = () => {
                   key={index}
                     className="bg-white p-4 sm:p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 transform hover:-translate-y-1"
                 >
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#10b4b7]/10 to-[#9ac857]/10 flex items-center justify-center mb-4">
-                      {cloneElement(advantage.icon, { className: "h-6 w-6 text-[#10b4b7]" })}
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#88BF42]/10 to-[#9ac857]/10 flex items-center justify-center mb-4">
+                      {cloneElement(advantage.icon, { className: "h-6 w-6 text-[#88BF42]" })}
                     </div>
                     <h3 className="text-lg font-bold text-gray-900 mb-2">{advantage.title}</h3>
                     <p className="text-gray-700 text-sm">

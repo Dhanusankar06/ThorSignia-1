@@ -332,12 +332,12 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background backdrop-blur">
       {/* Adjusted header height: md:h-16 for desktop, h-20 for mobile */}
-      <div className="container flex h-20 md:h-16 items-center justify-between">
+      <div className="container flex h-28 md:h-24 items-center justify-between">
         {/* Logo Link */}
         <Link to="/" className="flex items-center space-x-2" onClick={handleNavLinkClick}>
-          {/* Use your actual logo source and alt text */}
+          {/* Use the specified logo source */}
           {/* Adjusted logo size for better fit */}
-          <img src="/ThorSignia Logo .png" alt="Thor Signia Logo" width={220} height={220} />
+          <img src="/ThorSignia Logo .png" alt="Thor Signia Logo" className="z-10 relative" width={220} height={220} />
         </Link>
 
         {/* Desktop Navigation */}
@@ -349,7 +349,7 @@ export default function Navbar() {
                 <button
                   onClick={() => toggleDropdown(item.title)}
                   className={cn(
-                    "text-sm font-medium transition-colors h-full flex items-center px-2 whitespace-nowrap", // Added whitespace-nowrap to prevent wrapping
+                    "text-lg md:text-xl font-medium transition-colors h-full flex items-center px-3 whitespace-nowrap", // Further increased text sizeowrap to prevent wrapping
                     "hover:text-[#88bf42]",
                     // Active state based on URL match
                     isDropdownTriggerActiveByUrl(item) ? "text-[#88bf42] border-b-2 border-[#88bf42]" : "text-foreground border-b-2 border-transparent",
@@ -374,7 +374,7 @@ export default function Navbar() {
                 <Link
                   to={item.href}
                   className={cn(
-                    "text-sm font-medium transition-colors hover:text-[#88bf42] h-full flex items-center px-2 whitespace-nowrap", // Added whitespace-nowrap to prevent wrapping
+                    "text-lg md:text-xl font-medium transition-colors hover:text-[#88bf42] h-full flex items-center px-3 whitespace-nowrap", // Further increased text sizeowrap to prevent wrapping
                     pathname === item.href && currentHash === '' ? "text-[#88bf42] border-b-2 border-[#88bf42]" : "text-foreground border-b-2 border-transparent",
                      "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   )}

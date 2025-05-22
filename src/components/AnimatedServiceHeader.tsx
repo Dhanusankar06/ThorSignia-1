@@ -18,7 +18,7 @@ export default function AnimatedServiceHeader() {
           x: Math.random() * 100,
           y: Math.random() * 100,
           size: Math.random() * 8 + 2,
-          color: i % 3 === 0 ? '#88BF42' : (i % 3 === 1 ? '#009898' : '#0F0326'),
+          color: i % 3 === 0 ? '#88BF42' : (i % 3 === 1 ? '#88BF42' : '#0F0326'),
           duration: Math.random() * 20 + 10,
           delay: Math.random() * 5
         })
@@ -54,10 +54,10 @@ export default function AnimatedServiceHeader() {
         
         {/* Glowing circle background */}
         <motion.div
-          className="absolute rounded-full h-[300px] w-[300px] md:h-[500px] md:w-[500px] bg-gradient-to-r from-[#88BF42]/20 via-[#009898]/20 to-[#88BF42]/10 blur-3xl"
+          className="absolute rounded-full h-[300px] w-[300px] md:h-[500px] md:w-[500px] bg-gradient-to-r from-[#88BF42]/20 via-[#88BF42]/20 to-[#88BF42]/10 blur-3xl"
           style={{ 
             filter: 'blur(60px)',
-            background: 'radial-gradient(circle, rgba(136,191,66,0.2) 0%, rgba(0,152,152,0.1) 50%, rgba(0,0,0,0) 70%)'
+            background: 'radial-gradient(circle, rgba(136,191,66,0.2) 0%, rgba(136,191,66,0.1) 50%, rgba(0,0,0,0) 70%)'
           }}
           animate={{ 
             scale: [1, 1.1, 1],
@@ -105,7 +105,7 @@ export default function AnimatedServiceHeader() {
               ease: "easeInOut",
               delay: 0.5
             }}
-            fill="rgba(0, 152, 152, 0.05)"
+            fill="rgba(136, 191, 66, 0.05)"
           />
         </svg>
         
@@ -166,7 +166,7 @@ export default function AnimatedServiceHeader() {
         <div className="max-w-4xl text-center z-20">
           {/* Circular background for title */}
           <motion.div 
-            className="absolute w-[300px] h-[300px] md:w-[600px] md:h-[600px] rounded-full bg-gradient-to-r from-[#88BF42]/5 to-[#009898]/5 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0"
+            className="absolute w-[300px] h-[300px] md:w-[600px] md:h-[600px] rounded-full bg-gradient-to-r from-[#88BF42]/5 to-[#88BF42]/5 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0"
             animate={{
               scale: [1, 1.05, 1],
               rotate: [0, 5, 0]
@@ -185,7 +185,7 @@ export default function AnimatedServiceHeader() {
 
           {/* Main Heading */}
           <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
-            AI Services That Drive Business Results
+            AI Services That Drive <span className="text-[#88BF42]">Business Results</span>
           </h1>
 
           {/* Subheading */}
@@ -194,68 +194,20 @@ export default function AnimatedServiceHeader() {
           </p>
 
           {/* Call-to-Action Buttons */}
-          <motion.div 
-            className="flex flex-col sm:flex-row gap-4 mt-8 justify-center"
-          >
-            {/* <motion.button
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 1.5 }}
-              onClick={scrollToNextSection}
-              className="bg-[#88BF42] text-black px-6 py-3 rounded-md shadow-lg hover:shadow-xl hover:bg-[#88BF42]/90 transition-all"
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: "0 0 20px rgba(136, 191, 66, 0.5)"
-              }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Explore Services
-            </motion.button>
-             */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 1.6 }}
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: "0 0 20px rgba(0, 152, 152, 0.3)"
-              }}
-              whileTap={{ scale: 0.98 }}
-            >
+          <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center">
             <Link
-  to="/contact"
-  className="border-2 border-[#009898] text-[#009898]
-             px-4 py-2 text-sm w-40
-             sm:w-auto sm:px-6 sm:py-3 sm:text-base
-             rounded-md hover:bg-[#88BF42] hover:text-white
-             transition-colors block mx-auto"
->
-  Contact Us
-</Link>
-
-
-            </motion.div>
-          </motion.div>
-
-          {/* Scroll Down Indicator */}
-          <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.8 }}
-            className="mt-12 flex justify-center"
-          >
-            <motion.div
-              animate={{ 
-                y: [0, 10, 0],
-                boxShadow: ["0 0 0px rgba(136, 191, 66, 0)", "0 0 10px rgba(136, 191, 66, 0.5)", "0 0 0px rgba(136, 191, 66, 0)"]
-              }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              to="/contact"
+              className="border-2 border-[#88BF42] text-[#88BF42]
+                       px-4 py-2 text-sm w-40
+                       sm:w-auto sm:px-6 sm:py-3 sm:text-base
+                       rounded-md hover:bg-[#88BF42] hover:text-white
+                       transition-colors block mx-auto"
             >
-              <ChevronDown className="text-[#88BF42] w-10 h-10" />
-            </motion.div>
-          </motion.div>
+              Contact Us
+            </Link>
+          </div>
         </div>
       </div>
     </div>
   )
-} 
+}

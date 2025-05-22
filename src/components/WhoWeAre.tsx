@@ -31,17 +31,19 @@ const Card = ({ icon, title, content }: CardProps) => {
               : ""
           }`}
         >
-          <div
-            className={`mb-6 p-3 w-14 h-14 rounded-xl bg-gradient-to-br from-[#88bf42]/10 via-[#88bf42]/5 to-[#0F0326]/10 flex items-center justify-center transition-all duration-700 shadow-lg shadow-[#88bf42]/5 ${
-              isMobileHover ? "scale-110 rotate-3" : ""
-            }`}
-          >
-            {icon}
+          <div className="flex items-center mb-6">
+            <div
+              className={`p-3 w-14 h-14 rounded-xl bg-gradient-to-br from-[#88bf42]/10 via-[#88bf42]/5 to-[#0F0326]/10 flex items-center justify-center transition-all duration-700 shadow-lg shadow-[#88bf42]/5 ${
+                isMobileHover ? "scale-110 rotate-3" : ""
+              }`}
+            >
+              {icon}
+            </div>
+            <h3 className="text-xl md:text-2xl font-bold text-black ml-4">
+              {title}
+            </h3>
           </div>
-          <h3 className="text-xl md:text-2xl font-bold text-black mb-4">
-            {title}
-          </h3>
-          <p className="text-base md:text-lg leading-relaxed text-black font-light">
+          <p className="text-base md:text-lg leading-relaxed text-black font-light text-center">
             {content}
           </p>
         </div>
@@ -65,10 +67,10 @@ export default function WhoWeAre() {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto px-4 ">
           <Card
             icon={<RocketIcon className="w-8 h-8 text-[#88bf42]" />}
-            title="Innovation & Expertise"
+            title="Innovation Expertise"
             content="Thorsignia is a leading IT and Multimedia company that provides an integrated range of services. We render optimum quality outputs to our clients through our domain expertise. We offer extensive media, thereby catering best to our clients requirements. Our unparalleled experience in these spheres drive your firms to the path of success."
           />
           <Card
