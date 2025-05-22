@@ -73,155 +73,113 @@ export default function AnimatedCaseStudiesHeader() {
         
         <div className="max-w-4xl text-center z-10 relative">
           {/* Intro Text */}
-          <motion.div 
-            className="inline-block bg-[#0F0326] px-4 py-1 rounded-full mb-4"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="text-sm uppercase tracking-wide text-white font-medium">
-              Client Success Stories
-            </span>
-          </motion.div>
+          {/* Section Container */}
+<div className="w-full max-w-5xl mx-auto px-4 text-center md:text-center">
 
-          {/* Main Heading with 3D effect */}
-          <motion.h1
-            className="text-4xl md:text-6xl font-extrabold leading-tight relative inline-block"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            <motion.span
-              className="relative inline-block text-white drop-shadow-lg"
-              initial={{ 
-                rotateX: 45,
-                y: -20,
-                opacity: 0
-              }}
-              animate={{ 
-                rotateX: 0,
-                y: 0,
-                opacity: 1
-              }}
-              transition={{
-                duration: 0.8,
-                delay: 0.4,
-                ease: "easeOut"
-              }}
-            >
-              Transforming Industries
-            </motion.span>
-            <br />
-            <motion.span
-              className="relative inline-block text-[#88BF42] mt-2"
-              initial={{ 
-                rotateX: -45,
-                y: 20,
-                opacity: 0
-              }}
-              animate={{ 
-                rotateX: 0,
-                y: 0,
-                opacity: 1
-              }}
-              transition={{
-                duration: 0.8,
-                delay: 0.6,
-                ease: "easeOut"
-              }}
-            >
-              With AI Solutions
-            </motion.span>
-            
-            {/* Animated underline */}
-            <motion.div 
-              className="absolute -bottom-3 left-1/2 h-1 bg-[#009898] transform -translate-x-1/2"
-              initial={{ width: 0 }}
-              animate={{ width: '50%' }}
-              transition={{ duration: 1, delay: 1, ease: "easeOut" }}
-            />
-          </motion.h1>
+{/* Tagline Label */}
+<motion.div 
+  className="inline-block bg-[#0F0326] px-4 py-1 rounded-full mb-4 mx-auto text-center"
+  initial={{ opacity: 0, x: -50 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.5 }}
+>
+  <span className="text-sm uppercase tracking-wide text-white font-medium">
+    Client Success Stories
+  </span>
+</motion.div>
 
-          {/* Subheading with reveal effect */}
-          <div className="overflow-hidden mt-6">
-            <motion.p 
-              className="text-[#696869] text-lg max-w-2xl mx-auto"
-              initial={{ y: 40, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.9 }}
-            >
-              Real-world case studies showcasing how our AI solutions drive measurable business impact across diverse sectors.
-            </motion.p>
-          </div>
 
-          {/* Stats floating up */}
-          <motion.div
-            className="flex flex-wrap justify-center gap-4 md:gap-8 mt-8"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2, duration: 0.6 }}
-          >
-            {[
-              { value: '3x', label: 'Revenue Growth' },
-              { value: '65%', label: 'Cost Reduction' },
-              { value: '83%', label: 'Customer Retention' }
-            ].map((stat, index) => (
-              <motion.div
-                key={index}
-                className="bg-white/80 backdrop-blur px-4 py-2 rounded-lg shadow-md"
-                initial={{ y: 30, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 1.3 + index * 0.2, duration: 0.5 }}
-              >
-                <div className="text-xl font-bold text-[#0F0326]">{stat.value}</div>
-                <div className="text-xs text-[#696869]">{stat.label}</div>
-              </motion.div>
-            ))}
-          </motion.div>
+{/* Heading + Underline */}
+<div className="relative mx-auto text-center md:text-center">
+  <motion.h1
+    className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.8, delay: 0.3 }}
+  >
+    <motion.span
+      className="text-white drop-shadow-lg block"
+      initial={{ rotateX: 45, y: -20, opacity: 0 }}
+      animate={{ rotateX: 0, y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+    >
+      Transforming Industries
+    </motion.span>
+    <motion.span
+      className="text-[#88BF42] block mt-2"
+      initial={{ rotateX: -45, y: 20, opacity: 0 }}
+      animate={{ rotateX: 0, y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+    >
+      With AI Solutions
+    </motion.span>
+  </motion.h1>
 
-          {/* Call-to-Action Buttons with reveal and hover effects */}
-          <motion.div 
-            className="flex flex-col sm:flex-row gap-4 mt-10 justify-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 1.6 }}
-          >
-            <motion.button
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: "0 10px 25px -5px rgba(136, 191, 66, 0.4)"
-              }}
-              whileTap={{ scale: 0.98 }}
-              onClick={scrollToNextSection}
-              className="bg-[#0F0326] text-white px-6 py-3 rounded-md shadow-lg transition-all"
-            >
-              <span className="flex items-center justify-center">
-                <span>View Case Studies</span>
-                <motion.span
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                  className="ml-2"
-                >
-                  →
-                </motion.span>
-              </span>
-            </motion.button>
-            
-            <motion.div
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: "0 10px 25px -5px rgba(15, 3, 38, 0.2)"
-              }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <Link
-                to="/contact"
-                className="border-2 border-[#88BF42] text-[#88BF42] px-6 py-3 rounded-md hover:bg-[#88BF42] hover:text-white transition-colors block"
-              >
-                Schedule a Consultation
-              </Link>
-            </motion.div>
-          </motion.div>
+  {/* Underline */}
+  <motion.div 
+    className="absolute -bottom-3 left-1/2 md:left-1/2 transform -translate-x-1/2 h-1 bg-[#009898] w-1/2 md:w-1/3"
+    initial={{ width: 0 }}
+    animate={{ width: '50%' }}
+    transition={{ duration: 1, delay: 1, ease: "easeOut" }}
+  />
+</div>
+
+{/* Subheading */}
+<div className="overflow-hidden mt-6">
+  <motion.p 
+    className="text-[#696869] text-lg max-w-2xl mx-auto md:mx-0 text-center md:text-center"
+    initial={{ y: 40, opacity: 0 }}
+    animate={{ y: 0, opacity: 1 }}
+    transition={{ duration: 0.6, delay: 0.9 }}
+  >
+    Real-world case studies showcasing how our AI solutions drive measurable business impact across diverse sectors.
+  </motion.p>
+</div>
+
+{/* Call-to-Action Buttons */}
+<motion.div 
+  className="flex flex-col sm:flex-row gap-4 mt-10 items-center justify-center sm:justify-start md:justify-center"
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5, delay: 1.6 }}
+>
+  <motion.button
+    whileHover={{ 
+      scale: 1.05, 
+      boxShadow: "0 10px 25px -5px rgba(136, 191, 66, 0.4)" 
+    }}
+    whileTap={{ scale: 0.98 }}
+    className="bg-[#0F0326] text-white px-6 py-3 rounded-md hover:bg-[#88BF42] hover:text-white transition-colors block w-72 text-sm sm:text-base border border-[#88BF42] text-center"
+  >
+    <span className="flex items-center justify-center">
+      <span>View Case Studies</span>
+      <motion.span
+        animate={{ x: [0, 5, 0] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        className="ml-2"
+      >
+        →
+      </motion.span>
+    </span>
+  </motion.button>
+
+  <motion.div
+    whileHover={{ 
+      scale: 1.05, 
+      boxShadow: "0 10px 25px -5px rgba(15, 3, 38, 0.2)" 
+    }}
+    whileTap={{ scale: 0.98 }}
+  >
+    <Link
+      to="/contact"
+      className="border-2 border-[#88BF42] text-[#88BF42] px-6 py-3 rounded-md hover:bg-[#88BF42] hover:text-white transition-colors block w-72 text-sm sm:text-base text-center"
+    >
+      Schedule a Consultation
+    </Link>
+  </motion.div>
+</motion.div>
+</div>
+
 
           {/* Scroll Down Indicator */}
           <motion.div 

@@ -16,14 +16,11 @@ export default function AboutPage() {
     <div className="min-h-screen bg-white">
       <Navbar />
       <AnimatedHeader />
-
       <OurPurpose />
       <WhoWeAre />
       <OurJourney />
       <CompanyAnthem />
       <CoreValues />
-
-      {/* Footer */}
       <Footer />
       <ChatbotDemo />
     </div>

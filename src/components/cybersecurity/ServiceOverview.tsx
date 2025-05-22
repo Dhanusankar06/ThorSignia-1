@@ -7,12 +7,12 @@ const ServiceOverview: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4">
         {/* Hero visual illustration */}
         <div className="flex flex-col items-center justify-center mb-8 sm:mb-10">
-          <img 
-            src="/images/cyber-hero-shield.svg" 
+          {/* <img 
+            src="/images/cybersecurity-hero.jpg" 
             alt="Cybersecurity Hero" 
             className="w-24 sm:w-32 md:w-48 mb-4 drop-shadow-lg animate-float"
             style={{ animation: 'float 3s ease-in-out infinite' }}
-          />
+          /> */}
           <style>{`
             @keyframes float {
               0% { transform: translateY(0); }

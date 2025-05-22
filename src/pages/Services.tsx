@@ -759,11 +759,13 @@ const ServicesPage = () => {
               <div className="inline-block px-4 py-1.5 mb-6 rounded-full bg-[#10b4b7]/10 text-[#88bf42] text-sm font-medium backdrop-blur-sm mx-auto text-center">
                 Enterprise AI Solutions
               </div>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-6 relative backdrop-blur-sm">
-                Transforming Business Operations <br className="hidden md:block" />
-                Through Advanced AI
-                <div className="absolute -bottom-2 left-0 w-12 h-1 bg-gradient-to-r from-[#10b4b7] to-[#9ac857] rounded-full animate-[fadeIn_2s_ease-in-out_1s]"></div>
-            </h2>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-6 relative backdrop-blur-sm mx-auto text-center md:text-left">
+  Transforming Business Operations <br className="hidden md:block" />
+  Through Advanced AI
+  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 w-12 h-1 bg-gradient-to-r from-[#10b4b7] to-[#9ac857] rounded-full animate-[fadeIn_2s_ease-in-out_1s]"></div>
+</h2>
+
+
               <p className="text-lg text-gray-700 mb-8 leading-relaxed backdrop-blur-sm bg-white/50 p-4 rounded-lg">
                 Thor Signia delivers cutting-edge AI solutions that streamline operations, enhance customer engagement, and drive revenue growth. Our enterprise-grade technologies help your business achieve measurable results through intelligent automation.
               </p>
@@ -860,7 +862,7 @@ const ServicesPage = () => {
       </section>
       
       {/* 2. Core Services Grid Section */}
-      <section id="enterprise-ai-services" className="py-10 sm:py-12 md:py-16 lg:py-24 bg-[#f5f9fa] relative overflow-hidden">
+      <section id="enterprise-ai-services" className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-1/3 h-1/3 bg-[#10b4b7]/5 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 right-0 w-1/3 h-1/3 bg-[#9ac857]/5 rounded-full blur-3xl"></div>
         
@@ -965,7 +967,7 @@ const ServicesPage = () => {
           <div className="text-center mt-8 sm:mt-12 reveal-on-scroll opacity-0" data-animation="fadeInUp">
             <Button
               asChild
-              className="bg-[#88bf42] text-white rounded-lg px-6 sm:px-8 py-4 sm:py-6 text-sm sm:text-base shadow-lg transition-all duration-300 group w-full sm:w-auto"
+              className="bg-[#88bf42] text-white rounded-lg px-6 sm:px-8 py-4 sm:py-6 text-sm sm:text-base shadow-lg transition-all duration-300 group sm:w-auto"
             >
               <Link to="/contact#contact-form" className="flex items-center justify-center">
                 Request a Service Enquiry
@@ -1201,10 +1203,11 @@ const ServicesPage = () => {
               <div className="inline-block px-4 py-1.5 mb-6 rounded-full bg-[#9ac857]/10 text-[#9ac857] text-sm font-medium mx-auto text-center">
                 Our Difference
             </div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 relative">
-                Why <span className="text-[#9ac857]">Thor</span> <span  className="text-[#10b4b7]">Signia</span>?
-                <div className="absolute -bottom-3 left-0 w-28 h-1 bg-[#9ac857] rounded-full"></div>
-              </h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 relative text-center">
+  Why <span className="text-[#9ac857]">Thor</span> <span className="text-[#10b4b7]">Signia</span>?
+  <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-28 h-1 bg-[#9ac857] rounded-full"></div>
+</h2>
+
               <p className="text-lg text-gray-700 mb-10 leading-relaxed">
                 With our deep expertise in AI technologies and business process optimization, we deliver solutions that create immediate impact and long-term value for your organization.
               </p>
@@ -1226,17 +1229,17 @@ const ServicesPage = () => {
               ))}
               </div>
               
-              <div className="mt-8 sm:mt-12">
-                <Button
-                  asChild
-                  className="bg-[#88bf42] text-white px-6 sm:px-8 py-4 sm:py-6 rounded-lg transition-all duration-300 shadow-md group w-full sm:w-auto"
-                >
-                  <Link to="/contact#contact-form" className="flex items-center justify-center sm:justify-start">
-                    Request a Service Enquiry
-                    <ArrowRight className="ml-2 h-4 sm:h-5 w-4 sm:w-5 transition-transform" />
-                  </Link>
-                </Button>
-              </div>
+              <div className="text-center mt-8 sm:mt-12 reveal-on-scroll opacity-0" data-animation="fadeInUp">
+            <Button
+              asChild
+              className="bg-[#88bf42] text-white rounded-lg px-6 sm:px-8 py-4 sm:py-6 text-sm sm:text-base shadow-lg transition-all duration-300 group sm:w-auto"
+            >
+              <Link to="/contact#contact-form" className="flex items-center justify-center">
+                Request a Service Enquiry
+                <ArrowRight className="ml-2 h-4 sm:h-5 w-4 sm:w-5 transition-transform" />
+                    </Link>
+                  </Button>
+                </div>
             </div>
           </div>
         </div>

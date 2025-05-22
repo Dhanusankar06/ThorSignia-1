@@ -143,10 +143,10 @@ const CaseStudiesPage = () => {
                     </div>
                   </div>
                   
-                  <div className="mt-auto">
+                  <div className="mt-auto flex justify-center">
                     <Button
                       asChild
-                      className="bg-[#88bf42] text-white w-full py-6 rounded-lg transition-all duration-300 group"
+                      className="bg-[#88bf42] text-white px-6 py-3 w-72 rounded-md font-medium hover:bg-[#10b4b7]/10 transition"
                     >
                       <Link to={`/case-studies/${caseStudiesData[0].slug}`} className="flex items-center justify-center">
                         Read Full Case Study
@@ -162,7 +162,7 @@ const CaseStudiesPage = () => {
       </section>
       
       {/* 3. Case Study Grid */}
-      <section className="py-16 bg-[#f8f9fa]">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="mb-10 text-center">
             <div className="inline-block px-3 py-1 mb-4 rounded-full bg-[#10b4b7]/10 text-[#88bf42] text-sm font-medium">
@@ -197,93 +197,91 @@ const CaseStudiesPage = () => {
       
       {/* 4. Metrics & Impact Panel */}
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="text-center mb-12">
-            <div className="inline-block px-3 py-1 mb-4 rounded-full bg-[#10b4b7]/10 text-[#88bf42] text-sm font-medium">
-              Measurable Impact
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Results That Drive Growth
-            </h2>
-            <div className="w-12 h-1 bg-gradient-to-r from-[#10b4b7] to-[#9ac857] rounded-full mx-auto mb-4"></div>
-            <p className="text-gray-600">
-              Our AI solutions deliver consistent, significant results regardless of industry or challenge
-            </p>
+  <div className="container mx-auto px-4 md:px-6">
+    <div className="text-center mb-12">
+      <div className="inline-block px-3 py-1 mb-4 rounded-full bg-[#10b4b7]/10 text-[#88bf42] text-sm font-medium">
+        Measurable Impact
+      </div>
+      <h2 className="text-3xl font-bold text-gray-900 mb-4">
+        Results That Drive Growth
+      </h2>
+      <div className="w-12 h-1 bg-gradient-to-r from-[#10b4b7] to-[#9ac857] rounded-full mx-auto mb-4"></div>
+      <p className="text-gray-600">
+        Our AI solutions deliver consistent, significant results regardless of industry or challenge
+      </p>
+    </div>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 place-items-center">
+      {[
+        { value: "157%", label: "Average ROI", icon: <BarChart className="h-7 w-7 text-[#88bf42]" /> },
+        { value: "42%", label: "Efficiency Gains", icon: <Clock className="h-7 w-7 text-[#88bf42]" /> },
+        { value: "9.5mo", label: "Avg. Implementation", icon: <LineChart className="h-7 w-7 text-[#88bf42]" /> },
+        { value: "95%", label: "Client Satisfaction", icon: <Users className="h-7 w-7 text-[#88bf42]" /> }
+      ].map((stat, index) => (
+        <div 
+          key={index}
+          className="relative bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 border border-gray-100 overflow-hidden text-center w-full h-full min-h-[240px] flex flex-col justify-between"
+        >
+          <div className="absolute inset-0">
+            <CanvasRevealEffect
+              animationSpeed={0.4}
+              colors={[[16, 180, 183]]}
+              dotSize={2}
+              showGradient={false}
+            />
           </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { value: "157%", label: "Average ROI", icon: <BarChart className="h-7 w-7 text-[#88bf42]" /> },
-              { value: "42%", label: "Efficiency Gains", icon: <Clock className="h-7 w-7 text-[#88bf42]" /> },
-              { value: "9.5mo", label: "Avg. Implementation", icon: <LineChart className="h-7 w-7 text-[#88bf42]" /> },
-              { value: "95%", label: "Client Satisfaction", icon: <Users className="h-7 w-7 text-[#88bf42]" /> }
-            ].map((stat, index) => (
-              <div key={index} className="relative bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 border border-gray-100 overflow-hidden">
-                <div className="absolute inset-0">
-                  <CanvasRevealEffect
-                    animationSpeed={0.4}
-                    colors={[[16, 180, 183]]}
-                    dotSize={2}
-                    showGradient={false}
-                  />
-                </div>
-                <div className="relative z-10">
-                  <div className="w-16 h-16 bg-[#10b4b7]/10 rounded-full flex items-center justify-center mb-4">
-                    {stat.icon}
-                  </div>
-                  <h3 className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</h3>
-                  <p className="text-gray-600">{stat.label}</p>
-                </div>
-              </div>
-            ))}
+          <div className="relative z-10 flex flex-col justify-between h-full">
+            <div className="w-16 h-16 bg-[#10b4b7]/10 rounded-full flex items-center justify-center mb-4 mx-auto">
+              {stat.icon}
+            </div>
+            <h3 className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</h3>
+            <p className="text-gray-600">{stat.label}</p>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
+
+
       
       {/* Call To Action */}
-      <section className="py-16 bg-gradient-to-r from-[#10b4b7]/10 to-[#9ac857]/10">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-gray-100">
-            <div className="flex flex-col md:flex-row gap-8 items-center">
-              <div className="w-full md:w-2/3">
-                <div className="inline-block px-3 py-1 mb-4 rounded-full bg-[#10b4b7]/10 text-[#88bf42] text-sm font-medium">
-                  Ready to Transform?
-                </div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                  Let's Build Your Success Story
-                </h2>
-                <p className="text-gray-600 mb-6">
-                  Join the growing list of businesses achieving breakthrough results with our AI solutions. Schedule a consultation to discuss your unique challenges.
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  <Button
-                    asChild
-                    className="bg-[#88bf42] text-white px-6 py-6"
-                  >
-                    <Link to="/contact">
-                      Schedule Consultation
-                    </Link>
-                  </Button>
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="border-[#10b4b7] text-[#10b4b7] px-6 py-6"
-                  >
-                    <Link to="/services">
-                      Explore Services
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-              <div className="w-full md:w-1/3 flex justify-center">
-                <div className="w-24 h-24 rounded-full bg-[#10b4b7]/10 flex items-center justify-center">
-                  <Lightbulb className="h-12 w-12 text-[#88bf42]" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <section className="py-16 bg-white">
+  <div className="container mx-auto px-4 md:px-6">
+    
+   
+
+    {/* CTA Card */}
+    <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg p-8 border border-gray-100 text-center">
+      <div className="inline-block px-3 py-1 mb-3 rounded-full bg-[#10b4b7]/10 text-[#88bf42] text-sm font-medium">
+        Ready to Transform?
+      </div>
+      <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+        Let’s Build Your Success Story
+      </h2>
+      <p className="text-gray-600 mb-6 text-sm md:text-base text-left">
+        Join the growing list of businesses achieving breakthrough results with our AI solutions.
+        Schedule a consultation to discuss your unique challenges.
+      </p>
+      <div className="flex flex-wrap justify-center gap-4">
+        <button className="bg-[#88bf42] text-white px-6 py-3 w-72 rounded-md font-medium hover:bg-[#10b4b7]/10 transition">
+        <Link to="/contact">
+          Schedule Consultation
+        </Link>
+        </button>
+        <button className="border border-[#10b4b7] text-[#10b4b7] px-6 py-3 w-72 rounded-md font-medium hover:bg-[#10b4b7]/10 transition">
+        <Link to="/services">
+          Explore Services
+        </Link>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
       
       <Footer />
       <ChatbotDemo />

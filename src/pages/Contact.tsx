@@ -378,29 +378,29 @@ const ContactPage = () => {
   <div className="flex items-center gap-2">
     <MapPin className="w-5 h-5 text-[#88BF42]" />
     <div>
-      <h3 className="font-medium text-[#0F0326]">Address</h3>
+      <h3 className="font-normal text-[#0F0326]">Address</h3>
       <p className="text-[#696869]">HSR Layout 7th sector, Bengaluru, Karnataka</p>
     </div>
   </div>
   <div className="flex items-center gap-2">
-    <Phone className="w-5 h-5 text-[#88BF42]" />
+    <Phone className="w-5 h-5 text-[#88BF42]"/>
     <div>
-      <h3 className="font-medium text-[#0F0326]">Phone</h3>
+      <h3 className="font-normal text-[#0F0326]">Phone</h3>
       <p className="text-[#696869]">+(91) 90080 97780</p>
     </div>
   </div>
   <div className="flex items-center gap-2">
     <Mail className="w-5 h-5 text-[#88BF42]" />
     <div>
-      <h3 className="font-medium text-[#0F0326]">Email</h3>
-      <p>contact@thorsignia.com</p>
+      <h3 className="font-normal text-[#0F0326]">Email</h3>
+      <p className="text-[#696869]">contact@thorsignia.com</p>
     </div>
   </div>
   <div className="flex items-center gap-2">
     <svg className="w-5 h-5 text-[#88BF42]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 17l4 4 4-4m0-5V3m-4 4v10" /></svg>
     <div>
-      <h3 className="font-medium text-[#0F0326]">Hours</h3>
-      <p className="text-[#696869]">Monday - Friday: 9:00 AM - 6:00 PM<br />Saturday - Sunday: Closed</p>
+      <h3 className="font-normal text-[#0F0326]">Hours</h3>
+      <p className="text-[#696869]">Monday - Saturday: 9:00 AM - 6:00 PM<br />Sunday: Closed</p>
     </div>
   </div>
   <div className="flex items-center gap-3 mt-4">

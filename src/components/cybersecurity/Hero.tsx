@@ -96,13 +96,13 @@ const Hero = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start w-full">
-              <Link to="/services" className="w-full sm:w-auto">
+              <Link to="/contact" className="w-full sm:w-auto">
   <motion.button 
     whileHover={{ scale: 1.02, boxShadow: "0 5px 20px rgba(136, 191, 66, 0.3)" }}
     whileTap={{ scale: 0.98 }}
     className="bg-gradient-to-r from-[#88bf42] to-[#75a835] text-white px-8 py-4 rounded-xl font-semibold text-base transition-all shadow-lg w-full sm:w-auto"
   >
-    Start Free Assessment
+    Schedule a Consultation
   </motion.button>
 </Link>
 

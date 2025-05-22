@@ -217,6 +217,12 @@ const navItems: NavItem[] = [
     href: "/careers#top",
     dropdown: false,
   },
+  {
+    title: "Contact",
+    href: "/careers#top",
+    dropdown: false,
+  },
+
 ];
 
 export default function Navbar() {
@@ -454,13 +460,13 @@ export default function Navbar() {
           ))}
 
           {/* Contact Us Button for Desktop */}
-          <Button
+          {/* <Button
             asChild
             className="bg-[#88bf42] hover:bg-[#7aad3a] text-white text-sm px-4 py-2 rounded-md"
           >
             {/* This link doesn't need handleNavLinkClick unless you want to close the mobile menu if it's open for some reason */}
-            <Link to="/contact">Contact Us</Link>
-          </Button>
+            {/* <Link to="/contact">Contact Us</Link>
+          </Button> */} 
         </div>
 
         {/* Mobile Navigation Toggle */}
@@ -564,12 +570,7 @@ export default function Navbar() {
               </div>
             ))}
             {/* Contact Us Button for Mobile */}
-            <Button
-              asChild
-              className="w-full bg-[#88bf42] hover:bg-[#7aad3a] text-white text-sm px-4 py-2 h-auto rounded-md justify-center mt-4"
-            >
-              <Link to="/contact" onClick={handleNavLinkClick}>Contact Us</Link>
-            </Button>
+            
           </nav>
         </div>
       )}

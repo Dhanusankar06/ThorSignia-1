@@ -222,12 +222,18 @@ export default function AnimatedServiceHeader() {
               }}
               whileTap={{ scale: 0.98 }}
             >
-              <Link
-                to="/contact"
-                className="border-2 border-[#009898] text-[#009898] px-6 py-3 rounded-md hover:bg-[#88BF42] hover:text-white transition-colors block"
-              >
-                Contact Us
-              </Link>
+            <Link
+  to="/contact"
+  className="border-2 border-[#009898] text-[#009898]
+             px-4 py-2 text-sm w-40
+             sm:w-auto sm:px-6 sm:py-3 sm:text-base
+             rounded-md hover:bg-[#88BF42] hover:text-white
+             transition-colors block mx-auto"
+>
+  Contact Us
+</Link>
+
+
             </motion.div>
           </motion.div>
 

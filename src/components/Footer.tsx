@@ -47,8 +47,8 @@ const Footer = () => {
           
           <div className="h-full flex flex-col justify-center">
             <h3 className="text-lg font-semibold mb-4 text-white flex items-center">
-              <Globe className="h-5 w-5 mr-2 text-[#88bf42]" />
-              Pages
+            
+              Quick Links
             </h3>
             <ul className="space-y-3">
               <li className="transition-transform hover:translate-x-1">
@@ -85,7 +85,7 @@ const Footer = () => {
           
           <div className="h-full flex flex-col justify-center">
             <h3 className="text-lg font-semibold mb-4 text-white flex items-center">
-              <MessageCircle className="h-5 w-5 mr-2 text-[#009898]" />
+              
               Contact
             </h3>
             <ul className="space-y-4">

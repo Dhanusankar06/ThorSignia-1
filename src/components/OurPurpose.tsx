@@ -37,7 +37,7 @@ export function MovingBorderDemo() {
               <h3 className="text-xl md:text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 to-neutral-600 dark:from-white dark:to-neutral-300">
                 Our Vision
               </h3>
-              <p className="text-sm md:text-base leading-relaxed text-neutral-700 dark:text-neutral-300 flex-grow">
+              <p className="text-sm md:text-base leading-relaxed text-neutral-700 dark:text-neutral-300 flex-grow text-left">
                 In this rapidly evolving technical era, we focus on bringing a permanent end to all your challenges by creating the most effective solutions. We provide reliable solutions for the accomplishment of your desired goals. We offer security to our clients by maintaining customer-loyalty. Our long-term endurance and positive influence ensure safety to our customers.
               </p>
             </div>
@@ -53,7 +53,7 @@ export function MovingBorderDemo() {
               <h3 className="text-xl md:text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 to-neutral-600 dark:from-white dark:to-neutral-300">
                 Our Mission
               </h3>
-              <p className="text-sm md:text-base leading-relaxed text-neutral-700 dark:text-neutral-300 flex-grow">
+              <p className="text-sm md:text-base leading-relaxed text-neutral-700 dark:text-neutral-300 flex-grow text-left">
                 We intend to innovate customer-centric programs which helps your services transform to greatest heights. Our technological excellence aims at integrating the loose ends of your enterprise and thereby providing competitive advantage. We aspire to empower our clients with the upgrading media and technological solutions, which reinforces the goodwill of our company.
               </p>
             </div>

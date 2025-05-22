@@ -48,21 +48,20 @@ import ProductDemoSection from './demovideo.tsx';
 const trustedByLogos = [
   { logoUrl: "https://cdn.svgporn.com/logos/google.svg", altText: "Google Logo", link: "https://google.com" },
   { logoUrl: "https://cdn.svgporn.com/logos/microsoft-icon.svg", altText: "Microsoft Logo", link: "https://microsoft.com" },
-  { logoUrl: "https://cdn.svgporn.com/logos/amazon.svg", altText: "Amazon Logo", link: "https://amazon.com" },
+ 
   { logoUrl: "https://cdn.svgporn.com/logos/meta.svg", altText: "Meta Logo", link: "https://meta.com" },
   { logoUrl: "https://cdn.svgporn.com/logos/ibm.svg", altText: "IBM Logo", link: "https://ibm.com" },
   { logoUrl: "https://cdn.svgporn.com/logos/salesforce.svg", altText: "Salesforce Logo", link: "https://salesforce.com" },
-  { logoUrl: "https://cdn.svgporn.com/logos/apple-icon.svg", altText: "Apple Logo", link: "https://apple.com" },
+  
   { logoUrl: "https://cdn.svgporn.com/logos/oracle.svg", altText: "Oracle Logo", link: "https://oracle.com" },
   { logoUrl: "https://cdn.svgporn.com/logos/sap.svg", altText: "SAP Logo", link: "https://sap.com" },
   // Duplicated for longer scroll effect, original list is 9 items
   { logoUrl: "https://cdn.svgporn.com/logos/google.svg", altText: "Google Logo", link: "https://google.com" },
   { logoUrl: "https://cdn.svgporn.com/logos/microsoft-icon.svg", altText: "Microsoft Logo", link: "https://microsoft.com" },
-  { logoUrl: "https://cdn.svgporn.com/logos/amazon.svg", altText: "Amazon Logo", link: "https://amazon.com" },
+ 
   { logoUrl: "https://cdn.svgporn.com/logos/meta.svg", altText: "Meta Logo", link: "https://meta.com" },
   { logoUrl: "https://cdn.svgporn.com/logos/ibm.svg", altText: "IBM Logo", link: "https://ibm.com" },
   { logoUrl: "https://cdn.svgporn.com/logos/salesforce.svg", altText: "Salesforce Logo", link: "https://salesforce.com" },
-  { logoUrl: "https://cdn.svgporn.com/logos/apple-icon.svg", altText: "Apple Logo", link: "https://apple.com" },
   { logoUrl: "https://cdn.svgporn.com/logos/oracle.svg", altText: "Oracle Logo", link: "https://oracle.com" },
   { logoUrl: "https://cdn.svgporn.com/logos/sap.svg", altText: "SAP Logo", link: "https://sap.com" },
 ];
@@ -279,7 +278,7 @@ const HomePage = () => {
   // The marquee animation is handled by CSS using logosRtlDuplicated and logosLtrDuplicated
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col max-w-20xl bg-white">
       <main className="flex-grow bg-white">
         {/* 1. Hero Section */}
         <section className="relative bg-[#0F0326] text-white overflow-hidden">
@@ -329,7 +328,7 @@ const HomePage = () => {
 
                 </motion.div>
               </div>
-              <div className="lg:w-1/2 w-full relative h-[350px] md:h-[450px] lg:h-[500px] max-w-lg mx-auto lg:mx-0">
+              <div className="lg:w-1/2 w-full relative h-[350px] md:h-[450px] lg:h-[500px] max-w-lg mx-auto lg:mx-0 -translate-x-4 sm:-translate-x-8 lg:translate-x-0">
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -369,17 +368,19 @@ const HomePage = () => {
                     Pioneering the Future of <span className="text-[#88BF42]">AI Solutions</span>
                   </motion.h2>
                   <motion.p
-                    variants={itemVariants}
-                    className="text-base md:text-lg text-[#696869] leading-relaxed max-w-prose mx-auto md:mx-0"
-                  >
-                    Thorsignia is dedicated to transforming how businesses operate, engage, and grow. With a deep focus on artificial intelligence and automation, we deliver cutting-edge, intelligent systems tailored to meet real-world challenges.
-                  </motion.p>
-                  <motion.p
-                    variants={itemVariants}
-                    className="text-base md:text-lg text-[#696869] leading-relaxed max-w-prose mx-auto md:mx-0"
-                  >
-                    Our expertise spans across AI-powered platforms, smart automation, and customer-centric technologies enabling organizations to save time, convert more leads, and elevate user experiences.
-                  </motion.p>
+  variants={itemVariants}
+  className="text-base md:text-lg text-[#696869] leading-relaxed max-w-prose text-left"
+>
+  Thorsignia is dedicated to transforming how businesses operate, engage, and grow. With a deep focus on artificial intelligence and automation, we deliver cutting-edge, intelligent systems tailored to meet real-world challenges.
+</motion.p>
+
+<motion.p
+  variants={itemVariants}
+  className="text-base md:text-lg text-[#696869] leading-relaxed max-w-prose text-left"
+>
+  Our expertise spans across AI-powered platforms, smart automation, and customer-centric technologies enabling organizations to save time, convert more leads, and elevate user experiences.
+</motion.p>
+
                   <motion.div
                     variants={itemVariants}
                     className="flex flex-wrap justify-center md:justify-start gap-4 mt-4 md:mt-8"
@@ -612,7 +613,7 @@ const HomePage = () => {
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-4">AI-Powered Quality <span className="text-[#88BF42]">Control System</span> </h2>
 
                 {/* Updated Description Paragraph */}
-                <p className="text-base md:text-lg text-[#696869] mb-4 md:mb-6 max-w-prose mx-auto md:mx-0">
+                <p className="text-base md:text-lg text-[#696869] mb-4 md:mb-6 max-w-prose text-left">
                   Developed a custom computer vision system for quality control in industrial fabrication, resulting in significant reduction in production defects and improved operational efficiency.
                 </p>
 

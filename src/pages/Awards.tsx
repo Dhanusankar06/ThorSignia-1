@@ -368,67 +368,94 @@ const AwardsPage = () => {
       </section>
 
       {/* Awards Timeline */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 md:px-6">
-          <Fade triggerOnce direction="up" delay={100}>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900 text-center">Awards Timeline</h2>
+      {/* Awards Timeline */}
+<section className="py-20 bg-white">
+  <div className="container mx-auto px-4 md:px-6">
+    <Fade triggerOnce direction="up" delay={100}>
+      <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900 text-center">Awards Timeline</h2>
+    </Fade>
+    <Fade triggerOnce direction="up" delay={200}>
+      <p className="text-lg text-gray-700 text-center mb-16">
+        Our journey of recognition throughout the years
+      </p>
+    </Fade>
+
+    <div className="space-y-14">
+      {awards.map((yearGroup, index) => (
+        <div key={index}>
+          <Fade triggerOnce direction="right" delay={100}>
+            <div className="flex items-center mb-6">
+              <div className="p-3 bg-[#88bf42] hover:bg-[#0f0326]/40 text-white text-lg font-bold rounded-lg">
+                {yearGroup.year}
+              </div>
+              <div className="ml-4 h-1 flex-1 bg-gradient-to-r from-[#88bf42] to-[#88bf42]"></div>
+            </div>
           </Fade>
-          <Fade triggerOnce direction="up" delay={200}>
-            <p className="text-lg text-gray-700 text-center mb-16">
-              Our journey of recognition throughout the years
-            </p>
+
+          <Fade triggerOnce cascade damping={0.1} direction="up" delay={200}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {yearGroup.awards.map((award, awardIndex) => (
+                <Card
+                key={awardIndex}
+                className={`flex flex-col justify-between min-h-[320px] hover:shadow-md transition-shadow overflow-hidden ${
+                  award.featured ? 'border-2 border-[#009898]' : ''
+                }`}
+              >
+                {award.featured && (
+                  <div className="h-1.5 bg-gradient-to-r from-[#009898] to-[#88bf42]"></div>
+                )}
+                <CardContent className="p-3 flex flex-col flex-grow">
+                  <div>
+                    <div className="flex items-start justify-between mb-3">
+                      <div
+                        className={`p-2 rounded-md ${
+                          award.featured
+                            ? 'bg-gradient-to-r from-[#009898] to-[#88bf42] text-white'
+                            : 'bg-[#009898]/10 text-[#009898]'
+                        }`}
+                      >
+                        {award.featured ? (
+                          <Trophy className="h-5 w-5" />
+                        ) : (
+                          <Award className="h-5 w-5" />
+                        )}
+                      </div>
+                      <div className="text-right">
+                        <span className="text-gray-500 text-sm block">{award.organization}</span>
+                        {award.date && (
+                          <span className="text-[#009898] font-medium text-xs">{award.date}</span>
+                        )}
+                      </div>
+                    </div>
+              
+                    <h3 className={`text-[16px] font-bold mb-2 ${award.featured ? 'text-[#009898]' : 'text-gray-900'}`}>
+                      {award.name}
+                    </h3>
+                    <p className="text-gray-700 text-sm leading-snug line-clamp-4">{award.description}</p>
+                  </div>
+              
+                  {/* Button pinned to bottom */}
+                  <div className="mt-auto pt-4">
+                    <Button
+                      className={`w-full text-sm ${
+                        award.featured ? 'bg-[#88bf42]' : 'bg-[#0f0326]/90'
+                      } hover:bg-[#0f0326]/60 text-white`}
+                      onClick={() => openAwardDetails({ ...award, year: yearGroup.year })}
+                    >
+                      <span>Read Full Story</span>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              ))}
+            </div>
           </Fade>
-
-          <div className="space-y-16">
-            {awards.map((yearGroup, index) => (
-              <div key={index}>
-                 <Fade triggerOnce direction="right" delay={100}>
-                   <div className="flex items-center mb-8">
-                     <div className="p-4 bg-[#88bf42] hover:bg-[#0f0326]/40 text-white text-xl font-bold rounded-lg">
-                       {yearGroup.year}
-                     </div>
-                     <div className="ml-4 h-1 flex-1 bg-gradient-to-r from-[#88bf42] to-[#88bf42]"></div>
-                   </div>
-                 </Fade>
-
-                 <Fade triggerOnce cascade damping={0.1} direction="up" delay={200}>
-                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
-                     {yearGroup.awards.map((award, awardIndex) => (
-                       <Card key={awardIndex} className={`hover:shadow-lg transition-shadow overflow-hidden ${award.featured ? 'border-2 border-[#009898]' : ''}`}>
-                         {award.featured && (
-                           <div className="h-1.5 bg-gradient-to-r from-[#009898] to-[#88bf42]"></div>
-                         )}
-                         <CardContent className="pt-6">
-                           <div className="flex items-start justify-between mb-4">
-                             <div className={`p-3 rounded-lg ${award.featured ? 'bg-gradient-to-r from-[#009898] to-[#88bf42] text-white' : 'bg-[#009898]/10 text-[#009898]'}`}>
-                               {award.featured ? <Trophy className="h-6 w-6" /> : <Award className="h-6 w-6" />}
-                             </div>
-                             <div>
-                               <span className="text-gray-500 text-sm block text-right">{award.organization}</span>
-                               {award.date && <span className="text-[#009898] font-medium text-sm">{award.date}</span>}
-                             </div>
-                           </div>
-                           <h3 className={`text-xl font-bold mb-3 ${award.featured ? 'text-[#009898]' : 'text-gray-900'}`}>{award.name}</h3>
-                           <p className="text-gray-700 text-sm mb-4">{award.description}</p>
-
-                           <div className="mt-4">
-                             <Button 
-                               className={`w-full ${award.featured ? 'bg-[#88bf42]' : 'bg-[#0f0326]/90'} hover:bg-[#0f0326]/60  text-white`}
-                               onClick={() => openAwardDetails({...award, year: yearGroup.year})}
-                             >
-                               <span>Read Full Story</span>
-                             </Button>
-                           </div>
-                         </CardContent>
-                       </Card>
-                     ))}
-                   </div>
-                 </Fade>
-               </div>
-            ))}
-          </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
       <Footer />
       <ChatbotDemo />

@@ -1,35 +1,55 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const ScrollToTop = () => {
-  const { pathname, hash } = useLocation();
-
+const ScrollToTop: React.FC = () => {
+  const location = useLocation();
+  
   useEffect(() => {
-    // Only scroll to top if there's no hash in the URL
-    if (!hash) {
-      // Delay the scroll to top slightly to ensure smooth page transition
-      const timeoutId = setTimeout(() => {
-        window.scrollTo({
-          top: 0,
-          behavior: 'auto'
-        });
-      }, 10);
-      
-      return () => clearTimeout(timeoutId);
-    } else {
-      // If there is a hash, scroll to that element instead
-      const timeoutId = setTimeout(() => {
-        const element = document.getElementById(hash.substring(1));
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
-      
-      return () => clearTimeout(timeoutId);
+    
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    
+    if (location.hash) {
+      window.history.replaceState(
+        {},
+        '',
+        location.pathname + location.search
+      );
     }
-  }, [pathname, hash]);
-
-  return null; // This component doesn't render anything
+    
+    const scrollAttempts = [10, 50, 100, 200];
+    const timers = scrollAttempts.map(delay => 
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      }, delay)
+    );
+    
+    setTimeout(() => {
+      const mainElements = [
+        document.querySelector('main'),
+        document.querySelector('#root'),
+        document.querySelector('#app'),
+        document.querySelector('.main-content'),
+        document.querySelector('.content')
+      ];
+      
+      mainElements.forEach(el => {
+        if (el instanceof HTMLElement) {
+          el.scrollTop = 0;
+        }
+      });
+    }, 150);
+    
+    // Cleanup function
+    return () => {
+      timers.forEach(timer => clearTimeout(timer));
+    };
+  }, [location.key]); // Use location.key to detect ALL navigation changes
+  
+  return null;
 };
 
-export default ScrollToTop; 
+export default ScrollToTop;

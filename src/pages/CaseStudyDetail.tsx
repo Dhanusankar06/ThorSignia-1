@@ -530,7 +530,7 @@ const CaseStudyDetail = () => {
             <p className="text-lg md:text-xl mb-8 opacity-90">
               Let us help you achieve similar results. Our AI solutions are tailored to your unique business challenges.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-center">
               <Button 
                 className="bg-[#88bf42] text-white hover:bg-[#10b4b7] shadow-lg transition-all duration-300 border border-[#88bf42]"
                 asChild

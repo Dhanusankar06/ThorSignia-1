@@ -21,7 +21,8 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import RefundPolicy from "./pages/RefundPolicy";
 
-
+import { useLocation, useNavigationType } from "react-router-dom";
+import { useEffect } from "react";
 import PenetrationTestPage from "@/pages/cybersecurity/PenetrationTestPage";
 import CloudSecurityPage from "@/pages/cybersecurity/CloudSecurityPage";
 import OffensiveSecurityPage from "@/pages/cybersecurity/OffensiveSecurityPage";
@@ -32,6 +33,60 @@ import SecurityTrainingPage from "@/pages/cybersecurity/SecurityTrainingPage";
 
 
 const queryClient = new QueryClient();
+
+// Enhanced ScrollToTop component that forces scroll reset on every navigation
+const ScrollToTopOnMount = () => {
+  const location = useLocation();
+  const navigationType = useNavigationType();
+
+  useEffect(() => {
+    // Force scroll to top with multiple approaches
+    const forceScrollToTop = () => {
+      // 1. Direct scroll to top
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      
+      // 2. Try to scroll main content elements
+      const mainElements = [
+        document.querySelector('main'),
+        document.querySelector('#root'),
+        document.querySelector('#app'),
+        document.querySelector('.main-content'),
+        document.querySelector('.content')
+      ];
+      
+      mainElements.forEach(el => {
+        if (el instanceof HTMLElement) {
+          el.scrollTop = 0;
+        }
+      });
+    };
+
+    forceScrollToTop();
+    
+    if (location.hash) {
+      window.history.replaceState(
+        {},
+        document.title,
+        location.pathname + location.search
+      );
+    }
+    
+    const timers = [
+      setTimeout(forceScrollToTop, 0),
+      setTimeout(forceScrollToTop, 50),
+      setTimeout(forceScrollToTop, 100),
+      setTimeout(forceScrollToTop, 200)
+    ];
+    
+    return () => {
+      timers.forEach(timer => clearTimeout(timer));
+    };
+  }, [location.pathname, location.search]);
+
+  return null;
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>

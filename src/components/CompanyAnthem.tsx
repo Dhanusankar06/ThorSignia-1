@@ -1,13 +1,15 @@
-'use client'
+'use client';
 
-import React from 'react'
-import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const CompanyAnthem = () => {
   return (
     <section className="bg-white py-20 px-4">
       <div className="max-w-5xl mx-auto">
+        
+        {/* Heading and Description */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -17,12 +19,13 @@ const CompanyAnthem = () => {
           <h2 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#0F0326] to-[#88BF42] inline-block mb-4">
             The Heart of Thor Signia
           </h2>
-          <p className="text-[#696869] max-w-3xl mx-auto mt-4 text-lg mb-12">
+          <p className="text-black max-w-3xl mx-auto mt-4 text-lg mb-12">
             This song captures our spirit — innovation, unity, and the relentless drive to shape the future of AI. 
             It&apos;s more than music; it&apos;s our story, our people, and our passion.
           </p>
         </motion.div>
 
+        {/* Video Placeholder */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -37,15 +40,14 @@ const CompanyAnthem = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <p className="text-[#0F0326] font-medium">Video Coming Soon</p>
+              <p className="text-black font-medium">Video Coming Soon</p>
             </div>
           </div>
         </motion.div>
 
-
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default CompanyAnthem
+export default CompanyAnthem;
