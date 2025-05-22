@@ -34,11 +34,11 @@ export function CoreValues() {
         >
           <div ref={elementRef} className="group">
             {/* Hover background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#88bf42]/5 via-[#88bf42]/2 to-[#0F0326]/5 opacity-0 group-hover:opacity-100 transition-all duration-700 rounded-2xl blur-xl" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#88bf42]/5 via-[#88bf42]/2 to-[#0F0326]/5 group-hover:opacity-100 transition-all duration-700 rounded-2xl blur-xl" />
 
             {/* Card */}
             <div
-              className={`relative p-6 rounded-2xl backdrop-blur-sm border border-[#0F0326]/[0.05] transition-all duration-700 bg-white/[0.01] ${
+              className={`relative p-6 rounded-2xl backdrop-blur-sm border transition-all duration-700 bg-white/[0.01] ${
                 isMobileHover
                   ? 'border-[#88bf42]/20 -translate-y-2 shadow-[0_20px_40px_-15px_rgba(136,191,66,0.1)]'
                   : ''
@@ -68,7 +68,7 @@ export function CoreValues() {
   });
 
   return (
-    <section className="py-24 px-4 bg-gradient-to-b from-[#88bf42]/[0.02] to-[#0F0326]/[0.02]">
+    <section className="py-24 px-4 ">
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <div className="text-center">

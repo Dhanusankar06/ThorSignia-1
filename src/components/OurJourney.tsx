@@ -84,7 +84,7 @@ export default function OurJourney() {
             <img
               src={milestone.imageUrl}
               alt={milestone.metric}
-              className="w-[280px] h-[200px] object-cover rounded-xl shadow-md"
+              className="w-[300px] h-[200px] object-cover rounded-xl shadow-md"
             />
 
             {/* Text Content */}

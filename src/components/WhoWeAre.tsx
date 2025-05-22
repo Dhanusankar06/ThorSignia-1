@@ -52,14 +52,14 @@ const Card = ({ icon, title, content }: CardProps) => {
 
 export default function WhoWeAre() {
   return (
-    <div className="min-h-[600px] w-full rounded-md flex flex-col items-center justify-start antialiased relative overflow-hidden py-16 md:py-20 lg:py-12">
+    <div className="flex flex-col max-w-6xl mx-auto px-4">
       <div className="p-4 max-w-7xl mx-auto relative z-10 w-full">
         {/* Heading */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#0F0326] to-[#88BF42] inline-block text-center mb-4">
             Who We Are
           </h2>
-          <p className="text-lg text-[#696869]/70 text-center mb-16 max-w-2xl mx-auto font-dm-sans">
+          <p className="text-lg text-black text-center mb-16 max-w-2xl mx-auto font-dm-sans">
             Pioneering the future of technology with innovative solutions
           </p>
         </div>

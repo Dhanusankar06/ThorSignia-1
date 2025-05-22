@@ -42,7 +42,7 @@ import {
   Lightbulb,
   Clock
 } from 'lucide-react';
-import ChatbotDemo from '@/components/ChatbotDemo';
+
 // import VoiceAgentDemo from '@/components/VoiceAgentDemo';
 import { PinContainer } from '@/components/ui/3d-pin';
 import '../services-animations.css';
@@ -1260,7 +1260,7 @@ const ServicesPage = () => {
       </div> */}
       
       <Footer />
-      <ChatbotDemo />
+
     </div>
   );
 };

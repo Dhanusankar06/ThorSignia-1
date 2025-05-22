@@ -8,7 +8,7 @@ import { blogPosts } from "@/data/blog-posts";
 import { Facebook, Twitter, Linkedin, MapPin, Mail, Phone } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from '@/components/Footer';
-import ChatbotDemo from '@/components/ChatbotDemo';
+
 
 export default function BlogPage() {
   return (
@@ -82,7 +82,7 @@ export default function BlogPage() {
         <CardHoverEffectDemo />
       </div>
             <Footer />
-      <ChatbotDemo />
+
     </div>
   );
 }

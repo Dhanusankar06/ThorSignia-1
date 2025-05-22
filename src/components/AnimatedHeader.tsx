@@ -147,7 +147,7 @@ export default function AnimatedHeader() {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="mt-12 flex justify-center animate-bounce"
         >
-          <ChevronDown className="text-[#88BF42] w-10 h-10" />
+          
         </motion.div>
         </div>
       </section>

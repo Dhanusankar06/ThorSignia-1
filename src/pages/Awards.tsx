@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'; // Added useCallback
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import ChatbotDemo from '@/components/ChatbotDemo';
+
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -458,7 +458,7 @@ const AwardsPage = () => {
 </section>
 
       <Footer />
-      <ChatbotDemo />
+
     </div>
   );
 };

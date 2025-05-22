@@ -14,7 +14,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import ChatbotDemo from '@/components/ChatbotDemo';
+
 // Import icons
 import { ChevronDown } from 'lucide-react';
 // Example icons (same)
@@ -985,7 +985,7 @@ const HireEngineers = () => {
             <CTASection />
 
             <Footer />
-            <ChatbotDemo />
+
         </div>
     );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import ChatbotDemo from '@/components/ChatbotDemo';
+
 
 import { Button } from "@/components/ui/button";
 import { 
@@ -284,7 +284,7 @@ const CaseStudiesPage = () => {
 
       
       <Footer />
-      <ChatbotDemo />
+
     </div>
   );
 };

@@ -12,7 +12,7 @@ import { Loader2, Mail, Linkedin, Twitter, Instagram, Github, CheckCircle2, MapP
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import ChatbotDemo from '@/components/ChatbotDemo';
+
 import { TextGenerateEffect } from '@/components/layout/text-generate-effect';
 
 // Animation variants
@@ -448,7 +448,7 @@ const ContactPage = () => {
         </div>
       </section>
       <Footer />
-      <ChatbotDemo /> // Render ChatbotDemo
+
     </div>
   );
 };

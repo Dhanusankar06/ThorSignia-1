@@ -5,7 +5,6 @@ import demovideo from './demovideo.tsx';
 // Adjust the import path for your Button component
 // This assumes your Button component is in src/components/ui/button.jsx or .tsx
 import { Button } from "../components/ui/button";
-import ChatbotDemo from '../components/ChatbotDemo';
 import {
   Play,
   ArrowRight,
@@ -182,7 +181,7 @@ const generateCircularNodes = () => {
 };
 
 const getNodeLabel = (index) => {
-  const labels = ['NLP', 'Vision', 'ML', 'Robotics', 'Cloud', 'Security', 'Data', 'Analytics'];
+  const labels = ['ChatBot', 'Vision', 'Lead Generation', 'Campaign', 'Cloud', 'Security', 'Social Media', 'Voice'];
   return labels[index];
 };
 
@@ -297,19 +296,16 @@ const HomePage = () => {
 </h1>
 
     <p className="text-base md:text-lg text-white mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0">
-      Power your business with intelligent voice, chat, and campaign automation.
+      Power your business with intelligent voice, chat, campaign & Social-Media automation, Cyber-security, Lead generation. 
     </p>
   
 
-                  <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 justify-center lg:justify-start mt-8">
+    <div className="hidden sm:flex flex-col sm:flex-row items-center sm:items-start gap-4 justify-center lg:justify-start mt-8">
   <Button
-    className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white w-52 sm:w-auto h-12 text-base px-4"
+    className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white h-12 text-base w-40 sm:w-auto px-3 sm:px-4"
     asChild
   >
-    <RouterLink
-      to="/contact"
-      className="flex items-center justify-center"
-    >
+    <RouterLink to="/contact" className="flex items-center justify-center">
       Request Demo <ArrowRight className="ml-2 h-4 w-4" />
     </RouterLink>
   </Button>
@@ -317,13 +313,14 @@ const HomePage = () => {
   <Button
     asChild
     variant="outline"
-    className="border-[#88bf42] text-[#88bf42] text-base md:text-base px-4 md:px-6 py-2 h-12 w-52 sm:w-auto rounded-md hover:bg-[#eaf4d6]"
+    className="border-[#88bf42] text-[#88bf42] text-base h-12 w-40 sm:w-auto px-3 sm:px-6 rounded-md hover:bg-[#eaf4d6]"
   >
     <RouterLink to="/services">
       Our Solutions
     </RouterLink>
   </Button>
 </div>
+
 
 
                 </motion.div>
@@ -339,6 +336,31 @@ const HomePage = () => {
                 </motion.div>
               </div>
             </div>
+            
+            {/* Mobile buttons below the diagram */}
+                     <div className="flex flex-col sm:hidden items-center gap-4 justify-center w-full mt-8 px-4">
+              <Button
+                className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white w-full max-w-xs sm:max-w-sm h-12 text-base px-4 rounded-md shadow-lg " // Added max-w-xs or max-w-sm
+                asChild
+              >
+                <RouterLink
+                  to="/contact"
+                  className="flex items-center justify-center" // w-full here is fine as Button's class takes precedence via asChild
+                >
+                  Request Demo <ArrowRight className="ml-2 h-4 w-4" />
+                </RouterLink>
+              </Button>
+
+              <Button
+                asChild
+                variant="outline"
+                className="border-[#88bf42] text-[#88bf42] text-base w-full max-w-xs sm:max-w-sm h-12 px-4 rounded-md shadow hover:bg-[#eaf4d6]" // Added max-w-xs or max-w-sm
+              >
+                <RouterLink to="/services" className="flex items-center justify-center"> {/* Removed w-full from RouterLink to let Button control it */}
+                  Our Solutions
+                </RouterLink>
+              </Button>
+            </div>
           </div>
         </section>
 
@@ -346,98 +368,146 @@ const HomePage = () => {
 
         {/* 3. Quick Company Intro */}
         <section className="py-16 lg:py-24 bg-gray-50 relative overflow-hidden">
-          <div className="container mx-auto px-4 relative z-10">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              variants={staggerChildren}
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-                <div className="flex flex-col space-y-4 md:space-y-6 text-center md:text-left">
-                  <motion.div
-                    variants={itemVariants}
-                    className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 w-fit mx-auto md:mx-0"
-                  >
-                    <span className="text-[#88BF42] text-sm md:text-base font-semibold">About Us</span>
-                  </motion.div>
-                  <motion.h2
-                    variants={itemVariants}
-                    className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-2 md:mb-4 leading-tight"
-                  >
-                    Pioneering the Future of <span className="text-[#88BF42]">AI Solutions</span>
-                  </motion.h2>
-                  <motion.p
-  variants={itemVariants}
-  className="text-base md:text-lg text-[#696869] leading-relaxed max-w-prose text-left"
->
-  Thorsignia is dedicated to transforming how businesses operate, engage, and grow. With a deep focus on artificial intelligence and automation, we deliver cutting-edge, intelligent systems tailored to meet real-world challenges.
-</motion.p>
+      <div className="container mx-auto px-4 relative z-10">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={staggerChildren}
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+            {/* Left Column: Text Content */}
+            <div className="flex flex-col space-y-4 md:space-y-6 text-center md:text-left">
+              <motion.div
+                variants={itemVariants}
+                className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 w-fit mx-auto md:mx-0"
+              >
+                <span className="text-[#88BF42] text-sm md:text-base font-semibold">
+                  About Us
+                </span>
+              </motion.div>
+              <motion.h2
+                variants={itemVariants}
+                className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-2 md:mb-4 leading-tight"
+              >
+                Pioneering the Future of <span className="text-[#88BF42]">AI Solutions</span>
+              </motion.h2>
+              <motion.p
+                variants={itemVariants}
+                className="text-base md:text-lg text-[#696869] leading-relaxed max-w-prose mx-auto md:mx-0 "
+              >
+                Thorsignia is dedicated to transforming how businesses operate, engage, and grow. With a deep focus on artificial intelligence and automation, we deliver cutting-edge, intelligent systems tailored to meet real-world challenges.
+              </motion.p>
+              <motion.p
+                variants={itemVariants}
+                className="text-base md:text-lg text-[#696869] leading-relaxed max-w-prose mx-auto md:mx-0"
+              >
+                Our expertise spans across AI-powered platforms, smart automation, and customer-centric technologies enabling organizations to save time, convert more leads, and elevate user experiences.
+              </motion.p>
 
-<motion.p
-  variants={itemVariants}
-  className="text-base md:text-lg text-[#696869] leading-relaxed max-w-prose text-left"
->
-  Our expertise spans across AI-powered platforms, smart automation, and customer-centric technologies enabling organizations to save time, convert more leads, and elevate user experiences.
-</motion.p>
-
-                  <motion.div
-                    variants={itemVariants}
-                    className="flex flex-wrap justify-center md:justify-start gap-4 mt-4 md:mt-8"
-                  >
-                     <div className="flex items-center space-x-2">
-                      <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#88BF42]/10 flex items-center justify-center flex-shrink-0">
-                        <Shield className="w-5 h-5 md:w-6 md:h-6 text-[#88BF42]" />
-                      </div>
-                      <span className="text-[#0F0326] text-sm md:text-base font-medium">Enterprise Grade</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                       <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#88BF42]/10 flex items-center justify-center flex-shrink-0">
-                        <Bot className="w-5 h-5 md:w-6 md:h-6 text-[#88BF42]" />
-                      </div>
-                      <span className="text-[#0F0326] text-sm md:text-base font-medium">AI-Powered</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                       <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#88BF42]/10 flex items-center justify-center flex-shrink-0">
-                        <Brain className="w-5 h-5 md:w-6 md:h-6 text-[#88BF42]" />
-                      </div>
-                      <span className="text-[#0F0326] text-sm md:text-base font-medium">Smart Solutions</span>
-                    </div>
-                  </motion.div>
-                  <motion.a
-                    href="/about" // Example internal link
-                    variants={itemVariants}
-                    className="mt-6 md:mt-8 w-fit px-6 md:px-8 py-3 md:py-4 bg-[#0F0326] text-white font-semibold rounded-lg hover:bg-[#1A0645] transition-all duration-300 ease-in-out hover:shadow-lg flex items-center space-x-2 group mx-auto md:mx-0"
-                  >
-                    <span>Learn More</span>
-                    <ArrowRight className="w-4 h-4 md:w-5 md:h-5 transform group-hover:translate-x-1 transition-transform" />
-                  </motion.a>
+              {/* Feature items for mobile view only - REMAINS VERTICAL */}
+              <motion.div
+                variants={itemVariants}
+                className="flex md:hidden flex-col items-center space-y-4 mt-6 mb-8"
+              >
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-full bg-[#88BF42]/10 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                      <path fill="#88BF42" d="M11.7 2.805a.75.75 0 01.6 0A60.65 60.65 0 0122.83 8.72a.75.75 0 01.3.6v1.8a.75.75 0 01-.3.6A60.462 60.462 0 0112.3 17.5a.75.75 0 01-.6 0A60.462 60.462 0 011.2 11.72a.75.75 0 01-.3-.6v-1.8a.75.75 0 01.3-.6A60.65 60.65 0 0111.7 2.805z"/>
+                      <path fill="#88BF42" d="M11.7 15.75a.75.75 0 01.6 0A60.462 60.462 0 0022.83 21.53a.75.75 0 01.3.6v1.8a.75.75 0 01-.3.6A60.45 60.45 0 0012.3 30.25a.75.75 0 01-.6 0A60.45 60.45 0 001.2 24.53a.75.75 0 01-.3-.6v-1.8a.75.75 0 01.3-.6A60.462 60.462 0 0011.7 15.75z" opacity="0.4"/>
+                    </svg>
+                  </div>
+                  <span className="text-[#0F0326] text-sm md:text-base text-[#696869] font-medium">Enterprise Grade</span>
                 </div>
-                <motion.div
-                  variants={itemVariants}
-                  className="grid grid-cols-2 gap-4 md:gap-6"
-                >
-                  <div className="p-4 md:p-6 bg-white rounded-lg md:rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100">
-                    <div className="text-3xl md:text-4xl font-bold text-[#88BF42] mb-1 md:mb-2">98%</div>
-                    <div className="text-[#0F0326] text-sm md:text-base font-medium">Client Satisfaction</div>
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-full bg-[#88BF42]/10 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                      <path fill="#88BF42" d="M6.25 6.375a6.25 6.25 0 1112.5 0 6.25 6.25 0 01-12.5 0zM12 17.75a.75.75 0 01.75.75v5a.75.75 0 01-1.5 0v-5a.75.75 0 01.75-.75z"/>
+                      <path fill="#88BF42" d="M8.5 19.75a.75.75 0 01.75.75 2.25 2.25 0 004.5 0 .75.75 0 011.5 0 3.75 3.75 0 01-7.5 0 .75.75 0 01.75-.75z" opacity="0.6"/>
+                      <path fill="#88BF42" d="M10.25 6.375a1.75 1.75 0 113.5 0 1.75 1.75 0 01-3.5 0z" opacity="0.8"/>
+                    </svg>
                   </div>
-                   <div className="p-4 md:p-6 bg-white rounded-lg md:rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100">
-                    <div className="text-3xl md:text-4xl font-bold text-[#88BF42] mb-1 md:mb-2">50+</div>
-                    <div className="text-[#0F0326] text-sm md:text-base font-medium">Enterprise Clients</div>
+                  <span className="text-[#0F0326] text-sm md:text-base text-[#696869] font-medium">AI-Technologies</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-full bg-[#88BF42]/10 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                       <path fill="#88BF42" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                       <path fill="#88BF42" d="M12 17l5-5-5-5v10z" opacity="0.8"/>
+                    </svg>
                   </div>
-                  <div className="p-4 md:p-6 bg-white rounded-lg md:rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100">
-                    <div className="text-3xl md:text-4xl font-bold text-[#88BF42] mb-1 md:mb-2">24/7</div>
-                    <div className="text-[#0F0326] text-sm md:text-base font-medium">AI Support</div>
+                  <span className="text-[#0F0326] text-sm md:text-base text-[#696869] font-medium">Smart Solutions</span>
+                </div>
+              </motion.div>
+
+              <motion.a
+                href="/about"
+                variants={itemVariants}
+                className="mt-6 md:mt-8 w-fit px-6 md:px-8 py-3 md:py-4 bg-[#0F0326] text-white font-semibold rounded-lg hover:bg-[#1A0645] transition-all duration-300 ease-in-out hover:shadow-lg flex items-center space-x-2 group mx-auto md:mx-0"
+              >
+                <span>Learn More</span>
+                <ArrowRight className="w-4 h-4 md:w-5 md:h-5 transform group-hover:translate-x-1 transition-transform" />
+              </motion.a>
+            </div>
+
+            {/* Right Column: Stats & Desktop Features */}
+            <motion.div
+              variants={itemVariants}
+              className="grid grid-cols-2 gap-4 md:gap-6" // Parent grid for stats and desktop features
+            >
+              <div className="p-4 md:p-6 bg-white rounded-lg md:rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 text-center md:text-left">
+                <div className="text-3xl md:text-4xl font-bold text-[#88BF42] mb-1 md:mb-2">98%</div>
+                <div className="text-[#0F0326] text-sm md:text-base font-medium">Client Satisfaction</div>
+              </div>
+              <div className="p-4 md:p-6 bg-white rounded-lg md:rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 text-center md:text-left">
+                <div className="text-3xl md:text-4xl font-bold text-[#88BF42] mb-1 md:mb-2">50+</div>
+                <div className="text-[#0F0326] text-sm md:text-base font-medium">Enterprise Clients</div>
+              </div>
+              <div className="p-4 md:p-6 bg-white rounded-lg md:rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 text-center md:text-left">
+                <div className="text-3xl md:text-4xl font-bold text-[#88BF42] mb-1 md:mb-2">24/7</div>
+                <div className="text-[#0F0326] text-sm md:text-base font-medium">AI Support</div>
+              </div>
+              <div className="p-4 md:p-6 bg-white rounded-lg md:rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 text-center md:text-left">
+                <div className="text-3xl md:text-4xl font-bold text-[#88BF42] mb-1 md:mb-2">10+</div>
+                <div className="text-[#0F0326] text-sm md:text-base font-medium">Years Experience</div>
+              </div>
+              
+              {/* Feature items for desktop view - NOW HORIZONTAL */}
+              <div className="hidden md:flex md:flex-row md:items-center md:justify-center md:gap-6 lg:gap-8 md:mt-8 md:col-span-2">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-full bg-[#88BF42]/10 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                      <path fill="#88BF42" d="M11.7 2.805a.75.75 0 01.6 0A60.65 60.65 0 0122.83 8.72a.75.75 0 01.3.6v1.8a.75.75 0 01-.3.6A60.462 60.462 0 0112.3 17.5a.75.75 0 01-.6 0A60.462 60.462 0 011.2 11.72a.75.75 0 01-.3-.6v-1.8a.75.75 0 01.3-.6A60.65 60.65 0 0111.7 2.805z"/>
+                      <path fill="#88BF42" d="M11.7 15.75a.75.75 0 01.6 0A60.462 60.462 0 0022.83 21.53a.75.75 0 01.3.6v1.8a.75.75 0 01-.3.6A60.45 60.45 0 0012.3 30.25a.75.75 0 01-.6 0A60.45 60.45 0 001.2 24.53a.75.75 0 01-.3-.6v-1.8a.75.75 0 01.3-.6A60.462 60.462 0 0011.7 15.75z" opacity="0.4"/>
+                    </svg>
                   </div>
-                   <div className="p-4 md:p-6 bg-white rounded-lg md:rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100">
-                    <div className="text-3xl md:text-4xl font-bold text-[#88BF42] mb-1 md:mb-2">10+</div>
-                    <div className="text-[#0F0326] text-sm md:text-base font-medium">Years Experience</div>
+                  <span className="text-[#0F0326] text-sm md:text-base text-[#696869] font-medium">Enterprise Grade</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-full bg-[#88BF42]/10 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                       <path fill="#88BF42" d="M6.25 6.375a6.25 6.25 0 1112.5 0 6.25 6.25 0 01-12.5 0zM12 17.75a.75.75 0 01.75.75v5a.75.75 0 01-1.5 0v-5a.75.75 0 01.75-.75z"/>
+                       <path fill="#88BF42" d="M8.5 19.75a.75.75 0 01.75.75 2.25 2.25 0 004.5 0 .75.75 0 011.5 0 3.75 3.75 0 01-7.5 0 .75.75 0 01.75-.75z" opacity="0.6"/>
+                       <path fill="#88BF42" d="M10.25 6.375a1.75 1.75 0 113.5 0 1.75 1.75 0 01-3.5 0z" opacity="0.8"/>
+                    </svg>
                   </div>
-                </motion.div>
+                  <span className="text-[#0F0326] text-sm md:text-base text-[#696869] font-medium">AI-Powered Solutions</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-full bg-[#88BF42]/10 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                       <path fill="#88BF42" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                       <path fill="#88BF42" d="M12 17l5-5-5-5v10z" opacity="0.8"/>
+                    </svg>
+                  </div>
+                  <span className="text-[#0F0326] text-sm md:text-base text-[#696869] font-medium">Smart Solutions</span>
+                </div>
               </div>
             </motion.div>
           </div>
-        </section>
+        </motion.div>
+      </div>
+    </section>
 
         {/* 4. What We Offer Section */}
         <section className="py-16 md:py-20 bg-white">
@@ -474,9 +544,38 @@ const HomePage = () => {
                     className="bg-white rounded-xl p-6 md:p-8 shadow-sm transition-all duration-300 flex flex-col h-full border border-transparent hover:border-[#88BF42]/20 relative overflow-hidden group"
                   >
                     <div className="absolute top-0 right-0 w-20 h-20 md:w-24 md:h-24 bg-[#88BF42]/5 rounded-bl-full z-0"></div>
-                    <div className="w-12 h-12 md:w-14 md:h-14 bg-[#88BF42]/10 rounded-lg flex items-center justify-center mb-4 md:mb-6 relative z-10 flex-shrink-0">
-                      <span className="text-[#88BF42] text-xl md:text-2xl">{service.emoji}</span>
-                    </div>
+                     <div className="w-12 h-12 md:w-14 md:h-14 bg-[#88BF42]/10 rounded-lg flex items-center justify-center mb-4 md:mb-6 relative z-10 flex-shrink-0">
+                       {service.title.includes('Voice') ? (
+                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                           <path fill="#88BF42" d="M12 15c1.66 0 3-1.34 3-3V6c0-1.66-1.34-3-3-3S9 4.34 9 6v6c0 1.66 1.34 3 3 3z"/>
+                           <path fill="#88BF42" d="M17 12c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V22h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" opacity="0.7"/>
+                         </svg>
+                       ) : service.title.includes('Social') ? (
+                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                           <path fill="#88BF42" d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+                         </svg>
+                       ) : service.title.includes('Lead') ? (
+                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                           <path fill="#88BF42" d="M11.7 2.805a.75.75 0 01.6 0A60.65 60.65 0 0122.83 8.72a.75.75 0 01.3.6v1.8a.75.75 0 01-.3.6A60.462 60.462 0 0112.3 17.5a.75.75 0 01-.6 0A60.462 60.462 0 011.2 11.72a.75.75 0 01-.3-.6v-1.8a.75.75 0 01.3-.6A60.65 60.65 0 0111.7 2.805z"/>
+                           <path fill="#88BF42" d="M11.7 15.75a.75.75 0 01.6 0A60.462 60.462 0 0022.83 21.53a.75.75 0 01.3.6v1.8a.75.75 0 01-.3.6A60.45 60.45 0 0012.3 30.25a.75.75 0 01-.6 0A60.45 60.45 0 001.2 24.53a.75.75 0 01-.3-.6v-1.8a.75.75 0 01.3-.6A60.462 60.462 0 0011.7 15.75z" opacity="0.4"/>
+                         </svg>
+                       ) : service.title.includes('Chatbot') ? (
+                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                           <path fill="#88BF42" d="M6.25 6.375a6.25 6.25 0 1112.5 0 6.25 6.25 0 01-12.5 0zM12 17.75a.75.75 0 01.75.75v5a.75.75 0 01-1.5 0v-5a.75.75 0 01.75-.75z"/>
+                           <path fill="#88BF42" d="M8.5 19.75a.75.75 0 01.75.75 2.25 2.25 0 004.5 0 .75.75 0 011.5 0 3.75 3.75 0 01-7.5 0 .75.75 0 01.75-.75z" opacity="0.6"/>
+                           <path fill="#88BF42" d="M10.25 6.375a1.75 1.75 0 113.5 0 1.75 1.75 0 01-3.5 0z" opacity="0.8"/>
+                         </svg>
+                       ) : service.title.includes('Campaign') ? (
+                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                           <path fill="#88BF42" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                         </svg>
+                       ) : (
+                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                           <path fill="#88BF42" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                           <path fill="#88BF42" d="M12 17l5-5-5-5v10z" opacity="0.8"/>
+                         </svg>
+                       )}
+                     </div>
                     <h3 className="text-lg md:text-xl font-bold text-[#0F0326] mb-2 md:mb-3 relative z-10">{service.title}</h3>
                     <p className="text-[#696869] text-sm md:text-base mb-4 flex-grow relative z-10">
                       {service.desc}
@@ -575,19 +674,14 @@ const HomePage = () => {
             </div>
         </motion.section>
 
-        {/* 5. Mini Product Demo Teasers */}
         <ProductDemoSection />
 
-        {/* 6. Case Study Preview */}
-        <section className="py-16 md:py-20 bg-white">
+        {/* <section className="py-16 md:py-20 bg-white">
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
-              {/* Left side: Case Study Image Link */}
               <div className="w-full md:w-1/2 mb-6 md:mb-0">
-                {/* Updated RouterLink path */}
                 <RouterLink to="/case-studies/sgf-fab-industries" className="block relative rounded-xl overflow-hidden shadow-xl group">
                   <div className="aspect-video bg-[#F5F8FF] relative">
-                    {/* Image src kept, updated alt text */}
                     <img
                       src="/assets/images.png"
                       alt="SGF FAB Industries quality control case study"
@@ -595,61 +689,48 @@ const HomePage = () => {
                       loading="lazy"
                     />
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0F0326]/80 to-transparent p-4 md:p-6">
-                      {/* Updated Company Name */}
                       <div className="text-white text-sm md:text-base font-medium">SGF FAB Industries</div>
                     </div>
                   </div>
                 </RouterLink>
               </div>
 
-              {/* Right side: Case Study Details */}
               <div className="md:w-1/2 text-center md:text-left">
-                {/* Label remains the same */}
                 <motion.div variants={itemVariants} className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 mb-4">
                   <span className="text-[#88BF42] text-sm md:text-base font-semibold">Case Study</span>
                 </motion.div>
 
-                {/* Updated Case Study Title */}
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-4">AI-Powered Quality <span className="text-[#88BF42]">Control System</span> </h2>
 
-                {/* Updated Description Paragraph */}
-                <p className="text-base md:text-lg text-[#696869] mb-4 md:mb-6 max-w-prose text-left">
+                <p className="text-base md:text-lg text-[#696869] mb-4 md:mb-6 max-w-prose text-center">
                   Developed a custom computer vision system for quality control in industrial fabrication, resulting in significant reduction in production defects and improved operational efficiency.
                 </p>
-
-                {/* Updated Metrics Grid */}
                 <div className="flex flex-row flex-wrap justify-center md:justify-start gap-6 mb-6 text-center md:text-left">
-  {/* Metric 1: ROI */}
   <div>
     <div className="text-2xl md:text-3xl font-bold  mb-1">285%</div>
     <div className="text-base md:text-lg font-medium">ROI</div>
   </div>
 
-  {/* Metric 2: Timeframe */}
   <div>
     <div className="text-2xl md:text-3xl font-bold mb-1">8 months</div>
     <div className="text-base md:text-lg font-medium">Timeframe</div>
   </div>
-
-  {/* Metric 3: Defect Reduction */}
   <div>
     <div className="text-2xl md:text-3xl font-bold mb-1">Improved</div>
     <div className="text-base md:text-lg font-medium">Defect Reduction</div>
   </div>
 </div>
+<Button asChild className="bg-[#0F0326] hover:bg-[#1A0645] text-white text-sm md:text-base px-6 md:px-8 py-3 md:py-4 h-auto w-52 rounded-md mx-auto md:mx-0">
+  <RouterLink to="/case-studies/sgf-fab-industries">
+  View Full Case Study <ArrowRight className="ml-2 h-3 w-3" />
+  </RouterLink>
+</Button>
 
 
-                {/* Updated Button Link */}
-                <Button asChild className="bg-[#0F0326] hover:bg-[#1A0645] text-white text-sm md:text-base px-6 md:px-8 py-3 md:py-4 h-auto w-52 rounded-md mx-auto md:mx-0">
-                  {/* Updated RouterLink path */}
-                  <RouterLink to="/case-studies/sgf-fab-industries">
-                  View Full Case Study <ArrowRight className="ml-2 h-3 w-3" /> {/* Assuming ArrowRight icon component exists */}
-                  </RouterLink>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
+</div>
+</div>
+</div>
+</section> */}
         <section className="py-16 md:py-20 bg-white relative overflow-hidden">
       {/* Background blob/gradient */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-[#88BF42]/10 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000 pointer-events-none"></div>
@@ -840,7 +921,6 @@ const HomePage = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      <ChatbotDemo />
     </div>
   
   );

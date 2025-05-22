@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import ChatbotDemo from '@/components/ChatbotDemo';
+
 import { Calendar, Clock, User, ArrowLeft } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { blogPosts, BlogPost as BlogPostType } from '@/data/blog-posts';
@@ -320,7 +320,7 @@ export default function BlogPost() {
       </div>
       
       <Footer />
-      <ChatbotDemo />
+
     </div>
   );
 }

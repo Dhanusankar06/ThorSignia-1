@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const CompanyAnthem = () => {
   return (
-    <section className="bg-white py-20 px-4">
+    <section className="bg-white flex flex-col max-w-6xl mx-auto px-4">
       <div className="max-w-5xl mx-auto">
         
         {/* Heading and Description */}

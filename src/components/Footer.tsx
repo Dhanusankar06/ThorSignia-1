@@ -93,7 +93,7 @@ const Footer = () => {
                 <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center mr-3 text-[#88bf42] group-hover:bg-white/20 transition-colors">
                   <MapPin className="w-4 h-4"/>
                 </div>
-                <span className="text-gray-300">945, 1st Floor,<br/> 5th Main Rd,<br/> Sector 7, HSR Layout,<br/> Bengaluru,<br /> Karnataka 560102</span>
+                <span className="text-gray-300">945, 1st Floor, 5th Main Rd, Sector 7, HSR Layout,<br/> Bengaluru, Karnataka 560102</span>
               </li>
               <li className="flex items-start group">
               <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center mr-3 text-[#88bf42] group-hover:bg-white/20 transition-colors">

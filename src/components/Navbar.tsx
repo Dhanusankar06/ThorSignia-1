@@ -112,8 +112,8 @@ const navItems: NavItem[] = [
     title: "Services",
     href: "/services#top",
     dropdown: true,
-    mainIcon: "Settings", 
-    mainDescription: "Explore all our cutting-edge Enterprise AI Solutions.", 
+    mainIcon: "Settings",
+    mainDescription: "Explore all our cutting-edge Enterprise AI Solutions.",
     items: [
       {
         title: "Intelligent Voice Automation",
@@ -147,7 +147,7 @@ const navItems: NavItem[] = [
        },
     ],
   },
-    { 
+    {
     title: "Cybersecurity",
     href: "/cyber-security#top",
     dropdown: false,
@@ -156,7 +156,7 @@ const navItems: NavItem[] = [
     title: "Case Studies",
     href: "/case-studies#top",
     dropdown: true,
-    mainIcon: "Database", 
+    mainIcon: "Database",
     mainDescription: "Discover how our AI solutions deliver measurable results for clients.",
     items: [
       {
@@ -227,6 +227,7 @@ const navItems: NavItem[] = [
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // Use one state for both desktop and mobile dropdowns, managed by click logic
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const location = useLocation();
   const pathname = location.pathname;
@@ -237,7 +238,8 @@ export default function Navbar() {
   // Effect to close desktop dropdown on outside click
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
-      if (desktopNavRef.current && !desktopNavRef.current.contains(event.target as Node) && openDropdown !== null) {
+      // Only close desktop dropdown if it's open and click is outside the ref element
+      if (window.innerWidth >= 768 && desktopNavRef.current && !desktopNavRef.current.contains(event.target as Node) && openDropdown !== null) {
         setOpenDropdown(null);
       }
     };
@@ -251,6 +253,10 @@ export default function Navbar() {
 
   // Effect to handle scrolling on route change (including hash changes)
    useEffect(() => {
+        // Close mobile menu and desktop dropdown on route change
+        setIsMenuOpen(false);
+        setOpenDropdown(null); // Close any open dropdown
+
         // Scroll to element if hash exists
         if (currentHash) {
              // Find the element by ID (remove the '#' from the hash)
@@ -264,10 +270,11 @@ export default function Navbar() {
         } else {
              // Scroll to top on pathname change if no hash is present
              // Only scroll to top if the pathname actually changed
-             if (location.key !== 'default') { // Avoid initial load scroll to top
+             // Check if we navigated, not just initial load
+             if (location.key !== 'default') {
                  window.scrollTo({ top: 0, behavior: 'smooth' });
              } else {
-                 // On initial load with no hash, ensure it's at the top
+                 // On initial load with no hash, ensure it's at the top instantly
                   window.scrollTo({ top: 0, behavior: 'instant' });
              }
         }
@@ -280,29 +287,24 @@ export default function Navbar() {
 
       // Check if the current path *starts* with the base href (e.g., /services for /services#...)
        // and the base href is not just '/' (home page)
-       if (item.href !== '/' && pathname.startsWith(item.href)) {
-           // If we are on the base page or any page below it, the trigger is active
-           // We need to be careful with hash. If we are on /services, it's active. If on /services#section, it's active.
-            // If any sub-item href matches the current full URL, the trigger is active.
-            const currentFullUrl = pathname + (currentHash || '');
+       if (item.href !== '/') {
+           // Check if the current pathname matches the item's base href exactly (e.g., /services)
+           // OR if any sub-item href (which includes hash) matches the current full URL.
+           const currentFullUrl = pathname + (currentHash || '');
             const subItemMatch = item.items?.some(subItem => subItem.href === currentFullUrl);
 
-            // The trigger is active if:
-            // 1. The current pathname is exactly the item's href (e.g., /services) OR
-            // 2. Any of the sub-items' hrefs match the current full URL (e.g., /services#...)
-           return pathname === item.href || !!subItemMatch;
+            return pathname === item.href || !!subItemMatch;
        }
 
-       // Handle the case where the item's href is '/' (though typically dropdowns aren't the home link)
-       if (item.href === '/' && pathname === '/') return true; // Should not happen for dropdowns as structured
+       // Handle the case where the item's href is '/' (Home). Should only be active if it's exactly '/'
+       // (This shouldn't happen for dropdowns in this structure, but defensively checks)
+       if (item.href === '/' && pathname === '/') return true;
 
        return false;
    };
 
-   // Toggle desktop dropdown visibility
+   // Toggle dropdown visibility (used by both desktop and mobile)
    const toggleDropdown = (itemTitle: string) => {
-       // If clicking the same item that's already open, close it.
-       // Otherwise, open the clicked item's dropdown.
        setOpenDropdown(openDropdown === itemTitle ? null : itemTitle);
    };
 
@@ -315,14 +317,27 @@ export default function Navbar() {
       // Note: The useEffect listening to location handles the scrolling
   };
 
+  // Function to determine if a mobile link is active based on URL
+  const isMobileLinkActive = (href: string) => {
+    const currentFullUrl = pathname + (currentHash || '');
+    // For exact matches (including hash)
+    if (currentFullUrl === href) return true;
+    // For base path matches without hash (e.g., /services matches /services#something)
+    if (href !== '/' && pathname === href && href.indexOf('#') === -1) return true;
+    // Special case for home page
+    if (href === '/' && pathname === '/') return true;
+    return false;
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background backdrop-blur">
-      <div className="container flex h-16 items-center justify-between">
+      {/* Adjusted header height: md:h-16 for desktop, h-20 for mobile */}
+      <div className="container flex h-20 md:h-16 items-center justify-between">
         {/* Logo Link */}
         <Link to="/" className="flex items-center space-x-2" onClick={handleNavLinkClick}>
           {/* Use your actual logo source and alt text */}
-          <img src="/download.png" alt="Thor Signia Logo" width={190} height={190} />
+          {/* Adjusted logo size for better fit */}
+          <img src="/ThorSignia Logo .png" alt="Thor Signia Logo" width={220} height={220} />
         </Link>
 
         {/* Desktop Navigation */}
@@ -360,7 +375,7 @@ export default function Navbar() {
                   to={item.href}
                   className={cn(
                     "text-sm font-medium transition-colors hover:text-[#88bf42] h-full flex items-center px-2 whitespace-nowrap", // Added whitespace-nowrap to prevent wrapping
-                    pathname === item.href ? "text-[#88bf42] border-b-2 border-[#88bf42]" : "text-foreground border-b-2 border-transparent",
+                    pathname === item.href && currentHash === '' ? "text-[#88bf42] border-b-2 border-[#88bf42]" : "text-foreground border-b-2 border-transparent",
                      "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   )}
                    onClick={handleNavLinkClick} // Close mobile menu if somehow open
@@ -390,7 +405,7 @@ export default function Navbar() {
                         className={cn(
                           "flex flex-col h-full p-4 rounded-md",
                           "bg-gradient-to-br from-[#10b4b7]/10 to-[#9ac857]/10", // Gradient background
-                          "hover:bg-gradient-to-br hover:from-[#10b4b7]/20 hover:to-[#9ac857]/20", // Hover effect
+                          "hover:bg-gradient-to-br hover:from-[#10b4b7]/20 hover:to-[#9ac257]/20", // Hover effect
                           "transition-colors duration-200",
                           "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                           pathname === item.href && currentHash === '' ? "border border-[#88bf42]" : "border border-transparent" // Highlight border if on the main page
@@ -458,15 +473,6 @@ export default function Navbar() {
               )}
             </div>
           ))}
-
-          {/* Contact Us Button for Desktop */}
-          {/* <Button
-            asChild
-            className="bg-[#88bf42] hover:bg-[#7aad3a] text-white text-sm px-4 py-2 rounded-md"
-          >
-            {/* This link doesn't need handleNavLinkClick unless you want to close the mobile menu if it's open for some reason */}
-            {/* <Link to="/contact">Contact Us</Link>
-          </Button> */} 
         </div>
 
         {/* Mobile Navigation Toggle */}
@@ -474,18 +480,22 @@ export default function Navbar() {
           <Button
             variant="ghost"
             size="icon"
+            // Increased the button size for a larger touch target
+            className="w-[100px] h-[70px] text-foreground hover:text-[#88bf42]" // Added color for the toggle button itself
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle Menu"
           >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {/* Increased the icon size */}
+            {isMenuOpen ? <X className="h-20 w-20" /> : <Menu className="h-20 w-20" />}
           </Button>
         </div>
       </div>
 
       {/* Mobile Navigation Menu */}
+      {/* Added `h-[calc(100vh-80px)]` to make the menu fill the screen height below the header (80px is the new mobile header height h-20 = 80px) */}
       {isMenuOpen && (
-        <div className="container pb-4 md:hidden">
-          <nav className="flex flex-col space-y-4">
+        <div className="container pb-4 md:hidden h-[calc(100vh-80px)] overflow-y-auto"> {/* Added overflow for long menus */}
+          <nav className="flex flex-col space-y-4 mt-4"> {/* Added top margin for spacing */}
             {navItems.map((item) => (
               <div key={item.title}>
                 {/* Mobile links and dropdowns */}
@@ -494,83 +504,111 @@ export default function Navbar() {
                   <Link
                     to={item.href}
                     className={cn(
-                      "text-sm font-medium block",
-                      pathname === item.href ? "text-[#88bf42]" : "text-foreground"
+                      "text-lg font-medium block py-2", // Increased text size, added vertical padding
+                       // Default is black (text-foreground)
+                       "text-foreground",
+                       // Active is black and bold
+                      isMobileLinkActive(item.href) && "font-bold",
+                       // Hover is green
+                      "hover:text-[#88bf42]"
                     )}
                     onClick={handleNavLinkClick} // Close mobile menu on click
                   >
                     {item.title}
                   </Link>
                 ) : (
-                   // For mobile dropdown triggers, just render the title as text (not clickable trigger)
-                  <div
-                    className={cn(
-                      "text-sm font-medium text-foreground",
-                      isDropdownTriggerActiveByUrl(item) && "text-[#88bf42]" // Highlight if active by URL
-                    )}
-                  >
-                    {item.title}
-                  </div>
-                )}
-
-                {item.dropdown && item.items && (
-                  <div className="mt-2 ml-4 flex flex-col space-y-2">
-                    {/* Main Link for Mobile Dropdown */}
-                     <Link
-                        to={item.href} // Link to the main page
-                        onClick={handleNavLinkClick} // Close menu on click
+                   // Mobile Dropdown Trigger (clickable button)
+                   <div> {/* Use a div or button as wrapper for flex/items */}
+                     <button
+                        onClick={() => toggleDropdown(item.title)}
                         className={cn(
-                          "text-sm font-semibold", // Style for main link
-                          pathname === item.href && currentHash === '' ? "text-[#88bf42]" : "text-foreground", // Highlight if on main page
-                          "hover:text-[#88bf42] flex items-center gap-2" // Hover and layout
+                          "text-lg font-medium w-full text-left py-2", // Increased text size, full width button, added padding
+                          "flex justify-between items-center", // Align text and icon
+                          // Default is black (text-foreground)
+                           "text-foreground",
+                           // Active is black and bold
+                          isDropdownTriggerActiveByUrl(item) && "font-bold",
+                           // Hover does not apply green to the trigger text itself, only the links within
+                           "hover:text-foreground" // Keep hover effect subtle on the trigger button
                         )}
+                         aria-expanded={openDropdown === item.title}
                      >
-                          {/* Optional Main Icon for Mobile */}
-                           {item.mainIcon && typeof iconMap[item.mainIcon] !== 'undefined' && (
-                              <IconComponent
-                                 name={item.mainIcon} // Use IconName type directly
-                                 className="h-4 w-4 text-muted-foreground"
-                               />
-                           )}
-                           <span>{item.title} Overview</span> {/* Added Overview */}
-                     </Link>
-                    {/* Separator */}
-                    <div className="border-t border-muted-foreground/20 pt-2 mt-2"></div>
-                    {/* Sub-Items for Mobile Dropdown */}
-                    {item.items.map((subItem) => {
-                        const subItemIconName = subItem.icon as IconName | undefined;
-                        const hasValidIcon = subItemIconName && typeof iconMap[subItemIconName] !== 'undefined';
+                       <span>{item.title}</span>
+                        {/* Chevron icon for dropdown indicator (always gray) */}
+                       <ChevronDown className={cn(
+                           "h-6 w-6 transition-transform duration-200 text-muted-foreground", // Increased icon size slightly, always gray
+                           openDropdown === item.title ? "rotate-180" : "rotate-0"
+                       )} />
+                     </button>
 
-                       const currentFullUrl = pathname + (currentHash || '');
-                       const isSubItemActive = currentFullUrl === subItem.href;
+                    {/* Mobile Dropdown Content */}
+                    {item.items && openDropdown === item.title && (
+                      <div className="mt-2 ml-4 flex flex-col space-y-2"> {/* Indented sub-items */}
+                        {/* Main Link for Mobile Dropdown Section */}
+                         <Link
+                            to={item.href} // Link to the main page
+                            onClick={handleNavLinkClick} // Close menu on click
+                            className={cn(
+                              "text-base font-semibold py-1", // Style for main link, reduced padding
+                               // Default is black (text-foreground)
+                               "text-foreground",
+                               // Active is black and bold
+                              isMobileLinkActive(item.href) && "font-bold",
+                               // Hover is green
+                              "hover:text-[#88bf42]",
+                              "flex items-center gap-2" // Hover and layout
+                            )}
+                         >
+                              {/* Optional Main Icon for Mobile (always gray) */}
+                               {item.mainIcon && typeof iconMap[item.mainIcon] !== 'undefined' && (
+                                  <IconComponent
+                                     name={item.mainIcon} // Use IconName type directly
+                                     className="h-4 w-4 text-muted-foreground" // Small icon, always gray
+                                   />
+                               )}
+                               <span>{item.title} Overview</span> {/* Added Overview */}
+                         </Link>
+                        {/* Separator (optional) */}
+                        {/* <div className="border-t border-muted-foreground/20 pt-2 mt-2"></div> */} {/* Removed separator for cleaner list */}
+                        {/* Sub-Items for Mobile Dropdown */}
+                        {item.items.map((subItem) => {
+                            const subItemIconName = subItem.icon as IconName | undefined;
+                            const hasValidIcon = subItemIconName && typeof iconMap[subItemIconName] !== 'undefined';
 
-                      return (
-                        <Link
-                          key={subItem.title}
-                          to={subItem.href}
-                          className={cn(
-                            "text-sm",
-                            isSubItemActive ? "text-[#88bf42] font-semibold" : "text-muted-foreground",
-                            "hover:text-foreground flex items-center gap-2"
-                          )}
-                          onClick={handleNavLinkClick} // Close mobile menu on click
-                        >
-                          {hasValidIcon && (
-                            <IconComponent
-                              name={subItemIconName} // Use IconName type directly
-                              className="h-4 w-4 text-muted-foreground"
-                            />
-                          )}
-                          <span>{subItem.title}</span>
-                        </Link>
-                      );
-                    })}
-                  </div>
+                           const currentFullUrl = pathname + (currentHash || '');
+                           const isSubItemActive = currentFullUrl === subItem.href;
+
+                          return (
+                            <Link
+                              key={subItem.title}
+                              to={subItem.href}
+                              className={cn(
+                                "text-base py-1", // Slightly larger text, vertical padding
+                                 // Default is gray (text-muted-foreground)
+                                isMobileLinkActive(subItem.href) ? "text-foreground font-semibold" : "text-muted-foreground",
+                                 // Hover is green
+                                "hover:text-[#88bf42]",
+                                "flex items-center gap-2"
+                              )}
+                              onClick={handleNavLinkClick} // Close mobile menu on click
+                            >
+                              {hasValidIcon && (
+                                <IconComponent
+                                  name={subItemIconName} // Use IconName type directly
+                                  // Icon is always gray
+                                  className={cn("h-5 w-5 flex-shrink-0 text-muted-foreground")} // Icon size and color
+                                />
+                              )}
+                              <span>{subItem.title}</span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    )}
+                   </div>
                 )}
               </div>
             ))}
-            {/* Contact Us Button for Mobile */}
-            
           </nav>
         </div>
       )}

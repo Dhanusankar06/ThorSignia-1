@@ -3,7 +3,6 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import HeroSection from '@/components/HeroSection';
 // import CTASection from '@/components/CTASection';
-import ChatbotDemo from '@/components/ChatbotDemo';
 import VoiceAgentDemo from '@/components/VoiceAgentDemo';
 import { Button } from '@/components/ui/button';
 import { Link, useLocation } from 'react-router-dom';

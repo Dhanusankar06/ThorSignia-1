@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import ChatbotDemo from '@/components/ChatbotDemo';
+
 
 import { Button } from "@/components/ui/button";
 import { 
@@ -550,7 +550,7 @@ const CaseStudyDetail = () => {
       </section>
       
       <Footer />
-      <ChatbotDemo />
+
     </div>
   );
 };
