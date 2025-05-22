@@ -461,12 +461,12 @@ const HomePage = () => {
               variants={staggerChildren} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
             >
               {[
-                { emoji: '🎙️', title: 'Intelligent Voice Automation', desc: 'Intelligent systems for making or receiving calls with natural conversations powered by AI.', link: '/services/voice-automation' },
-                { emoji: '💬', title: 'Social Engagement Automation', desc: 'Automate posting, replies, DMs, and performance analysis across all social channels.', link: '/services/social-automation' },
-                { emoji: '🧠', title: 'AI-Powered Lead Intelligence', desc: 'Identify, qualify, and convert potential customers into hot leads with AI-driven insights.', link: '/services/lead-intelligence' },
-                { emoji: '🤖', title: 'Conversational AI Chatbots', desc: 'Intelligent chatbots for instant assistance and engagement with your customers.', link: '/services/ai-agents' },
-                { emoji: '📊', title: 'Automated Campaign Orchestration', desc: 'Automate advertising campaigns and optimize performance across multiple channels.', link: '/services/campaign-orchestration' },
-                { emoji: '🛡️', title: 'AI-Powered Threat Detection', desc: 'Leverage AI to constantly monitor for threats, identify anomalies, and protect your systems.', link: '/services/threat-detection' }
+                { emoji: '🎙️', title: 'Intelligent Voice Automation', desc: 'Intelligent systems for making or receiving calls with natural conversations powered by AI.', link: '/services#intelligent-voice-automation' },
+                { emoji: '💬', title: 'Social Engagement Automation', desc: 'Automate posting, replies, DMs, and performance analysis across all social channels.', link: '/services#social-engagement-automation' },
+                { emoji: '🧠', title: 'AI-Powered Lead Intelligence', desc: 'Identify, qualify, and convert potential customers into hot leads with AI-driven insights.', link: '/services#ai-powered-lead-intelligence' },
+                { emoji: '🤖', title: 'Conversational AI Chatbots', desc: 'Intelligent chatbots for instant assistance and engagement with your customers.', link: '/services#interactive-ai-chatbots' },
+                { emoji: '📊', title: 'Automated Campaign Orchestration', desc: 'Automate advertising campaigns and optimize performance across multiple channels.', link: '/services#automated-campaign-orchestration' },
+                { emoji: '🛡️', title: 'AI-Powered Threat Detection', desc: 'Leverage AI to constantly monitor for threats, identify anomalies, and protect your systems.', link: '/services#ai-powered-threat-detection' }
               ].map((service, index) => (
                  <motion.div
                     key={`service-${index}`} variants={itemVariants}
@@ -621,20 +621,20 @@ const HomePage = () => {
                 <div className="flex flex-row flex-wrap justify-center md:justify-start gap-6 mb-6 text-center md:text-left">
   {/* Metric 1: ROI */}
   <div>
-    <div className="text-2xl md:text-3xl font-bold text-[#88BF42] mb-1">285%</div>
-    <div className="text-base md:text-lg font-medium text-[#0F0326]">ROI</div>
+    <div className="text-2xl md:text-3xl font-bold  mb-1">285%</div>
+    <div className="text-base md:text-lg font-medium">ROI</div>
   </div>
 
   {/* Metric 2: Timeframe */}
   <div>
-    <div className="text-2xl md:text-3xl font-bold text-[#88BF42] mb-1">8 months</div>
-    <div className="text-base md:text-lg font-medium text-[#0F0326]">Timeframe</div>
+    <div className="text-2xl md:text-3xl font-bold mb-1">8 months</div>
+    <div className="text-base md:text-lg font-medium">Timeframe</div>
   </div>
 
   {/* Metric 3: Defect Reduction */}
   <div>
-    <div className="text-2xl md:text-3xl font-bold text-[#88BF42] mb-1">Improved</div>
-    <div className="text-base md:text-lg font-medium text-[#0F0326]">Defect Reduction</div>
+    <div className="text-2xl md:text-3xl font-bold mb-1">Improved</div>
+    <div className="text-base md:text-lg font-medium">Defect Reduction</div>
   </div>
 </div>
 

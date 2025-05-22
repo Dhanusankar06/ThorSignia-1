@@ -418,10 +418,10 @@ const Careers = () => {
               <img src="/assets/life-collaboration.jpg" alt="Team Collaboration" className="w-full h-56 object-cover" />
             </div>
             <div className="rounded-xl overflow-hidden shadow border border-gray-100">
-              <img src="/assets/life-office.jpg" alt="Office Culture" className="w-full h-56 object-cover" />
+              <img src="/assets/life-celebration.jpg" alt="Office Culture" className="w-full h-56 object-cover" />
             </div>
             <div className="rounded-xl overflow-hidden shadow border border-gray-100">
-              <img src="/assets/life-celebration.jpg" alt="Celebrating Success" className="w-full h-56 object-cover" />
+              <img src="/assets/life-office.jpg" alt="Celebrating Success" className="w-full h-56 object-cover" />
             </div>
           </div>
           <p className="text-center text-black max-w-2xl mx-auto text-lg">
