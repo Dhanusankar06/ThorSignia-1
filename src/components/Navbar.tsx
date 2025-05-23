@@ -281,12 +281,10 @@ export default function Navbar() {
     return false;
   };
 
-  // Toggle dropdown visibility
   const toggleDropdown = (itemTitle: string) => {
     setOpenDropdown(openDropdown === itemTitle ? null : itemTitle);
   };
 
-  // Handle clicks on navigation links
   const handleNavLinkClick = () => {
     setOpenDropdown(null);
     setIsMenuOpen(false);
