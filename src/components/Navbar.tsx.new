@@ -302,30 +302,29 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 left-0 w-full z-50 bg-white border-b">
-      <div className="container mx-auto px-2 md:px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo - positioned first with fixed width */}
-          <div className="w-32 md:w-40 lg:w-44 flex-shrink-0 mr-2 md:mr-4 lg:mr-6">
-            <Link to="/" onClick={handleNavLinkClick}>
-              <img 
-                src="/thor-signia-logo.png" 
-                alt="Thor Signia Logo" 
-                className="h-25 w-auto" 
-              />
-            </Link>
-          </div>
+    <header className="sticky top-0 z-50 w-full border-b bg-background">
+      <div className="container mx-auto flex items-center justify-between h-16">
+        {/* Logo */}
+        <div className="flex-none mr-4">
+          <Link to="/" onClick={handleNavLinkClick}>
+            <img 
+              src="/thor-signia-logo.png" 
+              alt="Thor Signia Logo" 
+              className="h-10 w-auto" 
+            />
+          </Link>
+        </div>
 
-          {/* Desktop Navigation - positioned after logo */}
-          <div className="hidden md:flex space-x-1 lg:space-x-2 xl:space-x-3 flex-1 justify-center" ref={desktopNavRef}>
-            {navItems.map((item) => (
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center space-x-4" ref={desktopNavRef}>
+          {navItems.map((item) => (
             <div key={item.title} className="relative group h-full flex items-center">
               {item.dropdown ? (
                 // Desktop Custom dropdown trigger (button)
                 <button
                   onClick={() => toggleDropdown(item.title)}
                   className={cn(
-                    "text-xs sm:text-sm md:text-base lg:text-lg font-medium transition-colors h-full flex items-center px-1 md:px-2 whitespace-nowrap", 
+                    "text-xl font-medium transition-colors h-full flex items-center px-3 whitespace-nowrap", 
                     "hover:text-[#88bf42]",
                     // Active state based on URL match
                     isDropdownTriggerActiveByUrl(item) ? "text-[#88bf42] border-b-2 border-[#88bf42]" : "text-foreground border-b-2 border-transparent",
@@ -350,7 +349,7 @@ export default function Navbar() {
                 <Link
                   to={item.href}
                   className={cn(
-                    "text-xs sm:text-sm md:text-base lg:text-lg font-medium transition-colors hover:text-[#88bf42] h-full flex items-center px-1 md:px-2 whitespace-nowrap", 
+                    "text-xl font-medium transition-colors hover:text-[#88bf42] h-full flex items-center px-3 whitespace-nowrap", 
                     pathname === item.href && currentHash === '' ? "text-[#88bf42] border-b-2 border-[#88bf42]" : "text-foreground border-b-2 border-transparent",
                      "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   )}
@@ -396,7 +395,7 @@ export default function Navbar() {
                               />
                           )}
                         {/* Title */}
-                        <div className="text-lg md:text-xl font-semibold text-foreground leading-tight mb-1">{item.title} Overview</div> {/* Added Overview */}
+                        <div className="text-xl font-semibold text-foreground leading-tight mb-1">{item.title} Overview</div> {/* Added Overview */}
                         {/* Description */}
                          {item.mainDescription && (
                              <p className="text-sm text-muted-foreground leading-snug">{item.mainDescription}</p>
@@ -420,28 +419,28 @@ export default function Navbar() {
                           const currentFullUrl = pathname + (currentHash || '');
                           const isSubItemActive = currentFullUrl === subItem.href;
 
-                          return (
-                            <li key={subItem.title}>
-                              <Link
-                                to={subItem.href}
-                                onClick={handleNavLinkClick} // Close dropdown and mobile menu on click
-                                className={cn(
-                                  "flex items-start gap-2 rounded-sm px-3 py-2 text-sm md:text-base outline-none transition-colors",
-                                  "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-                                   isSubItemActive ? "text-[#88bf42] font-semibold" : "text-foreground" // Active state for sub-items
-                                )}
-                                 role="menuitem" // ARIA role
-                              >
-                                {hasValidIcon && (
-                                   <IconComponent
-                                      name={subItemIconName} // Use IconName type directly
-                                      className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-1" // Vertically align icon
-                                    />
-                                )}
-                                <span className="leading-snug">{subItem.title}</span> {/* Adjusted leading */}
-                              </Link>
-                            </li>
-                          );
+                         return (
+                           <li key={subItem.title}>
+                             <Link
+                               to={subItem.href}
+                               onClick={handleNavLinkClick} // Close dropdown and mobile menu on click
+                               className={cn(
+                                 "flex items-start gap-2 rounded-sm px-3 py-2 text-base outline-none transition-colors",
+                                 "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                                  isSubItemActive ? "text-[#88bf42] font-semibold" : "text-foreground" // Active state for sub-items
+                               )}
+                                role="menuitem" // ARIA role
+                             >
+                               {hasValidIcon && (
+                                  <IconComponent
+                                     name={subItemIconName} // Use IconName type directly
+                                     className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-1" // Vertically align icon
+                                   />
+                               )}
+                               <span className="leading-snug">{subItem.title}</span> {/* Adjusted leading */}
+                             </Link>
+                           </li>
+                         );
                        })}
                      </ul>
                   </div>
@@ -449,10 +448,10 @@ export default function Navbar() {
               )}
             </div>
           ))}
-        </div>
+        </nav>
 
         {/* Mobile Navigation Toggle */}
-        <div className="md:hidden ml-auto pl-2">
+        <div className="md:hidden">
           <Button
             variant="ghost"
             size="icon"
@@ -460,7 +459,7 @@ export default function Navbar() {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle Menu"
           >
-            {isMenuOpen ? <X className="h-12 w-12" /> : <Menu className="h-12 w-12" />}
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </Button>
         </div>
       </div>
@@ -477,7 +476,7 @@ export default function Navbar() {
                   <Link
                     to={item.href}
                     className={cn(
-                      "text-lg sm:text-xl font-medium block py-2", 
+                      "text-xl font-medium block py-2", 
                       "text-foreground",
                       isMobileLinkActive(item.href) && "font-bold",
                       "hover:text-[#88bf42]"
@@ -492,7 +491,7 @@ export default function Navbar() {
                      <button
                         onClick={() => toggleDropdown(item.title)}
                         className={cn(
-                          "text-lg sm:text-xl font-medium w-full text-left py-2",
+                          "text-xl font-medium w-full text-left py-2",
                           "flex justify-between items-center",
                           "text-foreground",
                           isDropdownTriggerActiveByUrl(item) && "font-bold",
@@ -516,7 +515,7 @@ export default function Navbar() {
                             to={item.href}
                             onClick={handleNavLinkClick}
                             className={cn(
-                              "text-base sm:text-lg font-semibold py-1",
+                              "text-lg font-semibold py-1",
                               "text-foreground",
                               isMobileLinkActive(item.href) && "font-bold",
                               "hover:text-[#88bf42]",
@@ -546,7 +545,7 @@ export default function Navbar() {
                               key={subItem.title}
                               to={subItem.href}
                               className={cn(
-                                "text-base sm:text-lg py-1",
+                                "text-lg py-1",
                                 isMobileLinkActive(subItem.href) ? "text-foreground font-semibold" : "text-muted-foreground",
                                 "hover:text-[#88bf42]",
                                 "flex items-center gap-2"
@@ -572,7 +571,6 @@ export default function Navbar() {
           </nav>
         </div>
       )}
-      </div>
     </header>
   );
 }
