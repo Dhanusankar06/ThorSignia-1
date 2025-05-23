@@ -12,7 +12,7 @@ const Footer = () => {
       <div className="absolute top-1/2 left-10 w-16 h-16 rounded-lg border-2 border-[#009898]/20 opacity-30 rotate-12"></div>
       
       <div className="container mx-auto px-4 md:px-6 max-w-7xl relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-2 items-center">
           <div className="lg:col-span-2 flex flex-col justify-center">
             <h2 className="text-2xl font-bold mb-1 flex items-end gap-2">
               <span className="text-[#88bf42]">Thor</span> <span className="text-[#009898]">Signia</span>
@@ -21,7 +21,7 @@ const Footer = () => {
             <p className="text-gray-300 mb-6 max-w-md">
               Thor Signia is the #1 provider of enterprise AI solutions, empowering businesses to achieve unprecedented growth through innovative technology.
             </p>
-            <div className="flex space-x-3">
+            <div className="flex space-x-3 mb-6">
               <a href="https://www.facebook.com/thorsignia/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors text-white">
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
@@ -43,86 +43,62 @@ const Footer = () => {
                 </svg>
               </a>
             </div>
-          </div>
-          
-          <div className="h-full flex flex-col justify-center">
-            <h3 className="text-lg font-semibold mb-4 text-white flex items-center">
-            
-              Quick Links
-            </h3>
-            <ul className="space-y-3">
-              <li className="transition-transform hover:translate-x-1">
-                <Link to="/" className="text-gray-300 hover:text-white transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li className="transition-transform hover:translate-x-1">
-                <Link to="/about#top" className="text-gray-300 hover:text-white transition-colors">About Us</Link>
-              </li>
-              <li className="transition-transform hover:translate-x-1">
-                <Link to="/services#top" className="text-gray-300 hover:text-white transition-colors">Services</Link>
-              </li>
-              <li className="transition-transform hover:translate-x-1">
-                <Link to="/cyber-security#top" className="text-gray-300 hover:text-white transition-colors">Cyber Security</Link>
-              </li>
-              <li className="transition-transform hover:translate-x-1">
-                <Link to="/case-studies#top" className="text-gray-300 hover:text-white transition-colors">Case Studies</Link>
-              </li>
-              <li className="transition-transform hover:translate-x-1">
-                <Link to="/ai-engineers#top" className="text-gray-300 hover:text-white transition-colors">AI Engineers</Link>
-              </li>
-              <li className="transition-transform hover:translate-x-1">
-                <Link to="/awards#top" className="text-gray-300 hover:text-white transition-colors">Awards</Link>
-              </li>
-              <li className="transition-transform hover:translate-x-1">
-                <Link to="/blog#top" className="text-gray-300 hover:text-white transition-colors">Blog</Link>
-              </li>
-              <li className="transition-transform hover:translate-x-1">
-                <Link to="/contact#top" className="text-gray-300 hover:text-white transition-colors">Contact Us</Link>
-              </li>
-            </ul>
-          </div>
-          
-          <div className="h-full flex flex-col justify-center">
-            <h3 className="text-lg font-semibold mb-4 text-white flex items-center">
-              
-              Contact
-            </h3>
-            <ul className="space-y-4">
-              <li className="flex items-start group">
-                <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center mr-3 text-[#88bf42] group-hover:bg-white/20 transition-colors">
-                  <MapPin className="w-4 h-4"/>
-                </div>
-                <span className="text-gray-300">945, 1st Floor, 5th Main Rd, Sector 7, HSR Layout,<br/> Bengaluru, Karnataka 560102</span>
-              </li>
-              <li className="flex items-start group">
-              <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center mr-3 text-[#88bf42] group-hover:bg-white/20 transition-colors">
-                  <Mail className="w-4 h-4" />
-                </div>
-                <span className="text-gray-300">info@thorsignia.in</span>
-              </li>
-              <li className="flex items-start group">
-              <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center mr-3 text-[#88bf42] group-hover:bg-white/20 transition-colors">
-                  <Phone className="w-4 h-4" />
-                </div>
-                <span className="text-gray-300">+91 90080 97780</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        
-        <div className="border-t border-gray-800 pt-8 mt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm mb-4 md:mb-0">
+            {/* Add subtle line/fade below Thor Signia section */}
+            <div className="w-full h-px bg-gray-700/40 my-6"></div>
+            <p className="text-gray-400 text-sm mt-4">
               © {new Date().getFullYear()} Thor Signia. All rights reserved.
             </p>
-            <div className="flex space-x-6">
-              <Link to="/PrivacyPolicy#top" className="text-gray-400 hover:text-white text-sm transition-colors font-medium">Privacy Policy</Link>
-              <Link to="/TermsAndConditions#top" className="text-gray-400 hover:text-white text-sm transition-colors font-medium">Terms and Conditions</Link>
-              <Link to="/RefundPolicy#top" className="text-gray-400 hover:text-white text-sm transition-colors font-medium">Refund Policy</Link>
+          </div>
+          
+          <div className="h-full flex flex-col justify-center col-span-2 md:col-span-1">
+            <h3 className="text-lg font-semibold mb-4 text-white flex items-center">Quick Links</h3>
+            <div className="grid grid-cols-2 gap-8">
+              <ul className="space-y-3">
+                <li className="transition-transform hover:translate-x-1">
+                  <Link to="/" className="text-gray-300 hover:text-white transition-colors">Home</Link>
+                </li>
+                <li className="transition-transform hover:translate-x-1">
+                  <Link to="/about#top" className="text-gray-300 hover:text-white transition-colors">About Us</Link>
+                </li>
+                <li className="transition-transform hover:translate-x-1">
+                  <Link to="/services#top" className="text-gray-300 hover:text-white transition-colors">Services</Link>
+                </li>
+                <li className="transition-transform hover:translate-x-1">
+                  <Link to="/awards#top" className="text-gray-300 hover:text-white transition-colors">Awards</Link>
+                </li>
+                <li className="transition-transform hover:translate-x-1">
+                  <Link to="/blog#top" className="text-gray-300 hover:text-white transition-colors">Blog</Link>
+                </li>
+                
+                
+              </ul>
+              <ul className="space-y-3">
+                <li className="transition-transform hover:translate-x-1">
+                  <Link to="/case-studies#top" className="text-gray-300 hover:text-white transition-colors">Case Studies</Link>
+                </li>
+                <li className="transition-transform hover:translate-x-1">
+                  <Link to="/ai-engineers#top" className="text-gray-300 hover:text-white transition-colors">AI Engineers</Link>
+                </li>
+                
+                <li className="transition-transform hover:translate-x-1">
+                  <Link to="/cyber-security#top" className="text-gray-300 hover:text-white transition-colors whitespace-nowrap">Cyber Security</Link>
+                </li>
+                <li className="transition-transform hover:translate-x-1">
+                  <Link to="/contact#top" className="text-gray-300 hover:text-white transition-colors">Contact Us</Link>
+                </li>
+              </ul>
+            </div>
+            {/* Add subtle line/fade below Quick Links */}
+            <div className="w-full h-px bg-gray-700/40 my-6"></div>
+            <div className="flex space-x-6 mt-2 flex-nowrap">
+              <Link to="/PrivacyPolicy#top" className="text-gray-400 hover:text-white text-sm transition-colors font-medium whitespace-nowrap">Privacy Policy</Link>
+              <Link to="/TermsAndConditions#top" className="text-gray-400 hover:text-white text-sm transition-colors font-medium whitespace-nowrap">Terms and Conditions</Link>
+              <Link to="/RefundPolicy#top" className="text-gray-400 hover:text-white text-sm transition-colors font-medium whitespace-nowrap">Refund Policy</Link>
             </div>
           </div>
         </div>
+        {/* Single full-width divider line below the grid */}
+        <div className="w-full h-px bg-gray-700/40 my-6"></div>
       </div>
     </footer>
   );

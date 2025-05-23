@@ -23,10 +23,12 @@ import {
   Trophy,
   Award,
   Star,
-  Medal
+  Medal,
+  Settings,
+  Clock,
+  LineChart
 } from 'lucide-react';
 
-// Import Swiper components and modules
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules'; // SwiperType removed if not strictly needed for props
 // import type { Swiper as SwiperType } from 'swiper'; // If you need SwiperType for strict typing
@@ -114,7 +116,6 @@ const testimonials = [
   }
 ];
 
-// Animation variants
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
   visible: {
@@ -154,110 +155,29 @@ const containerVariants = {
   }
 };
 
-// Calculate node positions in a circle
-const generateCircularNodes = () => {
-  const centerX = 50;
-  const centerY = 50;
-  const radius = 35;
-  const totalNodes = 8;
-
-  const nodes = [
-    { id: 'center', label: 'AI Core', x: centerX, y: centerY, icon: <Cpu className="h-4 w-4 md:h-6 md:w-6" /> },
-  ];
-
-  for (let i = 0; i < totalNodes; i++) {
-    const angle = (i * 2 * Math.PI) / totalNodes;
-    const x = centerX + radius * Math.cos(angle);
-    const y = centerY + radius * Math.sin(angle);
-    nodes.push({
-      id: `node-${i}`,
-      label: getNodeLabel(i),
-      x,
-      y,
-      icon: getNodeIcon(i),
-    });
+// Advantages for Why Thor Signia section
+const advantages = [
+  {
+    title: "Advanced Enterprise AI",
+    icon: <Brain className="h-6 w-6" />,
+    description: "Cutting-edge AI technology tailored for enterprise-grade reliability and performance."
+  },
+  {
+    title: "Custom Solutions",
+    icon: <Settings className="h-6 w-6" />,
+    description: "Bespoke AI architectures designed specifically for your unique business challenges."
+  },
+  {
+    title: "Rapid Implementation",
+    icon: <Clock className="h-6 w-6" />,
+    description: "Get your AI solution up and running in weeks, not months or years."
+  },
+  {
+    title: "Business-Focused Results",
+    icon: <LineChart className="h-6 w-6" />,
+    description: "Solutions aligned with key business metrics and measurable ROI."
   }
-  return nodes;
-};
-
-const getNodeLabel = (index) => {
-  const labels = ['ChatBot', 'Vision', 'Lead Generation', 'Campaign', 'Cloud', 'Security', 'Social Media', 'Voice'];
-  return labels[index];
-};
-
-const getNodeIcon = (index) => {
-  const icons = [
-    <MessageSquare className="h-3 w-3 md:h-5 md:w-5" />,
-    <Eye className="h-3 w-3 md:h-5 md:w-5" />,
-    <Brain className="h-3 w-3 md:h-5 md:w-5" />,
-    <Bot className="h-3 w-3 md:h-5 md:w-5" />,
-    <Cloud className="h-3 w-3 md:h-5 md:w-5" />,
-    <Shield className="h-3 w-3 md:h-5 md:w-5" />,
-    <Database className="h-3 w-3 md:h-5 md:w-5" />,
-    <BarChart2 className="h-3 w-3 md:h-5 md:w-5" />,
-  ];
-  return icons[index];
-};
-
-const nodes = generateCircularNodes();
-
-const AnimatedDiagram = () => {
-  return (
-    <div className="relative w-full h-full">
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={`sparkle-${i}`}
-            className={`absolute w-1 h-1 md:w-1.5 md:h-1.5 rounded-full sparkle-animation`}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              backgroundColor: i % 2 === 0 ? '#88BF42' : '#ffffff',
-              opacity: 0.6,
-              boxShadow: i % 2 === 0
-                ? '0 0 8px 1px rgba(136, 191, 66, 0.5)'
-                : '0 0 8px 1px rgba(255, 255, 255, 0.5)'
-            }}
-          />
-        ))}
-      </div>
-      {nodes.map((node, index) => (
-        <motion.div
-          key={node.id}
-          className={`absolute z-10 transform -translate-x-1/2 -translate-y-1/2 ${
-            node.id === 'center' ? 'pulse-animation' : ''
-          }`}
-          style={{ top: `${node.y}%`, left: `${node.x}%` }}
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{
-            duration: 0.5,
-            delay: node.id === 'center' ? 0.2 : (index * 0.1) + 0.3
-          }}
-        >
-          <div className={`rounded-full flex items-center justify-center ${
-            node.id === 'center'
-              ? 'bg-[#88BF42] w-14 h-14 md:w-20 md:h-20 shadow-[0_0_20px_rgba(136,191,66,0.4)] md:shadow-[0_0_30px_rgba(136,191,66,0.4)]'
-              : 'bg-white w-10 h-10 md:w-14 md:h-14 shadow-[0_0_15px_rgba(255,255,255,0.2)] md:shadow-[0_0_20px_rgba(255,255,255,0.2)]'
-          }`}>
-            <div className={node.id === 'center' ? 'text-white' : 'text-[#0F0326]'}>
-              {node.icon}
-            </div>
-          </div>
-          <div className="absolute top-full mt-1 md:mt-2 left-1/2 transform -translate-x-1/2 text-[10px] md:text-xs font-medium text-white whitespace-nowrap">
-            {node.label}
-          </div>
-        </motion.div>
-      ))}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-[70%] h-[70%] border border-white/10 rounded-full rotate-animation"></div>
-        <div className="absolute w-[85%] h-[85%] border border-white/5 rounded-full rotate-animation-reverse"></div>
-      </div>
-    </div>
-  );
-};
-
+];
 
 const HomePage = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -283,57 +203,56 @@ const HomePage = () => {
         <section className="relative bg-[#0F0326] text-white overflow-hidden">
           <div className="container mx-auto px-4 py-16 md:py-20 lg:py-24 relative z-10">
             <div className="flex flex-col lg:flex-row items-center gap-8 md:gap-12">
-            <div className="lg:w-1/2 text-center lg:text-left">
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5 }}
-  >
-    <h1 className="text-[36px] md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4 md:mb-6">
-  Automate 
-  <span className="block md:inline"> Conversations.</span><br className="hidden md:block" />
-  <span className="text-[#88BF42]">Accelerate Growth.</span>
-</h1>
+              <div className="lg:w-1/2 text-center lg:text-left">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  {/* Intro Text */}
+                  {/* <div className="text-sm uppercase tracking-wide text-[#88BF42] font-medium mb-4 relative">
+                    Our Enterprise AI Solutions
+                  </div> */}
 
-    <p className="text-base md:text-lg text-white mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0">
-      Power your business with intelligent voice, chat, campaign & Social-Media automation, Cyber-security, Lead generation. 
-    </p>
-  
+                  {/* Main Heading */}
+                  <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
+                    AI Services That Drive <span className="text-[#88BF42]">Business </span>Results
+                  </h1>
 
-    <div className="hidden sm:flex flex-col sm:flex-row items-center sm:items-start gap-4 justify-center lg:justify-start mt-8">
-  <Button
-    className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white h-12 text-base w-40 sm:w-auto px-3 sm:px-4"
-    asChild
-  >
-    <RouterLink to="/contact" className="flex items-center justify-center">
-      Request Demo <ArrowRight className="ml-2 h-4 w-4" />
-    </RouterLink>
-  </Button>
+                  {/* Subheading */}
+                  <p className="text-gray-300 text-lg max-w-2xl mx-auto mt-6">
+                    Discover our range of AI-powered solutions designed to solve real business challenges and deliver measurable ROI.
+                  </p>
 
-  <Button
-    asChild
-    variant="outline"
-    className="border-[#88bf42] text-[#88bf42] text-base h-12 w-40 sm:w-auto px-3 sm:px-6 rounded-md hover:bg-[#eaf4d6]"
-  >
-    <RouterLink to="/services">
-      Our Solutions
-    </RouterLink>
-  </Button>
-</div>
+                  <div className="hidden sm:flex flex-col sm:flex-row items-center sm:items-start gap-4 justify-center lg:justify-start mt-8">
+                    <Button
+                      className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white h-12 text-base w-40 sm:w-auto px-3 sm:px-4"
+                      asChild
+                    >
+                      <RouterLink to="/contact" className="flex items-center justify-center">
+                        Request Demo <ArrowRight className="ml-2 h-4 w-4" />
+                      </RouterLink>
+                    </Button>
 
-
-
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="border-[#88bf42] text-[#88bf42] text-base h-12 w-40 sm:w-auto px-3 sm:px-6 rounded-md hover:bg-[#eaf4d6]"
+                    >
+                      <RouterLink to="/services">
+                        Our Solutions
+                      </RouterLink>
+                    </Button>
+                  </div>
                 </motion.div>
               </div>
-              <div className="lg:w-1/2 w-full relative h-[350px] md:h-[450px] lg:h-[500px] max-w-lg mx-auto lg:mx-0 -translate-x-4 sm:-translate-x-8 lg:translate-x-0">
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                  className="w-full h-full"
-                >
-                  <AnimatedDiagram />
-                </motion.div>
+              <div className="lg:w-1/2 w-full relative h-[300px] md:h-[400px] lg:h-[450px] max-w-lg mx-auto lg:mx-0 -translate-x-4 sm:-translate-x-8 lg:translate-x-0 flex flex-col items-center justify-center gap-6">
+                <img
+                  src="/hero2.jpg"
+                  alt="Hero"
+                  className="w-full h-full rounded-xl shadow-lg border border-black/30 bg-black/80 object-cover"
+                  style={{ objectFit: 'cover' }}
+                />
               </div>
             </div>
             
@@ -363,8 +282,6 @@ const HomePage = () => {
             </div>
           </div>
         </section>
-
-
 
         {/* 3. Quick Company Intro */}
         <section className="py-16 lg:py-24 bg-gray-50 relative overflow-hidden">
@@ -543,7 +460,7 @@ const HomePage = () => {
                     whileHover={{ y: -5, boxShadow: "0 8px 20px rgba(136, 191, 66, 0.1)" }}
                     className="bg-white rounded-xl p-6 md:p-8 shadow-sm transition-all duration-300 flex flex-col h-full border border-transparent hover:border-[#88BF42]/20 relative overflow-hidden group"
                   >
-                    <div className="absolute top-0 right-0 w-20 h-20 md:w-24 md:h-24 bg-[#88BF42]/5 rounded-bl-full z-0"></div>
+                    <div className="absolute top-0 right-0 w-20 h-20 md:w-24 md:h-24 bg-[#88BF42]/5 rounded-full blur-xl transform translate-x-12 -translate-y-12"></div>
                      <div className="w-12 h-12 md:w-14 md:h-14 bg-[#88BF42]/10 rounded-lg flex items-center justify-center mb-4 md:mb-6 relative z-10 flex-shrink-0">
                        {service.title.includes('Voice') ? (
                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -674,6 +591,54 @@ const HomePage = () => {
             </div>
         </motion.section>
 
+        {/* Add the Why Thor Signia section after the main hero/diagram section */}
+        <section className="py-16 md:py-24 bg-[#f8fcf8] relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-1/3 h-1/3 bg-[#9ac857]/5 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-1/3 h-1/3 bg-[#10b4b7]/5 rounded-full blur-3xl"></div>
+          <div className="container mx-auto px-4 sm:px-6 md:px-8 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center items-stretch">
+              {/* Left Side: Title and Content */}
+              <div className="h-full flex flex-col justify-center">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 relative text-center lg:text-left">
+                  Why <span className="text-[#9ac857]">Thor</span> <span className="text-[#88BF42]">Signia</span>?
+                  {/* Why <span className="text-[#9ac857]">Thor</span><span className="text-[#10b4b7]"> Signia</span>  With COlor Skeme */}
+                  <div className="absolute -bottom-3 left-1/2 lg:left-0 transform -translate-x-1/2 lg:translate-x-0 w-28 h-1 bg-[#9ac857] rounded-full"></div>
+                </h2>
+                <p className="text-lg text-gray-700 mb-6 leading-relaxed text-center lg:text-left">
+                  With our deep expertise in AI technologies and business process optimization, we deliver solutions that create immediate impact and long-term value for your organization.
+                </p>
+                <ul className="list-disc pl-6 text-gray-700 text-base mb-6">
+                  <li>Trusted by leading enterprises across industries</li>
+                  <li>Proven track record of successful AI deployments</li>
+                  <li>Dedicated support and continuous optimization</li>
+                </ul>
+                <p className="text-base text-gray-600 text-center lg:text-left">
+                  Partner with us to unlock the full potential of AI for your business and stay ahead in a rapidly evolving digital landscape.
+                </p>
+              </div>
+              {/* Right Side: Cards */}
+              <div className="h-full flex flex-col items-center justify-center">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 w-full">
+                  {advantages.map((advantage, index) => (
+                    <div
+                      key={index}
+                      className="bg-white p-4 sm:p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 transform hover:-translate-y-1 flex flex-col items-center text-center"
+                    >
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#88BF42]/10 to-[#9ac857]/10 flex items-center justify-center mb-4 text-[#88BF42]">
+                        {advantage.icon}
+                      </div>
+                      <h3 className="text-lg font-bold text-gray-900 mb-2">{advantage.title}</h3>
+                      <p className="text-gray-700 text-sm">
+                        {advantage.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <ProductDemoSection />
 
         {/* <section className="py-16 md:py-20 bg-white">
@@ -762,8 +727,8 @@ const HomePage = () => {
           <motion.div variants={staggerChildren} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {[
                { featured: true, icon: Trophy, title: 'World Business Conclave Award', desc: 'Outstanding innovation in AI solutions and transformative impact on enterprise operations.', footer: '2025 Winner', linkText: 'View Details', link: '/awards' },
-               { featured: false, icon: Award, title: 'Best AI Platform', desc: 'Exceptional performance, scalability, and innovation in AI technology solutions.', footer: 'Tech Innovation Awards', link: '/awards/best-ai-platform' },
-               { featured: false, icon: Star, title: 'CX Innovation Award', desc: 'Revolutionizing customer experience through AI-powered automation solutions.', footer: 'CX Leaders Summit', link: '/awards/cx-innovation' },
+               { featured: false, icon: Award, title: 'AI Excellence Redefined', desc: 'Exceptional performance, scalability, and innovation in AI technology solutions.', footer: ' Innovation Awards', link: '/awards/best-ai-platform' },
+               { featured: false, icon: Star, title: 'CX Innovation Award', desc: 'Revolutionizing experience through AI-powered automation solutions.', footer: 'CX Leaders Summit', link: '/awards/cx-innovation' },
                { featured: false, icon: Medal, title: 'Enterprise Tech Leader', desc: 'Leadership in enterprise AI solutions and technological advancement.', footer: 'Enterprise Awards', link: '/awards/enterprise-leader' },
             ].map((award, index) => (
                <motion.div
@@ -812,9 +777,9 @@ const HomePage = () => {
     </section>
 
         {/* 8. Testimonials Strip */}
-        <section className="py-16 md:py-20 bg-white text-gray-900">
+        <section className="py-16 md:py-12 bg-white text-gray-900">
           <div className="container mx-auto px-4">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerChildren} className="text-center mb-12 md:mb-16">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerChildren} className="text-center mb-8 md:mb-10">
               <motion.div variants={itemVariants} className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 mb-4">
                   <span className="text-[#88BF42] text-sm md:text-base font-semibold">Testimonials</span>
                 </motion.div>
@@ -871,7 +836,7 @@ const HomePage = () => {
 
         {/* 9. Call-to-Action Section */}
         <motion.section
-          className="py-16 md:py-24 bg-white relative overflow-hidden"
+          className="py-10 md:py- bg-white relative overflow-hidden"
           initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}
           variants={staggerChildren}
         >
