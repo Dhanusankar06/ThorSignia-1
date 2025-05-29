@@ -12,6 +12,12 @@ import AwardsPage from "./pages/Awards";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import ServicesPage from "./pages/Services";
+import IntelligentVoiceAutomation from "./pages/services/IntelligentVoiceAutomation";
+import SocialEngagementAutomation from "./pages/services/SocialEngagementAutomation";
+import LeadIntelligence from "./pages/services/LeadIntelligence";
+import InteractiveAIChatbots from "./pages/services/InteractiveAIChatbots";
+import AutomatedCampaignOrchestration from "./pages/services/AutomatedCampaignOrchestration";
+import ThreatDetection from "./pages/services/ThreatDetection";
 import CaseStudiesPage from "./pages/CaseStudies";
 import CaseStudyDetail from "./pages/CaseStudyDetail";
 import Careers from "./pages/Careers";
@@ -104,17 +110,35 @@ const App = () => (
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:id" element={<BlogPost />} />
           <Route path="/services" element={<ServicesPage />} />
+          <Route path="/services/intelligent-voice-automation" element={<IntelligentVoiceAutomation />} />
+          <Route path="/services/social-engagement-automation" element={<SocialEngagementAutomation />} />
+          <Route path="/services/lead-intelligence" element={<LeadIntelligence />} />
+          <Route path="/services/interactive-ai-chatbots" element={<InteractiveAIChatbots />} />
+          <Route path="/services/automated-campaign-orchestration" element={<AutomatedCampaignOrchestration />} />
+          <Route path="/services/threat-detection" element={<ThreatDetection />} />
           <Route path="/case-studies" element={<CaseStudiesPage />} />
           <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
           <Route path="/careers" element={<Careers />} />
+
+
           <Route path="/cyber-security" element={<CyberSecurity />} />
-          
+          <Route path="/cyber-security/vulnerability-assessment" element={<PenetrationTestPage />} />
+          <Route path="/cyber-security/cloud-security-assessments" element={<CloudSecurityPage />} />
+          <Route path="/cyber-security/offensive-security" element={<OffensiveSecurityPage />} />
+          <Route path="/cyber-security/red-teaming" element={<RedTeamingPage />} />
+          <Route path="/cyber-security/iot-security" element={<IOTSecurityPage />} />
+          <Route path="/cyber-security/vciso-services" element={<VCISOPage />} />
+          <Route path="/cyber-security/security-training" element={<SecurityTrainingPage />} />
+
+
+
           <Route path="/penetration-testing" element={<PenetrationTestPage />} />
           <Route path="/cloud-security" element={<CloudSecurityPage />} />
           <Route path="/offensive-security" element={<OffensiveSecurityPage />} />
           <Route path="/red-teaming" element={<RedTeamingPage />} />
           <Route path="/iot-security" element={<IOTSecurityPage />} />
           <Route path="/vciso-services" element={<VCISOPage />} />
+          <Route path="/securitytraining" element={<SecurityTrainingPage />} />
 
           <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
           <Route path="/TermsAndConditions" element={<TermsAndConditions />} />

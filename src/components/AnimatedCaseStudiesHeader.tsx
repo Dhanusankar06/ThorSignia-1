@@ -115,19 +115,13 @@ export default function AnimatedCaseStudiesHeader() {
     </motion.span>
   </motion.h1>
 
-  {/* Underline */}
-  <motion.div 
-    className="absolute -bottom-3 left-1/2 md:left-1/2 transform -translate-x-1/2 h-1 bg-[#009898] w-1/2 md:w-1/3"
-    initial={{ width: 0 }}
-    animate={{ width: '50%' }}
-    transition={{ duration: 1, delay: 1, ease: "easeOut" }}
-  />
+  
 </div>
 
 {/* Subheading */}
 <div className="overflow-hidden mt-6">
   <motion.p 
-    className="text-[#696869] text-lg max-w-2xl mx-auto md:mx-0 text-center md:text-center"
+    className="text-[#696869] text-lg max-w-2xl mx-auto md:mx-0 text-center md:text-center "
     initial={{ y: 40, opacity: 0 }}
     animate={{ y: 0, opacity: 1 }}
     transition={{ duration: 0.6, delay: 0.9 }}
@@ -149,7 +143,7 @@ export default function AnimatedCaseStudiesHeader() {
       boxShadow: "0 10px 25px -5px rgba(136, 191, 66, 0.4)" 
     }}
     whileTap={{ scale: 0.98 }}
-    className="bg-[#0F0326] text-white px-6 py-3 rounded-md hover:bg-[#88BF42] hover:text-white transition-colors block w-72 text-sm sm:text-base border border-[#88BF42] text-center"
+    className="bg-[#0F0326] text-white px-4 py-3 rounded-md hover:bg-[#88BF42] hover:text-white transition-colors block w-52 text-sm sm:text-base border border-[#88BF42] text-center"
   >
     <span className="flex items-center justify-center">
       <span>View Case Studies</span>
@@ -172,7 +166,7 @@ export default function AnimatedCaseStudiesHeader() {
   >
     <Link
       to="/contact"
-      className="border-2 border-[#88BF42] text-[#88BF42] px-6 py-3 rounded-md hover:bg-[#88BF42] hover:text-white transition-colors block w-72 text-sm sm:text-base text-center"
+      className="bg-[#0F0326] text-white px-4 py-3 rounded-md hover:bg-[#88BF42] hover:text-white transition-colors block w-52 text-sm sm:text-base border border-[#88BF42] text-center"
     >
       Schedule a Consultation
     </Link>
@@ -181,28 +175,7 @@ export default function AnimatedCaseStudiesHeader() {
 </div>
 
 
-          {/* Scroll Down Indicator */}
-          <motion.div 
-            className="mt-12 flex justify-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1.8 }}
-          >
-            <motion.div
-              animate={{ 
-                y: [0, 8, 0],
-                opacity: [0.5, 1, 0.5] 
-              }}
-              transition={{ 
-                duration: 1.8, 
-                repeat: Infinity, 
-                ease: "easeInOut",
-                times: [0, 0.5, 1]
-              }}
-            >
-              <ChevronDown className="text-[#88BF42] w-10 h-10" />
-            </motion.div>
-          </motion.div>
+         
         </div>
       </div>
     </div>

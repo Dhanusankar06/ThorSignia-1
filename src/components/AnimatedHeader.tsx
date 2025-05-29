@@ -88,15 +88,7 @@ export default function AnimatedHeader() {
         
         {/* Content Container */}
         <div className="max-w-4xl text-center z-10"> 
-          {/* Intro Text */}
-          <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-sm uppercase tracking-wide text-[#88BF42] font-medium mb-4"
-        >
-          Welcome to Thor Signia
-        </motion.div>
+          
 
         {/* Main Heading */}
         <motion.div
@@ -105,7 +97,7 @@ export default function AnimatedHeader() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
-            Empowering Business
+            Empowering Enterprises
           </h1>
           <h1 className="text-4xl md:text-6xl font-extrabold text-[#88BF42] leading-tight">
             Through AI Innovation
@@ -119,7 +111,8 @@ export default function AnimatedHeader() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="text-gray-300 text-lg max-w-2xl mx-auto mt-4" 
         >
-          Transform your enterprise with cutting-edge AI solutions that drive growth, efficiency, and innovation.
+         Transform your business with intelligent, scalable AI
+         solutions that drive efficiency and innovation.
         </motion.p>
 
         {/* Call-to-Action Buttons */}
@@ -129,13 +122,21 @@ export default function AnimatedHeader() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="flex gap-4 mt-6 justify-center" 
         >
-          {/* Link to Contact page */}
-          <Link
-            to="/contact" 
-            className="bg-[#88BF42] text-[#0F0326] px-6 py-3 rounded-md shadow hover:text-white transition-colors font-semibold" // Added hover:bg-[#009898] for clarity
-          >
-            Get Started
-          </Link>
+          {/* Link to Contact page with pulsing animation */}
+          <div className="relative">
+            {/* Pulsing animation circles */}
+            <div className="absolute -inset-1 rounded-md bg-[#88BF42]/30 animate-pulse blur-md"></div>
+            <div className="absolute -inset-2 rounded-md bg-[#88BF42]/20 animate-pulse blur-lg" style={{ animationDelay: '0.5s' }}></div>
+            <div className="absolute -inset-3 rounded-md bg-[#88BF42]/10 animate-pulse blur-xl" style={{ animationDelay: '1s' }}></div>
+            
+            {/* Actual button */}
+            <Link
+              to="/contact" 
+              className="relative bg-[#88BF42] text-[#0F0326] px-6 py-3 rounded-md shadow hover:text-white transition-colors font-semibold z-10"
+            >
+              Get Started
+            </Link>
+          </div>
 
           {/* Learn More button removed */}
         </motion.div>

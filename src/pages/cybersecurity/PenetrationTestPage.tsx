@@ -41,18 +41,18 @@ const PenetrationTestPage = () => {
   // Simplified animation variants
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
-    animate: { 
-      opacity: 1, 
+    animate: {
+      opacity: 1,
       y: 0,
       transition: { duration: 0.6 }
     }
   };
-  
+
   const staggerContainer = {
     initial: { opacity: 0 },
-    animate: { 
+    animate: {
       opacity: 1,
-      transition: { 
+      transition: {
         staggerChildren: 0.1,
         delayChildren: 0.3
       }
@@ -119,73 +119,54 @@ const PenetrationTestPage = () => {
   return (
     <div className="bg-white min-h-screen">
       <Navbar />
-      {/* Hero Section - Added mt-16 for proper spacing below navbar */}
-      <section className="relative py-20 overflow-hidden mt-16">
+      {/* Hero Section */}
+      <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-50 z-0"></div>
-        
+
         {/* Animated background elements */}
         <div className="absolute inset-0 z-0">
-          <motion.div 
+          <motion.div
             className="absolute top-20 right-[10%] w-96 h-96 rounded-full bg-[#88bf42]/5"
-            animate={{ 
+            animate={{
               scale: [1, 1.2, 1],
               opacity: [0.2, 0.3, 0.2],
             }}
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           />
-          <motion.div 
+          <motion.div
             className="absolute -bottom-20 -left-20 w-96 h-96 rounded-full bg-[#0f0326]/5"
-            animate={{ 
+            animate={{
               scale: [1, 1.3, 1],
               opacity: [0.2, 0.3, 0.2],
             }}
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
           />
         </div>
-        
+
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-16">
+
+            {/* Mobile-only Tagline - Appears FIRST on mobile due to order-1 */}
             <motion.div
               initial="initial"
               animate="animate"
               variants={fadeIn}
-              className="lg:w-1/2 text-center lg:text-left"
+              className="lg:hidden order-1 w-full flex justify-center mb-8" // Added order-1, full width, center align, mb
             >
-              <div className="inline-block px-3 py-1 mb-4 bg-[#88bf42]/10 rounded-full">
-                <span className="text-[#88bf42] font-medium text-sm">Expert Security Testing</span>
-              </div>
-              <h1 className="text-4xl md:text-6xl font-bold text-[#0f0326] mb-6 leading-tight">
-                Vulnerability Assessment & <span className="text-[#88bf42]">Penetration Testing</span>
-              </h1>
-              <p className="text-xl text-[#696869] mb-8 max-w-xl mx-auto lg:mx-0">
-                Our comprehensive penetration testing services identify and address security vulnerabilities before they can be exploited by malicious actors.
-              </p>
-              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-              <Button
-  size="lg" // This prop might also influence padding/font size depending on the Button component.
-           // You might not even need it if you're overriding everything with utility classes.
-  className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white w-full sm:w-auto h-14 text-lg" // Increased height to h-14, text to text-lg
-  asChild
->
-  <RouterLink
-    to="/contact"
-    className="flex items-center justify-center" // Add flex utilities to RouterLink for better icon alignment
-  >
-  Request a Penetration Test <ArrowRight className="ml-2 h-5 w-5" /> {/* Corrected icon height and width */}
-  </RouterLink>
-</Button>
-                
+              <div className="inline-block px-4 py-1.5 rounded-full bg-[#88bf42]/10 text-[#88bf42] text-sm font-medium">
+                Expert Security Testing
               </div>
             </motion.div>
-            
+
+            {/* Animated Chart - Appears SECOND on mobile due to order-2, SECOND on desktop due to lg:order-2 */}
             <motion.div
               initial="initial"
               animate="animate"
               variants={fadeIn}
               transition={{ delay: 0.2 }}
-              className="lg:w-1/2 mt-12 lg:mt-0"
+              className="order-2 lg:order-2 w-full lg:w-1/2 mt-0 lg:mt-0" // Added order-2, lg:order-2. Removed mobile mt-12 as it's now below tagline. Made w-full on mobile.
             >
-              <div className="relative">
+              <div className="relative max-w-sm mx-auto lg:max-w-none"> {/* Added max-width and mx-auto for mobile centering */}
                 <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-[#88bf42] to-[#0f0326] opacity-30 blur-md"></div>
                 <div className="relative bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-200 p-8">
                   <div className="flex items-center mb-6">
@@ -196,53 +177,53 @@ const PenetrationTestPage = () => {
                     </div>
                     <h3 className="text-xl font-bold text-[#0f0326]">Security Assessment Report</h3>
                   </div>
-                  
+
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
                       <span className="text-[#696869]">Critical Vulnerabilities</span>
                       <span className="text-red-500 font-semibold">2</span>
                     </div>
                     <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                      <motion.div 
+                      <motion.div
                         className="h-full bg-red-500 rounded-full"
                         initial={{ width: 0 }}
                         animate={{ width: '20%' }}
                         transition={{ duration: 0.8, delay: 0.5 }}
                       ></motion.div>
                     </div>
-                    
+
                     <div className="flex justify-between items-center">
                       <span className="text-[#696869]">High Vulnerabilities</span>
                       <span className="text-orange-500 font-semibold">6</span>
                     </div>
                     <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                      <motion.div 
+                      <motion.div
                         className="h-full bg-orange-500 rounded-full"
                         initial={{ width: 0 }}
                         animate={{ width: '40%' }}
                         transition={{ duration: 0.8, delay: 0.7 }}
                       ></motion.div>
                     </div>
-                    
+
                     <div className="flex justify-between items-center">
                       <span className="text-[#696869]">Medium Vulnerabilities</span>
                       <span className="text-yellow-500 font-semibold">9</span>
                     </div>
                     <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                      <motion.div 
+                      <motion.div
                         className="h-full bg-yellow-500 rounded-full"
                         initial={{ width: 0 }}
                         animate={{ width: '60%' }}
                         transition={{ duration: 0.8, delay: 0.9 }}
                       ></motion.div>
                     </div>
-                    
+
                     <div className="flex justify-between items-center">
                       <span className="text-[#696869]">Low Vulnerabilities</span>
                       <span className="text-green-500 font-semibold">12</span>
                     </div>
                     <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                      <motion.div 
+                      <motion.div
                         className="h-full bg-green-500 rounded-full"
                         initial={{ width: 0 }}
                         animate={{ width: '80%' }}
@@ -253,6 +234,41 @@ const PenetrationTestPage = () => {
                 </div>
               </div>
             </motion.div>
+
+            {/* Main Text Content (Desktop Tagline, H1, P, Button) - Appears THIRD on mobile due to order-3, FIRST on desktop due to lg:order-1 */}
+            <motion.div
+              initial="initial"
+              animate="animate"
+              variants={fadeIn}
+              className="order-3 lg:order-1 w-full lg:w-1/2 text-center lg:text-left mt-8 lg:mt-0" // Added order-3, lg:order-1, w-full on mobile, mt-8 on mobile
+            >
+              {/* Desktop-only tag line (hidden on mobile) */}
+              <div className="hidden lg:inline-block px-3 py-1 mb-4 bg-[#88bf42]/10 rounded-full">
+                <span className="text-[#88bf42] font-medium text-sm">Expert Security Testing</span>
+              </div>
+
+              <h1 className="text-4xl md:text-6xl font-bold text-[#0f0326] mb-6 leading-tight">
+                Vulnerability Assessment & <span className="text-[#88bf42]">Penetration Testing</span>
+              </h1>
+              <p className="text-xl text-[#696869] mb-8 max-w-xl mx-auto lg:mx-0">
+                Our comprehensive penetration testing services identify and address security vulnerabilities before they can be exploited by malicious actors.
+              </p>
+              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+                <Button
+                  size="lg"
+                  className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white w-full sm:w-auto h-14 text-lg"
+                  asChild
+                >
+                  <RouterLink
+                    to="/contact"
+                    className="flex items-center justify-center"
+                  >
+                    Request a Penetration Test <ArrowRight className="ml-2 h-5 w-5" />
+                  </RouterLink>
+                </Button>
+              </div>
+            </motion.div>
+
           </div>
         </div>
       </section>
@@ -277,8 +293,8 @@ const PenetrationTestPage = () => {
               Our penetration testing methodology combines automated scanning with manual testing to identify vulnerabilities that automated tools alone might miss.
             </p>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
@@ -303,7 +319,7 @@ const PenetrationTestPage = () => {
       </section>
 
       {/* Testimonials section removed */}
-      
+
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-[#0f0326] to-[#1a0845]">
         <div className="max-w-7xl mx-auto px-4">
@@ -321,26 +337,24 @@ const PenetrationTestPage = () => {
               Our expert penetration testers are ready to identify and help remediate vulnerabilities in your systems before they can be exploited.
             </p>
             <Button
-  size="lg" // This prop might also influence padding/font size depending on the Button component.
-           // You might not even need it if you're overriding everything with utility classes.
-  className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white w-full sm:w-auto h-14 text-lg" // Increased height to h-14, text to text-lg
-  asChild
->
-  <RouterLink
-    to="/contact"
-    className="flex items-center justify-center" // Add flex utilities to RouterLink for better icon alignment
-  >
-            
-              Schedule Your Penetration Test <ArrowRight className="ml-2 h-5 w-5" /> {/* Corrected icon height and width */}
-            </RouterLink>
-          </Button>
+              size="lg"
+              className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white w-full sm:w-auto h-14 text-lg"
+              asChild
+            >
+              <RouterLink
+                to="/contact"
+                className="flex items-center justify-center"
+              >
+                Schedule Your Penetration Test <ArrowRight className="ml-2 h-5 w-5" />
+              </RouterLink>
+            </Button>
           </motion.div>
         </div>
       </section>
-      
+
       <Footer />
     </div>
   );
 };
 
-export default PenetrationTestPage; 
+export default PenetrationTestPage;

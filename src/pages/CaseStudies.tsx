@@ -1,9 +1,9 @@
 import React from 'react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 
-import { Button } from "@/components/ui/button";
+import { Button } from "../components/ui/button";
 import { 
   ArrowRight, 
   BarChart, 
@@ -51,7 +51,7 @@ const CaseStudiesPage = () => {
         
         <div className="p-5">
           <div className="flex items-center mb-3">
-            <Building className="w-4 h-4 mr-2 text-[#10b4b7]" />
+            <Building className="w-4 h-4 mr-2 text-[#88bf42]" />
             <span className="text-gray-600 text-sm">{study.company}</span>
           </div>
           
@@ -114,7 +114,7 @@ const CaseStudiesPage = () => {
                 
                 <div className="w-full lg:w-1/2 p-6 md:p-8 flex flex-col">
                   <div>
-                    <div className="inline-block px-3 py-1 mb-4 rounded-full bg-[#10b4b7]/10 text-[#10b4b7] text-sm font-medium">
+                    <div className="inline-block px-3 py-1 mb-4 rounded-full bg-[#88bf42]/10 text-[#88bf42] text-sm font-medium">
                       {caseStudiesData[0].category}
                     </div>
                     
@@ -123,7 +123,7 @@ const CaseStudiesPage = () => {
                     </h2>
                     
                     <div className="flex items-center mb-4">
-                      <Building className="w-4 h-4 mr-2 text-[#10b4b7]" />
+                      <Building className="w-4 h-4 mr-2 text-[#88bf42]" />
                       <span className="text-gray-700">{caseStudiesData[0].company}</span>
                     </div>
                     
@@ -133,20 +133,20 @@ const CaseStudiesPage = () => {
                     
                     <div className="grid grid-cols-2 gap-4 mb-6">
                       <div className="bg-gray-50 rounded-lg p-3">
-                        <p className="text-xs text-gray-500 mb-1">ROI</p>
-                        <p className="text-xl font-semibold text-[#88bf42]">{caseStudiesData[0].roi}</p>
+                        <p className="text-xs text-gray-500 mb-1 text-center">ROI</p>
+                        <p className="text-xl font-semibold text-[#88bf42] text-center">{caseStudiesData[0].roi}</p>
                       </div>
                       <div className="bg-gray-50 rounded-lg p-3">
-                        <p className="text-xs text-gray-500 mb-1">Timeframe</p>
-                        <p className="text-xl font-semibold text-[#10b4b7]">{caseStudiesData[0].timeframe}</p>
+                        <p className="text-xs text-gray-500 mb-1 text-center">Timeframe</p>
+                        <p className="text-xl font-semibold text-[#88bf42] text-center">{caseStudiesData[0].timeframe}</p>
                       </div>
                     </div>
                   </div>
                   
-                  <div className="mt-auto flex justify-center">
+                  <div className="mt-auto justify-center md:justify-center">
                     <Button
                       asChild
-                      className="bg-[#88bf42] text-white px-6 py-3 w-72 rounded-md font-medium hover:bg-[#10b4b7]/10 transition"
+                      className="bg-[#88bf42] text-white px-6 py-3 w-48 rounded-md font-medium hover:bg-[#10b4b7]/10 transition"
                     >
                       <Link to={`/case-studies/${caseStudiesData[0].slug}`} className="flex items-center justify-center">
                         Read Full Case Study
@@ -165,13 +165,13 @@ const CaseStudiesPage = () => {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="mb-10 text-center">
-            <div className="inline-block px-3 py-1 mb-4 rounded-full bg-[#10b4b7]/10 text-[#88bf42] text-sm font-medium">
+            <div className="inline-block px-3 py-1 mb-4 rounded-full bg-[#88bf42]/10 text-[#88bf42] text-sm font-medium">
               Success Stories
             </div>
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Client Results Across Industries
             </h2>
-            <div className="w-12 h-1 bg-gradient-to-r from-[#10b4b7] to-[#9ac857] rounded-full mx-auto mb-4"></div>
+           
             <p className="text-gray-600 max-w-2xl mx-auto">
               See how our AI solutions have transformed businesses across diverse sectors
             </p>
@@ -199,45 +199,40 @@ const CaseStudiesPage = () => {
       <section className="py-16 bg-white">
   <div className="container mx-auto px-4 md:px-6">
     <div className="text-center mb-12">
-      <div className="inline-block px-3 py-1 mb-4 rounded-full bg-[#10b4b7]/10 text-[#88bf42] text-sm font-medium">
-        Measurable Impact
+      <div className="inline-block px-3 py-1 mb-4 rounded-full bg-[#88bf42]/10 text-[#88bf42] text-sm font-medium">
+      Proven Impact
       </div>
       <h2 className="text-3xl font-bold text-gray-900 mb-4">
-        Results That Drive Growth
+      Our AI in Action, Measurable Results That Matter
       </h2>
-      <div className="w-12 h-1 bg-gradient-to-r from-[#10b4b7] to-[#9ac857] rounded-full mx-auto mb-4"></div>
       <p className="text-gray-600">
-        Our AI solutions deliver consistent, significant results regardless of industry or challenge
-      </p>
+      Thor Signia’s AI solutions consistently deliver transformational value — across industries, use
+      cases, and company sizes.      </p>
     </div>
 
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 place-items-center">
       {[
-        { value: "157%", label: "Average ROI", icon: <BarChart className="h-7 w-7 text-[#88bf42]" /> },
-        { value: "42%", label: "Efficiency Gains", icon: <Clock className="h-7 w-7 text-[#88bf42]" /> },
-        { value: "9.5mo", label: "Avg. Implementation", icon: <LineChart className="h-7 w-7 text-[#88bf42]" /> },
-        { value: "95%", label: "Client Satisfaction", icon: <Users className="h-7 w-7 text-[#88bf42]" /> }
+        { value: "157%", label: "Increase in ROI", description: "AI automations that maximize your output per dollar",icon: <BarChart className="h-7 w-7 text-[#88bf42]" /> },
+        { value: "42%", label: "Operational Efficiency Gains", description: "Streamlined workflows reduce delays and manual load.",icon: <Clock className="h-7 w-7 text-[#88bf42]" /> },
+        { value: "6 Months", label: "Average Deployment Timeline", description: "From idea to AI-powered implementation, fast.",icon: <LineChart className="h-7 w-7 text-[#88bf42]" /> },
+        { value: "99.9%", label: "Client Satisfaction", description: "Our clients don’t just like our work—they return and refer",icon: <Users className="h-7 w-7 text-[#88bf42]" /> }
       ].map((stat, index) => (
         <div 
           key={index}
-          className="relative bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 border border-gray-100 overflow-hidden text-center w-full h-full min-h-[240px] flex flex-col justify-between"
+          className="relative bg-[#88bf42]/10 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 border border-gray-100 overflow-hidden text-center w-full h-full min-h-[240px] flex flex-col justify-between"
         >
-          <div className="absolute inset-0">
-            <CanvasRevealEffect
-              animationSpeed={0.4}
-              colors={[[16, 180, 183]]}
-              dotSize={2}
-              showGradient={false}
-            />
-          </div>
+         
+         
           <div className="relative z-10 flex flex-col justify-between h-full">
-            <div className="w-16 h-16 bg-[#10b4b7]/10 rounded-full flex items-center justify-center mb-4 mx-auto">
+            <div className="w-16 h-16 bg-[#88bf42]/10 rounded-full flex items-center justify-center mb-4 mx-auto">
               {stat.icon}
             </div>
-            <h3 className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</h3>
-            <p className="text-gray-600">{stat.label}</p>
+            <h3 className="text-3xl font-bold text-[#88bf42] mb-2">{stat.value}</h3>
+            <p className="text-black font-semibold">{stat.label}</p>
+            <p className="text-[#686868]">{stat.description}</p>
           </div>
-        </div>
+          </div>
+        
       ))}
     </div>
   </div>
@@ -253,7 +248,7 @@ const CaseStudiesPage = () => {
 
     {/* CTA Card */}
     <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg p-8 border border-gray-100 text-center">
-      <div className="inline-block px-3 py-1 mb-3 rounded-full bg-[#10b4b7]/10 text-[#88bf42] text-sm font-medium">
+      <div className="inline-block px-3 py-1 mb-3 rounded-full bg-[#88bf42]/10 text-[#88bf42] text-sm font-medium">
         Ready to Transform?
       </div>
       <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
@@ -264,12 +259,12 @@ const CaseStudiesPage = () => {
         Schedule a consultation to discuss your unique challenges.
       </p>
       <div className="flex flex-wrap justify-center gap-4">
-        <button className="bg-[#88bf42] text-white px-6 py-3 w-72 rounded-md font-medium hover:bg-[#10b4b7]/10 transition">
+        <button className="bg-[#88bf42] text-white px-6 py-3 w-72 rounded-md font-medium hover:bg-[#88bf42]">
         <Link to="/contact">
           Schedule Consultation
         </Link>
         </button>
-        <button className="border border-[#10b4b7] text-[#10b4b7] px-6 py-3 w-72 rounded-md font-medium hover:bg-[#10b4b7]/10 transition">
+        <button className="border border-[#88bf42] text-[#88bf42] px-6 py-3 w-72 rounded-md font-medium hover:bg-[#88bf42]/10">
         <Link to="/services">
           Explore Services
         </Link>

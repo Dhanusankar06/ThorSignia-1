@@ -1,6 +1,10 @@
 // This component should be used within a React Router context (e.g., inside a <BrowserRouter>)
 
-import React, { useState, useRef, useEffect } from "react"; // Standard React import
+import React, { useState, useRef, useEffect } from "react";
+// Using React.JSX.IntrinsicElements instead of ComponentPropsWithoutRef
+
+// Import the logo from assets folder
+import logoImage from "../assets/images/thor-signia-logo.png"; // Make sure this path is correct relative to this component
 
 import { Link, useLocation } from "react-router-dom";
 
@@ -8,9 +12,10 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 // Keep icon imports and import LucideIcon
+// Import Menu explicitly here so we can use typeof Menu to get the props type
 import {
-  Menu, // Keep Menu as we may still need its type in other contexts, but not strictly for IconComponent now
-  X,
+  Menu, // <-- Keep imports just in case they are used by iconMap or elsewhere
+  X,    // <-- Keep imports just in case they are used by iconMap or elsewhere
   LucideIcon, // <--- Imported LucideIcon type
   // Service Icons
   Speech,
@@ -19,13 +24,29 @@ import {
   Bot,
   ListTree,
   Shield, // For Threat Detection
+  // New service icons
+  Mic,
+  MessageSquare,
+  Share2,
+  LineChart,
+  BrainCircuit,
+  Megaphone,
+  BarChart3,
+  ShieldAlert,
   // Case Study Icons
   ClipboardCheck,
   Stethoscope,
   Briefcase,
   Landmark,
-  Sparkles,
+  Sparkles, // This is a different Sparkles icon, used in data. Keep both if needed.
   Wrench, // Used for Predictive Maintenance
+  // Cybersecurity Icons
+  Bug,
+  CloudAlert,
+  Terminal,
+  Swords,
+  CircuitBoard,
+  GraduationCap,
   // Other Icons used in data or component
   FlaskConical,
   Book,
@@ -35,7 +56,8 @@ import {
   // Icons potentially for the main section boxes (added for illustration)
   Settings, // Example icon for Services
   Database, // Example icon for Case Studies
-  Icon // Keep Icon if it's used elsewhere or potentially needed
+  Icon, // Keep Icon if it's used elsewhere or potentially needed
+  List, // Keep List imported if used elsewhere in iconMap/data
 } from "lucide-react";
 
 // Mapping from string name to icon component
@@ -47,6 +69,14 @@ const iconMap = {
   Bot,
   ListTree,
   Shield,
+  Mic,
+  MessageSquare,
+  Share2,
+  LineChart,
+  BrainCircuit,
+  Megaphone,
+  BarChart3,
+  ShieldAlert,
   // Case Study Icons
   ClipboardCheck,
   Stethoscope,
@@ -54,33 +84,59 @@ const iconMap = {
   Landmark,
   Sparkles,
   Wrench,
+  // Cybersecurity Icons
+  Bug,
+  CloudAlert,
+  Terminal,
+  Swords,
+  CircuitBoard,
+  GraduationCap,
   // Other Mappings if needed for other parts of the app or main sections
   FlaskConical,
   Book,
   ShieldCheck,
   TrendingUp,
   Settings, // Added to map
-  Database // Added to map
+  Database, // Added to map
+  List, // Ensure List is mapped if used by IconComponent elsewhere
+  X, // Ensure X is mapped if used by IconComponent elsewhere
+  Menu, // Ensure Menu is mapped if used by IconComponent elsewhere
 };
 
 // Define type for the icon name keys
 type IconName = keyof typeof iconMap;
 
+// --- Type definition for IconComponent props ---
+// Define the props type directly based on what LucideIcon components accept
+type LucideIconComponentProps = {
+  size?: number | string;
+  color?: string;
+  strokeWidth?: number;
+  className?: string;
+  style?: React.CSSProperties;
+  [key: string]: any; // Allow any other props that might be passed
+};
+
 // Helper component to render icon by name
 const IconComponent = ({
   name,
+  // Use the derived props type
   ...props
-}: { name: IconName } & LucideIcon) => { // <-- Using the imported LucideIcon type
+}: { name: IconName } & LucideIconComponentProps) => { // Using the derived type here
   const Icon = iconMap[name];
 
   if (!Icon) {
     console.warn(`Icon "${name}" not found in iconMap.`);
     // Fallback div should also accept props like className and style
-    return <div className={cn("w-4 h-4 inline-block bg-gray-200 rounded-full", props.className)} style={props.style}></div>;
+    // Added more distinct fallback color for visibility during development
+    // Pass props to the fallback div as well
+    return <div className={cn("w-4 h-4 inline-block bg-red-400 rounded-full", props.className)} style={props.style} {...props}></div>;
   }
-  // Pass remaining props (like className, style, etc.) to the Icon component
+  // Pass remaining props (like className, style, size, color etc.) to the Icon component
+  // The Icon component (a LucideIcon) is typed to accept these props, so this is safe.
   return <Icon {...props} />;
 };
+
 
 // Define interface for navigation items
 interface NavItem {
@@ -112,51 +168,91 @@ const navItems: NavItem[] = [
     title: "Services",
     href: "/services#top",
     dropdown: true,
-    mainIcon: "Settings",
+    mainIcon: "Settings", // Using "Settings" from Lucide
     mainDescription: "Explore all our cutting-edge Enterprise AI Solutions.",
     items: [
       {
         title: "Intelligent Voice Automation",
-        href: "/services#intelligent-voice-automation",
-        icon: "Speech",
+        href: "/services/intelligent-voice-automation",
+        icon: "Mic",
       },
       {
         title: "Social Engagement Automation",
-        href: "/services#social-engagement-automation",
-        icon: "Users",
+        href: "/services/social-engagement-automation",
+        icon: "Share2",
       },
       {
         title: "AI-Powered Lead Intelligence",
-        href: "/services#ai-powered-lead-intelligence",
-        icon: "Cpu",
+        href: "/services/lead-intelligence",
+        icon: "BarChart3",
       },
       {
         title: "Interactive AI Chatbots",
-        href: "/services#interactive-ai-chatbots",
+        href: "/services/interactive-ai-chatbots",
         icon: "Bot",
       },
       {
         title: "Automated Campaign Orchestration",
-        href: "/services#automated-campaign-orchestration",
-        icon: "ListTree",
+        href: "/services/automated-campaign-orchestration",
+        icon: "Megaphone",
       },
        {
         title: "AI-Powered Threat Detection",
-       href: "/services#ai-powered-threat-detection",
-       icon: "Shield",
+       href: "/services/threat-detection",
+       icon: "ShieldAlert",
        },
     ],
   },
+{
+  title: "Cybersecurity",
+  href: "/cyber-security#top", // Assuming this is a general landing page
+  dropdown: true,
+  mainIcon: "ShieldCheck", // Using ShieldCheck for the main section icon
+  mainDescription: "Explore our comprehensive cybersecurity services.",
+  items: [
     {
-    title: "Cybersecurity",
-    href: "/cyber-security#top",
-    dropdown: false,
+      title: "Vulnerability Assessment & Pen Testing",
+      href: "/cyber-security/vulnerability-assessment",
+      icon: "Bug",
+    },
+    {
+      title: "Cloud Security Assessments",
+      href: "/cyber-security/cloud-security-assessments",
+      icon: "CloudAlert",
+    },
+    {
+      title: "Offensive Security",
+      href: "/cyber-security/offensive-security",
+      icon: "Terminal",
+    },
+    {
+      title: "Red Teaming Services",
+      href: "/cyber-security/red-teaming",
+      icon: "Swords",
+    },
+    {
+      title: "IOT/OT Security",
+      href: "/cyber-security/iot-security",
+      icon: "CircuitBoard",
+    },
+    {
+      title: "vCISO Services",
+      href: "/cyber-security/vciso-services",
+      icon: "Briefcase",
+    },
+    {
+      title: "Training & Awareness",
+      href: "/cyber-security/security-training",
+      icon: "GraduationCap",
+    },
+  ],
+
   },
   {
     title: "Case Studies",
     href: "/case-studies#top",
     dropdown: true,
-    mainIcon: "Database",
+    mainIcon: "Database", // Using "Database" from Lucide
     mainDescription: "Discover how our AI solutions deliver measurable results for clients.",
     items: [
       {
@@ -182,7 +278,7 @@ const navItems: NavItem[] = [
       {
         title: "AI-Driven Retail Personalization Engine",
         href: "/case-studies/retail-personalization-engine",
-        icon: "Sparkles",
+        icon: "Sparkles", // Using the Sparkles icon mapped above
       },
       {
         title: "Healthcare AI Voice Assistant",
@@ -232,6 +328,7 @@ export default function Navbar() {
   const location = useLocation();
   const pathname = location.pathname;
   const currentHash = location.hash;
+
 
   const desktopNavRef = useRef<HTMLDivElement>(null);
 
@@ -293,12 +390,17 @@ export default function Navbar() {
            const currentFullUrl = pathname + (currentHash || '');
             const subItemMatch = item.items?.some(subItem => subItem.href === currentFullUrl);
 
-            return pathname === item.href || !!subItemMatch;
+            // Also check if the current pathname is a direct child path (e.g., /services/...)
+            // This handles cases where the base href is just the section like /services
+            const isBasePathOrChild = pathname.startsWith(item.href) && (pathname.length === item.href.length || pathname[item.href.length] === '/');
+
+
+            return isBasePathOrChild || !!subItemMatch;
        }
 
        // Handle the case where the item's href is '/' (Home). Should only be active if it's exactly '/'
        // (This shouldn't happen for dropdowns in this structure, but defensively checks)
-       if (item.href === '/' && pathname === '/') return true;
+       if (item.href === '/' && pathname === '/' && currentHash === '') return true;
 
        return false;
    };
@@ -323,43 +425,59 @@ export default function Navbar() {
     // For exact matches (including hash)
     if (currentFullUrl === href) return true;
     // For base path matches without hash (e.g., /services matches /services#something)
-    if (href !== '/' && pathname === href && href.indexOf('#') === -1) return true;
+    // This check is simplified, considering main links might have hashes.
+    // A more robust check could see if pathname starts with the href's path part.
+     const hrefPath = href.split('#')[0];
+     const currentPath = pathname.split('#')[0];
+     if (hrefPath !== '/' && currentPath.startsWith(hrefPath) && (currentPath.length === hrefPath.length || (currentPath.length > hrefPath.length && currentPath[hrefPath.length] === '/'))) return true;
+
     // Special case for home page
-    if (href === '/' && pathname === '/') return true;
+    if (href === '/' && pathname === '/' && currentHash === '') return true;
+
     return false;
   };
 
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background backdrop-blur">
-      {/* Adjusted header height: md:h-16 for desktop, h-20 for mobile */}
+    // Background is solid white with border-b
+    <header className="sticky top-0 z-50 w-full border-b bg-white">
+      {/* Adjusted header height: md:h-24 for desktop, h-28 for mobile */}
+      {/* These heights (96px and 112px) are what the logo will fill */}
       <div className="container flex h-28 md:h-24 items-center justify-between">
-        {/* Logo Link */}
-        <Link to="/" className="flex items-center space-x-2" onClick={handleNavLinkClick}>
-          {/* Use the specified logo source */}
-          {/* Adjusted logo size for better fit */}
-          <img src="/ThorSignia Logo .png" alt="Thor Signia Logo" className="z-10 relative" width={220} height={220} />
+        {/* Logo Link with imported logo and increased size */}
+        <Link to="/" className="flex items-center" onClick={handleNavLinkClick}>
+          {/* Using the imported logo with responsive height */}
+          {/* Height matches container: h-28 for mobile (112px), md:h-24 for desktop (96px) */}
+          <img
+            src={logoImage}
+            alt="Thor Signia Logo"
+            // Height classes match container height, width scales proportionally
+            className="h-28 md:h-24 z-10 relative" // Removed drop-shadow-sm
+            style={{ objectFit: 'contain' }} // Ensure image fits within its element maintaining aspect ratio
+          />
         </Link>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-2" ref={desktopNavRef}>
+        {/* Desktop Navigation - Font size md:text-base (16px), px-2 padding */}
+        <div className="hidden md:flex items-center" ref={desktopNavRef}>
           {navItems.map((item) => (
-            <div key={item.title} className="relative group h-full flex items-center">
+            // Added flex-shrink-0 to prevent items from squeezing too much
+            <div key={item.title} className="relative group h-full flex items-center flex-shrink-0">
               {item.dropdown ? (
                 // Desktop Custom dropdown trigger (button)
                 <button
                   onClick={() => toggleDropdown(item.title)}
                   className={cn(
-                    "text-lg md:text-xl font-medium transition-colors h-full flex items-center px-3 whitespace-nowrap", // Further increased text sizeowrap to prevent wrapping
+                    "md:text-base font-bold transition-colors h-full flex items-center px-2 whitespace-nowrap", // md:text-base, px-2
                     "hover:text-[#88bf42]",
-                    // Active state based on URL match
-                    isDropdownTriggerActiveByUrl(item) ? "text-[#88bf42] border-b-2 border-[#88bf42]" : "text-foreground border-b-2 border-transparent",
+                    // Active state based on URL match or if the dropdown is open
+                    isDropdownTriggerActiveByUrl(item) || openDropdown === item.title ? "text-[#88bf42] border-b-2 border-[#88bf42]" : "text-foreground border-b-2 border-transparent",
                      "flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   )}
                   aria-haspopup="menu"
                   aria-expanded={openDropdown === item.title}
                 >
-                   {/* Text style now only reflects URL activity or default */}
-                   <span className={isDropdownTriggerActiveByUrl(item) ? "text-[#88bf42]" : "text-foreground"}>
+                   {/* Text style reflects URL activity or default */}
+                   <span className={isDropdownTriggerActiveByUrl(item) || openDropdown === item.title ? "text-[#88bf42]" : "text-foreground"}>
                        {item.title}
                    </span>
                    <ChevronDown className={cn(
@@ -374,8 +492,11 @@ export default function Navbar() {
                 <Link
                   to={item.href}
                   className={cn(
-                    "text-lg md:text-xl font-medium transition-colors hover:text-[#88bf42] h-full flex items-center px-3 whitespace-nowrap", // Further increased text sizeowrap to prevent wrapping
-                    pathname === item.href && currentHash === '' ? "text-[#88bf42] border-b-2 border-[#88bf42]" : "text-foreground border-b-2 border-transparent",
+                    "md:text-base font-bold transition-colors hover:text-[#88bf42] h-full flex items-center px-2 whitespace-nowrap", // md:text-base, px-2
+                    // Handle /home#top vs /
+                    (item.href === '/' && pathname === '/' && currentHash === '') ? "text-[#88bf42] border-b-2 border-[#88bf42]" : // Exact home match
+                    (item.href !== '/' && pathname === item.href && currentHash === '') ? "text-[#88bf42] border-b-2 border-[#88bf42]" : // Exact non-hash match
+                    "text-foreground border-b-2 border-transparent",
                      "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   )}
                    onClick={handleNavLinkClick} // Close mobile menu if somehow open
@@ -388,56 +509,52 @@ export default function Navbar() {
               {item.dropdown && openDropdown === item.title && item.items && ( // Ensure items exist
                 <div
                   className={cn(
-                    "absolute top-full left-0 mt-0",
-                    "w-[600px] max-w-[calc(100vw-32px)]", // Increased width, added max-width for small viewports
-                    "bg-background border rounded-md shadow-lg p-4", // Added more padding
+                    "absolute top-full left-1/2 -translate-x-1/2 mt-0", // Center the dropdown horizontally
+                    "w-[700px] max-w-[calc(100vw-32px)]", // Reduced width from 800px to 700px, kept max-width
+                    "bg-background border rounded-md shadow-lg p-6", // Increased padding
                     "z-50 animate-in slide-in-from-top-1 fade-in-0",
-                    "flex gap-6" // Flex container for two columns
+                    "flex gap-8" // Increased gap between columns
                   )}
                    role="menu" // ARIA role for accessibility
                    aria-orientation="vertical"
                 >
                   {/* Left Column: Main Section Link/Box */}
-                  <div className="w-48 flex-shrink-0"> {/* Fixed width */}
+                  <div className="w-64 flex-shrink-0"> {/* Increased fixed width for the main column */}
                       <Link
                         to={item.href} // Link to the main page (e.g., /services, /case-studies)
                         onClick={handleNavLinkClick} // Close dropdown and mobile menu on click
                         className={cn(
-                          "flex flex-col h-full p-4 rounded-md",
-                          "bg-gradient-to-br from-[#10b4b7]/10 to-[#9ac857]/10", // Gradient background
-                          "hover:bg-gradient-to-br hover:from-[#10b4b7]/20 hover:to-[#9ac257]/20", // Hover effect
+                          "flex flex-col h-full p-5 rounded-md", // Increased padding in the main box
+                          // Green background with opacity for the main section box
+                          "bg-[#88bf42]/10",
+                          "hover:bg-[#88bf42]/20",
                           "transition-colors duration-200",
                           "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                          pathname === item.href && currentHash === '' ? "border border-[#88bf42]" : "border border-transparent" // Highlight border if on the main page
+                          isDropdownTriggerActiveByUrl(item) ? "border border-[#88bf42]" : "border border-transparent" // Highlight border
                         )}
                          role="menuitem" // ARIA role
                       >
-                        {/* Icon (if available in navItems) */}
+                        {/* Icon (if available) */}
                         {item.mainIcon && typeof iconMap[item.mainIcon] !== 'undefined' && (
                              <IconComponent
                                 name={item.mainIcon} // Use IconName type directly
-                                className="h-8 w-8 text-[#10b4b7] mb-3" // Larger icon for prominence
+                                className="h-10 w-10 text-[#88bf42] mb-4" // Icon size and color
                               />
                           )}
                         {/* Title */}
-                        <div className="text-lg font-semibold text-foreground leading-tight mb-1">{item.title} Overview</div> {/* Added Overview */}
+                        <div className="text-xl font-semibold text-foreground leading-tight mb-2">{item.title} Overview</div>
                         {/* Description */}
                          {item.mainDescription && (
                              <p className="text-sm text-muted-foreground leading-snug">{item.mainDescription}</p>
                          )}
-                         {/* Optional Arrow */}
-                          <div className="mt-auto pt-2 text-right"> {/* Push to bottom */}
-                              {/* Add ArrowRight icon if you want one */}
-                          </div>
                       </Link>
                   </div>
 
-                  {/* Right Column: List of Sub-Items */}
+                  {/* Right Column: List of Sub-Items - Now one by one */}
                   <div className="flex-1"> {/* Takes remaining space */}
-                     {/* The grid for the sub-items */}
-                     <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3"> {/* Can adjust grid columns here, e.g., sm:grid-cols-2 */}
+                     <ul className="flex flex-col gap-y-3"> {/* Changed to flex column, kept vertical gap */}
                        {item.items.map((subItem) => {
-                          // Ensure icon name exists in iconMap if provided
+                          // Ensure icon name exists
                            const subItemIconName = subItem.icon as IconName | undefined;
                            const hasValidIcon = subItemIconName && typeof iconMap[subItemIconName] !== 'undefined';
 
@@ -450,16 +567,17 @@ export default function Navbar() {
                                to={subItem.href}
                                onClick={handleNavLinkClick} // Close dropdown and mobile menu on click
                                className={cn(
-                                 "flex items-start gap-2 rounded-sm px-3 py-2 text-sm outline-none transition-colors",
-                                 "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-                                  isSubItemActive ? "text-[#88bf42] font-semibold" : "text-foreground" // Active state for sub-items
+                                 "flex items-center gap-3 rounded-sm px-3 py-2 outline-none transition-colors", // Increased gap, slightly more padding
+                                 "hover:bg-[#88bf42]/20 hover:text-[#88bf42] focus:bg-[#88bf42]/20 focus:text-[#88bf42]",
+                                  // Font size text-base (16px), active is green and bold, inactive is text-foreground
+                                  isSubItemActive ? "text-[#88bf42] font-semibold text-base" : "text-foreground text-base"
                                )}
                                 role="menuitem" // ARIA role
                              >
                                {hasValidIcon && (
                                   <IconComponent
                                      name={subItemIconName} // Use IconName type directly
-                                     className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-1" // Vertically align icon
+                                     className={cn("h-5 w-5 flex-shrink-0 text-muted-foreground")} // Icon size and color (gray)
                                    />
                                )}
                                <span className="leading-snug">{subItem.title}</span> {/* Adjusted leading */}
@@ -475,27 +593,59 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Mobile Navigation Toggle */}
+        {/* Mobile Navigation Toggle - Using inline SVG with explicit size */}
         <div className="md:hidden">
           <Button
             variant="ghost"
-            size="icon"
-            // Increased the button size for a larger touch target
-            className="w-[100px] h-[70px] text-foreground hover:text-[#88bf42]" // Added color for the toggle button itself
+            // Removed size="icon"
+            // Button container size h-14 w-14 (56px)
+            className="h-14 w-14 text-foreground hover:text-[#88bf42]" // Set button size here
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle Menu"
           >
-            {/* Increased the icon size */}
-            {isMenuOpen ? <X className="h-20 w-20" /> : <Menu className="h-20 w-20" />}
+            {isMenuOpen ? (
+              // Close Icon (X) as SVG
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor" // Inherits color from button text
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                // Apply size using inline style for higher specificity (40px)
+                style={{ height: '40px', width: '40px' }}
+              >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            ) : (
+              // Menu Icon (Hamburger) as SVG
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor" // Inherits color from button text
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                 // Apply size using inline style for higher specificity (40px)
+                style={{ height: '40px', width: '40px' }}
+              >
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            )}
           </Button>
         </div>
       </div>
 
-      {/* Mobile Navigation Menu */}
-      {/* Added `h-[calc(100vh-80px)]` to make the menu fill the screen height below the header (80px is the new mobile header height h-20 = 80px) */}
+      {/* Mobile Navigation Menu - Text color is text-foreground for inactive items */}
+      {/* Height calc(100vh - mobile header height h-28 = 112px) */}
       {isMenuOpen && (
-        <div className="container pb-4 md:hidden h-[calc(100vh-80px)] overflow-y-auto"> {/* Added overflow for long menus */}
-          <nav className="flex flex-col space-y-4 mt-4"> {/* Added top margin for spacing */}
+        <div className="container pb-4 md:hidden h-[calc(100vh-112px)] overflow-y-auto"> {/* Height calc */}
+          <nav className="flex flex-col space-y-4 mt-4"> {/* Spacing */}
             {navItems.map((item) => (
               <div key={item.title}>
                 {/* Mobile links and dropdowns */}
@@ -504,39 +654,35 @@ export default function Navbar() {
                   <Link
                     to={item.href}
                     className={cn(
-                      "text-lg font-medium block py-2", // Increased text size, added vertical padding
-                       // Default is black (text-foreground)
+                      "text-lg font-medium block py-2", // text-lg, py-2
+                       // Default text-foreground, active is bold text-foreground, hover is green
                        "text-foreground",
-                       // Active is black and bold
                       isMobileLinkActive(item.href) && "font-bold",
-                       // Hover is green
                       "hover:text-[#88bf42]"
                     )}
-                    onClick={handleNavLinkClick} // Close mobile menu on click
+                    onClick={handleNavLinkClick} // Close menu on click
                   >
                     {item.title}
                   </Link>
                 ) : (
                    // Mobile Dropdown Trigger (clickable button)
-                   <div> {/* Use a div or button as wrapper for flex/items */}
+                   <div>
                      <button
                         onClick={() => toggleDropdown(item.title)}
                         className={cn(
-                          "text-lg font-medium w-full text-left py-2", // Increased text size, full width button, added padding
-                          "flex justify-between items-center", // Align text and icon
-                          // Default is black (text-foreground)
+                          "text-lg font-medium w-full text-left py-2", // text-lg, py-2
+                          "flex justify-between items-center", // Alignment
+                          // Default text-foreground, active is bold text-foreground
                            "text-foreground",
-                           // Active is black and bold
                           isDropdownTriggerActiveByUrl(item) && "font-bold",
-                           // Hover does not apply green to the trigger text itself, only the links within
-                           "hover:text-foreground" // Keep hover effect subtle on the trigger button
+                           "hover:text-foreground" // Keep hover subtle on trigger
                         )}
                          aria-expanded={openDropdown === item.title}
                      >
                        <span>{item.title}</span>
-                        {/* Chevron icon for dropdown indicator (always gray) */}
+                        {/* Chevron icon (always gray h-6 w-6) */}
                        <ChevronDown className={cn(
-                           "h-6 w-6 transition-transform duration-200 text-muted-foreground", // Increased icon size slightly, always gray
+                           "h-6 w-6 transition-transform duration-200 text-muted-foreground",
                            openDropdown === item.title ? "rotate-180" : "rotate-0"
                        )} />
                      </button>
@@ -546,30 +692,26 @@ export default function Navbar() {
                       <div className="mt-2 ml-4 flex flex-col space-y-2"> {/* Indented sub-items */}
                         {/* Main Link for Mobile Dropdown Section */}
                          <Link
-                            to={item.href} // Link to the main page
+                            to={item.href} // Link to main page
                             onClick={handleNavLinkClick} // Close menu on click
                             className={cn(
-                              "text-base font-semibold py-1", // Style for main link, reduced padding
-                               // Default is black (text-foreground)
-                               "text-foreground",
-                               // Active is black and bold
+                              "text-base font-semibold py-1", // text-base, py-1, font-semibold
+                               // Default text-foreground, active is bold text-foreground, hover is green
+                               "text-foreground", // text-foreground
                               isMobileLinkActive(item.href) && "font-bold",
-                               // Hover is green
                               "hover:text-[#88bf42]",
-                              "flex items-center gap-2" // Hover and layout
+                              "flex items-center gap-2"
                             )}
                          >
-                              {/* Optional Main Icon for Mobile (always gray) */}
+                              {/* Optional Main Icon for Mobile (always gray h-4 w-4) */}
                                {item.mainIcon && typeof iconMap[item.mainIcon] !== 'undefined' && (
                                   <IconComponent
-                                     name={item.mainIcon} // Use IconName type directly
-                                     className="h-4 w-4 text-muted-foreground" // Small icon, always gray
+                                     name={item.mainIcon}
+                                     className="h-4 w-4 text-muted-foreground" // Small gray icon
                                    />
                                )}
                                <span>{item.title} Overview</span> {/* Added Overview */}
                          </Link>
-                        {/* Separator (optional) */}
-                        {/* <div className="border-t border-muted-foreground/20 pt-2 mt-2"></div> */} {/* Removed separator for cleaner list */}
                         {/* Sub-Items for Mobile Dropdown */}
                         {item.items.map((subItem) => {
                             const subItemIconName = subItem.icon as IconName | undefined;
@@ -583,20 +725,18 @@ export default function Navbar() {
                               key={subItem.title}
                               to={subItem.href}
                               className={cn(
-                                "text-base py-1", // Slightly larger text, vertical padding
-                                 // Default is gray (text-muted-foreground)
-                                isMobileLinkActive(subItem.href) ? "text-foreground font-semibold" : "text-muted-foreground",
-                                 // Hover is green
+                                "text-base py-1", // text-base, py-1
+                                 // Default text-foreground, active is bold text-foreground, hover is green
+                                isMobileLinkActive(subItem.href) ? "text-foreground font-semibold" : "text-foreground", // text-foreground
                                 "hover:text-[#88bf42]",
                                 "flex items-center gap-2"
                               )}
-                              onClick={handleNavLinkClick} // Close mobile menu on click
+                              onClick={handleNavLinkClick} // Close menu on click
                             >
                               {hasValidIcon && (
                                 <IconComponent
-                                  name={subItemIconName} // Use IconName type directly
-                                  // Icon is always gray
-                                  className={cn("h-5 w-5 flex-shrink-0 text-muted-foreground")} // Icon size and color
+                                  name={subItemIconName}
+                                  className={cn("h-5 w-5 flex-shrink-0 text-muted-foreground")} // Icon size and color (gray)
                                 />
                               )}
                               <span>{subItem.title}</span>

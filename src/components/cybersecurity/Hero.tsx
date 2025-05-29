@@ -82,12 +82,159 @@ const Hero = () => {
             transition={{ duration: 0.8 }}
             className="w-full lg:w-1/2 text-center lg:text-left"
           >
-            <div className="inline-block px-4 py-2 mb-6 bg-gradient-to-r from-[#3563E9]/10 to-[#88bf42]/10 rounded-full">
-              <span className="text-gradient bg-gradient-to-r from-[#3563E9] to-[#88bf42] font-medium text-sm">Advanced Cybersecurity Solutions</span>
+            <div className="inline-block px-4 py-2 mb-6 bg-[#88bf42]/10 rounded-full">
+              <span className="text-[#88bf42] font-medium text-sm">Advanced Cybersecurity Solutions</span>
             </div>
             
-            <h1 className="font-poppins font-bold text-[30px] sm:text-[36px] md:text-[48px] leading-[1.2] text-white mb-6">
-              Protect Your Digital World With <span className="text-gradient bg-gradient-to-r from-[#3563E9] to-[#88bf42]">Next-Gen Security</span>
+            {/* Mobile-only Security Dashboard */}
+            <div className="block sm:hidden mb-6">
+              <div className="relative bg-[#171E2E] backdrop-filter backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+                {/* Security Dashboard Header */}
+                <div className="bg-[#0B0F19] border-b border-white/10 p-4 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <svg className="w-6 h-6 text-[#88bf42]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    <span className="font-poppins font-medium text-white">Security Command Center</span>
+                  </div>
+                  <div className="flex space-x-2">
+                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  </div>
+                </div>
+                
+                {/* Dashboard Content - Simplified version for mobile */}
+                <div className="p-4 space-y-3">
+                  {/* Security Score */}
+                  <div className="bg-[#0B0F19] rounded-xl p-3">
+                    <div className="flex justify-between items-center mb-2">
+                      <h3 className="font-poppins text-[16px] font-medium text-white">Security Score</h3>
+                      <span className="px-2 py-1 bg-[#88bf42]/20 text-[#88bf42] rounded-full text-xs font-medium">Excellent</span>
+                    </div>
+                    
+                    <div className="flex items-center gap-3">
+                      <div className="relative h-16 w-16">
+                        <svg className="w-full h-full" viewBox="0 0 100 100">
+                          <circle cx="50" cy="50" r="38" fill="none" stroke="#0B0F19" strokeWidth="12" />
+                          <circle 
+                            cx="50" 
+                            cy="50" 
+                            r="38"
+                            stroke="#88bf42"
+                            strokeWidth="12"
+                            fill="none"
+                            strokeDasharray="239"
+                            strokeDashoffset="48"
+                            strokeLinecap="round"
+                            transform="rotate(-90 50 50)"
+                          />
+                          <text
+                            x="50"
+                            y="53"
+                            textAnchor="middle"
+                            dominantBaseline="middle"
+                            fill="white"
+                            fontSize="18"
+                            fontWeight="bold"
+                            fontFamily="Inter, sans-serif"
+                          >
+                            80%
+                          </text>
+                        </svg>
+                      </div>
+                      
+                      <div className="flex-1">
+                        <div className="mb-1">
+                          <div className="flex justify-between text-[10px] sm:text-[12px] mb-1">
+                            <span className="text-[14px] sm:text-[12px] text-gray-400">Network</span>
+                            <span className="text-[10px] sm:text-[12px] text-white">92%</span>
+                          </div>
+                          <div className="h-1.5 bg-[#0B0F19] rounded-full overflow-hidden">
+                            <div className="h-full bg-[#3563E9] rounded-full" style={{ width: '92%' }}></div>
+                          </div>
+                        </div>
+                        
+                        <div className="mb-1">
+                          <div className="flex justify-between text-[10px] sm:text-[12px] mb-1">
+                            <span className="text-[14px] sm:text-[12px] text-gray-400">Endpoints</span>
+                            <span className="text-[10px] sm:text-[12px] text-white">78%</span>
+                          </div>
+                          <div className="h-1.5 bg-[#0B0F19] rounded-full overflow-hidden">
+                            <div className="h-full bg-[#88bf42] rounded-full" style={{ width: '78%' }}></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Recent Activities - Mobile Only */}
+                <div className="p-4 space-y-3 mt-2">
+                  <h3 className="font-poppins text-[16px] font-medium text-white mb-2">Recent Activities</h3>
+                  
+                  <div className="space-y-2">
+                    <motion.div 
+                      className="flex items-center gap-2 p-2 rounded-lg bg-[#0B0F19] border border-white/5"
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      <div className="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
+                        <svg className="w-3 h-3 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[10px] sm:text-[12px] text-white truncate">Malware attempt blocked</p>
+                        <p className="text-[10px] sm:text-[12px] text-gray-400">File: malicious-doc.pdf</p>
+                      </div>
+                      <span className="text-[10px] sm:text-[12px] text-gray-400">Just now</span>
+                    </motion.div>
+                    
+                    <motion.div 
+                      className="flex items-center gap-2 p-2 rounded-lg bg-[#0B0F19] border border-white/5"
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ duration: 0.4, delay: 0.1 }}
+                    >
+                      <div className="w-6 h-6 rounded-full bg-yellow-500/20 flex items-center justify-center flex-shrink-0">
+                        <svg className="w-3 h-3 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[10px] sm:text-[12px] text-white truncate">Suspicious login attempt</p>
+                        <p className="text-[10px] sm:text-[12px] text-gray-400">IP: 185.143.XX.XX</p>
+                      </div>
+                      <span className="text-[10px] sm:text-[12px] text-gray-400">2m ago</span>
+                    </motion.div>
+                    
+                    <motion.div 
+                      className="flex items-center gap-2 p-2 rounded-lg bg-[#0B0F19] border border-white/5"
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ duration: 0.4, delay: 0.2 }}
+                    >
+                      <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                        <svg className="w-3 h-3 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[10px] sm:text-[12px] text-white truncate">Firewall rules updated</p>
+                        <p className="text-[10px] sm:text-[12px] text-gray-400">23 rules applied</p>
+                      </div>
+                      <span className="text-[10px] sm:text-[12px] text-gray-400">5m ago</span>
+                    </motion.div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <h1 className="font-poppins font-extrabold text-[30px] sm:text-[36px] md:text-[48px] leading-[1.2] text-white mb-6">
+              Protect Your Digital World With <span className="text-[#88bf42]">Next-Gen Security</span>
             </h1>
             
             <p className="font-inter text-gray-300 text-base sm:text-lg mb-8 max-w-xl mx-auto lg:mx-0">
@@ -97,24 +244,15 @@ const Hero = () => {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start w-full">
               <Link to="/contact" className="w-full sm:w-auto">
-  <motion.button 
-    whileHover={{ scale: 1.02, boxShadow: "0 5px 20px rgba(136, 191, 66, 0.3)" }}
-    whileTap={{ scale: 0.98 }}
-    className="bg-gradient-to-r from-[#88bf42] to-[#75a835] text-white px-8 py-4 rounded-xl font-semibold text-base transition-all shadow-lg w-full sm:w-auto"
-  >
-    Schedule a Consultation
-  </motion.button>
-</Link>
+                <motion.button 
+                  whileHover={{ scale: 1.02, boxShadow: "0 5px 20px rgba(136, 191, 66, 0.3)" }}
+                  whileTap={{ scale: 0.98 }}
+                  className="bg-gradient-to-r from-[#88bf42] to-[#75a835] text-white px-8 py-4 rounded-xl font-semibold text-base transition-all shadow-lg "
+                >
+                  Schedule a Consultation
+                </motion.button>
+              </Link>
 
-              {/* 
-              <motion.button 
-                whileHover={{ scale: 1.02, backgroundColor: "#ffffff10" }}
-                whileTap={{ scale: 0.98 }}
-                className="border border-white/20 text-white px-8 py-4 rounded-xl font-semibold text-base transition-all backdrop-blur-sm w-full sm:w-auto"
-              >
-                Watch Demo
-              </motion.button> 
-              */}
             </div>
             
             <div className="mt-8 grid grid-cols-1 xs:grid-cols-2 gap-4 sm:gap-6 w-full">
@@ -148,7 +286,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full lg:w-1/2 mt-10 lg:mt-0"
+            className="w-full lg:w-1/2 mt-10 lg:mt-0 hidden sm:block"
           >
             <div className="relative">
               <div className="absolute -inset-1 bg-gradient-to-r from-[#3563E9] to-[#88bf42] opacity-30 blur-lg rounded-2xl"></div>
@@ -166,8 +304,7 @@ const Hero = () => {
                     <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                     <div className="w-3 h-3 rounded-full bg-green-500"></div>
                   </div>
-                </div>
-                
+                </div>   
                 {/* Dashboard Content */}
                 <div className="p-6 space-y-5">
                   {/* Security Score */}
@@ -277,9 +414,12 @@ const Hero = () => {
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm text-white truncate">Malware attempt blocked</p>
-                          <p className="text-xs text-gray-400">File: malicious-doc.pdf</p>
+                          <p className="text-[10px] sm:text-[14px] text-gray-400">
+  File: malicious-doc.pdf
+</p>
+
                         </div>
-                        <span className="text-xs text-gray-400">Just now</span>
+                        <span className="text-[12px] text-gray-400">Just now</span>
                       </motion.div>
                       
                       <motion.div 
@@ -296,9 +436,9 @@ const Hero = () => {
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm text-white truncate">Suspicious login attempt</p>
-                          <p className="text-xs text-gray-400">IP: 185.143.XX.XX</p>
+                          <p className="text-[12px] text-gray-400">IP: 185.143.XX.XX</p>
                         </div>
-                        <span className="text-xs text-gray-400">2m ago</span>
+                        <span className="text-[12px] text-gray-400">2m ago</span>
                       </motion.div>
                       
                       <motion.div 

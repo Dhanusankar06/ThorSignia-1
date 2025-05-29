@@ -101,7 +101,7 @@ const CTASection: React.FC = () => {
             {isSubmitted ? (
               <div className="text-center py-8">
                 <div className="mb-4 text-green-400 text-2xl font-semibold">Thank you!</div>
-                <p>Your assessment request has been submitted. We'll contact you soon.</p>
+                <p className="text-white">Your assessment request has been submitted. We'll contact you soon.</p>
               </div>
             ) : (
               <form className="space-y-6" onSubmit={handleSubmit}>

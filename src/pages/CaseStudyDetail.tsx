@@ -42,9 +42,9 @@ const SectionHeading = ({ icon, title, accentColor }: { icon: any, title: string
   return (
     <div className="flex items-center mb-6">
       <div 
-        className="w-12 h-12 rounded-full flex items-center justify-center mr-4 bg-[#31adab]/20" 
+        className="w-12 h-12 rounded-full flex items-center justify-center mr-4 bg-[#88bf42]/20" 
       >
-        <Icon className="w-6 h-6" style={{ color: "#31adab" }} />
+        <Icon className="w-6 h-6" style={{ color: accentColor }} />
       </div>
       <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{title}</h2>
     </div>
@@ -152,6 +152,7 @@ const CaseStudyDetail = () => {
           backgroundImage: `url(${caseStudy.coverImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
+          backdropFilter: 'blur(10px)',
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40"></div>
@@ -159,10 +160,7 @@ const CaseStudyDetail = () => {
           <div className="max-w-6xl mx-auto">
             <div className="flex flex-col md:flex-row items-start justify-between">
               <div>
-                <Link to="/case-studies" className="inline-flex items-center text-black bg-white border hover:bg-[#88bf42] hover:text-white px-4 py-2 rounded-lg shadow mb-6 transition duration-200 mt-20 md:mt-0 font-semibold">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  <span>Back to Case Studies</span>
-                </Link>
+                
                 <div className="mb-4">
                   <img 
                     src={caseStudy.logo} 
@@ -173,7 +171,7 @@ const CaseStudyDetail = () => {
                 <div className="flex mb-4 mt-2">
                   <span 
                     className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium text-white shadow-md" 
-                    style={{ background: `linear-gradient(to right, #31adab 0%, #10b4b7 100%)` }}
+                    style={{ background: `linear-gradient(to right, #88bf42 0%, #88bf42 100%)` }}
                   >
                     {caseStudy.category}
                   </span>
@@ -240,7 +238,7 @@ const CaseStudyDetail = () => {
                   <SectionHeading 
                     icon={Lightbulb} 
                     title="The Challenge" 
-                    accentColor="#10b4b7" 
+                    accentColor="#88bf42" 
                   />
                   <div className="space-y-4">
                     {caseStudy.challenge.map((paragraph, index) => (
@@ -256,7 +254,7 @@ const CaseStudyDetail = () => {
                   <SectionHeading 
                     icon={Briefcase} 
                     title="Our Strategy" 
-                    accentColor="#10b4b7" 
+                    accentColor="#88bf42" 
                   />
                   <div className="space-y-4">
                     {caseStudy.strategy.map((paragraph, index) => (
@@ -272,7 +270,7 @@ const CaseStudyDetail = () => {
                   <SectionHeading 
                     icon={Rocket} 
                     title="The Execution" 
-                    accentColor="#10b4b7" 
+                    accentColor="#88bf42" 
                   />
                   <div className="space-y-4">
                     {caseStudy.execution.map((paragraph, index) => (
@@ -288,14 +286,14 @@ const CaseStudyDetail = () => {
                   <SectionHeading 
                     icon={Award} 
                     title="The Results" 
-                    accentColor="#10b4b7" 
+                    accentColor="#88bf42" 
                   />
                   <div className="space-y-6">
                     <ul className="space-y-4">
                       {caseStudy.results.map((result, index) => (
                         <li key={index} className="flex items-start">
                           <div 
-                            className="w-6 h-6 rounded-full flex items-center justify-center mr-3 flex-shrink-0 mt-1 bg-[#31adab]"
+                            className="w-6 h-6 rounded-full flex items-center justify-center mr-3 flex-shrink-0 mt-1 bg-[#88bf42]"
                           >
                             <CheckCircle className="w-4 h-4 text-white" />
                           </div>
@@ -313,7 +311,7 @@ const CaseStudyDetail = () => {
                   <SectionHeading 
                     icon={Quote} 
                     title="Client Testimonial" 
-                    accentColor="#10b4b7" 
+                    accentColor="#88bf42" 
                   />
                   <div className="bg-[#f8f9fa] rounded-xl shadow-md overflow-hidden p-8 border border-gray-100 relative">
                     <div className="absolute top-0 left-0 right-0 h-2 rounded-t-xl bg-[#88bf42]">
@@ -330,7 +328,7 @@ const CaseStudyDetail = () => {
                       </div>
                       <div>
                         <div className="mb-6">
-                          <Quote className="w-12 h-12 text-[#10b4b7]" />
+                          <Quote className="w-12 h-12 text-[#88bf42]" />
                         </div>
                         <p className="text-lg text-black italic mb-6">
                           "{caseStudy.testimonial.quote}"
@@ -342,18 +340,25 @@ const CaseStudyDetail = () => {
                           <p className="text-black">
                             {caseStudy.testimonial.position}, {caseStudy.testimonial.company}
                           </p>
+                          
                         </div>
+                        
                       </div>
+                     
                     </div>
                   </div>
                 </div>
+                <Link to="/case-studies" className="inline-flex items-center text-black bg-white border hover:bg-[#88bf42] hover:text-white px-4 py-2 rounded-lg shadow mb-6 transition duration-200 mt-20 md:mt-0 font-semibold">
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  <span>Back to Case Studies</span>
+                </Link>
               </div>
               
               {/* Sticky Sidebar */}
               <div className="lg:w-4/12 hidden lg:block">
                 <div className="sticky top-32">
                   <div 
-                    className="p-6 rounded-xl mb-8 bg-[#10b4b7]/10 border border-[#10b4b7]/20"
+                    className="p-6 rounded-xl mb-8 bg-[#88bf42]/10 border border-[#88bf42]/20"
                   >
                     <h3 className="text-xl font-bold mb-4 text-black">
                       Overview
@@ -432,9 +437,9 @@ const CaseStudyDetail = () => {
                             return (
                               <div key={index} className="flex items-center">
                                 <div 
-                                  className="w-8 h-8 rounded-full flex items-center justify-center mr-2 bg-[#31adab]/20"
+                                  className="w-8 h-8 rounded-full flex items-center justify-center mr-2 bg-[#88bf42]/20"
                                 >
-                                  <ServiceIcon className="w-4 h-4" style={{ color: "#31adab" }} />
+                                  <ServiceIcon className="w-4 h-4" style={{ color: "#88bf42" }} />
                                 </div>
                                 <span className="text-black">{service.name}</span>
                               </div>
@@ -447,7 +452,7 @@ const CaseStudyDetail = () => {
                   
                   <div>
                     <Button 
-                      className="w-full bg-[#88bf42] text-white rounded-lg transition-all duration-300 hover:bg-[#10b4b7] hover:text-white mb-4 border border-[#88bf42]"
+                      className="w-full bg-[#88bf42] text-white rounded-lg transition-all duration-300 hover:bg-[#88bf42]/10 hover:text-white mb-4 border border-[#88bf42]"
                       asChild
                     >
                       <Link to="/contact">Request a Similar Solution</Link>
@@ -455,7 +460,7 @@ const CaseStudyDetail = () => {
                     
                     <Button 
                       variant="outline" 
-                      className="w-full border-[#10b4b7] text-black hover:bg-[#10b4b7]/10 rounded-lg transition-all duration-300"
+                      className="w-full border-[#88bf42] text-black hover:bg-[#88bf42]/10 rounded-lg transition-all duration-300"
                       asChild
                     >
                       <Link to="/services">View All Services</Link>
@@ -490,14 +495,14 @@ const CaseStudyDetail = () => {
                     <div className="absolute bottom-4 left-4 flex items-center">
                       <span 
                         className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium text-white" 
-                        style={{ background: `linear-gradient(to right, #31adab 0%, #31adab 100%)` }}
+                        style={{ background: `linear-gradient(to right, #88bf42 0%, #88bf42 100%)` }}
                       >
                         {study.category}
                       </span>
                     </div>
                   </div>
                   <div className="p-5">
-                    <h3 className="font-bold text-lg mb-2 group-hover:text-[#31adab] transition-colors">{study.title}</h3>
+                    <h3 className="font-bold text-lg mb-2 group-hover:text-[#88bf42] transition-colors">{study.title}</h3>
                     <p className="text-gray-600 text-sm mb-3 line-clamp-2">{study.summary}</p>
                     <div className="flex justify-between items-center">
                       <span className="text-black font-semibold">{study.keyMetric}</span>
@@ -512,7 +517,7 @@ const CaseStudyDetail = () => {
             
             <div className="text-center mt-10">
               <Button
-                className="bg-[#88bf42] hover:bg-[#10b4b7] text-white px-8 py-3 rounded-lg transition-all duration-300 hover:shadow-md border border-[#88bf42]"
+                className="bg-[#88bf42] hover:bg-[#88bf42]/10 text-white px-8 py-3 rounded-lg transition-all duration-300 hover:shadow-md border border-[#88bf42]"
                 asChild
               >
                 <Link to="/case-studies">View All Case Studies</Link>
@@ -532,14 +537,14 @@ const CaseStudyDetail = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-center">
               <Button 
-                className="bg-[#88bf42] text-white hover:bg-[#10b4b7] shadow-lg transition-all duration-300 border border-[#88bf42]"
+                className="bg-[#88bf42] text-white hover:bg-[#88bf42]/10 shadow-lg transition-all duration-300 border border-[#88bf42]"
                 asChild
               >
                 <Link to="/contact">Schedule a Consultation</Link>
               </Button>
               <Button 
                 variant="outline" 
-                className="border-[#10b4b7] text-black hover:bg-[#10b4b7]/10 transition-all duration-300"
+                className="border-[#88bf42] text-black hover:bg-[#88bf42]/10 transition-all duration-300"
                 asChild
               >
                 <Link to="/services">Explore Our Services</Link>

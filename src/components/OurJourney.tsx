@@ -8,7 +8,7 @@ const milestones = [
     category: "Global Growth",
     metric: "250+ Clients",
     description:
-      "We started with a bold vision and quickly grew our global client base by delivering exceptional solutions.",
+      "Delivered value-driven solutions worldwide.",
     imageUrl:
       "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=400&auto=format&fit=crop",
   },
@@ -16,15 +16,15 @@ const milestones = [
     category: "Advanced R&D",
     metric: "15+ AI Solutions",
     description:
-      "Our innovative research and development led to a portfolio of advanced AI solutions.",
+      "Created from our innovation lab and custom client cases.",
     imageUrl:
       "https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=400&auto=format&fit=crop",
   },
   {
     category: "Enterprise Trust",
-    metric: "98% Satisfaction",
+    metric: "99.9% Satisfaction",
     description:
-      "Our commitment to excellence has earned us a 98% client satisfaction rate.",
+      "Trusted partners for scalable, practical delivery.",
     imageUrl:
       "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=400&auto=format&fit=crop",
   },
@@ -32,7 +32,7 @@ const milestones = [
     category: "Industry Recognition",
     metric: "10+ Awards",
     description:
-      "Our work has been recognized with multiple industry awards.",
+      "Honored for excellence and innovation in AI-driven growth.",
     imageUrl:
       "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=400&auto=format&fit=crop",
   },
@@ -40,16 +40,33 @@ const milestones = [
 
 export default function OurJourney() {
   return (
-    <div className="max-w-4xl mx-auto px-4 lg:px-8 py-24 relative">
+    <div className="flex flex-col max-w-6xl mx-auto px-4 py-16">
       {/* Section Heading */}
-      <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#0F0326] to-[#88BF42] inline-block text-center mb-4">
-          Our Journey
-        </h2>
-        <p className="text-[18px] text-[#0F0326] text-center mt-2">
-          A story of growth, innovation, and impact
-        </p>
-      </div>
+      <div className="text-center mb-8">
+  {/* Tag - Added mb-3 for space below it */}
+  <motion.div
+    // Assuming itemVariants is defined elsewhere
+    // variants={itemVariants}
+    className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 w-fit mx-auto md:mx-0 mb-3"
+  >
+    <span className="text-[#88BF42] text-sm md:text-base font-semibold">
+      Our Journey
+    </span>
+  </motion.div>
+  {/* Heading - Added mb-4 for space below it */}
+  <motion.h2
+    // Assuming itemVariants is defined elsewhere
+    // variants={itemVariants}
+    className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] leading-tight mb-4"
+  >
+     The Evolution of <span className="text-[#88BF42]">Innovation</span>
+  </motion.h2>
+  {/* Paragraph - No extra margin needed as the above H2 has mb-4 */}
+  <p className="text-base md:text-lg text-gray-700 max-w-2xl text-center mx-auto">
+    A story of growth, innovation, and impact.
+  </p>
+</div>
+
 
       {/* Milestones Container */}
       <div className="relative pl-8 md:pl-16">
@@ -84,7 +101,7 @@ export default function OurJourney() {
             <img
               src={milestone.imageUrl}
               alt={milestone.metric}
-              className="w-[300px] h-[200px] object-cover rounded-xl shadow-md"
+              className="w-[500px] h-[300px] object-cover rounded-xl shadow-md"
             />
 
             {/* Text Content */}

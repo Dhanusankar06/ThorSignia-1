@@ -5,8 +5,9 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { Link as RouterLink } from 'react-router-dom';
+
 const CloudSecurityPage = () => {
-  // Custom testimonials for Cloud Security
+  // Custom testimonials for Cloud Security (Keeping this for completeness)
   const cloudSecurityTestimonials = [
     {
       id: 1,
@@ -40,18 +41,18 @@ const CloudSecurityPage = () => {
   // Simplified animation variants
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
-    animate: { 
-      opacity: 1, 
+    animate: {
+      opacity: 1,
       y: 0,
       transition: { duration: 0.6 }
     }
   };
-  
+
   const staggerContainer = {
     initial: { opacity: 0 },
-    animate: { 
+    animate: {
       opacity: 1,
-      transition: { 
+      transition: {
         staggerChildren: 0.1,
         delayChildren: 0.3
       }
@@ -117,167 +118,143 @@ const CloudSecurityPage = () => {
   ];
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white">
       <Navbar />
-      {/* Hero Section - Added mt-16 for proper spacing below navbar */}
-      <section className="relative py-20 overflow-hidden mt-16">
+      {/* Hero Section */}
+      <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-50 z-0"></div>
-        
+
         {/* Animated background elements */}
-        <div className="absolute inset-0 z-0">
-          <motion.div 
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <motion.div
             className="absolute top-20 right-[10%] w-96 h-96 rounded-full bg-[#88bf42]/5"
-            animate={{ 
+            animate={{
               scale: [1, 1.2, 1],
               opacity: [0.2, 0.3, 0.2],
             }}
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           />
-          <motion.div 
+          <motion.div
             className="absolute -bottom-20 -left-20 w-96 h-96 rounded-full bg-[#0f0326]/5"
-            animate={{ 
+            animate={{
               scale: [1, 1.3, 1],
               opacity: [0.2, 0.3, 0.2],
             }}
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
           />
         </div>
-        
+
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-16">
+
+            {/* Mobile-only Tagline - Appears FIRST on mobile due to order-1 */}
             <motion.div
               initial="initial"
               animate="animate"
               variants={fadeIn}
-              className="lg:w-1/2 text-center lg:text-left"
+              className="lg:hidden order-1 w-full flex justify-center mb-8"
             >
-              <div className="inline-block px-3 py-1 mb-4 bg-[#88bf42]/10 rounded-full">
-                <span className="text-[#88bf42] font-medium text-sm">Secure Cloud Infrastructure</span>
-              </div>
-              <h1 className="text-4xl md:text-6xl font-bold text-[#0f0326] mb-6 leading-tight">
-                Cloud <span className="text-[#88bf42]">Security</span> Assessment
-              </h1>
-              <p className="text-xl text-[#696869] mb-8 max-w-xl mx-auto lg:mx-0">
-                Secure your cloud infrastructure with comprehensive security assessments and expert recommendations for AWS, Azure, Google Cloud, and more.
-              </p>
-              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-              <Button
-  size="lg" // This prop might also influence padding/font size depending on the Button component.
-           // You might not even need it if you're overriding everything with utility classes.
-  className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white w-full sm:w-auto h-14 text-lg" // Increased height to h-14, text to text-lg
-  asChild
->
-  <RouterLink
-    to="/contact"
-    className="flex items-center justify-center" // Add flex utilities to RouterLink for better icon alignment
-  >
-  Request a Cloud Security Assessment <ArrowRight className="ml-2 h-5 w-5" /> {/* Corrected icon height and width */}
-  </RouterLink>   
-</Button>
-               
+              <div className="inline-block px-4 py-1.5 rounded-full bg-[#88bf42]/10 text-[#88bf42] text-sm font-medium">
+                Secure Cloud Infrastructure
               </div>
             </motion.div>
-            
+
+            {/* Cloud Security Dashboard - Appears SECOND on mobile (order-2) and SECOND on desktop (lg:order-2) */}
+            {/* Now visible on desktop, takes up half width */}
             <motion.div
               initial="initial"
               animate="animate"
               variants={fadeIn}
-              transition={{ delay: 0.2 }}
-              className="lg:w-1/2 mt-12 lg:mt-0"
+              transition={{ delay: 0.2 }} // Add animation delay for appearing
+              className="order-2 lg:order-2 w-full lg:w-1/2 max-w-sm lg:max-w-none mx-auto lg:mx-0 mb-6 lg:mb-0"
             >
-              <div className="relative">
-                <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-[#88bf42] to-[#0f0326] opacity-30 blur-md"></div>
-                <div className="relative bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-200 p-8">
-                  <div className="flex items-center mb-6">
-                    <div className="w-12 h-12 bg-[#88bf42]/10 rounded-full flex items-center justify-center mr-4">
-                      <svg className="w-6 h-6 text-[#88bf42]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a6 6 0 006 6h7a5 5 0 001-9.9V9a3 3 0 00-5.91-.6" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 19h3a4 4 0 000-8h-1.38" />
-                      </svg>
-                    </div>
-                    <h3 className="text-xl font-bold text-[#0f0326]">Cloud Security Dashboard</h3>
+              <div className="relative bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-200 p-8">
+                <div className="flex items-center mb-6">
+                  <div className="w-12 h-12 bg-[#88bf42]/10 rounded-full flex items-center justify-center mr-4">
+                    <svg className="w-6 h-6 text-[#88bf42]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a6 6 0 006 6h7a5 5 0 001-9.9V9a3 3 0 00-5.91-.6"></path>
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 19h3a4 4 0 000-8h-1.38"></path>
+                    </svg>
                   </div>
-                  
-                  <div className="grid grid-cols-2 gap-6">
-                    <div className="col-span-2">
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-[#696869]">Overall Security Score</span>
-                        <span className="text-[#0f0326] font-semibold">72%</span>
+                  <h3 className="text-xl font-bold text-[#0f0326]">Cloud Security Dashboard</h3>
+                </div>
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="col-span-2">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-[#696869]">Overall Security Score</span>
+                      <span className="text-[#0f0326] font-semibold">72%</span>
+                    </div>
+                    <div className="h-2.5 bg-gray-100 rounded-full overflow-hidden">
+                       <motion.div
+                         className="h-full bg-[#88bf42] rounded-full"
+                         initial={{ width: 0 }}
+                         animate={{ width: '72%' }}
+                         transition={{ duration: 0.8, delay: 0.5 }}
+                       ></motion.div>
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-[#0f0326] mb-3">AWS Security Status</h4>
+                    <div className="space-y-3">
+                      <div>
+                        <div className="flex justify-between items-center text-sm">
+                          <span className="text-[#696869]">S3 Buckets</span>
+                          <span className="text-green-500">Secure</span>
+                        </div>
+                        <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                           <motion.div
+                             className="h-full bg-green-500 rounded-full"
+                             initial={{ width: 0 }}
+                             animate={{ width: '95%' }}
+                             transition={{ duration: 0.8, delay: 0.7 }}
+                           ></motion.div>
+                        </div>
                       </div>
-                      <div className="h-2.5 bg-gray-100 rounded-full overflow-hidden">
-                        <motion.div 
-                          className="h-full bg-[#88bf42] rounded-full"
-                          initial={{ width: 0 }}
-                          animate={{ width: '72%' }}
-                          transition={{ duration: 0.8, delay: 0.5 }}
-                        ></motion.div>
+                      <div>
+                        <div className="flex justify-between items-center text-sm">
+                          <span className="text-[#696869]">IAM Policies</span>
+                          <span className="text-yellow-500">Warning</span>
+                        </div>
+                        <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                           <motion.div
+                             className="h-full bg-yellow-500 rounded-full"
+                             initial={{ width: 0 }}
+                             animate={{ width: '75%' }}
+                             transition={{ duration: 0.8, delay: 0.9 }}
+                           ></motion.div>
+                        </div>
                       </div>
                     </div>
-                    
-                    <div>
-                      <h4 className="text-sm font-semibold text-[#0f0326] mb-3">AWS Security Status</h4>
-                      <div className="space-y-3">
-                        <div>
-                          <div className="flex justify-between items-center text-sm">
-                            <span className="text-[#696869]">S3 Buckets</span>
-                            <span className="text-green-500">Secure</span>
-                          </div>
-                          <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                            <motion.div 
-                              className="h-full bg-green-500 rounded-full"
-                              initial={{ width: 0 }}
-                              animate={{ width: '95%' }}
-                              transition={{ duration: 0.8, delay: 0.6 }}
-                            ></motion.div>
-                          </div>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-[#0f0326] mb-3">Azure Security Status</h4>
+                    <div className="space-y-3">
+                      <div>
+                        <div className="flex justify-between items-center text-sm">
+                          <span className="text-[#696869]">Network Config</span>
+                          <span className="text-red-500">At Risk</span>
                         </div>
-                        <div>
-                          <div className="flex justify-between items-center text-sm">
-                            <span className="text-[#696869]">IAM Policies</span>
-                            <span className="text-yellow-500">Warning</span>
-                          </div>
-                          <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                            <motion.div 
-                              className="h-full bg-yellow-500 rounded-full"
-                              initial={{ width: 0 }}
-                              animate={{ width: '75%' }}
-                              transition={{ duration: 0.8, delay: 0.7 }}
-                            ></motion.div>
-                          </div>
+                        <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                           <motion.div
+                             className="h-full bg-red-500 rounded-full"
+                             initial={{ width: 0 }}
+                             animate={{ width: '45%' }}
+                             transition={{ duration: 0.8, delay: 1.1 }}
+                           ></motion.div>
                         </div>
                       </div>
-                    </div>
-                    
-                    <div>
-                      <h4 className="text-sm font-semibold text-[#0f0326] mb-3">Azure Security Status</h4>
-                      <div className="space-y-3">
-                        <div>
-                          <div className="flex justify-between items-center text-sm">
-                            <span className="text-[#696869]">Network Config</span>
-                            <span className="text-red-500">At Risk</span>
-                          </div>
-                          <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                            <motion.div 
-                              className="h-full bg-red-500 rounded-full"
-                              initial={{ width: 0 }}
-                              animate={{ width: '45%' }}
-                              transition={{ duration: 0.8, delay: 0.8 }}
-                            ></motion.div>
-                          </div>
+                      <div>
+                        <div className="flex justify-between items-center text-sm">
+                          <span className="text-[#696869]">Active Directory</span>
+                          <span className="text-green-500">Secure</span>
                         </div>
-                        <div>
-                          <div className="flex justify-between items-center text-sm">
-                            <span className="text-[#696869]">Active Directory</span>
-                            <span className="text-green-500">Secure</span>
-                          </div>
-                          <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                            <motion.div 
-                              className="h-full bg-green-500 rounded-full"
-                              initial={{ width: 0 }}
-                              animate={{ width: '90%' }}
-                              transition={{ duration: 0.8, delay: 0.9 }}
-                            ></motion.div>
-                          </div>
+                        <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                           <motion.div
+                             className="h-full bg-green-500 rounded-full"
+                             initial={{ width: 0 }}
+                             animate={{ width: '90%' }}
+                             transition={{ duration: 0.8, delay: 1.3 }}
+                           ></motion.div>
                         </div>
                       </div>
                     </div>
@@ -285,6 +262,42 @@ const CloudSecurityPage = () => {
                 </div>
               </div>
             </motion.div>
+
+            {/* Main Text Content (Desktop Tagline, H1, P, Button) - Appears THIRD on mobile (order-3), FIRST on desktop (lg:order-1) */}
+            {/* Takes up half width on desktop */}
+            <motion.div
+              initial="initial"
+              animate="animate"
+              variants={fadeIn}
+              className="order-3 lg:order-1 w-full lg:w-1/2 text-center lg:text-left mt-8 lg:mt-0"
+            >
+              {/* Desktop-only tag line (hidden on mobile) */}
+              <div className="hidden lg:inline-block px-3 py-1 mb-4 bg-[#88bf42]/10 rounded-full">
+                <span className="text-[#88bf42] font-medium text-sm">Secure Cloud Infrastructure</span>
+              </div>
+
+              <h1 className="text-4xl md:text-6xl font-bold text-[#0f0326] mb-6 leading-tight">
+                Cloud <span className="text-[#88bf42]">Security</span> Assessment
+              </h1>
+              <p className="text-xl text-[#696869] mb-8 max-w-xl mx-auto lg:mx-0">
+                Secure your cloud infrastructure with comprehensive security assessments and expert recommendations for AWS, Azure, Google Cloud, and more.
+              </p>
+              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+                <Button
+                  size="lg"
+                  className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white w-full sm:w-auto h-14 text-lg"
+                  asChild
+                >
+                  <RouterLink
+                    to="/contact"
+                    className="flex items-center justify-center"
+                  >
+                    Request a Cloud Security Assessment <ArrowRight className="ml-2 h-5 w-5" />
+                  </RouterLink>
+                </Button>
+              </div>
+            </motion.div>
+
           </div>
         </div>
       </section>
@@ -309,8 +322,8 @@ const CloudSecurityPage = () => {
               Our cloud security assessment methodology identifies vulnerabilities, misconfigurations, and compliance gaps across your entire cloud infrastructure.
             </p>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
@@ -333,9 +346,9 @@ const CloudSecurityPage = () => {
           </motion.div>
         </div>
       </section>
-      
+
       {/* Testimonials section removed */}
-      
+
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-[#0f0326] to-[#1a0845]">
         <div className="max-w-7xl mx-auto px-4">
@@ -352,27 +365,26 @@ const CloudSecurityPage = () => {
             <p className="text-gray-300 max-w-3xl mx-auto text-xl mb-10">
               Our cloud security experts are ready to help you identify and address vulnerabilities in your cloud infrastructure.
             </p>
-              
-                              <Button
-                    size="lg" // This prop might also influence padding/font size depending on the Button component.
-                            // You might not even need it if you're overriding everything with utility classes.
-                    className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white w-full sm:w-auto h-14 text-lg" // Increased height to h-14, text to text-lg
-                    asChild
-                  >
-                    <RouterLink
-                      to="/contact"
-                      className="flex items-center justify-center" // Add flex utilities to RouterLink for better icon alignment
-                    >
-                    Schedule a Cloud Security Assessment <ArrowRight className="ml-2 h-5 w-5" /> {/* Corrected icon height and width */}
-                    </RouterLink>
-                  </Button>
+
+            <Button
+              size="lg"
+              className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white w-full sm:w-auto h-14 text-lg"
+              asChild
+            >
+              <RouterLink
+                to="/contact"
+                className="flex items-center justify-center"
+              >
+                Schedule a Cloud Security Assessment <ArrowRight className="ml-2 h-5 w-5" />
+              </RouterLink>
+            </Button>
           </motion.div>
         </div>
       </section>
-      
+
       <Footer />
     </div>
   );
 };
 
-export default CloudSecurityPage;   
+export default CloudSecurityPage;

@@ -85,7 +85,7 @@ const BenefitCard: React.FC<BenefitCardProps> = ({ title, description, icon, ind
 
 const BenefitsSection: React.FC = () => {
   return (
-    <section className="py-24 bg-[#0f0326]/95">
+    <section className="py-20 bg-[#0f0326]/95">
       <div className="max-w-7xl mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -132,17 +132,7 @@ const BenefitsSection: React.FC = () => {
             ))}
           </div>
         </div>
-        {/* Testimonial quote at the bottom */}
-        <div className="mt-16 flex flex-col items-center">
-          <svg className="w-12 h-12 text-[#88bf42]/30 mb-2" fill="currentColor" viewBox="0 0 32 32">
-            <path d="M10 8v6a6 6 0 01-6 6H2v2c0 3.314 2.686 6 6 6h4c3.314 0 6-2.686 6-6v-8c0-3.314-2.686-6-6-6h-2zm20 0v6a6 6 0 01-6 6h-2v2c0 3.314 2.686 6 6 6h4c3.314 0 6-2.686 6-6v-8c0-3.314-2.686-6-6-6h-2z" />
-          </svg>
-          <p className="text-[#e0e0e0] text-lg md:text-xl italic text-center max-w-2xl mb-2">
-            “Their AI cybersecurity expertise has been invaluable in protecting our machine learning models from potential data breaches and attacks.”
-          </p>
-          <div className="text-[#88bf42] font-bold">Sarah Johnson</div>
-          <div className="text-[#696869] text-sm mb-2">CTO, IntelliTech Solutions</div>
-        </div>
+       
       </div>
     </section>
   );

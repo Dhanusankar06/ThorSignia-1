@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import demovideo from './demovideo.tsx';
+// Note: demovideo.tsx import was likely for the ProductDemoSection.
+// If ProductDemoSection is imported directly, the demovideo import above it is redundant.
+// import demovideo from './demovideo.tsx';
+
 // Adjust the import path for your Button component
 // This assumes your Button component is in src/components/ui/button.jsx or .tsx
 import { Button } from "../components/ui/button";
@@ -10,7 +13,6 @@ import {
   ArrowRight,
   ChevronRight,
   ChevronLeft,
-  // MessageCircle, // Not used
   Cpu,
   MessageSquare,
   Eye,
@@ -23,12 +25,21 @@ import {
   Trophy,
   Award,
   Star,
-  Medal
+  Medal,
+  Mic,
+  Network,
+  Circle,
+  Layers, // Added Layer icon for Enterprise Grade
+  CheckCircle, // Added CheckCircle icon for Smart Solutions
+  Share2,
+  Megaphone,
+  ShieldAlert,
+  BarChart3
 } from 'lucide-react';
 
 // Import Swiper components and modules
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules'; // SwiperType removed if not strictly needed for props
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 // import type { Swiper as SwiperType } from 'swiper'; // If you need SwiperType for strict typing
 
 // !!! IMPORTANT: Import Swiper CSS for it to work correctly !!!
@@ -39,46 +50,26 @@ import 'swiper/css/pagination';
 // import 'swiper/css/autoplay'; // Usually not needed for Autoplay module to work
 
 import { clsx } from 'clsx';
-import '../styles/globals.css';
-import ProductDemoSection from './demovideo.tsx';
+import '../styles/globals.css'; // Ensure your globals.css contains tailwind directives
+import ProductDemoSection from './demovideo.tsx'; // Assuming this is where your video component is
 
 
 // Trusted By Logos Data
 const trustedByLogos = [
-  { logoUrl: "https://cdn.svgporn.com/logos/google.svg", altText: "Google Logo", link: "https://google.com" },
-  { logoUrl: "https://cdn.svgporn.com/logos/microsoft-icon.svg", altText: "Microsoft Logo", link: "https://microsoft.com" },
- 
-  { logoUrl: "https://cdn.svgporn.com/logos/meta.svg", altText: "Meta Logo", link: "https://meta.com" },
-  { logoUrl: "https://cdn.svgporn.com/logos/ibm.svg", altText: "IBM Logo", link: "https://ibm.com" },
-  { logoUrl: "https://cdn.svgporn.com/logos/salesforce.svg", altText: "Salesforce Logo", link: "https://salesforce.com" },
-  
-  { logoUrl: "https://cdn.svgporn.com/logos/oracle.svg", altText: "Oracle Logo", link: "https://oracle.com" },
-  { logoUrl: "https://cdn.svgporn.com/logos/sap.svg", altText: "SAP Logo", link: "https://sap.com" },
-  // Duplicated for longer scroll effect, original list is 9 items
-  { logoUrl: "https://cdn.svgporn.com/logos/google.svg", altText: "Google Logo", link: "https://google.com" },
-  { logoUrl: "https://cdn.svgporn.com/logos/microsoft-icon.svg", altText: "Microsoft Logo", link: "https://microsoft.com" },
- 
-  { logoUrl: "https://cdn.svgporn.com/logos/meta.svg", altText: "Meta Logo", link: "https://meta.com" },
-  { logoUrl: "https://cdn.svgporn.com/logos/ibm.svg", altText: "IBM Logo", link: "https://ibm.com" },
-  { logoUrl: "https://cdn.svgporn.com/logos/salesforce.svg", altText: "Salesforce Logo", link: "https://salesforce.com" },
-  { logoUrl: "https://cdn.svgporn.com/logos/oracle.svg", altText: "Oracle Logo", link: "https://oracle.com" },
-  { logoUrl: "https://cdn.svgporn.com/logos/sap.svg", altText: "SAP Logo", link: "https://sap.com" },
+  // Logos commonly found in startup/scale-up tech stacks
+  { logoUrl: "https://cdn.svgporn.com/logos/slack-icon.svg", altText: "Slack Logo", link: "https://slack.com" }, // Communication/Collaboration
+  { logoUrl: "https://cdn.svgporn.com/logos/zoom.svg", altText: "Zoom Logo", link: "https://zoom.us" }, // Video Conferencing/Collaboration
+  { logoUrl: "https://cdn.svgporn.com/logos/hubspot.svg", altText: "HubSpot Logo", link: "https://hubspot.com" }, // Marketing/CRM
+  { logoUrl: "https://cdn.svgporn.com/logos/salesforce.svg", altText: "Salesforce Logo", link: "https://www.salesforce.com" }, // Database
+  { logoUrl: "https://cdn.svgporn.com/logos/netlify.svg", altText: "Netlify Logo", link: "https://netlify.com" }, // Web Hosting/DevTools
+  { logoUrl: "https://cdn.svgporn.com/logos/twilio.svg", altText: "Twilio Logo", link: "https://twilio.com" }, // Communication APIs
+  { logoUrl: "https://cdn.svgporn.com/logos/snowflake.svg", altText: "Snowflake Logo", link: "https://snowflake.com" }, // Data Warehouse (widely used by growing tech companies)
+  { logoUrl: "https://cdn.svgporn.com/logos/stripe.svg", altText: "Stripe Logo", link: "https://stripe.com" }, // Email Marketing (Icon version)
 ];
 
-// Animation durations for marquee
-const durationRtl = '60s'; // Increased duration for more items
-const durationLtr = '70s'; // Increased duration for more items
-
-// Add type for CSS custom properties
-type CustomCSSProperties = React.CSSProperties & {
-  '--duration': string;
-};
-
-// Create duplicated arrays for continuous scrolling
-// The animation translates by -50%, so the content needs to be duplicated once.
-const logosRtlDuplicated = [...trustedByLogos, ...trustedByLogos];
-const logosLtrDuplicated = [...trustedByLogos, ...trustedByLogos];
-
+// Animation durations for marquee - Keeping them as they were in the original code, although the marquee itself seems removed
+const durationRtl = '60s';
+const durationLtr = '70s';
 
 // Testimonials data
 const testimonials = [
@@ -154,7 +145,10 @@ const containerVariants = {
   }
 };
 
-// Calculate node positions in a circle
+
+// Note: AnimatedDiagram and associated helper functions are included
+// as they were in the original code, assuming they are used elsewhere or intended.
+// If they are not used, they could be removed.
 const generateCircularNodes = () => {
   const centerX = 50;
   const centerY = 50;
@@ -273,546 +267,891 @@ const HomePage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Removed unused useEffect for currentLogoIndex, rotatedLogos, secondRowLogos
-  // The marquee animation is handled by CSS using logosRtlDuplicated and logosLtrDuplicated
 
   return (
-    <div className="flex flex-col max-w-20xl bg-white">
+    <div className="flex flex-col max-w-20xl bg-white"> {/* Adjusted max-width to a more standard class */}
       <main className="flex-grow bg-white">
-        {/* 1. Hero Section */}
-        <section className="relative bg-[#0F0326] text-white overflow-hidden">
-          <div className="container mx-auto px-4 py-16 md:py-20 lg:py-24 relative z-10">
-            <div className="flex flex-col lg:flex-row items-center gap-8 md:gap-12">
-            <div className="lg:w-1/2 text-center lg:text-left">
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5 }}
-  >
-    <h1 className="text-[36px] md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4 md:mb-6">
-  Automate 
-  <span className="block md:inline"> Conversations.</span><br className="hidden md:block" />
-  <span className="text-[#88BF42]">Accelerate Growth.</span>
-</h1>
 
-    <p className="text-base md:text-lg text-white mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0">
-      Power your business with intelligent voice, chat, campaign & Social-Media automation, Cyber-security, Lead generation. 
-    </p>
+
+
+   {/* Hero Section */}
+   
+
+ {/* Hero Section */}
+<section className="relative bg-[#0F0326] text-white overflow-hidden min-h-screen flex items-center">
+  {/* Background images with gradient overlay */}
+  <div className="absolute inset-0">
+    {/* Neural network background */}
+    <div className="absolute inset-0 bg-[url('/assets/glowing-neural.png')] bg-cover bg-center opacity-10 hidden lg:block"></div>
+
+
+  </div>
+
+  <div className="container mx-auto px-4 py-16 md:py-20 lg:py-24 relative z-10">
+    {/* Main Flex Container: Stacks vertically on small, horizontal on large */}
+    {/* Corrected ordering for mobile using order-first and order-last */}
+    <div className="flex flex-col lg:flex-row items-center gap-8 md:gap-12 h-full">
+
+      {/* Images Column (DESKTOP ONLY) - This column is primarily for the desktop layout */}
+      {/* Hide this column completely on mobile, show it on large screens */}
+      <div className="lg:w-1/2 w-full relative h-full md:h-full lg:h-[800px] max-w-lg mx-auto lg:mx-0 order-first lg:order-2 mb-8 lg:mb-0 hidden lg:block"> {/* Added hidden lg:block */}
+        {/* Container for the two images with improved alignment */}
+        <div className="grid grid-rows-2 gap-4 h-full"> {/* Using grid-rows-2 to divide space evenly */}
+          {/* First Image */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }} // Animates after text block starts
+            className="rounded-lg overflow-hidden shadow-2xl h-full" // Using h-full to fill the grid cell completely
+          >
+            {/* First image */}
+            <img
+              src="/assets/HERO.png"
+              alt="AI Interface Example 1"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+
+          {/* Second Image */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }} // Animates shortly after the first image
+            className="rounded-lg overflow-hidden shadow-2xl h-full" // Using h-full to fill the grid cell completely
+          >
+            {/* Second image */}
+            <img
+              src="/assets/award.png"
+              alt="AI Interface Example 2"
+              className="w-full h-[500px] object-cover"
+            />
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Text, Buttons, Logos, AND Images (MOBILE) Column - order-last on mobile, lg:order-1 on desktop */}
+      {/* This column handles the combined layout on mobile and the text/button/logo part on desktop */}
+      {/* Make this a flex container on mobile to control inner order */}
+      <div className="flex flex-col lg:w-1/2 text-center lg:text-left order-last lg:order-1 lg:order-none"> {/* Added flex flex-col */}
+
+        {/* Heading + Paragraph Block (Order 1 on mobile) */}
+        {/* Removed the buttons from this motion.div as they are now a separate item 5for ordering */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }} // Slightly longer initial animation delay
+          className="order-1" // Added order-1 to place it first on mobile
+        >
+          {/* Heading */}
+          <h1 className="text-[36px] md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4 md:mb-6">
+            Transforming Business with
+            <span className="text-[#88BF42]"> Intelligent Automation</span>
+          </h1>
+
+          {/* Paragraph Description */}
+          <p className="text-base md:text-lg text-white/90 mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0">
+            Harness the power of AI-driven platforms to automate operations, supercharge lead conversion, and deliver extraordinary user experiences—at scale and with precision.
+          </p>
+        </motion.div>
+
+        {/* Images Block (MOBILE ONLY) (Order 2 on mobile) */}
+        {/* Duplicate the image structure from the desktop-only column */}
+        {/* Show this block on mobile, hide on large screens */}
+        <div className="w-full relative h-full md:h-[450px] max-w-lg mx-auto mb-8 block lg:hidden order-2"> {/* Added block lg:hidden and order-2, mb-8 for spacing */}
+             {/* Flex container for the two stacked images */}
+             <div className="flex flex-col gap-4 h-full"> {/* h-full makes it fill parent height */}
+                {/* First Image */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.5 }} // Animates shortly after text block
+                  className="flex-1 rounded-lg overflow-hidden shadow-2xl h-full"
+                >
+                  {/* Replace with your first image URL */}
+                  <img
+                    src="/assets/HERO.png"
+                    alt="AI Interface Example 1"
+                    className="w-full h-full object-cover" // This already uses h-full object-cover
+                  />
+                </motion.div>
+
+                {/* Second Image */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.7 }} // Animates shortly after the first image
+                  className="flex-1 rounded-lg overflow-hidden shadow-2xl h-full"
+                >
+                  {/* Replace with your second image URL */}
+                  <img
+                    src="/assets/award.png"
+                    alt="AI Interface Example 2"
+                    className="w-full h-full object-cover" // This already uses h-full object-cover
+                  />
+                </motion.div>
+            </div>
+        </div>
+
+
+        {/* Buttons Block (Order 3 on mobile) */}
+        {/* This div now contains only the buttons and is a separate flex item for ordering */}
+        {/* Removed motion from this parent div, added order-3 */}
+        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 justify-center lg:justify-start mt-8 order-3">
+          <Button
+            // Keep h-12 for height
+            // Removed w-full sm:w-auto
+            // Added a fixed width class (e.g., w-60 - adjust as needed)
+            // Added mx-auto for centering on mobile (parent is items-center)
+            // Keep reduced horizontal padding px-5 sm:px-6
+            className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white h-12 text-base w-60 mx-auto sm:mx-0 px-5 sm:px-6 rounded-md shadow-lg transition-all duration-300 hover:shadow-xl"
+            asChild
+          >
+            <RouterLink to="/services" className="flex items-center justify-center">
+              Explore Our Solutions
+            </RouterLink>
+          </Button>
+
+          <Button
+            asChild
+            variant="outline"
+            // Keep h-12 for height
+            // Removed w-full sm:w-auto
+            // Added the same fixed width class (w-60)
+            // Added mx-auto for centering on mobile, override with sm:mx-0
+            // Keep reduced horizontal padding px-5 sm:px-6
+            className="border-2 border-[#88bf42] text-[#88bf42] text-base h-12 w-60 mx-auto sm:mx-0 px-5 sm:px-6 rounded-md hover:bg-[#88bf42] hover:text-white transition-all duration-300"
+          >
+            <RouterLink to="/contact" className="flex items-center justify-center">
+              Book a Free Demo
+            </RouterLink>
+          </Button>
+        </div>
+
+        {/* Trusted By Section (Order 4 on mobile) */}
+        {/* This div is now a separate flex item for ordering */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }} // Keep whileInView for visibility-based animation
+          viewport={{ once: true, amount: 0.1 }} // Added viewport options
+          transition={{ duration: 0.5, delay: 0.8 }} // Animation after the main text block
+          className="mt-12 text-center lg:text-left order-4" // Added order-4, removed lg:order-2
+        >
+          <p className="text-white/70 text-sm mb-4">Trusted by forward-thinking companies across industries</p>
+          <div className="flex flex-wrap justify-center lg:justify-start gap-6 items-center">
+            {/* Note: Logos also have individual whileInView animations with staggered delay */}
+            {trustedByLogos.slice(0, 9).map((logo, index) => (
+              <motion.a
+                key={index}
+                href={logo.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }} // Keep whileInView
+                viewport={{ once: true, amount: 0.1 }} // Added viewport options
+                transition={{ duration: 0.5, delay: index * 0.05 + 0.9 }} // Staggered animation after the main block
+                className="w-24 h-12 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300"
+              >
+                <img
+                  src={logo.logoUrl}
+                  alt={logo.altText}
+                  className="max-w-full max-h-full object-contain"
+                />
+              </motion.a>
+            ))}
+          </div>
+        </motion.div>
+
+
+
+      </div>
+
+
+    </div>
+  </div>
+</section>
+        {/* 2. Quick Company Intro */}
+        <section className="py-16 lg:py-24 bg-gray-50 relative overflow-hidden">
+  {/* Potential Background Element here if needed */}
+  {/* <div className="absolute inset-0 bg-pattern opacity-10"></div> */}
+
+  <div className="container mx-auto px-4 relative z-10">
+    {/* Outer motion div for overall section animation stagger */}
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }} // Adjusted amount slightly
+      variants={staggerChildren}
+    >
+
+      {/* --- DESKTOP LAYOUT (md and up) --- */}
+      {/* This grid is visible only on medium screens and up */}
+      <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+
+        {/* Desktop Left Column: Text, Paragraphs, Button */}
+        <motion.div
+          variants={itemVariants} // Animate this block relative to parent stagger
+          className="flex flex-col space-y-6 md:space-y-8 text-center md:text-left"
+        >
+          {/* Tag */}
+          <motion.div
+            variants={itemVariants} // Animate this item within the block
+            className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 w-fit mx-auto md:mx-0"
+          >
+            <span className="text-[#88BF42] text-sm md:text-base font-semibold">
+              About Us
+            </span>
+          </motion.div>
+          {/* Heading */}
+          <motion.h2
+            variants={itemVariants} // Animate this item within the block
+            className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] leading-tight"
+          >
+            Pioneering the Future of <span className="text-[#88BF42]">AI Solutions</span>
+          </motion.h2>
+          {/* Paragraphs */}
+          {/* Wrap paragraphs in a div if they should animate together */}
+          <motion.div variants={itemVariants} className="flex flex-col space-y-4"> {/* Added wrapper div */}
+            <p className="text-base md:text-lg text-[#696869] leading-relaxed max-w-prose mx-auto md:mx-0">
+              Thorsignia is dedicated to transforming how businesses operate, engage, and grow. With a deep focus on artificial intelligence and automation, we deliver cutting-edge, intelligent systems tailored to meet real-world challenges.
+            </p>
+            <p className="text-base md:text-lg text-[#696869] leading-relaxed max-w-prose mx-auto md:mx-0">
+              Our expertise spans across AI-powered platforms, smart automation, and customer-centric technologies enabling organizations to save time, convert more leads, and elevate user experiences.
+            </p>
+          </motion.div>
+          {/* Learn More Button */}
+          <motion.a
+            href="/about"
+            variants={itemVariants} // Animate this item within the block
+            className="w-fit px-6 md:px-8 py-3 md:py-4 bg-[#0F0326] text-white font-semibold rounded-lg hover:bg-[#1A0645] transition-all duration-300 ease-in-out hover:shadow-lg flex items-center space-x-2 group mx-auto md:mx-0"
+          >
+            <span>Learn More</span>
+            <ArrowRight className="w-4 h-4 md:w-5 md:h-5 transform group-hover:translate-x-1 transition-transform" />
+          </motion.a>
+        </motion.div>
+
+        {/* Desktop Right Column: Small Cards, Stats Cards */}
+        <motion.div
+           variants={itemVariants} // Animate this block relative to parent stagger
+           className="flex flex-col gap-10 md:gap-16"
+        >
+           {/* Small Cards (Horizontal on Desktop) */}
+           {/* These cards are handled by the main grid item's layout on desktop */}
+           <motion.div
+              variants={itemVariants} // Animate this block within the parent
+              className="flex flex-col md:flex-row items-center md:items-start gap-y-6 md:gap-x-8 justify-center md:justify-start"
+           >
+               <div className="flex flex-col items-center md:items-start space-y-3 p-4 bg-white rounded-lg shadow-sm">
+                   <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#88BF42]/10 flex items-center justify-center">
+                      {/* Using Lucide Icon */}
+                      <Layers className="w-5 h-5 md:w-6 md:h-6 text-[#88BF42]" />
+                   </div>
+                   <span className="text-[#0F0326] text-sm md:text-base font-semibold text-center md:text-left">Enterprise Grade</span>
+               </div>
+               <div className="flex flex-col items-center md:items-start space-y-3 p-4 bg-white rounded-lg shadow-sm">
+                   <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#88BF42]/10 flex items-center justify-center">
+                       <Cpu className="w-5 h-5 md:w-6 md:h-6 text-[#88BF42]" />
+                   </div>
+                   <span className="text-[#0F0326] text-sm md:text-base font-semibold text-center md:text-left">AI-Powered Solutions</span>
+               </div>
+                <div className="flex flex-col items-center md:items-start space-y-3 p-4 bg-white rounded-lg shadow-sm">
+                   <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#88BF42]/10 flex items-center justify-center">
+                      {/* Using Lucide Icon */}
+                       <CheckCircle className="w-5 h-5 md:w-6 md:h-6 text-[#88BF42]" />
+                   </div>
+                    <span className="text-[#0F0326] text-sm md:text-base font-semibold text-center md:text-left">Smart Solutions</span>
+               </div>
+           </motion.div>
+
+           {/* Stats Cards (2x2 Grid on Desktop) */}
+           <motion.div
+             variants={itemVariants} // Animate this block within the parent
+             className="grid grid-cols-2 gap-4 md:gap-6"
+           >
+               <div className="p-4 md:p-6 bg-white rounded-lg md:rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100 text-center md:text-left">
+                 <div className="text-3xl md:text-4xl font-bold text-[#88BF42] mb-1 md:mb-2">99.9%</div>
+                 <div className="text-[#0F0326] text-sm md:text-base font-medium">Client Satisfaction</div>
+               </div>
+               <div className="p-4 md:p-6 bg-white rounded-lg md:rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100 text-center md:text-left">
+                 <div className="text-3xl md:text-4xl font-bold text-[#88BF42] mb-1 md:mb-2">250+</div>
+                 <div className="text-[#0F0326] text-sm md:text-base font-medium">Enterprise Clients</div>
+               </div>
+               <div className="p-4 md:p-6 bg-white rounded-lg md:rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100 text-center md:text-left">
+                 <div className="text-3xl md:text-4xl font-bold text-[#88BF42] mb-1 md:mb-2">24/7</div>
+                 <div className="text-[#0F0326] text-sm md:text-base font-medium">AI Support</div>
+               </div>
+               <div className="p-4 md:p-6 bg-white rounded-lg md:rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100 text-center md:text-left">
+                 <div className="text-3xl md:text-4xl font-bold text-[#88BF42] mb-1 md:mb-2">10+</div>
+                 <div className="text-[#0F0326] text-sm md:text-base font-medium">Years Experience</div>
+               </div>
+           </motion.div>
+        </motion.div>
+      </div> {/* End Desktop Layout Grid */}
+
+
+      {/* --- MOBILE LAYOUT (below md) --- */}
+      {/* This flex container is visible only below medium screens */}
+      {/* It uses flex-col and order classes to arrange items */}
+      {/* Adjusted gap-y to potentially reduce overall vertical space on mobile */}
+      <div className="flex flex-col gap-y-6 md:hidden text-center"> {/* Reduced gap-y from 8 to 6 */}
+
+          {/* 1) About Us Tag */}
+          <motion.div
+            variants={itemVariants}
+            className="order-1 inline-block bg-[#88BF42]/10 rounded-full px-4 py-1 w-fit mx-auto" // Removed mb-4
+          >
+            <span className="text-[#88BF42] text-sm font-semibold">
+              About Us
+            </span>
+          </motion.div>
+
+          {/* 2) Heading */}
+          <motion.h2
+            variants={itemVariants}
+            className="order-2 text-2xl font-bold text-[#0F0326] leading-tight" // Removed mb-4
+          >
+            Pioneering the Future of <span className="text-[#88BF42]">AI Solutions</span>
+          </motion.h2>
+
+          {/* 3) Paragraphs */}
+           {/* Wrap paragraphs in a div if they should animate together */}
+          <motion.div variants={itemVariants} className="order-3 flex flex-col space-y-4 max-w-prose mx-auto"> {/* Removed mb-6 */}
+            <p className="text-base text-[#696869] leading-relaxed mx-auto">
+              Thorsignia is dedicated to transforming how businesses operate, engage, and grow. With a deep focus on artificial intelligence and automation, we deliver cutting-edge, intelligent systems tailored to meet real-world challenges.
+            </p>
+            <p className="text-base text-[#696869] leading-relaxed mx-auto">
+              Our expertise spans across AI-powered platforms, smart automation, and customer-centric technologies enabling organizations to save time, convert more leads, and elevate user experiences.
+            </p>
+          </motion.div>
+
+          {/* 4) Small Cards (Horizontal on Mobile) */}
+          {/* Duplicated from desktop right column, adjusted layout for mobile */}
+          <motion.div
+             variants={itemVariants}
+             className="order-4 flex flex-row flex-wrap justify-center gap-4" // order-4, horizontal wrapping, gap-4, Removed mb-8
+          >
+               {/* Each card now takes roughly 1/3 width on small screens if they wrap */}
+               <div className="flex flex-col items-center space-y-3 p-4 bg-white rounded-lg shadow-sm min-w-[140px] flex-1"> {/* Added min-w and flex-1 for card sizing */}
+                   <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#88BF42]/10 flex items-center justify-center">
+                      <Layers className="w-5 h-5 text-[#88BF42]" />
+                   </div>
+                   <span className="text-[#0F0326] text-sm font-semibold text-center">Enterprise Grade</span>
+               </div>
+               <div className="flex flex-col items-center space-y-3 p-4 bg-white rounded-lg shadow-sm min-w-[140px] flex-1"> {/* Added min-w and flex-1 */}
+                   <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#88BF42]/10 flex items-center justify-center">
+                       <Cpu className="w-5 h-5 text-[#88BF42]" />
+                   </div>
+                   <span className="text-[#0F0326] text-sm font-semibold text-center">AI-Powered Solutions</span>
+               </div>
+                <div className="flex flex-col items-center space-y-3 p-4 bg-white rounded-lg shadow-sm min-w-[140px] flex-1"> {/* Added min-w and flex-1 */}
+                   <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#88BF42]/10 flex items-center justify-center">
+                       <CheckCircle className="w-5 h-5 text-[#88BF42]" />
+                   </div>
+                    <span className="text-[#0F0326] text-sm font-semibold text-center">Smart Solutions</span>
+               </div>
+          </motion.div>
+
+
+          {/* 6) Stats Cards (2x2 Grid on Mobile) - NOW Order 5 */}
+          {/* Duplicated from desktop right column */}
+          <motion.div
+            variants={itemVariants}
+            className="order-5 grid grid-cols-2 gap-4" // Changed order to 5, 2x2 grid on mobile
+          >
+               <div className="p-4 bg-white rounded-lg shadow-md border border-gray-100 text-center">
+                 <div className="text-3xl font-bold text-[#88BF42] mb-1">99.9%</div>
+                 <div className="text-[#0F0326] text-sm font-medium">Client Satisfaction</div>
+               </div>
+               <div className="p-4 bg-white rounded-lg shadow-md border border-gray-100 text-center">
+                 <div className="text-3xl font-bold text-[#88BF42] mb-1">50+</div>
+                 <div className="text-[#0F0326] text-sm font-medium">Enterprise Clients</div>
+               </div>
+               <div className="p-4 bg-white rounded-lg shadow-md border border-gray-100 text-center">
+                 <div className="text-3xl font-bold text-[#88BF42] mb-1">24/7</div>
+                 <div className="text-[#0F0326] text-sm font-medium">AI Support</div>
+               </div>
+               <div className="p-4 bg-white rounded-lg shadow-md border border-gray-100 text-center">
+                 <div className="text-3xl font-bold text-[#88BF42] mb-1">10+</div>
+                 <div className="text-[#0F0326] text-sm font-medium">Years Experience</div>
+               </div>
+          </motion.div>
+
+          {/* 5) Learn More Button - NOW Order 6 */}
+          {/* Duplicated from desktop left column */}
+          <motion.a
+            href="/about"
+            variants={itemVariants}
+            className="order-6 w-fit px-6 py-3 bg-[#0F0326] text-white font-semibold rounded-lg hover:bg-[#1A0645] transition-all duration-300 ease-in-out hover:shadow-lg flex items-center space-x-2 group mx-auto" // Changed order to 6, Removed mb-8
+          >
+            <span>Learn More</span>
+            <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+          </motion.a>
+
+
+      </div> {/* End Mobile Layout Flex Container */}
+
+    </motion.div> {/* End outer motion div */}
+  </div>
+</section>
+
+
+        {/* 4. What We Offer Section */}
+
   
+    <section className="py-16 md:py-20 bg-white">
+      <div className="container mx-auto px-4">
+        {/* Header Section */}
+        <motion.div
+          initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
+          variants={staggerChildren} className="text-center mb-12 md:mb-16"
+        >
+          <motion.div variants={itemVariants} className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 mb-4">
+            <span className="text-[#88BF42] text-sm md:text-base font-semibold">What We Offer</span>
+          </motion.div>
+          <motion.h2 variants={itemVariants} className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-3 md:mb-4">
+          Smart AI Solutions Designed to <span className="text-[#88BF42]">Scale Your Business</span>
+          </motion.h2>
+          <motion.p variants={itemVariants} className="text-base md:text-lg text-[#696869] max-w-2xl mx-auto">
+          From automated voice assistants to intelligent lead conversion, explore how our AI-powered tools drive growth, engagement, and efficiency.
+          </motion.p>
+        </motion.div>
 
-    <div className="hidden sm:flex flex-col sm:flex-row items-center sm:items-start gap-4 justify-center lg:justify-start mt-8">
-  <Button
-    className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white h-12 text-base w-40 sm:w-auto px-3 sm:px-4"
-    asChild
-  >
-    <RouterLink to="/contact" className="flex items-center justify-center">
-      Request Demo <ArrowRight className="ml-2 h-4 w-4" />
-    </RouterLink>
-  </Button>
+        {/* Services Grid - Modified for Hover Effect */}
+        <motion.div
+          initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
+          variants={staggerChildren} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+        >
+          {[
+            { icon: Mic, title: 'Intelligent Voice Automation', desc: 'Enable seamless, human-like conversations with AI-powered voice bots for inbound and outbound calls. Reduce wait times, boost conversions, and handle high-volume interactions with ease.', link: '/services/intelligent-voice-automation' },
+            { icon: Share2, title: 'Social Engagement Automation', desc: 'Automate responses, schedule posts, and analyze performance across platforms like Instagram, LinkedIn, WhatsApp, and more—so you stay engaged, even when offline.', link: '/services/social-engagement-automation' },
+            { icon: BarChart3, title: 'AI-Powered Lead Intelligence', desc: 'Identify, nurture, and convert high-intent prospects using AI insights. Segment users, personalize touchpoints, and maximize ROI on every campaign.', link: '/services/lead-intelligence' },
+            { icon: Bot, title: 'Conversational AI Chatbots', desc: 'Chatbots that handle FAQs, engage prospects, and support customers in real-time—without missing a beat.', link: '/services/interactive-ai-chatbots' },
+            { icon: Megaphone, title: 'Automated Campaign Orchestration', desc: 'Automate advertising campaigns and optimize performance across multiple channels.Seamlessly launch and manage ads across platforms using smart automation and performance optimization.', link: '/services/automated-campaign-orchestration' },
+            { icon: ShieldAlert, title: 'AI-Powered Threat Detection', desc: 'Real-time AI surveillance that flags security risks, detects anomalies, and protects your digital assets.', link: '/services/threat-detection' }
+          ].map((service, index) => (
+             <motion.div
+                key={`service-${index}`} variants={itemVariants}
+                // Keep the whileHover for subtle lift and shadow
+                whileHover={{ y: -5, boxShadow: "0 8px 20px rgba(136, 191, 66, 0.1)" }}
+                // Add 'group' class to make group-hover work on children
+                className="bg-white rounded-xl p-6 md:p-8 shadow-sm transition-all duration-300 flex flex-col h-full border border-transparent hover:border-[#88BF42]/20 relative overflow-hidden group cursor-pointer" // Added cursor-pointer
+              >
+                {/* Icon - Always visible */}
+                 <div className="w-12 h-12 md:w-14 md:h-14 bg-[#88BF42]/10 rounded-lg flex items-center justify-center mb-4 md:mb-6 relative z-10 flex-shrink-0">
+                   <service.icon size={32} color="#88BF42" />
+                 </div>
+                {/* Title - Always visible */}
+                <h3 className="text-lg md:text-xl font-bold text-[#0F0326] mb-2 md:mb-3 relative z-10">{service.title}</h3>
 
-  <Button
-    asChild
-    variant="outline"
-    className="border-[#88bf42] text-[#88bf42] text-base h-12 w-40 sm:w-auto px-3 sm:px-6 rounded-md hover:bg-[#eaf4d6]"
-  >
-    <RouterLink to="/services">
-      Our Solutions
-    </RouterLink>
-  </Button>
+                {/* Content that appears on hover */}
+                {/* Use max-h-0 and opacity-0 by default, transition to max-h-96 and opacity-100 on group-hover */}
+                <div className="max-h-0 opacity-0 overflow-hidden transition-all duration-500 group-hover:max-h-96 group-hover:opacity-100">
+                    {/* Description */}
+                    <p className="text-[#696869] text-sm md:text-base mb-4">
+                      {service.desc}
+                    </p>
+                    {/* Horizontal Line */}
+                    {/* Line width transition remains, but its visibility is controlled by parent opacity */}
+                    <div className="h-1 w-10 md:w-12 bg-[#88BF42] mb-4 transition-all duration-300 group-hover:w-16 md:group-hover:w-20"></div>
+                    {/* Learn More Link */}
+                    <RouterLink
+                      to={service.link}
+                      className="inline-flex items-center text-[#88BF42] font-medium hover:underline relative z-10 group text-sm md:text-base" // The inner 'group' class here is for the text underline effect specifically
+                    >
+                      <span className="relative">
+                        Learn more
+                        {/* Underline effect on text hover */}
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#88BF42] transition-all duration-300 group-hover:w-full"></span>
+                      </span>
+                      <ChevronRight className="h-3 w-3 md:h-4 md:w-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
+                    </RouterLink>
+                </div>
+              </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+
+        {/* Why Choose Thorsignia Section */}
+        <section className="py-16 md:py-24 ">
+  <div className="container mx-auto px-4">
+    {/* Use a grid for the main content layout - Back to 2 columns on lg */}
+    {/* Added gap-8 md:gap-12 items-center as before */}
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+
+      {/* Left Column (on Desktop): Features List */}
+      {/* CHANGED: order-first lg:order-1 to order-last lg:order-1 */}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={staggerChildren} // Stagger animation for items within this column
+        className="space-y-6 md:space-y-8 order-last lg:order-1" // order-last mobile, lg:order-1 desktop
+      >
+        {/* Features Grid (Still a grid *within* this column) */}
+        {/* Added responsive grid classes back */}
+        <div className="grid grid-cols-1 md:grid-cols-1 gap-6 md:gap-8"> {/* Keep as 1 column on md, not 2 */}
+             {[
+               { icon: Brain, title: 'Advanced Enterprise AI', desc: 'Cutting-edge AI tailored for enterprise-grade reliability and performance.' },
+               { icon: Bot, title: 'Custom AI Integrations', desc: 'Bespoke architectures designed for your specific business needs.' },
+               { icon: BarChart2, title: 'Rapid Implementation', desc: 'Deploy AI systems in weeks, not months.' },
+               { icon: Trophy, title: 'Business-Focused Results', desc: 'Solutions aligned with KPIs and measurable ROI.' },
+               { icon: Shield, title: 'Scalable & Secure Systems', desc: 'Future-proof infrastructure with enterprise-grade security.' },
+               { icon: Award, title: 'Expert Support & Consulting', desc: 'End-to-end guidance from AI specialists.' }
+             ].map((feature, index) => (
+               
+               <motion.div
+                 key={`feature-${index}`}
+                 variants={itemVariants} // Animate each item
+                 className="flex items-start group text-left" // text-left for content alignment
+               >
+                 <div className="w-12 h-12 md:w-14 md:h-14 bg-[#88BF42]/10 rounded-lg flex items-center justify-center flex-shrink-0 mr-4">
+                   <feature.icon size={32} color="#88BF42" />
+                 </div>
+                 <div>
+                   <h3 className="text-lg md:text-xl font-bold text-[#0F0326] mb-1">{feature.title}</h3>
+                   <p className="text-[#696869] text-sm md:text-base leading-relaxed">{feature.desc}</p>
+                 </div>
+               </motion.div>
+             ))}
+        </div>
+      </motion.div>
+
+
+      {/* Right Column (on Desktop): Heading and Intro Text */}
+      {/* CHANGED: order-last lg:order-2 to order-first lg:order-2 */}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={staggerChildren} // Stagger animation for items within this column
+        className="text-center lg:text-left lg:pl-8 order-first lg:order-2" // Center text mobile, left desktop, add left padding desktop, order-first mobile, lg:order-2 desktop
+      >
+        <motion.div variants={itemVariants} className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 mb-4">
+          <span className="text-[#88BF42] text-sm md:text-base font-semibold">Why Choose Thorsignia</span>
+        </motion.div>
+
+        <motion.h2 variants={itemVariants} className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-3 md:mb-4">
+          Enterprise AI That <span className="text-[#88BF42] block">Works for You</span>
+        </motion.h2>
+
+        {/* Restored original paragraph spacing */}
+        <motion.p variants={itemVariants} className="text-base md:text-lg text-[#696869] leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-6 md:mb-8">
+          We specialize in building smart, scalable AI systems that solve real business problems—fast. From automation to analytics, Thorsignia delivers measurable results at enterprise scale.
+        </motion.p>
+
+        <motion.p variants={itemVariants} className="text-base md:text-lg text-[#696869] leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-4 md:mb-6">
+           Unlike generic solutions, our AI is designed to integrate deeply with your existing workflows, ensuring a smooth transition and maximum impact. We prioritize measurable outcomes that directly contribute to your bottom line.
+        </motion.p>
+
+        <motion.p variants={itemVariants} className="text-base md:text-lg text-[#696869] leading-relaxed max-w-2xl mx-auto lg:mx-0">
+           Our team of experts works closely with you from strategy to deployment, providing the support needed to harness the full power of AI.
+        </motion.p>
+
+      </motion.div>
+
+    </div> {/* End grid */}
+  </div> {/* End container */}
+</section>
+
+        {/* Awards & Recognition Section */}
+        <section className="py-12 md:py-16 bg-gray-100">
+  <div className="container mx-auto px-4 relative z-10">
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }} // Added viewport options
+      variants={itemVariants}
+      className="bg-[#0F0326] rounded-lg p-6 md:p-8 shadow-xl border border-gray-700"
+    >
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between relative z-10 gap-6 md:gap-8">
+        {/* Icon & Text Block */}
+        <div className="flex items-start gap-4 flex-grow">
+          <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 bg-[#88BF42]/60 rounded-full flex items-center justify-center border border-[#88BF42]/60">
+            <Trophy className="w-6 h-6 md:w-7 md:h-7 text-white" />
+          </div>
+          {/* Text Content */}
+          <div className="flex-grow">
+  <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
+    Most Innovative AI Company of the Year
+  </h3>
+  <p className="text-gray-300 text-sm md:text-base">
+    We are honored to receive the <span className="font-semibold text-white">World Business Conclave Most Innovative AI Company of the Year Award</span>, recognizing our commitment to cutting-edge technology, real-world impact, and excellence in AI innovation.
+  </p>
 </div>
 
+        </div>
+        {/* Link/Button */}
+        <RouterLink
+          to="/awards"
+          className="inline-flex items-center text-[#88BF42] hover:text-[#7AAD3A] font-semibold transition-colors group border border-[#88BF42]/60 hover:border-[#7AAD3A]/60 px-5 py-2.5 rounded-md flex-shrink-0 self-stretch md:self-auto justify-center md:justify-start"
+        >
+          <span className="mr-2">See Our Recognitions</span>
+          <ArrowRight className="w-4 h-4 transform transition-transform group-hover:translate-x-1" />
+        </RouterLink>
+      </div>
+    </motion.div>
+  </div>
+</section>
 
 
-                </motion.div>
-              </div>
-              <div className="lg:w-1/2 w-full relative h-[350px] md:h-[450px] lg:h-[500px] max-w-lg mx-auto lg:mx-0 -translate-x-4 sm:-translate-x-8 lg:translate-x-0">
+
+        {/* Industries We Serve Section */}
+        <section className="py-16 md:py-24 bg-white">
+      <div className="container mx-auto px-4">
+        {/* Header Section */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }} // Added viewport options
+          variants={staggerChildren}
+          className="text-center mb-12 md:mb-16"
+        >
+          <motion.div variants={itemVariants} className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 mb-4">
+            <span className="text-[#88BF42] text-sm md:text-base font-semibold">Industries We Serve</span>
+          </motion.div>
+          <motion.h2 variants={itemVariants} className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-3 md:mb-4">
+            Tailored AI Solutions for Your <span className="text-[#88BF42]">Industry</span>
+          </motion.h2>
+          <motion.p variants={itemVariants} className="text-base md:text-lg text-[#696869] max-w-2xl mx-auto">
+            We partner with businesses to implement domain-specific, scalable AI systems that solve real problems—from operational bottlenecks to customer engagement.
+          </motion.p>
+        </motion.div>
+
+        {/* Industries Grid - Modified for Hover Effect */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }} // Added viewport options
+          variants={staggerChildren}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+        >
+          {[
+            {
+              icon: Database,
+              title: 'Finance & Banking',
+              highlight: 'AI for risk management & fraud prevention',
+              desc: 'Smart automation for fraud detection, financial analysis, and client support.'
+            },
+            {
+              icon: Star,
+              title: 'Healthcare',
+              highlight: 'Streamlined patient & medical operations',
+              desc: 'Appointment scheduling, EHR access, and patient support with AI agents.'
+            },
+            {
+              icon: Bot,
+              title: 'E-commerce',
+              highlight: 'Hyper-personalized customer experiences',
+              desc: 'Automated support, dynamic product suggestions, and seamless service.'
+            },
+            {
+              icon: Eye,
+              title: 'Manufacturing',
+              highlight: 'Optimized quality control & efficiency',
+              desc: 'AI-driven visual inspection and predictive maintenance at scale.'
+            },
+            {
+              icon: Brain,
+              title: 'Education',
+              highlight: 'Smarter engagement & admin automation',
+              desc: 'Voice assistants handle admissions, program queries, and student support.'
+            },
+            {
+              icon: Cpu,
+              title: 'Technology',
+              highlight: 'Scalable support for tech businesses',
+              desc: 'Automated help desks, onboarding flows, and instant customer resolutions.'
+            }
+          ].map((industry, index) => (
                 <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                  className="w-full h-full"
+                  key={`industry-${index}`}
+                  variants={itemVariants}
+                  // 'group' class added here to allow group-hover utilities on children
+                  className="group rounded-lg p-0 overflow-hidden relative cursor-pointer
+                             bg-gradient-to-br from-white to-[#88BF42]/5
+                             hover:bg-gradient-to-br hover:from-white hover:to-[#88BF42]/10
+                             transition-all duration-300 ease-in-out"
                 >
-                  <AnimatedDiagram />
-                </motion.div>
-              </div>
-            </div>
-            
-            {/* Mobile buttons below the diagram */}
-                     <div className="flex flex-col sm:hidden items-center gap-4 justify-center w-full mt-8 px-4">
-              <Button
-                className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white w-full max-w-xs sm:max-w-sm h-12 text-base px-4 rounded-md shadow-lg " // Added max-w-xs or max-w-sm
-                asChild
-              >
-                <RouterLink
-                  to="/contact"
-                  className="flex items-center justify-center" // w-full here is fine as Button's class takes precedence via asChild
-                >
-                  Request Demo <ArrowRight className="ml-2 h-4 w-4" />
-                </RouterLink>
-              </Button>
+                  <div className="flex h-full">
+                    {/* Icon Container - Always visible */}
+                    <div className="flex-shrink-0 w-16 md:w-20 bg-[#88BF42]/10 flex items-start justify-center py-6 md:py-8">
+                        <div className="w-10 h-10 md:w-12 md:h-12 rounded-md flex items-center justify-center">
+                           {/* Icon - Always visible */}
+                           <industry.icon size={32} color="#88BF42" />
+                        </div>
+                    </div>
+                    {/* Text Container */}
+                    <div className="flex-grow p-6 md:p-8">
+                      {/* Title - Always visible */}
+                      <h3 className="text-lg md:text-xl font-bold text-[#0F0326] mb-2 md:mb-3">{industry.title}</h3>
 
-              <Button
-                asChild
-                variant="outline"
-                className="border-[#88bf42] text-[#88bf42] text-base w-full max-w-xs sm:max-w-sm h-12 px-4 rounded-md shadow hover:bg-[#eaf4d6]" // Added max-w-xs or max-w-sm
-              >
-                <RouterLink to="/services" className="flex items-center justify-center"> {/* Removed w-full from RouterLink to let Button control it */}
-                  Our Solutions
-                </RouterLink>
+                      {/* Content that appears on hover */}
+                      {/* Use max-h-0 and opacity-0 by default, transition to max-h-96 and opacity-100 on group-hover */}
+                      <div className="max-h-0 opacity-0 overflow-hidden transition-all duration-500 group-hover:max-h-96 group-hover:opacity-100">
+                        {/* Highlight Text - Initially hidden */}
+                        <p className="text-[#88BF42] text-sm md:text-base font-medium mb-2">{industry.highlight}</p>
+                        {/* Description - Initially hidden */}
+                        <p className="text-[#696869] text-sm md:text-base">{industry.desc}</p>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Button Section */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }} // Added viewport options
+              variants={itemVariants}
+              className="text-center mt-12 md:mt-16"
+            >
+              {/* Make sure Button component and RouterLink are correctly imported/defined */}
+              <Button asChild className="bg-[#88bf42] hover:bg-[#7aad3a] text-white text-base md:text-lg px-6 md:px-8 py-3 h-auto rounded-md">
+                <RouterLink to="/contact">Get Industry-Specific Solutions</RouterLink>
               </Button>
-            </div>
+            </motion.div>
           </div>
         </section>
 
 
 
-        {/* 3. Quick Company Intro */}
-        <section className="py-16 lg:py-24 bg-gray-50 relative overflow-hidden">
-      <div className="container mx-auto px-4 relative z-10">
+        {/* Trusted by Industry Leaders Section */}
+        <section className="py-16 md:py-24 bg-gray-50">
+      <div className="container mx-auto px-4">
+        {/* Header Section */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           variants={staggerChildren}
+          className="text-center mb-12 md:mb-16"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-            {/* Left Column: Text Content */}
-            <div className="flex flex-col space-y-4 md:space-y-6 text-center md:text-left">
-              <motion.div
-                variants={itemVariants}
-                className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 w-fit mx-auto md:mx-0"
-              >
-                <span className="text-[#88BF42] text-sm md:text-base font-semibold">
-                  About Us
-                </span>
-              </motion.div>
-              <motion.h2
-                variants={itemVariants}
-                className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-2 md:mb-4 leading-tight"
-              >
-                Pioneering the Future of <span className="text-[#88BF42]">AI Solutions</span>
-              </motion.h2>
-              <motion.p
-                variants={itemVariants}
-                className="text-base md:text-lg text-[#696869] leading-relaxed max-w-prose mx-auto md:mx-0 "
-              >
-                Thorsignia is dedicated to transforming how businesses operate, engage, and grow. With a deep focus on artificial intelligence and automation, we deliver cutting-edge, intelligent systems tailored to meet real-world challenges.
-              </motion.p>
-              <motion.p
-                variants={itemVariants}
-                className="text-base md:text-lg text-[#696869] leading-relaxed max-w-prose mx-auto md:mx-0"
-              >
-                Our expertise spans across AI-powered platforms, smart automation, and customer-centric technologies enabling organizations to save time, convert more leads, and elevate user experiences.
-              </motion.p>
-
-              {/* Feature items for mobile view only - REMAINS VERTICAL */}
-              <motion.div
-                variants={itemVariants}
-                className="flex md:hidden flex-col items-center space-y-4 mt-6 mb-8"
-              >
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-full bg-[#88BF42]/10 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                      <path fill="#88BF42" d="M11.7 2.805a.75.75 0 01.6 0A60.65 60.65 0 0122.83 8.72a.75.75 0 01.3.6v1.8a.75.75 0 01-.3.6A60.462 60.462 0 0112.3 17.5a.75.75 0 01-.6 0A60.462 60.462 0 011.2 11.72a.75.75 0 01-.3-.6v-1.8a.75.75 0 01.3-.6A60.65 60.65 0 0111.7 2.805z"/>
-                      <path fill="#88BF42" d="M11.7 15.75a.75.75 0 01.6 0A60.462 60.462 0 0022.83 21.53a.75.75 0 01.3.6v1.8a.75.75 0 01-.3.6A60.45 60.45 0 0012.3 30.25a.75.75 0 01-.6 0A60.45 60.45 0 001.2 24.53a.75.75 0 01-.3-.6v-1.8a.75.75 0 01.3-.6A60.462 60.462 0 0011.7 15.75z" opacity="0.4"/>
-                    </svg>
-                  </div>
-                  <span className="text-[#0F0326] text-sm md:text-base text-[#696869] font-medium">Enterprise Grade</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-full bg-[#88BF42]/10 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                      <path fill="#88BF42" d="M6.25 6.375a6.25 6.25 0 1112.5 0 6.25 6.25 0 01-12.5 0zM12 17.75a.75.75 0 01.75.75v5a.75.75 0 01-1.5 0v-5a.75.75 0 01.75-.75z"/>
-                      <path fill="#88BF42" d="M8.5 19.75a.75.75 0 01.75.75 2.25 2.25 0 004.5 0 .75.75 0 011.5 0 3.75 3.75 0 01-7.5 0 .75.75 0 01.75-.75z" opacity="0.6"/>
-                      <path fill="#88BF42" d="M10.25 6.375a1.75 1.75 0 113.5 0 1.75 1.75 0 01-3.5 0z" opacity="0.8"/>
-                    </svg>
-                  </div>
-                  <span className="text-[#0F0326] text-sm md:text-base text-[#696869] font-medium">AI-Technologies</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-full bg-[#88BF42]/10 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                       <path fill="#88BF42" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-                       <path fill="#88BF42" d="M12 17l5-5-5-5v10z" opacity="0.8"/>
-                    </svg>
-                  </div>
-                  <span className="text-[#0F0326] text-sm md:text-base text-[#696869] font-medium">Smart Solutions</span>
-                </div>
-              </motion.div>
-
-              <motion.a
-                href="/about"
-                variants={itemVariants}
-                className="mt-6 md:mt-8 w-fit px-6 md:px-8 py-3 md:py-4 bg-[#0F0326] text-white font-semibold rounded-lg hover:bg-[#1A0645] transition-all duration-300 ease-in-out hover:shadow-lg flex items-center space-x-2 group mx-auto md:mx-0"
-              >
-                <span>Learn More</span>
-                <ArrowRight className="w-4 h-4 md:w-5 md:h-5 transform group-hover:translate-x-1 transition-transform" />
-              </motion.a>
-            </div>
-
-            {/* Right Column: Stats & Desktop Features */}
-            <motion.div
-              variants={itemVariants}
-              className="grid grid-cols-2 gap-4 md:gap-6" // Parent grid for stats and desktop features
-            >
-              <div className="p-4 md:p-6 bg-white rounded-lg md:rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 text-center md:text-left">
-                <div className="text-3xl md:text-4xl font-bold text-[#88BF42] mb-1 md:mb-2">98%</div>
-                <div className="text-[#0F0326] text-sm md:text-base font-medium">Client Satisfaction</div>
-              </div>
-              <div className="p-4 md:p-6 bg-white rounded-lg md:rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 text-center md:text-left">
-                <div className="text-3xl md:text-4xl font-bold text-[#88BF42] mb-1 md:mb-2">50+</div>
-                <div className="text-[#0F0326] text-sm md:text-base font-medium">Enterprise Clients</div>
-              </div>
-              <div className="p-4 md:p-6 bg-white rounded-lg md:rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 text-center md:text-left">
-                <div className="text-3xl md:text-4xl font-bold text-[#88BF42] mb-1 md:mb-2">24/7</div>
-                <div className="text-[#0F0326] text-sm md:text-base font-medium">AI Support</div>
-              </div>
-              <div className="p-4 md:p-6 bg-white rounded-lg md:rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 text-center md:text-left">
-                <div className="text-3xl md:text-4xl font-bold text-[#88BF42] mb-1 md:mb-2">10+</div>
-                <div className="text-[#0F0326] text-sm md:text-base font-medium">Years Experience</div>
-              </div>
-              
-              {/* Feature items for desktop view - NOW HORIZONTAL */}
-              <div className="hidden md:flex md:flex-row md:items-center md:justify-center md:gap-6 lg:gap-8 md:mt-8 md:col-span-2">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-full bg-[#88BF42]/10 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                      <path fill="#88BF42" d="M11.7 2.805a.75.75 0 01.6 0A60.65 60.65 0 0122.83 8.72a.75.75 0 01.3.6v1.8a.75.75 0 01-.3.6A60.462 60.462 0 0112.3 17.5a.75.75 0 01-.6 0A60.462 60.462 0 011.2 11.72a.75.75 0 01-.3-.6v-1.8a.75.75 0 01.3-.6A60.65 60.65 0 0111.7 2.805z"/>
-                      <path fill="#88BF42" d="M11.7 15.75a.75.75 0 01.6 0A60.462 60.462 0 0022.83 21.53a.75.75 0 01.3.6v1.8a.75.75 0 01-.3.6A60.45 60.45 0 0012.3 30.25a.75.75 0 01-.6 0A60.45 60.45 0 001.2 24.53a.75.75 0 01-.3-.6v-1.8a.75.75 0 01.3-.6A60.462 60.462 0 0011.7 15.75z" opacity="0.4"/>
-                    </svg>
-                  </div>
-                  <span className="text-[#0F0326] text-sm md:text-base text-[#696869] font-medium">Enterprise Grade</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-full bg-[#88BF42]/10 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                       <path fill="#88BF42" d="M6.25 6.375a6.25 6.25 0 1112.5 0 6.25 6.25 0 01-12.5 0zM12 17.75a.75.75 0 01.75.75v5a.75.75 0 01-1.5 0v-5a.75.75 0 01.75-.75z"/>
-                       <path fill="#88BF42" d="M8.5 19.75a.75.75 0 01.75.75 2.25 2.25 0 004.5 0 .75.75 0 011.5 0 3.75 3.75 0 01-7.5 0 .75.75 0 01.75-.75z" opacity="0.6"/>
-                       <path fill="#88BF42" d="M10.25 6.375a1.75 1.75 0 113.5 0 1.75 1.75 0 01-3.5 0z" opacity="0.8"/>
-                    </svg>
-                  </div>
-                  <span className="text-[#0F0326] text-sm md:text-base text-[#696869] font-medium">AI-Powered Solutions</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-full bg-[#88BF42]/10 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                       <path fill="#88BF42" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-                       <path fill="#88BF42" d="M12 17l5-5-5-5v10z" opacity="0.8"/>
-                    </svg>
-                  </div>
-                  <span className="text-[#0F0326] text-sm md:text-base text-[#696869] font-medium">Smart Solutions</span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
+          <motion.div variants={itemVariants} className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 mb-4">
+            <span className="text-[#88BF42] text-sm md:text-base font-semibold">Trusted by Industry Leaders</span>
+          </motion.div>
+          <motion.h2 variants={itemVariants} className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-3 md:mb-4">
+            Real Results from <span className="text-[#88BF42]">Real Clients</span>
+          </motion.h2>
+          <motion.p variants={itemVariants} className="text-base md:text-lg text-[#696869] max-w-2xl mx-auto">
+            How Thor Signia's AI systems are transforming operations across sectors.
+          </motion.p>
         </motion.div>
-      </div>
-    </section>
 
-        {/* 4. What We Offer Section */}
-        <section className="py-16 md:py-20 bg-white">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
-              variants={staggerChildren} className="text-center mb-12 md:mb-16"
-            >
-              <motion.div variants={itemVariants} className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 mb-4">
-                <span className="text-[#88BF42] text-sm md:text-base font-semibold">What We Offer</span>
-              </motion.div>
-              <motion.h2 variants={itemVariants} className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-3 md:mb-4">
-               Smart AI tools to automate, <span className="text-[#88BF42]">grow your business</span>
-              </motion.h2>
-              <motion.p variants={itemVariants} className="text-base md:text-lg text-[#696869] max-w-2xl mx-auto">
-                Transform your business with AI-powered automation, chatbots, and campaign management.
-              </motion.p>
-            </motion.div>
-            <motion.div
-              initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
-              variants={staggerChildren} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
-            >
-              {[
-                { emoji: '🎙️', title: 'Intelligent Voice Automation', desc: 'Intelligent systems for making or receiving calls with natural conversations powered by AI.', link: '/services#intelligent-voice-automation' },
-                { emoji: '💬', title: 'Social Engagement Automation', desc: 'Automate posting, replies, DMs, and performance analysis across all social channels.', link: '/services#social-engagement-automation' },
-                { emoji: '🧠', title: 'AI-Powered Lead Intelligence', desc: 'Identify, qualify, and convert potential customers into hot leads with AI-driven insights.', link: '/services#ai-powered-lead-intelligence' },
-                { emoji: '🤖', title: 'Conversational AI Chatbots', desc: 'Intelligent chatbots for instant assistance and engagement with your customers.', link: '/services#interactive-ai-chatbots' },
-                { emoji: '📊', title: 'Automated Campaign Orchestration', desc: 'Automate advertising campaigns and optimize performance across multiple channels.', link: '/services#automated-campaign-orchestration' },
-                { emoji: '🛡️', title: 'AI-Powered Threat Detection', desc: 'Leverage AI to constantly monitor for threats, identify anomalies, and protect your systems.', link: '/services#ai-powered-threat-detection' }
-              ].map((service, index) => (
-                 <motion.div
-                    key={`service-${index}`} variants={itemVariants}
-                    whileHover={{ y: -5, boxShadow: "0 8px 20px rgba(136, 191, 66, 0.1)" }}
-                    className="bg-white rounded-xl p-6 md:p-8 shadow-sm transition-all duration-300 flex flex-col h-full border border-transparent hover:border-[#88BF42]/20 relative overflow-hidden group"
-                  >
-                    <div className="absolute top-0 right-0 w-20 h-20 md:w-24 md:h-24 bg-[#88BF42]/5 rounded-bl-full z-0"></div>
-                     <div className="w-12 h-12 md:w-14 md:h-14 bg-[#88BF42]/10 rounded-lg flex items-center justify-center mb-4 md:mb-6 relative z-10 flex-shrink-0">
-                       {service.title.includes('Voice') ? (
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                           <path fill="#88BF42" d="M12 15c1.66 0 3-1.34 3-3V6c0-1.66-1.34-3-3-3S9 4.34 9 6v6c0 1.66 1.34 3 3 3z"/>
-                           <path fill="#88BF42" d="M17 12c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V22h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" opacity="0.7"/>
-                         </svg>
-                       ) : service.title.includes('Social') ? (
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                           <path fill="#88BF42" d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
-                         </svg>
-                       ) : service.title.includes('Lead') ? (
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                           <path fill="#88BF42" d="M11.7 2.805a.75.75 0 01.6 0A60.65 60.65 0 0122.83 8.72a.75.75 0 01.3.6v1.8a.75.75 0 01-.3.6A60.462 60.462 0 0112.3 17.5a.75.75 0 01-.6 0A60.462 60.462 0 011.2 11.72a.75.75 0 01-.3-.6v-1.8a.75.75 0 01.3-.6A60.65 60.65 0 0111.7 2.805z"/>
-                           <path fill="#88BF42" d="M11.7 15.75a.75.75 0 01.6 0A60.462 60.462 0 0022.83 21.53a.75.75 0 01.3.6v1.8a.75.75 0 01-.3.6A60.45 60.45 0 0012.3 30.25a.75.75 0 01-.6 0A60.45 60.45 0 001.2 24.53a.75.75 0 01-.3-.6v-1.8a.75.75 0 01.3-.6A60.462 60.462 0 0011.7 15.75z" opacity="0.4"/>
-                         </svg>
-                       ) : service.title.includes('Chatbot') ? (
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                           <path fill="#88BF42" d="M6.25 6.375a6.25 6.25 0 1112.5 0 6.25 6.25 0 01-12.5 0zM12 17.75a.75.75 0 01.75.75v5a.75.75 0 01-1.5 0v-5a.75.75 0 01.75-.75z"/>
-                           <path fill="#88BF42" d="M8.5 19.75a.75.75 0 01.75.75 2.25 2.25 0 004.5 0 .75.75 0 011.5 0 3.75 3.75 0 01-7.5 0 .75.75 0 01.75-.75z" opacity="0.6"/>
-                           <path fill="#88BF42" d="M10.25 6.375a1.75 1.75 0 113.5 0 1.75 1.75 0 01-3.5 0z" opacity="0.8"/>
-                         </svg>
-                       ) : service.title.includes('Campaign') ? (
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                           <path fill="#88BF42" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
-                         </svg>
-                       ) : (
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                           <path fill="#88BF42" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-                           <path fill="#88BF42" d="M12 17l5-5-5-5v10z" opacity="0.8"/>
-                         </svg>
-                       )}
-                     </div>
-                    <h3 className="text-lg md:text-xl font-bold text-[#0F0326] mb-2 md:mb-3 relative z-10">{service.title}</h3>
-                    <p className="text-[#696869] text-sm md:text-base mb-4 flex-grow relative z-10">
-                      {service.desc}
-                    </p>
-                    <div className="h-1 w-10 md:w-12 bg-[#88BF42] mb-4 transition-all duration-300 group-hover:w-16 md:group-hover:w-20"></div>
-                    <RouterLink
-                      to={service.link}
-                      className="inline-flex items-center text-[#88BF42] font-medium hover:underline relative z-10 group text-sm md:text-base"
-                    >
-                      <span className="relative">
-                        Learn more
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#88BF42] transition-all duration-300 group-hover:w-full"></span>
-                      </span>
-                      <ChevronRight className="h-3 w-3 md:h-4 md:w-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
-                    </RouterLink>
-                  </motion.div>
-              ))}
-              
-            </motion.div>
-          </div>
-        </section>
-         {/* 2. Trusted By Logos Section */}
-        <motion.section
-            className="py-16 bg-white"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            variants={containerVariants}
-        >
-            <div className="container mx-auto px-4">
-                <motion.div variants={itemVariants} className="text-center mb-12">
-                <motion.div
-                  variants={fadeIn}
-                  className="inline-block bg-[#88BF42]/10 rounded-full px-6 py-2 mb-6"
-                >
-                  <span className="text-[#88BF42] font-semibold">Trusted By</span>
-                </motion.div>
-                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-4"> {/* Removed dark mode classes for simplicity if not used */ }
-                        Powering Success <span className="text-[#88BF42]">Across Industries</span>
-                    </h2>
-                    <p className="text-gray-600 mt-2 max-w-2xl mx-auto">
-                      Join thousands of companies using our AI technology to transform their business
-                    </p>
-                </motion.div>
-            </div>
-
-            <div className="overflow-hidden py-4 hide-scrollbar w-full px-4 md:px-6 lg:px-8">
-                <div
-                    className="flex flex-nowrap w-max animate-marquee-rtl"
-                    style={{ '--duration': durationRtl } as CustomCSSProperties}
-                  >
-                    {logosRtlDuplicated.map((logo, index) => (
-                        <div
-                            key={`rtl-${index}`}
-                            className="p-4 bg-white border border-gray-200 rounded-xl shadow-sm flex-shrink-0 flex items-center justify-center w-36 h-20 md:w-40 md:h-24 mx-3 transition-all duration-300 hover:shadow-lg hover:border-[#88bf42] hover:scale-105 transform"
-                        >
-                            <a href={logo.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full h-full">
-                                {logo.logoUrl && (
-                                    <img
-                                        src={logo.logoUrl}
-                                        alt={logo.altText}
-                                        width={120} // Intrinsic width for aspect ratio
-                                        height={60} // Intrinsic height for aspect ratio
-                                        className="object-contain max-w-[100px] max-h-[40px] md:max-w-[120px] md:max-h-[50px] transition-all duration-300 filter hover:brightness-110" // Constrained display size
-                                        loading="lazy"
-                                    />
-                                )}
-                            </a>
-                        </div>
-                    ))}
-                </div>
-                <div
-                    className="flex flex-nowrap w-max mt-8 animate-marquee-ltr"
-                    style={{ '--duration': durationLtr } as CustomCSSProperties}
-                >
-                    {logosLtrDuplicated.map((logo, index) => (
-                        <div
-                            key={`ltr-${index}`}
-                            className="p-4 bg-white border border-gray-200 rounded-xl shadow-sm flex-shrink-0 flex items-center justify-center w-36 h-20 md:w-40 md:h-24 mx-3 transition-all duration-300 hover:shadow-lg hover:border-[#88bf42] hover:scale-105 transform"
-                        >
-                            <a href={logo.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full h-full">
-                                {logo.logoUrl && (
-                                     <img
-                                        src={logo.logoUrl}
-                                        alt={logo.altText}
-                                        width={120}
-                                        height={60}
-                                        className="object-contain max-w-[100px] max-h-[40px] md:max-w-[120px] md:max-h-[50px] transition-all duration-300 filter hover:brightness-110"
-                                        loading="lazy"
-                                    />
-                                )}
-                            </a>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </motion.section>
-
-        <ProductDemoSection />
-
-        {/* <section className="py-16 md:py-20 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
-              <div className="w-full md:w-1/2 mb-6 md:mb-0">
-                <RouterLink to="/case-studies/sgf-fab-industries" className="block relative rounded-xl overflow-hidden shadow-xl group">
-                  <div className="aspect-video bg-[#F5F8FF] relative">
-                    <img
-                      src="/assets/images.png"
-                      alt="SGF FAB Industries quality control case study"
-                      className="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy"
-                    />
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0F0326]/80 to-transparent p-4 md:p-6">
-                      <div className="text-white text-sm md:text-base font-medium">SGF FAB Industries</div>
-                    </div>
-                  </div>
-                </RouterLink>
-              </div>
-
-              <div className="md:w-1/2 text-center md:text-left">
-                <motion.div variants={itemVariants} className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 mb-4">
-                  <span className="text-[#88BF42] text-sm md:text-base font-semibold">Case Study</span>
-                </motion.div>
-
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-4">AI-Powered Quality <span className="text-[#88BF42]">Control System</span> </h2>
-
-                <p className="text-base md:text-lg text-[#696869] mb-4 md:mb-6 max-w-prose text-center">
-                  Developed a custom computer vision system for quality control in industrial fabrication, resulting in significant reduction in production defects and improved operational efficiency.
-                </p>
-                <div className="flex flex-row flex-wrap justify-center md:justify-start gap-6 mb-6 text-center md:text-left">
-  <div>
-    <div className="text-2xl md:text-3xl font-bold  mb-1">285%</div>
-    <div className="text-base md:text-lg font-medium">ROI</div>
-  </div>
-
-  <div>
-    <div className="text-2xl md:text-3xl font-bold mb-1">8 months</div>
-    <div className="text-base md:text-lg font-medium">Timeframe</div>
-  </div>
-  <div>
-    <div className="text-2xl md:text-3xl font-bold mb-1">Improved</div>
-    <div className="text-base md:text-lg font-medium">Defect Reduction</div>
-  </div>
-</div>
-<Button asChild className="bg-[#0F0326] hover:bg-[#1A0645] text-white text-sm md:text-base px-6 md:px-8 py-3 md:py-4 h-auto w-52 rounded-md mx-auto md:mx-0">
-  <RouterLink to="/case-studies/sgf-fab-industries">
-  View Full Case Study <ArrowRight className="ml-2 h-3 w-3" />
-  </RouterLink>
-</Button>
-
-
-</div>
-</div>
-</div>
-</section> */}
-        <section className="py-16 md:py-20 bg-white relative overflow-hidden">
-      {/* Background blob/gradient */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-[#88BF42]/10 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000 pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#0F0326]/10 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000 pointer-events-none"></div>
-
-
-      <div className="container mx-auto px-4 relative z-10">
+        {/* Case Studies Section - Changed Layout to Grid */}
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={staggerChildren}
-          className="max-w-7xl mx-auto"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={staggerChildren} // Stagger the cards in the grid
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" // Responsive grid
         >
-          {/* Section Header */}
-          <div className="text-center mb-10 md:mb-16">
-            <motion.div variants={itemVariants} className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 mb-4">
-              <span className="text-[#88BF42] text-sm md:text-base font-semibold">Industry Recognition</span>
-            </motion.div>
-            <motion.h2 variants={itemVariants} className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-3 md:mb-4 leading-tight">
-              Award-Winning <span className="text-[#88BF42]">Excellence in AI</span>
-            </motion.h2>
-            <motion.p variants={itemVariants} className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto px-4">
-              Our commitment to innovation and excellence has been recognized by leading industry organizations worldwide.
-            </motion.p>
-          </div>
+          {/* Case Study 1: Doctor Dreams */}
+          <motion.div variants={itemVariants} className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col"> {/* Use flex-col to stack image and content */}
+            <div className="w-full h-48 overflow-hidden"> {/* Image container at the top */}
+              <img
+                src="/assets/Doctor-dreams.jpg"
+                alt="Doctor Dreams Office"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="p-6 md:p-8 flex-grow"> {/* Text content below image, flex-grow to fill space */}
+              <div className="mb-4">
+                <span className="text-lg font-medium text-[#88BF42]">Sector: International Medical Studies</span>
+              </div>
+              <h4 className="font-bold text-lg md:text-xl text-[#0F0326] mb-2">Doctor Dreams</h4>
+              {/* CHANGED text-sm to text-lg */}
+              <p className="text-lg text-[#696869] mb-4">Medical Education Consultancy</p>
 
-          {/* Awards Grid */}
-          <motion.div variants={staggerChildren} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-            {[
-               { featured: true, icon: Trophy, title: 'World Business Conclave Award', desc: 'Outstanding innovation in AI solutions and transformative impact on enterprise operations.', footer: '2025 Winner', linkText: 'View Details', link: '/awards' },
-               { featured: false, icon: Award, title: 'Best AI Platform', desc: 'Exceptional performance, scalability, and innovation in AI technology solutions.', footer: 'Tech Innovation Awards', link: '/awards/best-ai-platform' },
-               { featured: false, icon: Star, title: 'CX Innovation Award', desc: 'Revolutionizing customer experience through AI-powered automation solutions.', footer: 'CX Leaders Summit', link: '/awards/cx-innovation' },
-               { featured: false, icon: Medal, title: 'Enterprise Tech Leader', desc: 'Leadership in enterprise AI solutions and technological advancement.', footer: 'Enterprise Awards', link: '/awards/enterprise-leader' },
-            ].map((award, index) => (
-               <motion.div
-                  key={`award-${index}`}
-                  variants={itemVariants}
-                  whileHover={{ y: -5 }} // Animation on hover
-                  className={clsx(
-                      "rounded-xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border relative overflow-hidden group",
-                      award.featured
-                          ? 'bg-gradient-to-br from-white to-[#88BF42]/5 border-2 border-[#88BF42] shadow-xl hover:shadow-2xl col-span-1 sm:col-span-2 lg:col-span-1' // Adjusted featured span for sm
-                          : 'bg-white border-gray-100'
-                  )}
-                >
-                  {/* Subtle background element */}
-                  <div className="absolute top-0 right-0 w-24 h-24 md:w-32 md:h-32 bg-[#88BF42]/5 rounded-full blur-xl transform translate-x-12 -translate-y-12"></div>
-               {/* Featured Label - Simple Rectangle in Top Right */}
-               {award.featured && (
-                      <div className="absolute top-2 right-2 bg-[#88BF42] text-white px-3 py-0.5 text-xs md:text-sm font-bold rounded-md z-10 uppercase">FEATURED</div>
-                  )}
-                  {/* Award Content */}
-                  <div className="relative z-10">
-                    <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-[#88BF42]/20 flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform flex-shrink-0">
-                      {/* Icon */}
-                      <award.icon className="w-6 h-6 md:w-8 md:h-8 text-[#88BF42]" />
-                    </div>
-                    {/* Title */}
-                    <h3 className="text-lg md:text-xl font-bold text-[#0F0326] mb-2 md:mb-3">{award.title}</h3>
-                    {/* Description */}
-                    <p className="text-gray-600 text-sm mb-4">{award.desc}</p>
-                    {/* Footer and Link */}
-                    <div className="flex items-center justify-between text-sm md:text-base">
-                        <span className={clsx("font-medium", award.featured ? 'text-[#0F0326]/80' : 'text-[#88BF42]')}>{award.footer}</span>
-                        {award.linkText && award.link && ( // Ensure link exists before rendering RouterLink
-                            <RouterLink to={award.link} className="flex items-center text-[#88BF42] group-hover:translate-x-1 transition-transform">
-                                <span className="text-sm font-medium mr-1">{award.linkText}</span>
-                                <ArrowRight className="w-3 h-3 md:w-4 md:h-4" />
-                            </RouterLink>
-                        )}
-                    </div>
-                  </div>
-                </motion.div>
-            ))}
+              <h5 className="font-semibold text-[#0F0326] mb-2">Challenge:</h5>
+              {/* CHANGED text-sm to text-lg */}
+              <p className="text-[#696869] text-lg mb-4">Surging inquiries from students about global medical admissions.</p>
+
+              <h5 className="font-semibold text-[#0F0326] mb-2">Solution:</h5>
+              {/* CHANGED text-sm to text-lg */}
+              <p className="text-[#696869] text-lg">AI agents trained in university data, visa policies, and academic pathways for responsive, 24/7 student engagement.</p>
+            </div>
           </motion.div>
+
+          {/* Case Study 2: SGF FAB Industries */}
+          <motion.div variants={itemVariants} className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
+            <div className="w-full h-48 overflow-hidden"> {/* Image container at the top */}
+              <img
+                src="/assets/crane-sgf.png"
+                alt="SGF Manufacturing Facility"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="p-6 md:p-8 flex-grow"> {/* Text content below image */}
+                <div className="mb-4">
+                    <span className="text-lg font-medium text-[#88BF42]">Sector: Manufacturing</span>
+                </div>
+                <h4 className="font-bold text-lg md:text-xl text-[#0F0326] mb-2">SGF FAB Industries</h4>
+                 {/* CHANGED text-sm to text-lg */}
+                <p className="text-lg text-[#696869] mb-4">Material Handling Equipment</p>
+
+                <h5 className="font-semibold text-[#0F0326] mb-2">Challenge:</h5>
+                 {/* CHANGED text-sm to text-lg */}
+                <p className="text-[#696869] text-lg mb-4">High rejection rate due to unnoticed product defects.</p>
+
+                <h5 className="font-semibold text-[#0F0326] mb-2">Solution:</h5>
+                 {/* CHANGED text-sm to text-lg */}
+                <p className="text-[#696869] text-lg">Deployed AI vision systems to detect anomalies and automate QC logs.</p>
+            </div>
+          </motion.div>
+
+          {/* Case Study 3: Anthill IQ */}
+          <motion.div variants={itemVariants} className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
+            <div className="w-full h-48 overflow-hidden"> {/* Image container at the top */}
+              <img
+                src="/assets/Anthill.jpg"
+                alt="Anthill IQ Workspace"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="p-6 md:p-8 flex-grow"> {/* Text content below image */}
+                <div className="mb-4">
+                    <span className="text-lg font-medium text-[#88BF42]">Sector: Real Estate / Premium Workspaces</span>
+                </div>
+                <h4 className="font-bold text-lg md:text-xl text-[#0F0326] mb-2">Anthill IQ</h4>
+                 {/* CHANGED text-sm to text-lg */}
+                <p className="text-lg text-[#696869] mb-4">Collaborative Workspace Provider</p>
+
+                <h5 className="font-semibold text-[#0F0326] mb-2">Challenge:</h5>
+                 {/* CHANGED text-sm to text-lg */}
+                <p className="text-[#696869] text-lg mb-4">Manual bookings and delayed inquiry responses.</p>
+
+                <h5 className="font-semibold text-[#0F0326] mb-2">Solution:</h5>
+                 {/* CHANGED text-sm to text-lg */}
+                <p className="text-[#696869] text-lg">AI chat with booking integration and real-time workspace availability.</p>
+            </div>
+          </motion.div>
+           {/* You can add more case studies here following the same structure */}
         </motion.div>
+
+        {/* Optional Button Section - Kept commented out */}
+        {/* <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={itemVariants}
+          className="text-center mt-12 md:mt-16"
+        >
+           <Button asChild className="bg-[#88bf42] hover:bg-[#7aad3a] text-white text-base md:text-lg px-6 md:px-8 py-3 h-auto rounded-md">
+            <RouterLink to="/case-studies">View All Case Studies</RouterLink>
+          </Button>
+        </motion.div> */}
       </div>
     </section>
 
+
+       {/* Assuming ProductDemoSection exists and you want to keep it */}
+       <ProductDemoSection />
+
+
         {/* 8. Testimonials Strip */}
-        <section className="py-16 md:py-20 bg-white text-gray-900">
+        {/* <section className="py-16 md:py-20 bg-white text-gray-900">
           <div className="container mx-auto px-4">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerChildren} className="text-center mb-12 md:mb-16">
               <motion.div variants={itemVariants} className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 mb-4">
@@ -838,11 +1177,11 @@ const HomePage = () => {
                   768: { slidesPerView: 2, spaceBetween: 30 },
                   1024: { slidesPerView: 3, spaceBetween: 30 },
                 }}
-                className="testimonials-swiper mt-6 md:mt-8" // Removed pb, pagination handles spacing
+                className="testimonials-swiper mt-6 md:mt-8"
                 onSwiper={(swiper) => swiperRef.current = swiper}
               >
                 {testimonials.map((testimonial, index) => (
-                   <SwiperSlide key={`testimonial-${index}`} className="h-auto pb-8 md:pb-10"> {/* Added pb here for pagination space */}
+                   <SwiperSlide key={`testimonial-${index}`} className="h-auto pb-8 md:pb-10">
                       <div className="bg-gray-50 rounded-xl p-6 md:p-8 relative shadow-md border border-gray-100 h-full flex flex-col">
                         <div className="text-2xl md:text-3xl text-[#88BF42] mb-3 md:mb-4">❝</div>
                         <p className="text-gray-700 italic text-sm md:text-base mb-6 md:mb-8 flex-grow">
@@ -861,13 +1200,12 @@ const HomePage = () => {
                    </SwiperSlide>
                 ))}
               </Swiper>
-              <div className="swiper-pagination-custom text-center mt-6"></div> {/* Pagination element outside Swiper, but styled by Swiper */}
-              <div className="mt-6 md:mt-8 flex flex-col items-center">
-                
-              </div>
+             
+              <div className="swiper-pagination-custom text-center mt-6"></div>
+           
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* 9. Call-to-Action Section */}
         <motion.section
@@ -891,8 +1229,8 @@ const HomePage = () => {
             ))}
           </div>
           <div className="container mx-auto px-4 text-center relative z-20">
-            <motion.h2 variants={itemVariants} className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 text-[#0F0326]">
-              Ready to Transform Your Business with <span className="text-[#88BF42]">AI</span>?
+            <motion.h2 variants={itemVariants} className="text-3xl md:text-4xl lg:text-4xl font-bold mb-4 md:mb-6 text-[#0F0326]">
+              Ready to Transform Your Business with <span className="text-[#88BF42]">AI?</span>
             </motion.h2>
             <motion.p variants={itemVariants} className="text-lg md:text-xl mb-6 md:mb-8 max-w-3xl mx-auto text-gray-600">
               Join the AI revolution and stay ahead of the competition with our cutting-edge solutions.
@@ -922,7 +1260,7 @@ const HomePage = () => {
         )}
       </AnimatePresence>
     </div>
-  
+
   );
 }
 

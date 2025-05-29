@@ -10,7 +10,7 @@ import CTASection from '@/components/cybersecurity/CTASection';
 import TestimonialSection from '@/components/cybersecurity/TestimonialSection';
 import ContactSection from '@/components/cybersecurity/ContactSection';
 
-const CyberSecurityPage: React.FC = () => {
+const CyberSecurityPage = () => {
   return (
     <div className="bg-white min-h-screen">
       <Hero />
@@ -24,4 +24,4 @@ const CyberSecurityPage: React.FC = () => {
   );
 };
 
-export default CyberSecurityPage; 
+export default CyberSecurityPage;

@@ -43,7 +43,7 @@ const Card = ({ icon, title, content }: CardProps) => {
               {title}
             </h3>
           </div>
-          <p className="text-base md:text-lg leading-relaxed text-black font-light text-center">
+          <p className="text-base md:text-lg leading-relaxed text-[#696869] font-light text-left">
             {content}
           </p>
         </div>
@@ -54,31 +54,51 @@ const Card = ({ icon, title, content }: CardProps) => {
 
 export default function WhoWeAre() {
   return (
-    <div className="flex flex-col max-w-6xl mx-auto px-4">
-      <div className="p-4 max-w-7xl mx-auto relative z-10 w-full">
+    <div className="flex flex-col max-w-6xl mx-auto px-4 py-16">
+      <div className="w-full relative z-10">
         {/* Heading */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#0F0326] to-[#88BF42] inline-block text-center mb-4">
-            Who We Are
-          </h2>
-          <p className="text-lg text-black text-center mb-16 max-w-2xl mx-auto font-dm-sans">
-            Pioneering the future of technology with innovative solutions
-          </p>
+        <div className="text-center mb-8">
+  {/* Tag - Added mb-3 for space below it */}
+  <motion.div
+    // Assuming itemVariants is defined elsewhere
+    // variants={itemVariants}
+    className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 w-fit mx-auto md:mx-0 mb-3"
+  >
+    <span className="text-[#88BF42] text-sm md:text-base font-semibold">
+      Who We Are
+    </span>
+  </motion.div>
+  {/* Heading - Added mb-4 for space below it */}
+  <motion.h2
+    // Assuming itemVariants is defined elsewhere
+    // variants={itemVariants}
+    className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] leading-tight mb-4"
+  >
+   Empowering Change <span className="text-[#88BF42]">Through Innovation</span>
+  </motion.h2>
+  {/* Paragraph - No extra margin needed as the above H2 has mb-4 */}
+  <p className="text-base md:text-lg text-[#696869] max-w-2xl text-center mx-auto">
+  Pioneering the future of technology through innovation and expertise  </p>
+
+
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto px-4 ">
-          <Card
-            icon={<RocketIcon className="w-8 h-8 text-[#88bf42]" />}
-            title="Innovation Expertise"
-            content="Thorsignia is a leading IT and Multimedia company that provides an integrated range of services. We render optimum quality outputs to our clients through our domain expertise. We offer extensive media, thereby catering best to our clients requirements. Our unparalleled experience in these spheres drive your firms to the path of success."
-          />
-          <Card
-            icon={<LayersIcon className="w-8 h-8 text-[#88bf42]" />}
-            title="Operational Excellence"
-            content="Innovatively managing technical issues in your business process has fetched us the tag of world-class service provider. Through our operational efficiency, we work towards handling complexities which in turn upgrades enterprise value. We offer a plethora of digital services which has consistently reinforced the goodwill of our company."
-          />
-        </div>
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto px-4 text-left">
+  <Card
+    icon={<RocketIcon className="w-8 h-8 text-[#88bf42]" />}
+    title="Innovation Expertise"
+    content="Our teams craft multimedia and AI solutions rooted in deep domain expertise and
+creativity"
+  />
+  <Card
+    icon={<LayersIcon className="w-8 h-8 text-[#88bf42]" />}
+    title="Operational Excellence"
+    content="We deliver streamlined, high-performance solutions to help enterprises adapt and
+scale"
+  />
+</div>
+
       </div>
     </div>
   );

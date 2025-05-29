@@ -108,14 +108,14 @@ export default function BlogPost() {
       />
 
       {/* Hero Section */}
-      <div className="relative h-[60vh] w-full overflow-hidden mt-16">
+      <div className="relative h-[60vh] w-full overflow-hidden -mt-[64px]">
         <div className="absolute inset-0">
           <img
             src={post.image}
             alt={post.title}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-transparent h-[60vh]"></div>
         </div>
 
         <div className="relative h-full max-w-6xl mx-auto px-4 flex flex-col justify-end pb-20">
@@ -276,10 +276,10 @@ export default function BlogPost() {
             </div>
             
             {/* Back Button */}
-            <div className="mt-16 text-center">
+            <div className="mt-16">
               <Link 
                 to="/blog"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[#88bf42] text-white rounded-lg hover:bg-[#7aad3a] transition-colors"
+                className="inline-flex gap-2 px-6 py-3 bg-[#88bf42] text-white rounded-lg hover:bg-[#7aad3a] transition-colors"
               >
                 <ArrowLeft size={20} />
                 Back to Blog

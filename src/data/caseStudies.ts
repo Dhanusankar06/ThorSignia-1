@@ -39,16 +39,16 @@ const caseStudiesData: CaseStudy[] = [
     slug: "sgf-fab-ai-quality-control",
     title: "AI-Powered Quality Control System",
     company: "SGF FAB Industries",
-    logo: "https://www.sgffab.com/",
+    logo: "/assets/sgf.jpeg",
     category: "Manufacturing",
     imageUrl: "/assets/ai-visual-inspection.jpg",
-    coverImage: "/assets/ai-visual-inspection.jpg",
+    coverImage: "/assets/crane-sgf.png",
     summary: "Developed a custom computer vision system for quality control in industrial fabrication, resulting in significant reduction in production defects and improved operational efficiency.",
     roi: "285%",
     timeframe: "8 months",
     teamSize: "7 engineers",
     keyMetric: "73% fewer defects",
-    accentColor: "#009898",
+    accentColor: "#88bf42",
     challenge: [
       "SGF FAB Industries, a leading manufacturer of material handling equipment and industrial fabrication solutions, was facing challenges with quality control in their production processes. Their manual inspection methods were time-consuming, inconsistent, and unable to keep pace with increasing production demands.",
       "The company was experiencing a defect rate of approximately 8.5%, resulting in significant material waste, rework costs, and occasional customer complaints. With their focus on quality and safety being central to their brand identity, SGF FAB needed a solution that could maintain their high standards while improving operational efficiency."
@@ -90,7 +90,7 @@ const caseStudiesData: CaseStudy[] = [
     slug: "doctor-dreams-ai-voice-assistant",
     title: "AI Voice Agents for Medical Education",
     company: "Doctor Dreams",
-    logo: "https://www.doctordreams.in/",
+    logo: "/assets/case1.jpeg",
     category: "Education",
     imageUrl: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1770&auto=format&fit=crop",
     coverImage: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1770&auto=format&fit=crop",
@@ -99,7 +99,7 @@ const caseStudiesData: CaseStudy[] = [
     timeframe: "6 months",
     teamSize: "5 engineers",
     keyMetric: "65% faster response",
-    accentColor: "#009898",
+    accentColor: "#88bf42",
     challenge: [
       "Doctor Dreams, India's leading consultancy for medical education abroad, was struggling to efficiently handle the high volume of student inquiries about international medical programs. Their team was receiving over 500 inquiries daily during peak admission seasons, resulting in delayed responses and potential missed opportunities.",
       "Students often had similar questions about admission requirements, university rankings, curriculum details, and visa processes, but each inquiry required personalized attention. The consultancy needed a solution that could provide immediate, accurate responses to common questions while maintaining the personalized approach that was central to their service quality."
@@ -141,7 +141,7 @@ const caseStudiesData: CaseStudy[] = [
     slug: "anthill-iq-smart-workspace",
     title: "AI Chatbot for Workspace Management",
     company: "Anthill IQ",
-    logo: "https://www.anthilliq.com/",
+    logo: "/assets/case2.png",
     category: "Real Estate",
     imageUrl: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=1770&auto=format&fit=crop",
     coverImage: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=1770&auto=format&fit=crop",
@@ -150,7 +150,7 @@ const caseStudiesData: CaseStudy[] = [
     timeframe: "5 months",
     teamSize: "4 engineers",
     keyMetric: "42% higher conversion",
-    accentColor: "#009898",
+    accentColor: "#88bf42",
     challenge: [
       "Anthill IQ, a premium co-working and office space provider in Bangalore, was experiencing challenges in managing workspace inquiries and bookings efficiently. Their team was handling numerous daily inquiries about space availability, pricing, amenities, and booking procedures, often resulting in delayed responses during peak hours.",
       "The company needed to provide immediate information to potential clients, many of whom were making decisions about workspace solutions under tight timeframes. Additionally, Anthill IQ wanted to optimize their space utilization by improving the booking process and providing better visibility into availability across their various workspace options."
@@ -192,7 +192,7 @@ const caseStudiesData: CaseStudy[] = [
     slug: "financial-services-ai-transformation",
     title: "AI-Powered Customer Service Revolution",
     company: "Global Financial Group",
-    logo: "https://images.unsplash.com/photo-1560472355-536de3962603?q=80&w=1780&auto=format&fit=crop",
+    logo: "/assets/case3.jpeg",
     category: "Financial Services",
     imageUrl: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=1742&auto=format&fit=crop",
     coverImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1770&auto=format&fit=crop",
@@ -252,7 +252,7 @@ const caseStudiesData: CaseStudy[] = [
     slug: "retail-personalization-engine",
     title: "AI-Driven Retail Personalization Engine",
     company: "Metro Fashion",
-    logo: "https://images.unsplash.com/photo-1607083206968-13611e3d76db?q=80&w=1830&auto=format&fit=crop",
+    logo: "/assets/metro.jpg",
     category: "Retail & E-commerce",
     imageUrl: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=1770&auto=format&fit=crop",
     coverImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1815&auto=format&fit=crop",
@@ -261,7 +261,7 @@ const caseStudiesData: CaseStudy[] = [
     timeframe: "7 months",
     teamSize: "6 engineers",
     keyMetric: "154% conversion increase",
-    accentColor: "#1c9f1e",
+    accentColor: "#88bf42",
     challenge: [
       "Metro Fashion, a multinational clothing retailer with over 500 physical stores and a growing e-commerce presence, was struggling to compete with digital-native fashion brands. Their existing recommendation system was based on basic purchase history and performed poorly compared to competitors' solutions.",
       "The company faced declining online conversion rates (hovering at 1.8%, well below industry average), high cart abandonment rates (78%), and difficulty creating personalized experiences across their omnichannel presence. Additionally, their marketing team lacked the data infrastructure to effectively segment customers and tailor communications."
@@ -310,7 +310,7 @@ const caseStudiesData: CaseStudy[] = [
   {
     id: 6,
     slug: "healthcare-voice-assistant",
-    title: "Healthcare AI Voice Assistant",
+    title: "AI-Powered Healthcare Voice Assistant",
     company: "National Health Network",
     logo: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=1770&auto=format&fit=crop",
     category: "Healthcare",
@@ -321,7 +321,7 @@ const caseStudiesData: CaseStudy[] = [
     timeframe: "12 months",
     teamSize: "10 engineers",
     keyMetric: "89% patient satisfaction",
-    accentColor: "#10b4b7",
+    accentColor: "#88bf42",
     challenge: [
       "National Health Network (NHN), a healthcare system with 12 hospitals and over 200 clinics, was facing severe administrative challenges. Their call centers were overwhelmed, with patients experiencing long wait times for basic services like appointment scheduling, prescription refills, and billing inquiries.",
       "Healthcare staff were spending approximately 30% of their time on routine administrative tasks rather than patient care. Additionally, the system was struggling with missed appointments (18% no-show rate) and medication adherence issues among chronically ill patients, directly impacting health outcomes and operational efficiency."
@@ -372,7 +372,7 @@ const caseStudiesData: CaseStudy[] = [
     slug: "manufacturing-predictive-maintenance",
     title: "AI-Powered Predictive Maintenance",
     company: "Global Manufacturing Corp",
-    logo: "https://images.unsplash.com/photo-1560179707-f14e90ef3623?q=80&w=1774&auto=format&fit=crop",
+    logo: "/assets/gmc.png",
     category: "Manufacturing",
     imageUrl: "https://images.unsplash.com/photo-1581093804475-577d77e21bf9?q=80&w=1770&auto=format&fit=crop",
     coverImage: "/assets/AI-Powered Predictive Maintenance.png",
@@ -381,7 +381,7 @@ const caseStudiesData: CaseStudy[] = [
     timeframe: "10 months",
     teamSize: "9 engineers",
     keyMetric: "78% reduced downtime",
-    accentColor: "#9ac857",
+    accentColor: "#88bf42",
     challenge: [
       "Global Manufacturing Corp (GMC), a major industrial equipment manufacturer with facilities across North America and Europe, was experiencing significant operational challenges due to unplanned equipment downtime. Their traditional preventive maintenance approach was inefficient, resulting in approximately 1,200 hours of production downtime annually per facility.",
       "This downtime was costing the company an estimated $18.5M annually across their eight primary manufacturing facilities. Additionally, maintenance costs were increasing year-over-year as equipment aged, and quality control issues were arising from inconsistent machine performance. GMC needed a solution that could predict failures before they occurred and optimize maintenance scheduling."
@@ -437,7 +437,7 @@ const caseStudiesData: CaseStudy[] = [
     timeframe: "8 months",
     teamSize: "7 engineers",
     keyMetric: "28% fuel reduction",
-    accentColor: "#10b4b7",
+    accentColor: "#88bf42",
     challenge: [
       "InterContinental Shipping (ICS), a global logistics provider managing over 5,000 vehicles across 35 countries, was facing increasing pressure from rising fuel costs, environmental regulations, and customer demands for faster delivery times. Their legacy route planning system relied heavily on dispatcher experience and static routes that couldn't adapt to changing conditions.",
       "This approach was resulting in fuel inefficiencies, delivery delays during peak periods, and underutilization of their fleet capacity. Additionally, the company lacked visibility into real-time route performance, making it difficult to identify and address operational inefficiencies."
@@ -497,7 +497,7 @@ const caseStudiesData: CaseStudy[] = [
     timeframe: "6 months",
     teamSize: "5 engineers",
     keyMetric: "215% more leads",
-    accentColor: "#9ac857",
+    accentColor: "#88bf42",
     challenge: [
       "TechSphere Solutions, a rapidly growing B2B software provider, was struggling with inefficient customer acquisition processes despite increasing their marketing budget. Their sales team was spending excessive time on prospects with low conversion potential, while marketing campaigns were generating high volumes of unqualified leads.",
       "The company's customer acquisition costs had risen by 47% year-over-year, while conversion rates from initial contact to closed deal had fallen to just 2.3%. TechSphere needed a solution that could identify high-potential prospects, engage them through personalized outreach, and optimize the entire sales funnel."

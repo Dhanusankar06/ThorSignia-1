@@ -1,4 +1,4 @@
-import React, { useState, useRef, ChangeEvent, FormEvent } from 'react';
+import React, { useState, useRef } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -81,7 +81,7 @@ const Careers = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
-  const [company, setCompany] = useState('');
+  const [company, setCompany] = useState(''); // Kept state in case it's needed later
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleApplyClick = (jobTitle: string) => {
@@ -92,6 +92,7 @@ const Careers = () => {
     setName('');
     setEmail('');
     setMobileNumber('');
+    // setCompany(''); // Reset company field if needed
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,12 +102,21 @@ const Careers = () => {
       if (!allowed.includes(file.type)) {
         setError('Invalid file type. Please upload a PDF, DOC, DOCX, or TXT file.');
         setResumeFile(null);
+        // Clear the file input value so the user can select the same file again after an error
+        if (fileInputRef.current) {
+          fileInputRef.current.value = '';
+        }
         return;
       }
       setResumeFile(file);
       setError(null);
+    } else {
+       // If user cancels file selection, reset state
+       setResumeFile(null);
+       setError(null); // Or clear error if one was previously set
     }
   };
+
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -124,28 +134,79 @@ const Careers = () => {
     formData.append('name', name);
     formData.append('email', email);
     formData.append('mobile_number', mobileNumber);
-    // formData.append('company', company);
+    // formData.append('company', company); // Add company if needed
 
-    fetch('/api/careers/apply', {
-      method: 'POST',
-      body: formData
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.error) {
-          setError(data.error);
-        } else {
-          setShowModal(false);
-          setName('');
-          setEmail('');
-          setMobileNumber('');
-          // setCompany('');
-          alert('Resume submitted for ' + selectedJob + '!');
-        }
-      })
-      .catch(err => {
-        setError('Failed to submit application. Please try again.');
-      });
+    // Basic validation example (more robust validation on server side)
+    if (!/\S+@\S+\.\S+/.test(email)) {
+        setError('Please enter a valid email address.');
+        return;
+    }
+     // Basic mobile number validation (adjust regex based on expected format)
+     if (!/^\d{10,}$/.test(mobileNumber)) { // Example: at least 10 digits
+        setError('Please enter a valid mobile number (at least 10 digits).');
+        return;
+    }
+
+
+    // Simulate API call (replace with actual fetch)
+    console.log('Submitting application:', {
+      job_title: selectedJob,
+      name,
+      email,
+      mobile_number: mobileNumber,
+      // company,
+      resume: resumeFile.name // Log filename for demo
+    });
+
+    // --- Replace this simulated section with your actual fetch call ---
+    // Example Fetch call (assuming your API is at /api/careers/apply)
+     fetch('/api/careers/apply', {
+       method: 'POST',
+       body: formData
+     })
+       .then(response => {
+         if (!response.ok) {
+           // Handle non-2xx responses
+           return response.json().then(err => { throw new Error(err.error || 'Submission failed'); });
+         }
+         return response.json();
+       })
+       .then(data => {
+         // if data has a specific success indicator, check here
+         console.log('Submission successful:', data);
+         setShowModal(false);
+         setName('');
+         setEmail('');
+         setMobileNumber('');
+         // setCompany('');
+         setResumeFile(null);
+         if (fileInputRef.current) {
+            fileInputRef.current.value = ''; // Reset file input visual state
+         }
+         alert('Resume submitted for ' + selectedJob + '!');
+       })
+       .catch(err => {
+         console.error('Submission error:', err);
+         setError(err.message || 'Failed to submit application. Please try again.');
+       });
+    // --- End Simulated Section ---
+
+    // If simulating, uncomment the lines below and comment out the fetch block above
+    /*
+    setTimeout(() => {
+      console.log("Simulating successful submission");
+      setShowModal(false);
+      setName('');
+      setEmail('');
+      setMobileNumber('');
+      // setCompany('');
+      setResumeFile(null);
+       if (fileInputRef.current) {
+            fileInputRef.current.value = ''; // Reset file input visual state
+         }
+      alert('Resume submitted for ' + selectedJob + '!');
+    }, 1000);
+    */
   };
 
   const closeModal = () => {
@@ -156,6 +217,9 @@ const Careers = () => {
     setEmail('');
     setMobileNumber('');
     // setCompany('');
+     if (fileInputRef.current) {
+         fileInputRef.current.value = ''; // Reset file input visual state
+      }
   };
 
   return (
@@ -163,21 +227,24 @@ const Careers = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative w-full">
+            {/* Hero Section */}
+            <section className="relative w-full">
         <div className="h-[45vh] max-h-[420px] relative overflow-hidden w-full flex flex-col justify-center items-center px-0 py-12 bg-gradient-to-r from-[#0B0F19] to-[#171E2E]">
-          {/* SVG grid pattern overlay */}
-          <div className="absolute inset-0 opacity-10 z-0">
-            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <pattern id="careers-hero-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#88bf42" strokeWidth="0.5" />
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#careers-hero-grid)" />
-            </svg>
-          </div>
-          
-          {/* Animated floating dots */}
+
+          {/* NEW CSS Gradient Pattern Overlay - Now with a slightly higher z-index */}
+          <div
+            className="absolute inset-0 z-[1]" // Changed z-index to 1
+            style={{
+              background: `
+                repeating-linear-gradient(45deg, #88bf42 0, #88bf42 1px, transparent 1px, transparent 20px),
+                repeating-linear-gradient(-45deg, #88bf42 0, #88bf42 1px, transparent 1px, transparent 20px)
+              `,
+              backgroundSize: '20px 20px',
+              opacity: '0.15', // Increased opacity slightly for better visibility
+            }}
+          />
+
+          {/* Animated floating dots (kept) */}
           {Array.from({ length: 16 }).map((_, i) => (
             <div
               key={i}
@@ -188,32 +255,35 @@ const Careers = () => {
                 width: `${Math.random() * 4 + 2}px`,
                 height: `${Math.random() * 4 + 2}px`,
                 background: i % 2 === 0 ? '#88bf42' : '#009898',
-                opacity: 0.16 + Math.random() * 0.16
+                opacity: 0.16 + Math.random() * 0.16,
+                 zIndex: 2, // Give dots a higher z-index so they are above the pattern and overlay
               }}
             />
           ))}
-          
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-radial from-transparent via-white to-transparent opacity-10 z-0" />
-          
-          <div className="max-w-2xl mx-auto text-center z-10 relative">
+
+          {/* Dark Gradient Overlay - Keep z-index low */}
+          {/* This overlay is now *behind* the pattern layer */}
+          <div className="absolute inset-0 bg-[#0F0326]/70 z-0" />
+
+
+          <div className="max-w-2xl mx-auto text-center z-10 relative"> {/* Keep content z-index higher */}
             {/* Main Heading - split color */}
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-4">
               <span className="block text-white">Join Our</span>
               <span className="block text-[#88BF42]">Innovative Team</span>
             </h1>
             <p className="text-base md:text-lg text-white max-w-2xl mx-auto mb-8">
-              Help shape the future of AI at <span className="text-[#88bf42]">Thor</span> <span className="text-[#10b4b7]">Signia</span>. We're looking for passionate, creative minds to build, innovate, and grow with us.
+              Help shape the future of AI at <span className="text-[#88bf42]">Thor</span> <span className="text-[#88bf42]">Signia</span>. We're looking for passionate, creative minds to build, innovate, and grow with us.
             </p>
           </div>
         </div>
       </section>
-
+      
       {/* Why Work at Thor Signia */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-3xl font-bold mb-10 text-center text-black">
-            Why <span className="text-[#9ac857]">Thor</span><span className="text-[#10b4b7]"> Signia</span>
+            Why <span className="text-[#88bf42]">Thor Signia?</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="bg-[#f8f9fa] rounded-xl shadow p-6 border border-gray-100 flex flex-col items-center text-center">
@@ -241,40 +311,48 @@ const Careers = () => {
       </section>
 
       {/* Open Positions */}
-      <section className="py-16 bg-[#f8f9fa]">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-6xl mx-auto">
             {/* Open Positions */}
             <div>
-              <h2 className="text-3xl font-bold mb-10 text-center text-black">Open Positions</h2>
+              <h2 className="text-3xl font-bold mb-10 text-center text-gray-800">Open Positions</h2>
               <div className="flex flex-col gap-8">
                 {openPositions.map((job, idx) => (
-                  <div key={idx} className="relative bg-white rounded-xl shadow-lg flex flex-col h-full">
-                    <div className="overflow-y-auto p-6 pb-20 max-h-96">
+                  <div key={idx} className="relative bg-gray-50 rounded-md border border-gray-200 border-l-8 border-l-[#88bf42] overflow-hidden flex flex-col h-full transition duration-300 hover:border-l-[#7aac3b]">
+                    <div className="overflow-y-auto p-6 pb-20 max-h-96 space-y-4">
                       <div>
-                        <h3 className="font-bold text-xl mb-2 text-black">{job.title}</h3>
-                        <p className="mb-1 text-black"><span className="font-semibold">Location:</span> {job.location}</p>
-                        <p className="mb-1 text-black"><span className="font-semibold">Type:</span> {job.type}</p>
-                        <p className="mb-2 text-black">{job.description}</p>
-                        <ul className="mb-4 text-black text-sm list-disc list-inside">
-                          {job.responsibilities && job.responsibilities.map((responsibility, i) => (
-                            <li key={i}>{responsibility}</li>
-                          ))}
-                        </ul>
-                        {job.requirements && (
-                          <div className="mb-4 text-black text-sm">
-                            <span className="font-semibold">Requirements:</span>
-                            <ul className="list-disc list-inside">
+                        <h3 className="font-bold text-xl mb-2 text-gray-800">{job.title}</h3>
+                        <p className="mb-1 text-gray-600 text-sm"><span className="font-semibold text-gray-700">Location:</span> {job.location}</p>
+                        <p className="mb-2 text-gray-600 text-sm"><span className="font-semibold text-gray-700">Type:</span> {job.type}</p>
+                        <p className="text-gray-700 leading-relaxed">{job.description}</p>
+
+                        {job.responsibilities && job.responsibilities.length > 0 && (
+                          <div className="mt-4">
+                            <h4 className="font-semibold text-base mb-2 text-gray-700">Responsibilities:</h4>
+                            <ul className="text-gray-600 text-sm list-disc list-inside space-y-1">
+                              {job.responsibilities.map((responsibility, i) => (
+                                <li key={i}>{responsibility}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {job.requirements && job.requirements.length > 0 && (
+                          <div className="mt-4">
+                            <h4 className="font-semibold text-base mb-2 text-gray-700">Requirements:</h4>
+                            <ul className="text-gray-600 text-sm list-disc list-inside space-y-1">
                               {job.requirements.map((requirement, i) => (
                                 <li key={i}>{requirement}</li>
                               ))}
                             </ul>
                           </div>
                         )}
-                        {job.preferred && (
-                          <div className="mb-4 text-black text-sm">
-                            <span className="font-semibold">Preferred Skills:</span>
-                            <ul className="list-disc list-inside">
+
+                        {job.preferred && job.preferred.length > 0 && (
+                          <div className="mt-4">
+                            <h4 className="font-semibold text-base mb-2 text-gray-700">Preferred Skills:</h4>
+                            <ul className="text-gray-600 text-sm list-disc list-inside space-y-1">
                               {job.preferred.map((skill, i) => (
                                 <li key={i}>{skill}</li>
                               ))}
@@ -283,67 +361,77 @@ const Careers = () => {
                         )}
                       </div>
                     </div>
-                    <div className="absolute bottom-0 left-0 w-full p-4 bg-white border-t border-gray-100">
-                      <Button className="bg-[#88bf42] text-white rounded-lg border border-[#88bf42] w-full" onClick={() => handleApplyClick(job.title)}>
-                        Apply <ArrowRight className="inline ml-2 w-4 h-4" />
+                    <div className="absolute bottom-0 left-0 w-full p-4 bg-white border-t border-gray-200 z-10">
+                      <Button className="bg-[#88bf42] text-white py-3 px-6 rounded-md border border-[#88bf42] w-full font-semibold transition duration-300 hover:bg-[#7aac3b] hover:border-[#7aac3b] focus:outline-none focus:ring-2 focus:ring-[#88bf42] focus:ring-opacity-50" onClick={() => handleApplyClick(job.title)}>
+                        Apply Now <ArrowRight className="inline ml-2 w-4 h-4" />
                       </Button>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-            {/* Internships */}
+
+            {/* Internships - Apply similar styling changes */}
             <div>
-              <h2 className="text-3xl font-bold mb-10 text-center text-black">Internships</h2>
+              <h2 className="text-3xl font-bold mb-10 text-center text-gray-800">Internships</h2>
               <div className="flex flex-col gap-8">
                 {internships.map((intern, idx) => (
-                  <div key={idx} className="relative bg-white rounded-xl shadow-lg flex flex-col h-full">
-                    <div className="overflow-y-auto p-6 pb-20 max-h-96">
-                      <div>
-                        <h3 className="font-bold text-xl mb-2 text-black">{intern.title}</h3>
-                        <p className="mb-1 text-black"><span className="font-semibold">Location:</span> {intern.location}</p>
-                        <p className="mb-1 text-black"><span className="font-semibold">Type:</span> {intern.type}</p>
-                        <p className="mb-2 text-black">{intern.description}</p>
-                        <ul className="mb-4 text-black text-sm list-disc list-inside">
-                          {intern.responsibilities && intern.responsibilities.map((responsibility, i) => (
-                            <li key={i}>{responsibility}</li>
-                          ))}
-                        </ul>
-                        {intern.requirements && (
-                          <div className="mb-4 text-black text-sm">
-                            <span className="font-semibold">Requirements:</span>
-                            <ul className="list-disc list-inside">
+                   <div key={idx} className="relative bg-gray-50 rounded-md border border-gray-200 border-l-8 border-l-[#88bf42] overflow-hidden flex flex-col h-full transition duration-300 hover:border-l-[#7aac3b]">
+                    <div className="overflow-y-auto p-6 pb-20 max-h-96 space-y-4">
+                       <div>
+                        <h3 className="font-bold text-xl mb-2 text-gray-800">{intern.title}</h3>
+                        <p className="mb-1 text-gray-600 text-sm"><span className="font-semibold text-gray-700">Location:</span> {intern.location}</p>
+                        <p className="mb-2 text-gray-600 text-sm"><span className="font-semibold text-gray-700">Type:</span> {intern.type}</p>
+                        <p className="text-gray-700 leading-relaxed">{intern.description}</p>
+
+                        {intern.responsibilities && intern.responsibilities.length > 0 && (
+                           <div className="mt-4">
+                             <h4 className="font-semibold text-base mb-2 text-gray-700">Responsibilities:</h4>
+                             <ul className="text-gray-600 text-sm list-disc list-inside space-y-1">
+                               {intern.responsibilities.map((responsibility, i) => (
+                                 <li key={i}>{responsibility}</li>
+                               ))}
+                             </ul>
+                           </div>
+                         )}
+
+                        {intern.requirements && intern.requirements.length > 0 && (
+                          <div className="mt-4">
+                            <h4 className="font-semibold text-base mb-2 text-gray-700">Requirements:</h4>
+                            <ul className="text-gray-600 text-sm list-disc list-inside space-y-1">
                               {intern.requirements.map((requirement, i) => (
                                 <li key={i}>{requirement}</li>
                               ))}
                             </ul>
                           </div>
                         )}
-                        {intern.preferred && (
-                          <div className="mb-4 text-black text-sm">
-                            <span className="font-semibold">Preferred Skills:</span>
-                            <ul className="list-disc list-inside">
+
+                        {intern.preferred && intern.preferred.length > 0 && (
+                          <div className="mt-4">
+                            <h4 className="font-semibold text-base mb-2 text-gray-700">Preferred Skills:</h4>
+                            <ul className="text-gray-600 text-sm list-disc list-inside space-y-1">
                               {intern.preferred.map((skill, i) => (
                                 <li key={i}>{skill}</li>
                               ))}
                             </ul>
                           </div>
                         )}
+
                         {intern.perks && intern.perks.length > 0 && (
-                          <div className="mb-4 text-black text-sm">
-                            <span className="font-semibold">Perks:</span>
-                            <ul className="list-disc list-inside">
-                              {intern.perks.map((perk, i) => (
-                                <li key={i}>{perk}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
+                           <div className="mt-4">
+                             <h4 className="font-semibold text-base mb-2 text-gray-700">Perks:</h4>
+                             <ul className="text-gray-600 text-sm list-disc list-inside space-y-1">
+                               {intern.perks.map((perk, i) => (
+                                 <li key={i}>{perk}</li>
+                               ))}
+                             </ul>
+                           </div>
+                         )}
                       </div>
                     </div>
-                    <div className="absolute bottom-0 left-0 w-full p-4 bg-white border-t border-gray-100">
-                      <Button className="bg-[#88bf42] text-white rounded-lg border border-[#88bf42] w-full" onClick={() => handleApplyClick(intern.title)}>
-                        Apply <ArrowRight className="inline ml-2 w-4 h-4" />
+                    <div className="absolute bottom-0 left-0 w-full p-4 bg-white border-t border-gray-200 z-10">
+                      <Button className="bg-[#88bf42] text-white py-3 px-6 rounded-md border border-[#88bf42] w-full font-semibold transition duration-300 hover:bg-[#7aac3b] hover:border-[#7aac3b] focus:outline-none focus:ring-2 focus:ring-[#88bf42] focus:ring-opacity-50" onClick={() => handleApplyClick(intern.title)}>
+                        Apply Now <ArrowRight className="inline ml-2 w-4 h-4" />
                       </Button>
                     </div>
                   </div>
@@ -353,52 +441,69 @@ const Careers = () => {
           </div>
         </div>
       </section>
-
       {/* Modal for Resume Upload */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"> {/* Added p-4 for smaller screens */}
           <div className="bg-white rounded-xl shadow-lg p-0 w-full max-w-md max-h-[90vh] flex flex-col relative">
-            <button onClick={closeModal} className="absolute top-3 right-3 text-2xl text-gray-400 hover:text-black z-10">&times;</button>
+            <button onClick={closeModal} className="absolute top-3 right-3 text-2xl text-gray-400 hover:text-black z-10">×</button>
             <div className="flex-1 overflow-y-auto p-8 pt-12">
               <h3 className="text-2xl font-bold mb-4 text-black">Apply for {selectedJob}</h3>
               <form onSubmit={handleSubmit} className="flex flex-col">
-                <label className="block mb-2 font-semibold text-black">Name:</label>
+                <label htmlFor="applicantName" className="block mb-2 font-semibold text-black">Name:</label> {/* Added htmlFor */}
                 <input
+                  id="applicantName" // Added id
                   type="text"
                   value={name}
                   onChange={e => setName(e.target.value)}
-                  className="mb-4 block w-full border border-gray-300 rounded px-3 py-2"
+                  className="mb-4 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#88bf42] focus:border-[#88bf42]" // Added focus styles
                   required
+                  aria-label="Applicant Name" // Added aria-label
                 />
-                <label className="block mb-2 font-semibold text-black">Email:</label>
+                <label htmlFor="applicantEmail" className="block mb-2 font-semibold text-black">Email:</label> {/* Added htmlFor */}
                 <input
+                  id="applicantEmail" // Added id
                   type="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
-                  className="mb-4 block w-full border border-gray-300 rounded px-3 py-2"
+                  className="mb-4 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#88bf42] focus:border-[#88bf42]" // Added focus styles
                   required
+                   aria-label="Applicant Email" // Added aria-label
                 />
-                <label className="block mb-2 font-semibold text-black">Mobile Number:</label>
+                <label htmlFor="applicantMobile" className="block mb-2 font-semibold text-black">Mobile Number:</label> {/* Added htmlFor */}
                 <input
+                  id="applicantMobile" // Added id
                   type="tel"
                   value={mobileNumber}
                   onChange={e => setMobileNumber(e.target.value)}
-                  className="mb-4 block w-full border border-gray-300 rounded px-3 py-2"
+                  className="mb-4 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#88bf42] focus:border-[#88bf42]" // Added focus styles
                   required
+                   aria-label="Applicant Mobile Number" // Added aria-label
                 />
-                <label className="block mb-2 font-semibold text-black">Upload Resume (PDF, DOC, DOCX, TXT):</label>
+                {/* Removed company field for now */}
+                {/* <label htmlFor="applicantCompany" className="block mb-2 font-semibold text-black">Current/Previous Company (Optional):</label>
                 <input
+                  id="applicantCompany"
+                  type="text"
+                  value={company}
+                  onChange={e => setCompany(e.target.value)}
+                  className="mb-4 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#88bf42] focus:border-[#88bf42]"
+                   aria-label="Applicant Company"
+                /> */}
+                <label htmlFor="applicantResume" className="block mb-2 font-semibold text-black">Upload Resume (PDF, DOC, DOCX, TXT):</label> {/* Added htmlFor */}
+                <input
+                  id="applicantResume" // Added id
                   ref={fileInputRef}
                   type="file"
                   accept=".pdf,.doc,.docx,.txt"
                   onChange={handleFileChange}
-                  className="mb-4 block w-full border border-gray-300 rounded px-3 py-2"
+                  className="mb-4 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#88bf42]/20 file:text-[#000] hover:file:bg-[#88bf42]/30" // Styled file input
+                   aria-label="Upload Resume" // Added aria-label
                 />
                 {resumeFile && (
-                  <div className="mb-2 text-black text-sm">Selected: {resumeFile.name}</div>
+                  <div className="mb-2 text-black text-sm">Selected: <span className="font-semibold">{resumeFile.name}</span></div>
                 )}
-                {error && <div className="mb-2 text-red-600 text-sm">{error}</div>}
-                <Button type="submit" className="bg-[#88bf42] text-white rounded-lg border border-[#88bf42] w-full mt-2">
+                {error && <div className="mb-4 text-red-600 text-sm">{error}</div>} {/* Added margin bottom */}
+                <Button type="submit" className="bg-[#88bf42] text-white rounded-lg border border-[#88bf42] w-full mt-2 py-2.5 font-semibold hover:bg-[#7aac3b] hover:border-[#7aac3b] focus:outline-none focus:ring-2 focus:ring-[#88bf42] focus:ring-opacity-50"> {/* Adjusted padding, hover, focus */}
                   Submit Application
                 </Button>
               </form>
@@ -411,7 +516,7 @@ const Careers = () => {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-3xl font-bold mb-10 text-center text-black">
-            Life at <span className="text-[#9ac857]">Thor</span><span className="text-[#10b4b7]"> Signia</span>
+            Life at <span className="text-[#88bf42]">Thor</span><span className="text-[#88bf42]"> Signia</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-8">
             <div className="rounded-xl overflow-hidden shadow border border-gray-100">
@@ -425,23 +530,27 @@ const Careers = () => {
             </div>
           </div>
           <p className="text-center text-black max-w-2xl mx-auto text-lg">
-            At <span className="text-[#9ac857]">Thor</span><span className="text-[#10b4b7]"> Signia</span>, we believe in a healthy work-life balance, celebrating wins together, and supporting each other's growth. Our team enjoys flexible work, regular team events, and a culture of innovation.
+            At <span className="text-[#88bf42]">Thor</span><span className="text-[#88bf42]"> Signia</span>, we believe in a healthy work-life balance, celebrating wins together, and supporting each other's growth. Our team enjoys flexible work, regular team events, and a culture of innovation.
           </p>
         </div>
       </section>
 
       {/* CTA: Join the Team */}
-      <section className="py-16 bg-gradient-to-r from-[#10b4b7]/10 to-[#9ac857]/10 text-black">
+      <section className="py-16 bg-gradient-to-r from-[#10b4b7]/10 to-[#88bf42]/10 text-black">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Ready to Join the <span className="text-[#9ac857]">Thor</span><span className="text-[#10b4b7]"> Signia</span> Team?
+              Ready to Join the <span className="text-[#88bf42]">Thor</span><span className="text-[#88bf42]"> Signia</span> Team?
             </h2>
             <p className="text-lg md:text-xl mb-8">
-              We're always looking for talented people. If you don't see a role that fits, reach out and tell us how you can make a difference at <span className="text-[#9ac857]">Thor</span><span className="text-[#10b4b7]"> Signia</span>.
+              We're always looking for talented people. If you don't see a role that fits, reach out and tell us how you can make a difference at <span className="text-[#88bf42]">Thor</span><span className="text-[#88bf42]"> Signia</span>.
             </p>
-            <Button className="bg-[#88bf42] text-white rounded-lg border border-[#88bf42] px-8 py-4" asChild>
-              <a href="#apply">Join the Team</a>
+            {/* You might link this to a contact form or a generic application modal */}
+            <Button className="bg-[#88bf42] text-white rounded-lg border border-[#88bf42] px-8 py-4 hover:bg-[#7aac3b] hover:border-[#7aac3b] focus:outline-none focus:ring-2 focus:ring-[#88bf42] focus:ring-opacity-50">
+               {/* Placeholder action, link to contact or generic modal */}
+               <a href="mailto:careers@thorsignia.com" className="flex items-center">
+                Contact Us <ArrowRight className="inline ml-2 w-4 h-4" />
+               </a>
             </Button>
           </div>
         </div>
@@ -452,4 +561,4 @@ const Careers = () => {
   );
 };
 
-export default Careers; 
+export default Careers;

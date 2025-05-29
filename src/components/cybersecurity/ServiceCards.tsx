@@ -51,7 +51,7 @@ const services = [
     title: "Training & Awareness",
     description: "Empower your team with cybersecurity knowledge. Our training programs build security awareness and prepare your staff to recognize and respond to threats.",
     icon: "/icons/training.svg",
-    link: "/security-training"
+    link: "/securitytraining"
   }
 ];
 
@@ -88,7 +88,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, icon, del
 
 const ServiceCards: React.FC = () => {
   return (
-    <section className="py-16 md:py-24 bg-gray-50">
+    <section className="py-10 md:py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4">
         <motion.div
           initial={{ opacity: 0 }}
@@ -128,14 +128,7 @@ const ServiceCards: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="mt-16 text-center"
         >
-          <Link to="/services">
-            <button className="bg-white border border-[#0f0326] text-[#0f0326] px-8 py-3 rounded-md font-semibold hover:bg-[#0f0326] hover:text-white transition-all inline-flex items-center">
-              View All Services
-              <svg className="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </button>
-          </Link>
+          
         </motion.div>
       </div>
     </section>

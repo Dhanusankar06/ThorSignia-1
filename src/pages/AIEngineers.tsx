@@ -1,130 +1,66 @@
 // No longer 'use client'; directive needed in standard React
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // Import framer-motion (same)
-import { AnimatePresence, motion } from 'framer-motion';
-// No longer import from 'next/image'; use standard <img> if needed (not used here)
-// import Image from 'next/image'; // REMOVED
+import { AnimatePresence, motion, useAnimation } from 'framer-motion'; // Import useAnimation
+import { useInView } from 'react-intersection-observer'; // Import useInView
 
 // Import Link and useNavigate from react-router-dom
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom'; // Import useLocation
 
-// Import UI components from the correct paths
+// Import UI components from the correct paths (keep standard imports)
 import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
+// Removed unused Accordion imports as the FAQ section is now custom-rendered for better motion control
+// import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion'; // Keep Accordion if used for FAQ
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 // Import icons
 import { ChevronDown } from 'lucide-react';
 // Example icons (same)
-import { CheckCircle, Rocket, Users, DollarSign, Briefcase, TrendingUp, Brain, Database, Code, GitBranch, Lightbulb } from 'lucide-react';
+import { CheckCircle, Rocket, Users, DollarSign, Briefcase, TrendingUp, Brain, Database, Code, GitBranch, Lightbulb, PlayCircle, ShieldCheck, Layers, Award, Star, BarChart2, Settings, MessageCircle, MapPin, Phone, Globe, Wrench, ArrowRight } from 'lucide-react'; // Added more potentially useful icons
 
 
-// --- Animation Variants (framer-motion, same) ---
-// Variants defined at the top level are fine
-const containerVariants = {
+// --- Animation Variants (framer-motion, adapted) ---
+// Use variants that can be reused or slightly modified per section
+const sectionTextVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
+
+const containerStaggerVariants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
         transition: {
-            delayChildren: 0.2,
-            staggerChildren: 0.1,
+            delayChildren: 0.1, // Slightly reduced delay
+            staggerChildren: 0.08, // Slightly reduced stagger
         },
     },
 };
 
-// Item variant for elements within a staggered container (same)
-const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+const itemEntryVariants = {
+    hidden: { y: 50, opacity: 0 },
     visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: "easeOut" } },
 };
 
+const itemFadeVariants = {
+     hidden: { opacity: 0, scale: 0.95 },
+     visible: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: "easeOut" } },
+}
+
+// Removed previous specific background animation variants
+
+
 // --- Data Placeholders (same) ---
 const whyHireReasons = [
-    { icon: CheckCircle, title: 'Vetted Expertise', description: 'Access top-tier AI engineers with proven skills and experience.' },
+    { icon: ShieldCheck, title: 'Vetted Expertise', description: 'Access top-tier AI engineers with proven skills and experience.' },
     { icon: Rocket, title: 'Accelerated Growth', description: 'Quickly scale your AI capabilities without lengthy hiring processes.' },
     { icon: Users, title: 'Flexible Engagement', description: 'Choose hiring models that perfectly fit your project needs and budget.' },
     { icon: DollarSign, title: 'Cost-Effective', description: 'Reduce overheads compared to traditional hiring and recruitment.' },
-    { icon: Briefcase, title: 'Industry Focus', description: 'Engineers with specific experience in relevant industries.' },
+    { icon: Layers, title: 'Industry Focus', description: 'Engineers with specific experience in relevant industries.' },
     { icon: TrendingUp, title: 'Proven Success', description: 'Tap into a track record of successful AI project deliveries.' },
 ];
 
-// Why Hire Section (mostly same, uses framer-motion)
-const WhyHireSection = ({ reasons = whyHireReasons }) => {
-  const textVariants = {
-      hidden: { opacity: 0, y: 20 },
-      visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-
-  const containerVariants = {
-      hidden: { opacity: 0 },
-      visible: {
-          opacity: 1,
-          transition: {
-              staggerChildren: 0.1,
-              delayChildren: 0.3
-          },
-      },
-  };
-
-  const itemVariants = {
-      hidden: { opacity: 0, y: 50 },
-      visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-  };
-
-  return (
-  
-      <section
-          className="py-20 bg-white"
-      >
-          <div className="container mx-auto px-4">
-              <motion.div
-                  className="text-center mb-16"
-                  initial="hidden"
-                  animate="visible"
-                  variants={textVariants}
-              >
-                  <h2 className="text-3xl font-bold text-black mb-4">Why Hire From Us?</h2>
-                  <p className="text-lg text-black-400 max-w-3xl mx-auto">
-                      Unlock unparalleled expertise and flexibility for your AI initiatives.
-                  </p>
-              </motion.div>
-
-              <motion.div
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch"
-                  initial="hidden"
-                  animate="visible"
-                  variants={containerVariants}
-              >
-                  {Array.isArray(reasons) && reasons.map((reason, index) => (
-                      <motion.div
-                          key={index}
-                          className={`
-                              bg-gray-800 p-6 rounded-lg shadow-lg h-full
-                              transition-all duration-300 ease-in-out
-                              hover:scale-105 hover:shadow-xl hover:ring-2 hover:ring-[#88bf42] hover:ring-opacity-50
-                              flex flex-col
-                          `}
-                          variants={itemVariants}
-                          layout
-                      >
-                           {reason.icon && (
-                              <div className="mb-4">
-                                  <reason.icon className="h-10 w-10 text-[#88bf42]" />
-                              </div>
-                          )}
-                          <div className="flex-grow">
-                              <h3 className="text-xl font-semibold text-white mb-2">{reason.title}</h3>
-                              <p className="text-gray-400">{reason.description}</p>
-                          </div>
-                      </motion.div>
-                  ))}
-              </motion.div>
-          </div>
-      </section>
-  );
-};
 const faqItems = [
     {
         question: "What types of AI engineers can I hire through your platform?",
@@ -148,44 +84,357 @@ const faqItems = [
     }
 ];
 
-// FAQ Section Component
+const roles = [
+  'Machine Learning Engineers',
+  'Data Scientists',
+  'NLP Specialists',
+  'Computer Vision Engineers',
+  'AI/MLOps Engineers',
+  'AI Researchers',
+  'AI Product Managers',
+  'Robotics Engineers',
+];
+
+
+const hiringModels = [
+  { title: "Full-Time Hire", description: "Integrate an AI expert directly into your team on a permanent basis for long-term projects." },
+  { title: "Contract Project", description: "Hire an AI professional for a specific project duration or defined scope of work." },
+  { title: "Staff Augmentation", description: "Quickly scale your team with skilled AI talent to complement your existing capabilities." },
+];
+
+const howItWorksSteps = [
+  { number: 1, title: "Submit Your Requirements", description: "Tell us about the AI role you need to fill, the required skills, and project details.", icon: Lightbulb },
+  { number: 2, title: "Receive Curated Matches", description: "Our AI-powered platform identifies top candidates from our network that match your needs.", icon: Database },
+  { number: 3, title: "Connect & Interview", description: "Easily connect with and interview potential candidates through our platform.", icon: Users },
+  { number: 4, title: "Hire Your Expert", description: "Select the best fit for your team and begin your project quickly.", icon: CheckCircle },
+  { number: 5, title: "Onboarding & Support", description: "We assist with the onboarding process and provide ongoing support.", icon: Award },
+];
+
+const successes = [
+  { id: 1, project: "Automated Image Recognition System", result: "Increased processing speed by 300% and reduced manual effort.", client: "Global Retailer", icon: BarChart2 },
+  { id: 2, project: "Predictive Maintenance Model", result: "Reduced equipment downtime by 40% through early anomaly detection.", client: "Industrial Manufacturer", icon: Wrench },
+  { id: 3, project: "Natural Language Processing for Customer Support", result: "Improved response time by 50% and increased customer satisfaction scores.", client: "Tech Startup", icon: MessageCircle },
+  { id: 4, project: "Reinforcement Learning for Supply Chain Optimization", result: "Optimized logistics routes, saving 15% on transportation costs.", client: "Logistics Company", icon: TrendingUp },
+  { id: 5, project: "AI-Powered Chatbot for Lead Qualification", result: "Increased qualified leads by 25% and improved sales team efficiency.", client: "SaaS Company", icon: Users },
+  { id: 6, project: "Custom ML Model for Financial Forecasting", result: "Enhanced forecasting accuracy by 20%, enabling better strategic planning.", client: "Financial Services", icon: DollarSign },
+];
+
+
+// --- Section Components (RE-STYLED) ---
+
+// Why Hire Section (RE-STYLED - Blocks with prominent icon/title area)
+const WhyHireSection = ({ reasons = whyHireReasons }) => {
+   const controls = useAnimation();
+   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
+   useEffect(() => { if (inView) controls.start('visible'); }, [controls, inView]);
+
+  return (
+      <section ref={ref} className="py-20 bg-white">
+          <div className="container mx-auto px-4">
+              <motion.div
+                  className="text-center mb-16"
+                  initial="hidden"
+                  animate={controls}
+                  variants={sectionTextVariants}
+              >
+                  <h2 className="text-3xl md:text-4xl font-bold text-[#0F0326] mb-4">Why Hire From Us?</h2>
+                  <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                      Unlock unparalleled expertise and flexibility for your AI initiatives.
+                  </p>
+              </motion.div>
+
+              <motion.div
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"
+                  initial="hidden"
+                  animate={controls}
+                  variants={containerStaggerVariants}
+              >
+                  {Array.isArray(reasons) && reasons.map((reason, index) => (
+                      <motion.div
+                          key={index}
+                          className={`
+                              bg-white rounded-lg shadow-lg h-full border border-gray-200
+                              transition-all duration-300 ease-in-out
+                              hover:shadow-xl hover:scale-[1.02] hover:border-[#88bf42]
+                              overflow-hidden
+                          `}
+                          variants={itemEntryVariants}
+                          layout
+                      >
+                          {/* Top section with Icon and Title */}
+                          <div className="flex items-center p-6 bg-gray-50 border-b border-gray-200">
+                               {reason.icon && (
+                                  <div className={`flex-shrink-0 mr-4 p-3 rounded-full bg-[#88bf42]/10 text-[#88bf42]`}>
+                                      <reason.icon className={`h-6 w-6`} />
+                                  </div>
+                              )}
+                              <h3 className="text-xl font-semibold text-[#0F0326] leading-snug">{reason.title}</h3>
+                          </div>
+
+                          {/* Bottom section with Description */}
+                          <div className="p-6">
+                              <p className="text-gray-700 text-base">{reason.description}</p>
+                          </div>
+                      </motion.div>
+                  ))}
+              </motion.div>
+          </div>
+      </section>
+  );
+};
+WhyHireSection.defaultProps = { reasons: whyHireReasons };
+
+
+// Roles Section component (RE-STYLED - Simple badges with border)
+const RolesSection = ({ roles }: { roles?: string[] }) => {
+   const controls = useAnimation();
+   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+   useEffect(() => { if (inView) controls.start('visible'); }, [controls, inView]);
+
+  const displayRoles = roles || [];
+
+  return (
+      <section ref={ref} className="py-20 bg-gray-100"> {/* Light gray background */}
+          <div className="container mx-auto px-4">
+              <motion.div
+                  className="text-center mb-16"
+                  initial="hidden"
+                  animate={controls}
+                  variants={sectionTextVariants}
+              >
+                  <h2 className="text-3xl md:text-4xl font-bold text-[#0F0326] mb-4">Roles You Can Hire</h2>
+                  <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                      Our network covers a wide range of specialized AI roles.
+                  </p>
+              </motion.div>
+
+              <motion.div
+                  className="flex flex-wrap justify-center gap-4 md:gap-6 max-w-5xl mx-auto"
+                  initial="hidden"
+                  animate={controls}
+                  variants={containerStaggerVariants}
+              >
+                  {Array.isArray(displayRoles) && displayRoles.map((role, index) => (
+                      <motion.div
+                          key={index}
+                          variants={itemFadeVariants}
+                           whileHover={{ scale: 1.05 }}
+                           transition={{ duration: 0.2 }}
+                      >
+                          {/* Simple bordered badge */}
+                           <div className="px-6 py-3 border-2 border-[#0F0326] text-[#0F0326] rounded-full shadow-sm text-base font-medium whitespace-nowrap hover:bg-[#0F0326] hover:text-white transition-colors">
+                              {role}
+                          </div>
+                      </motion.div>
+                  ))}
+              </motion.div>
+          </div>
+      </section>
+  );
+};
+RolesSection.defaultProps = { roles: [] as string[] };
+
+
+// Flexible Hiring Models Section (RE-STYLED - Numbered steps with border/shadow)
+const FlexibleHiringModelsSection = () => {
+    // Animation setup
+   const controls = useAnimation();
+   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
+   useEffect(() => { if (inView) controls.start('visible'); }, [controls, inView]);
+
+
+  return (
+      <section ref={ref} className="py-20 bg-[#0F0326] text-white"> {/* Dark background */}
+          <div className="container mx-auto px-4">
+              <motion.div
+                  className="text-center mb-16"
+                  initial="hidden"
+                  animate={controls}
+                  variants={sectionTextVariants}
+              >
+                  <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Flexible Hiring Models</h2>
+                  <p className="text-lg text-gray-300 max-w-3xl mx-auto">
+                      Choose the engagement model that best aligns with your project timeline and budget.
+                  </p>
+              </motion.div>
+
+              <motion.div
+                  className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8"
+                  initial="hidden"
+                  animate={controls}
+                  variants={containerStaggerVariants}
+              >
+                  {hiringModels.map((model, index) => (
+                      <motion.div
+                          key={index}
+                          className={`
+                              bg-gray-800 p-6 rounded-lg shadow-xl h-full border border-gray-700
+                              transition-all duration-300 ease-in-out
+                              hover:scale-[1.02] hover:bg-gray-700 hover:border-[#88bf42]
+                              flex flex-col
+                          `}
+                          variants={itemEntryVariants}
+                          layout
+                      >
+                           <div className="mb-4 text-[#88bf42] text-4xl font-bold leading-none">
+                              {index + 1}
+                          </div>
+                          <div className="flex-grow">
+                              <h3 className="text-xl font-semibold text-white mb-2">{model.title}</h3>
+                              <p className="text-gray-400 text-base">{model.description}</p>
+                          </div>
+                      </motion.div>
+                  ))}
+              </motion.div>
+          </div>
+      </section>
+  );
+};
+
+
+// How It Works Section (RE-STYLED - Simple numbered list with borders)
+const HowItWorksSection = () => {
+     // Animation setup
+   const controls = useAnimation();
+   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+   useEffect(() => { if (inView) controls.start('visible'); }, [controls, inView]);
+
+
+   const itemVariants = {
+       hidden: { opacity: 0, x: -50 },
+       visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } },
+   };
+
+
+  return (
+      <section ref={ref} className="py-20 bg-gray-100"> {/* Light gray background */}
+
+          <div className="container mx-auto px-4">
+              <motion.div
+                  className="text-center mb-16"
+                   initial="hidden"
+                   animate={controls}
+                   variants={sectionTextVariants}
+              >
+                  <h2 className="text-3xl md:text-4xl font-bold text-[#0F0326] mb-4">How It Works</h2>
+                  <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                      Our streamlined process ensures a fast and efficient hiring experience.
+                  </p>
+              </motion.div>
+
+              {/* Simple Stacked List */}
+              <div className="max-w-3xl mx-auto space-y-8"> {/* Increased space */}
+                  {howItWorksSteps.map((step, index) => {
+                      return (
+                          <motion.div
+                              key={step.number}
+                              className="flex items-start bg-white p-6 rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow duration-300"
+                               initial="hidden"
+                               animate={controls}
+                               variants={itemVariants}
+                               transition={{ delay: index * 0.1, duration: 0.6, ease: "easeOut" }}
+                          >
+                              {/* Number Circle */}
+                              <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-[#88BF42] text-white shadow-md mr-4">
+                                  <span className="font-bold text-lg">{step.number}</span>
+                              </div>
+
+                              {/* Step Content */}
+                              <div className="flex-grow">
+                                  <h3 className="text-lg font-semibold text-[#0F0326] mb-1 leading-snug">{step.title}</h3> {/* Adjusted title size */}
+                                  <p className="text-gray-700 text-base">{step.description}</p>
+                              </div>
+                          </motion.div>
+                      );
+                  })}
+              </div>
+          </div>
+      </section>
+  )
+};
+
+
+// Success Stories Section (RE-STYLED - Blocks with corner accent & quote icon)
+const SuccessStoriesSection = () => {
+   const controls = useAnimation();
+   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+   useEffect(() => { if (inView) controls.start('visible'); }, [controls, inView]);
+
+  return (
+      <section ref={ref} className="py-20 bg-white"> {/* White background */}
+          <div className="container mx-auto px-4">
+              <motion.div
+                  className="text-center mb-16"
+                  initial="hidden"
+                  animate={controls}
+                  variants={sectionTextVariants}
+              >
+                  <h2 className="text-3xl md:text-4xl font-bold text-[#0F0326] mb-4">Client Successes</h2>
+                  <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                      Transforming visions into reality with expert AI teams.
+                  </p>
+              </motion.div>
+
+              <motion.div
+                  className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto"
+                  initial="hidden"
+                  animate={controls}
+                  variants={containerStaggerVariants}
+              >
+                  {successes.map((story) => (
+                      <motion.div
+                          key={story.id}
+                          className={`
+                              bg-white p-6 rounded-lg shadow-md h-full border border-gray-200
+                              transition-all duration-300 ease-in-out
+                              hover:shadow-lg hover:scale-[1.02] hover:border-[#88bf42]
+                              relative overflow-hidden
+                          `}
+                          variants={itemEntryVariants}
+                          layout
+                      >
+                          {/* Green Corner Accent */}
+                           <div className="absolute top-0 left-0 w-16 h-16 bg-[#88bf42]/10 rounded-br-lg"></div>
+                            {/* Quote Icon */}
+                            <div className="absolute top-6 right-6 text-gray-300"> {/* Positioned quote icon */}
+                                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M6.235 11.003c-.78.35-1.31.838-1.592 1.466-.282.628-.343 1.268-.183 1.921.16.653.551 1.192 1.617.622.425 1.436.703 2.442.836.156 1.544.67 2.75 1.543 3.616C9.178 21.203 9.86 21.61 10.665 21.83c.805.22 1.617.332 2.438.332 1.44 0 2.64-.32 3.605-.96s1.755-1.528 2.295-2.617c.54-1.089.795-2.25.765-3.483.022-1.34-.216-2.59-.713-3.754-.496-1.165-1.226-2.08-2.19-2.747-1.067-.778-2.306-1.304-3.714-1.575.18-.782.532-1.452 1.05-2.01.518-.557 1.112-.98 1.782-1.266 1.348-.568 2.886-.816 4.616-.74.82.036 1.478-.225 1.975-.783s.74-1.3.61-1.87c-.13- .57-.51-1.02-1.14-1.35C19.245 1.85 18.495 1.63 17.695 1.63c-1.22 0-2.32.35-3.3 1.05-1 .7-1.74 1.6-2.22 2.7-.48 1.1-.72 2.3-.72 3.6 0 .3.01.6.03.9zm-6 0c-.78.35-1.31.838-1.592 1.466-.282.628-.343 1.268-.183 1.921.16.653.551 1.192 1.617.622.425 1.436.703 2.442.836.156 1.544.67 2.75 1.543 3.616C3.178 21.203 3.86 21.61 4.665 21.83c.805.22 1.617.332 2.438.332 1.44 0 2.64-.32 3.605-.96s1.755-1.528 2.295-2.617c.54-1.089.795-2.25.765-3.483.022-1.34-.216-2.59-.713-3.754-.496-1.165-1.226-2.08-2.19-2.747-1.067-.778-2.306-1.304-3.714-1.575.18-.782.532-1.452 1.05-2.01.518-.557 1.112-.98 1.782-1.266 1.348-.568 2.886-.816 4.616-.74.82.036 1.478-.225 1.975-.783s.74-1.3.61-1.87c-.13- .57-.51-1.02-1.14-1.35C13.245 1.85 12.495 1.63 11.695 1.63c-1.22 0-2.32.35-3.3 1.05-1 .7-1.74 1.6-2.22 2.7-.48 1.1-.72 2.3-.72 3.6 0 .3.01.6.03.9z"/>
+                                </svg>
+                           </div>
+
+
+                          <div className="flex-grow pt-8"> {/* Added top padding to make space for accent */}
+                              <p className="text-gray-800 italic text-lg mb-4 leading-snug">"{story.result}"</p> {/* Result as italic quote */}
+                              <p className="text-[#0F0326] text-base font-medium">{story.project}</p> {/* Project title below */}
+                          </div>
+                          <p className="text-sm text-gray-600 mt-4">- {story.client}</p> {/* Top margin added */}
+                      </motion.div>
+                  ))}
+              </motion.div>
+          </div>
+      </section>
+  );
+};
+
+
+// FAQ Section (RE-STYLED - Accordion with colored border and rounded items)
 const FAQSection = () => {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
+    const toggleFAQ = (index: number) => { setActiveIndex(activeIndex === index ? null : index); };
 
-    const toggleFAQ = (index: number) => {
-        setActiveIndex(activeIndex === index ? null : index);
-    };
-
-    const textVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-    };
-
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.1,
-                delayChildren: 0.3
-            },
-        },
-    };
-
-    const itemVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0 },
-    };
+   const controls = useAnimation();
+   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+   useEffect(() => { if (inView) controls.start('visible'); }, [controls, inView]);
 
     const answerVariants = {
         hidden: { opacity: 0, height: 0, marginTop: 0, marginBottom: 0, paddingTop: 0, paddingBottom: 0 },
         visible: {
             opacity: 1,
             height: 'auto',
-            marginTop: '1rem', // Corresponds to mb-4
-            marginBottom: '1rem', // Corresponds to mb-4
-            paddingTop: '1rem', // Corresponds to py-4 in original AccordionContent
-            paddingBottom: '1rem', // Corresponds to py-4 in original AccordionContent
+            marginTop: '0.5rem',
+            marginBottom: '1rem',
+            paddingTop: '0.5rem',
+            paddingBottom: '0.5rem',
             transition: { duration: 0.3, ease: "easeInOut" }
         },
         exit: {
@@ -201,47 +450,44 @@ const FAQSection = () => {
 
 
     return (
-        <section className="py-20 bg-white">
+        <section ref={ref} className="py-20 bg-gray-100"> {/* Light gray background */}
             <div className="container mx-auto px-4">
                 <motion.div
                     className="text-center mb-16"
                     initial="hidden"
-                    whileInView="visible" // Use whileInView for scroll-triggered animation
-                    viewport={{ once: true, amount: 0.3 }} // Trigger when 30% is visible
-                    variants={textVariants}
+                    animate={controls}
+                    variants={sectionTextVariants}
                 >
-                    <h2 className="text-3xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold text-[#0F0326] mb-4">Frequently Asked Questions</h2>
                     <p className="text-lg text-gray-600 max-w-3xl mx-auto">
                         Find answers to common questions about hiring AI engineers through our platform
                     </p>
                 </motion.div>
 
                 <motion.div
-                    className="max-w-3xl mx-auto space-y-4" // Added space-y-4 here
+                    className="max-w-3xl mx-auto space-y-4"
                     initial="hidden"
-                    whileInView="visible" // Use whileInView for scroll-triggered animation
-                    viewport={{ once: true, amount: 0.2 }} // Trigger when 20% is visible
-                    variants={containerVariants}
+                    animate={controls}
+                    variants={containerStaggerVariants}
                 >
                     {faqItems.map((item, index) => (
                         <motion.div
                             key={index}
-                            variants={itemVariants}
-                            className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden" // Added overflow-hidden for cleaner animation
+                            variants={itemEntryVariants}
+                            className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden transition-all duration-300 hover:border-[#88bf42] group" // Border hover
                         >
-                            {/* This div acts as the AccordionItem */}
-                            <button // Changed to button for accessibility and click handling
+                            <button
                                 onClick={() => toggleFAQ(index)}
-                                className="w-full flex justify-between items-center text-left px-6 py-4 focus:outline-none"
+                                className={`w-full flex justify-between items-center text-left px-6 py-4 focus:outline-none transition-colors duration-300 ${activeIndex === index ? 'text-[#88bf42] font-semibold' : 'text-[#0F0326]'}`} // Text color changes on active/hover
                                 aria-expanded={activeIndex === index}
                                 aria-controls={`faq-answer-${index}`}
                             >
-                                <span className="font-semibold text-gray-900">{item.question}</span>
+                                <span className="text-lg">{item.question}</span>
                                 <motion.div
                                     animate={{ rotate: activeIndex === index ? 180 : 0 }}
                                     transition={{ duration: 0.2 }}
                                 >
-                                    <ChevronDown className={`w-5 h-5 text-gray-500 transition-transform duration-200`} />
+                                    <ChevronDown className={`w-6 h-6 text-gray-500 transition-transform duration-200 ${activeIndex === index ? '!text-[#88bf42]' : ''}`} /> {/* Arrow color based on active */}
                                 </motion.div>
                             </button>
 
@@ -254,10 +500,9 @@ const FAQSection = () => {
                                         animate="visible"
                                         exit="exit"
                                         variants={answerVariants}
-                                        className="px-6" // Original AccordionContent had px-6 pb-4. pb-4 is handled by answerVariants margin/padding
-                                        // overflow="hidden" // Ensure content doesn't spill during animation
+                                        className="px-6 text-gray-600"
                                     >
-                                        <p className="text-gray-600">{item.answer}</p>
+                                        <p className="text-base">{item.answer}</p>
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -269,440 +514,49 @@ const FAQSection = () => {
     );
 };
 
-WhyHireSection.defaultProps = {
-  reasons: whyHireReasons
-};
-
-const roles = [
-  'Machine Learning Engineers',
-  'Data Scientists',
-  'NLP Specialists',
-  'Computer Vision Engineers',
-  'AI/MLOps Engineers',
-  'AI Researchers',
-  'AI Product Managers',
-  'Robotics Engineers',
-];
-
-// Roles Section component (mostly same, uses framer-motion)
-const RolesSection = ({ roles }: { roles?: string[] }) => {
-  const textVariants = {
-      hidden: { opacity: 0, y: 20 },
-      visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-
-  const containerVariants = {
-      hidden: { opacity: 0 },
-      visible: {
-          opacity: 1,
-          transition: {
-              staggerChildren: 0.07,
-              delayChildren: 0.2
-          },
-      },
-  };
-
-  const itemVariants = {
-      hidden: { opacity: 0, y: 20 },
-      visible: { opacity: 1, y: 0 },
-  };
-
-  const displayRoles = roles || [];
-
-  return (
-      <section
-          className="py-20 "
-      >
-          <div className="container mx-auto px-4">
-              <motion.div
-                  className="text-center mb-16"
-                  initial="hidden"
-                  animate="visible"
-                  variants={textVariants}
-              >
-                  <h2 className="text-3xl font-bold text-black mb-4">Roles You Can Hire</h2>
-                  <p className="text-lg text-black max-w-3xl mx-auto">
-                      Our network covers a wide range of specialized AI roles.
-                  </p>
-              </motion.div>
-
-              <motion.div
-                  className="flex flex-wrap justify-center gap-4 max-w-5xl mx-auto "
-                  initial="hidden"
-                  animate="visible"
-                  variants={containerVariants}
-              >
-                  {Array.isArray(displayRoles) && displayRoles.map((role, index) => (
-                      <motion.div
-                          key={index}
-                          variants={itemVariants}
-                      >
-                          <div
-                              className="transition-transform  duration-300 ease-in-out hover:scale-105 hover:shadow-lg rounded-full bg-gradient-to-r from-teal-400 via-blue-500 to-purple-600 p-[1px]"
-                          >
-                              <div className="px-6 py-3 bg-white text-black rounded-full shadow-sm text-sm font-medium whitespace-nowrap relative z-10">
-                                  {role}
-                              </div>
-                          </div>
-                      </motion.div>
-                  ))}
-              </motion.div>
-          </div>
-      </section>
-  );
-};
-
-RolesSection.defaultProps = {
-  roles: [] as string[]
-};
-
-const hiringModels = [
-  { title: "Full-Time Hire", description: "Integrate an AI expert directly into your team on a permanent basis for long-term projects." },
-  { title: "Contract Project", description: "Hire an AI professional for a specific project duration or defined scope of work." },
-  { title: "Staff Augmentation", description: "Quickly scale your team with skilled AI talent to complement your existing capabilities." },
-];
-
-// Flexible Hiring Models Section (mostly same, uses framer-motion)
-const FlexibleHiringModelsSection = () => {
-  const textVariants = {
-      hidden: { opacity: 0, y: 20 },
-      visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-
-  const containerVariants = {
-      hidden: { opacity: 0 },
-      visible: {
-          opacity: 1,
-          transition: {
-              staggerChildren: 0.1,
-              delayChildren: 0.3
-          },
-      },
-  };
-
-  const itemVariants = {
-      hidden: { opacity: 0, y: 50 },
-      visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-  };
-
-  return (
-      <section
-          className="py-20 bg-white"
-      >
-          <div className="container mx-auto px-4">
-              <motion.div
-                  className="text-center mb-16"
-                  initial="hidden"
-                  animate="visible"
-                  variants={textVariants}
-              >
-                  <h2 className="text-3xl font-bold text-black mb-4">Flexible Hiring Models</h2>
-                  <p className="text-lg text-black-400 max-w-3xl mx-auto">
-                      Choose the engagement model that best aligns with your project timeline and budget.
-                  </p>
-              </motion.div>
-
-              <motion.div
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch"
-                  initial="hidden"
-                  animate="visible"
-                  variants={containerVariants}
-              >
-                  {hiringModels.map((model, index) => (
-                      <motion.div
-                          key={index}
-                          className={`
-                              bg-gray-800 p-6 rounded-lg shadow-lg h-full
-                              transition-all duration-300 ease-in-out
-                              hover:scale-105 hover:shadow-xl
-                              hover:ring-2 hover:ring-[#88bf42]
-                              flex flex-col
-                          `}
-                          variants={itemVariants}
-                          layout
-                      >
-                           <div className="mb-4 text-[#88bf42] text-4xl font-bold leading-none">
-                              {index + 1}
-                          </div>
-                          <div className="flex-grow">
-                              <h3 className="text-xl font-semibold text-white mb-2">{model.title}</h3>
-                              <p className="text-gray-400">{model.description}</p>
-                          </div>
-                      </motion.div>
-                  ))}
-              </motion.div>
-          </div>
-      </section>
-  );
-};
-
-const howItWorksSteps = [
-  { number: 1, title: "Submit Your Requirements", description: "Tell us about the AI role you need to fill, the required skills, and project details." },
-  { number: 2, title: "Receive Curated Matches", description: "Our AI-powered platform identifies top candidates from our network that match your needs." },
-  { number: 3, title: "Connect & Interview", description: "Easily connect with and interview potential candidates through our platform." },
-  { number: 4, title: "Hire Your Expert", description: "Select the best fit for your team and begin your project quickly." },
-  { number: 5, title: "Onboarding & Support", description: "We assist with the onboarding process and provide ongoing support." },
-];
-
-// How It Works Section (mostly same, uses framer-motion)
-const HowItWorksSection = () => {
-  const textVariants = {
-      hidden: { opacity: 0, y: 20 },
-      visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-
-  const containerVariants = {
-      hidden: { opacity: 0 },
-      visible: {
-          opacity: 1,
-          transition: {
-              staggerChildren: 0.1,
-              delayChildren: 0.3
-          },
-      },
-  };
-
-  const itemVariants = {
-      hidden: { opacity: 0, y: 50 },
-      visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-  };
-
-  return (
-      <section
-          className="py-20 bg-white"
-      >
-          <div className="container mx-auto px-4">
-              <motion.div
-                  className="text-center mb-16"
-                  initial="hidden"
-                  animate="visible"
-                  variants={textVariants}
-              >
-                  <h2 className="text-3xl font-bold text-black dark:text-white mb-4">How It Works</h2>
-                  <p className="text-lg text-black dark:text-gray-400 max-w-3xl mx-auto">
-                      Our streamlined process ensures a fast and efficient hiring experience.
-                  </p>
-              </motion.div>
-
-              <motion.div
-                  className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8"
-                  initial="hidden"
-                  animate="visible"
-                  variants={containerVariants}
-              >
-                  {howItWorksSteps.map((step, index) => {
-                      const isLastOddItem = index === howItWorksSteps.length - 1 && howItWorksSteps.length % 2 !== 0;
-
-                      return (
-                          <motion.div
-                              key={step.number}
-                              className={`
-                                  bg-white p-6 rounded-lg shadow-lg
-                                  border-2 border-transparent
-                                  transition-all duration-300
-                                  hover:border-[#88BF42] hover:shadow-xl
-                                  ${isLastOddItem ? 'md:col-span-2 md:mx-auto w-full md:max-w-md' : ''}
-                              `}
-                              variants={itemVariants}
-                              layout
-                          >
-                              <div className="flex items-start">
-                                  <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-[#88BF42]/10 rounded-full flex items-center justify-center mr-4">
-                                      <span className="text-[#88BF42] font-bold text-xl">{step.number}</span>
-                                  </div>
-                                  <div className="flex-grow">
-                                      <h3 className="text-xl font-semibold text-gray-900 mb-2">{step.title}</h3>
-                                      <p className="text-gray-600">{step.description}</p>
-                                  </div>
-                              </div>
-                          </motion.div>
-                      );
-                  })}
-              </motion.div>
-          </div>
-      </section>
-  )
-};
-
-const successes = [
-  { id: 1, project: "Automated Image Recognition System", result: "Increased processing speed by 300% and reduced manual effort.", client: "Global Retailer" },
-  { id: 2, project: "Predictive Maintenance Model", result: "Reduced equipment downtime by 40% through early anomaly detection.", client: "Industrial Manufacturer" },
-  { id: 3, project: "Natural Language Processing for Customer Support", result: "Improved response time by 50% and increased customer satisfaction scores.", client: "Tech Startup" },
-  { id: 4, project: "Reinforcement Learning for Supply Chain Optimization", result: "Optimized logistics routes, saving 15% on transportation costs.", client: "Logistics Company" },
-];
-
-// Success Stories Section (mostly same, uses framer-motion)
-const SuccessStoriesSection = () => {
-  const textVariants = {
-      hidden: { opacity: 0, y: 20 },
-      visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-
-  const containerVariants = {
-      hidden: { opacity: 0 },
-      visible: {
-          opacity: 1,
-          transition: {
-              staggerChildren: 0.1,
-              delayChildren: 0.3
-          },
-      },
-  };
-
-  const itemVariants = {
-      hidden: { opacity: 0, y: 50 },
-      visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-  };
-
-  const CheckmarkIcon = ({ className = "w-6 h-6" }) => (
-      <svg
-          className={`text-green-500 ${className}`}
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-      >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-      </svg>
-  );
-
-  return (
-      <section
-          className="py-20 bg-white"
-      >
-          <div className="container mx-auto px-4">
-              <motion.div
-                  className="text-center mb-16"
-                  initial="hidden"
-                  animate="visible"
-                  variants={textVariants}
-              >
-                  <h2 className="text-3xl font-bold text-black mb-4">Success Stories</h2>
-                  <p className="text-lg text-black-400 max-w-3xl mx-auto">
-                      See how we've helped businesses achieve their AI goals.
-                  </p>
-              </motion.div>
-
-              <motion.div
-                  className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch"
-                  initial="hidden"
-                  animate="visible"
-                  variants={containerVariants}
-              >
-                  {successes.map((story) => (
-                      <motion.div
-                          key={story.id}
-                          className={`
-                              bg-gray-800 p-6 rounded-lg shadow-lg h-full
-                              transition-all duration-300 ease-in-out
-                              hover:scale-105 hover:shadow-xl
-                              hover:ring-2 hover:ring-[#88bf42]
-                              flex flex-col
-                          `}
-                          variants={itemVariants}
-                          layout
-                      >
-                          <div className="mb-4">
-                              <CheckmarkIcon className="w-10 h-10 text-green-500" />
-                          </div>
-                          <div className="flex-grow">
-                              <p className="text-white font-semibold text-lg mb-2">{story.project}</p>
-                              <p className="text-gray-400 mb-4">{story.result}</p>
-                          </div>
-                          <p className="text-sm text-gray-400 mt-auto">- {story.client}</p>
-                      </motion.div>
-                  ))}
-              </motion.div>
-          </div>
-      </section>
-  );
-};
-
-// CTA Section (uses framer-motion and react-router-dom Link)
+// CTA Section (RE-STYLED - Dark background, white text)
 const CTASection = () => {
-    // Use itemVariants defined at the top level or redefine if specific to this section
-    // Using the top-level ones for consistency
-    const textVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-    };
-    // For the buttons, we can use the same itemVariants or simple motion.div
-    const buttonVariants = {
-         hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.4 } }, // Add a slight delay
-    };
-
+   const controls = useAnimation();
+   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
+   useEffect(() => { if (inView) controls.start('visible'); }, [controls, inView]);
 
     return (
-      <section className="py-20 bg-white relative overflow-hidden">
-        {/* Animated Background Circles (same) */}
-        <div className="absolute inset-0 overflow-hidden">
-          {[...Array(15)].map((_, i) => (
-            <motion.div
-              key={`cta-circle-${i}`}
-              className="absolute rounded-full"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.08, 0.15, 0.08],
-                y: [0, -15, 0]
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                delay: i * 0.2,
-                ease: "easeInOut"
-              }}
-              style={{
-                width: `${Math.random() * 30 + 15}px`,
-                height: `${Math.random() * 30 + 15}px`,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                backgroundColor: i % 2 === 0 ? '#88BF42' : '#0F0326',
-                filter: 'blur(1px)',
-                transform: 'translate(-50%, -50%)'
-              }}
-            />
-          ))}
-        </div>
+      <section ref={ref} className="py-20 bg-[#0F0326] text-white relative overflow-hidden"> {/* Dark background */}
+         {/* No background animation in CTA for this version */}
 
         {/* Content Container */}
-        <div className="container mx-auto px-4 text-center relative z-20">
+        <div className="container mx-auto px-4 text-center relative z-10"> {/* Ensure content is above */}
           <motion.h2
-            variants={textVariants} // Use textVariants
+            variants={sectionTextVariants}
             initial="hidden"
-            animate="visible"
-            className="text-4xl md:text-5xl font-bold mb-6 text-[#0F0326]"
+            animate={controls}
+            className="text-4xl md:text-5xl font-bold mb-6 text-white" // White text
           >
-            Ready to Build Your <span className="text-[#88BF42]">AI Team</span>?
+            Ready to Build Your <span className="text-[#88bf42]">AI Team</span>?
           </motion.h2>
           <motion.p
-            variants={textVariants} // Use textVariants
+            variants={sectionTextVariants}
             initial="hidden"
-            animate="visible"
-            className="text-xl mb-8 max-w-3xl mx-auto text-gray-600"
-            transition={{ duration: 0.6, delay: 0.2 }} // Add slight delay after h2
+            animate={controls}
+            className="text-xl mb-8 max-w-3xl mx-auto text-gray-300" // Lighter gray text
+             transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
           >
             Join forces with world-class AI engineers and accelerate your innovation journey.
           </motion.p>
           <motion.div
-            variants={buttonVariants} // Use buttonVariants or itemVariants
+            variants={containerStaggerVariants}
             initial="hidden"
-            animate="visible"
+            animate={controls}
             className="flex flex-wrap justify-center gap-4"
           >
-            {/* Replace Next/Link with react-router-dom/Link */}
-            <RouterLink to="/contact"> {/* Remove passHref */}
-              <Button className="bg-[#88bf42] hover:bg-[#7aad3a] text-white text-lg px-8 py-3 h-auto rounded-md">
-                Hire AI Engineers
-              </Button>
-            </RouterLink>
-            {/* Replace Next/Link with react-router-dom/Link */}
-            <RouterLink to="/contact"> {/* Remove passHref */}
-              <Button variant="outline" className="border-[#0F0326] text-[#0F0326] hover:bg-[#0F0326] hover:text-white text-lg px-8 py-3 h-auto rounded-md">
-                Schedule a Consultation
-              </Button>
-            </RouterLink>
+            
+            <motion.div variants={itemEntryVariants}>
+                <RouterLink to="/contact">
+                <Button variant="outline" className=" bg-[#88bf42] border-white text-white hover:bg-white hover:text-[#0F0326] text-lg px-8 py-3 h-auto rounded-md shadow-lg"> {/* White border, white text, dark hover */}
+                    Schedule a Consultation
+                </Button>
+                </RouterLink>
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -717,225 +571,246 @@ interface Engineer {
     description: string;
 }
 
-// Main component for the page (uses react-router-dom useNavigate)
+
+// Main component for the page
 const HireEngineers = () => {
-    const [showAll, setShowAll] = useState(false);
-    // Replace Next.js useRouter with react-router-dom useNavigate
+    // State for "Load More" functionality
+    const [visibleEngineersCount, setVisibleEngineersCount] = useState(6); // Start showing 6
+    const ENGINEERS_TO_LOAD = 3; // How many engineers to load per click
+
+
     const navigate = useNavigate();
+    const location = useLocation(); // Get location for scrolling
+
+    // Scroll to top on page load
+    useEffect(() => {
+         window.scrollTo(0, 0);
+    }, [location.pathname]);
 
     const handleHireClick = (engineerTitle: string) => {
-        // Replace router.push with navigate
         navigate(`/contact?role=${encodeURIComponent(engineerTitle)}`);
     };
 
-    // Engineers data (same)
+    // Engineers data (12 engineers)
     const engineers: Engineer[] = [
         {
             title: "NLP Engineer",
-            skills: ["BERT", "Hugging Face", "spaCy", "RAG"],
+            skills: ["BERT", "Hugging Face", "spaCy", "RAG", "LLMs"],
             description: "Expert in natural language processing, specializing in building advanced text analysis systems, chatbots, and language models. Experienced in implementing retrieval-augmented generation (RAG) and fine-tuning large language models for specific use cases."
         },
         {
             title: "Machine Learning Engineer",
-            skills: ["PyTorch", "Scikit-learn", "Docker", "AWS"],
+            skills: ["PyTorch", "Scikit-learn", "Docker", "AWS", "Deployment"],
             description: "Specialists in developing and deploying production-ready ML models. Proficient in building scalable machine learning pipelines, model optimization, and implementing end-to-end ML solutions using cloud infrastructure."
         },
         {
             title: "Data Scientist",
-            skills: ["Python", "TensorFlow", "Statistical Analysis", "SQL"],
+            skills: ["Python", "TensorFlow", "Statistical Analysis", "SQL", "Visualization"],
             description: "Expert in transforming complex data into actionable insights. Combines statistical analysis with machine learning to solve business problems, create predictive models, and develop data-driven solutions for decision making."
         },
         {
             title: "Computer Vision Engineer",
-            skills: ["OpenCV", "TensorFlow", "CUDA", "YOLO"],
+            skills: ["OpenCV", "TensorFlow", "CUDA", "YOLO", "Object Detection"],
             description: "Specialized in developing real-time image and video processing systems. Experienced in object detection, image segmentation, and building computer vision solutions for industrial automation and quality control."
         },
         {
             title: "MLOps Engineer",
-            skills: ["Kubernetes", "CI/CD", "MLflow", "GCP"],
+            skills: ["Kubernetes", "CI/CD", "MLflow", "GCP", "Monitoring"],
             description: "Expert in building and maintaining ML infrastructure and deployment pipelines. Focuses on automating ML workflows, monitoring model performance, and ensuring reliable scaling of AI systems in production environments."
         },
         {
             title: "AI Research Scientist",
-            skills: ["Reinforcement Learning", "JAX", "PyTorch"],
+            skills: ["Reinforcement Learning", "JAX", "PyTorch", "Algorithms"],
             description: "Conducts cutting-edge research in artificial intelligence and machine learning. Specializes in developing novel algorithms, improving existing models, and pushing the boundaries of AI capabilities in reinforcement learning and multi-agent systems."
         },
         {
             title: "Data Engineering Lead",
-            skills: ["Spark", "Kafka", "Airflow", "Snowflake"],
+            skills: ["Spark", "Kafka", "Airflow", "Snowflake", "ETL"],
             description: "Expert in designing and implementing robust data pipelines for AI systems. Specializes in building scalable data architectures, optimizing data workflows, and ensuring efficient data processing for machine learning applications."
         },
         {
             title: "Computer Vision Specialist",
-            skills: ["OpenCV", "Deep Learning", "Image Processing"],
+            skills: ["OpenCV", "Deep Learning", "Image Processing", "Custom Models"],
             description: "Advanced expertise in developing sophisticated computer vision solutions. Specializes in creating custom vision models for specific industry applications, including medical imaging, autonomous systems, and augmented reality."
         },
         {
             title: "AI Ethics Specialist",
-            skills: ["Responsible AI", "Fairness", "Python"],
+            skills: ["Responsible AI", "Fairness", "Python", "Compliance"],
             description: "Focuses on ensuring ethical AI development and deployment. Specializes in developing fair and unbiased AI systems, implementing responsible AI practices, and creating governance frameworks for ethical AI implementation."
-        }
+        },
+       
     ];
 
-    const displayedEngineers = showAll ? engineers : engineers.slice(0, 6);
+    // Display engineers based on visibleEngineersCount
+    const displayedEngineers = engineers.slice(0, visibleEngineersCount);
+    const hasMoreEngineers = visibleEngineersCount < engineers.length;
+
+    const handleLoadMore = () => {
+        setVisibleEngineersCount(prevCount =>
+            Math.min(prevCount + ENGINEERS_TO_LOAD, engineers.length)
+        );
+    };
+
+
+     // Animation setup for Engineers Section (Keep existing logic)
+    const engineersSectionControls = useAnimation(); // Renamed controls for clarity
+    const [engineersSectionRef, engineersSectionInView] = useInView({ triggerOnce: true, threshold: 0.1 }); // Renamed ref/inView
+    useEffect(() => { if (engineersSectionInView) engineersSectionControls.start('visible'); }, [engineersSectionControls, engineersSectionInView]);
+
+    // Hero Section Animation Controls
+    const heroControls = useAnimation();
+    const [heroRef, heroInView] = useInView({ triggerOnce: true, threshold: 0.1 }); // Optional: If you want Hero animation to trigger on scroll
+
+     // Trigger Hero animation immediately on mount (or use auto)
+     useEffect(() => {
+        heroControls.start('visible');
+     }, [heroControls]);
+
+
+    // Define the number of particles for the new animation
+    const numHeroParticles = 100; // Increased number of particles significantly
+
 
     return (
-        <div className="min-h-screen flex flex-col">
+        <div className="min-h-screen flex flex-col bg-gray-100"> {/* Base background changed to light gray */}
             <Navbar />
 
-            {/* Hero Section (uses framer-motion) */}
-            <section className="bg-[#0F0326] flex-col h-[300px] md:h-[400px] min-h-[700px] relative overflow-hidden">
-                {/* Sparkles Animation (same) */}
-                <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    {[...Array(40)].map((_, i) => {
-                        const size = Math.random() * 4 + 2;
-                        const startX = Math.random() * 100;
-                        const startY = Math.random() * 100;
+            {/* Hero Section (Redesigned with Particle Animation) */}
+             <section ref={heroRef} className="pt-32 sm:pt-36 md:pt-40 pb-12 sm:pb-16 md:pb-20 bg-[#0F0326] relative overflow-hidden min-h-[45vh] flex items-center justify-center text-center"> {/* Reduced height slightly */}
+                {/* Particle Background Animation - Made More Visible */}
+                 <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
+                    {[...Array(numHeroParticles)].map((_, i) => {
+                        // Random initial positions slightly outside edges
+                        const initialX = -10 + Math.random() * 120 + '%'; // -10% to 110%
+                        const initialY = -10 + Math.random() * 120 + '%'; // -10% to 110%
+
+                         // Random animation properties
+                         const duration = 15 + Math.random() * 10; // 15-25 seconds (adjusted)
+                         const delay = Math.random() * 5; // 0-5 seconds delay
+                         const size = 2 + Math.random() * 4; // Particle size (2px to 6px - increased)
+                         const opacity = 0.2 + Math.random() * 0.3; // Base opacity (0.2 to 0.5 - increased)
+                         const endX = -10 + Math.random() * 120 + '%';
+                         const endY = -10 + Math.random() * 120 + '%';
+
+
                         return (
                             <motion.div
-                                key={`sparkle-${i}`}
-                                className="absolute rounded-full"
-                                initial={{
-                                    x: `${startX}%`,
-                                    y: `${startY}%`,
-                                    scale: 0,
-                                    opacity: 0
+                                key={`hero-particle-${i}`} // Unique key
+                                className="absolute rounded-full bg-[#88bf42]" // Solid green dots
+                                style={{
+                                    width: `${size}px`,
+                                    height: `${size}px`,
+                                    left: `${initialX}`,
+                                    top: `${initialY}`,
+                                    opacity: opacity, // Base opacity
                                 }}
+                                initial={{ opacity: 0 }} // Fade in initially
                                 animate={{
-                                    y: [`${startY}%`, `${startY - 50}%`, `${startY}%`],
-                                    x: [`${startX}%`, `${startX + (Math.random() - 0.5) * 20}%`, `${startX}%`],
-                                    scale: [0, 1, 0.5, 1, 0],
-                                    opacity: [0, 1, 0.5, 1, 0]
+                                    opacity: [opacity, opacity * 1.5, opacity], // Subtle pulse opacity
+                                     x: [0, Math.random() * 30 - 15, 0], // Subtle horizontal drift (increased)
+                                     y: [0, Math.random() * 30 - 15, 0], // Subtle vertical drift (increased)
                                 }}
                                 transition={{
-                                    duration: 3 + Math.random() * 2,
-                                    repeat: Infinity,
-                                    delay: Math.random() * 2,
-                                    ease: "easeInOut"
-                                }}
-                                style={{
-                                    width: size + "px",
-                                    height: size + "px",
-                                    left: Math.random() * 100 + "%",
-                                    top: Math.random() * 100 + "%",
-                                    backgroundColor: i % 2 === 0 ? '#88BF42' : '#E5E7EB',
-                                    boxShadow: `0 0 ${size * 2}px ${i % 2 === 0 ? '#88BF42' : '#E5E7EB'}`
+                                    duration: duration, // Use random duration
+                                    repeat: Infinity, // Keep animating indefinitely
+                                    ease: "easeInOut", // Smooth animation
+                                    delay: delay, // Use random start delay
                                 }}
                             />
                         );
                     })}
-                </div>
+                 </div>
 
-                {/* Additional floating particles (same) */}
-                <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    {[...Array(20)].map((_, i) => {
-                        const size = Math.random() * 3 + 1;
-                        const startX = Math.random() * 100;
-                        const startY = Math.random() * 100;
-                        return (
-                            <motion.div
-                                key={`particle-${i}`}
-                                className="absolute rounded-full"
-                                initial={{
-                                    x: `${startX}%`,
-                                    y: `${startY}%`,
-                                    scale: 0,
-                                    opacity: 0
-                                }}
-                                animate={{
-                                    x: [`${startX}%`, `${startX + (Math.random() - 0.5) * 30}%`, `${startX}%`],
-                                    y: [`${startY}%`, `${startY + (Math.random() - 0.5) * 30}%`, `${startY}%`],
-                                    scale: [0, 1, 0],
-                                    opacity: [0, 0.3, 0]
-                                }}
-                                transition={{
-                                    duration: 5 + Math.random() * 3,
-                                    repeat: Infinity,
-                                    delay: Math.random() * 2,
-                                    ease: "linear"
-                                }}
-                                style={{
-                                    width: size + "px",
-                                    height: size + "px",
-                                    backgroundColor: i % 2 === 0 ? '#88BF42' : '#E5E7EB',
-                                    filter: 'blur(1px)'
-                                }}
-                            />
-                        );
-                    })}
-                </div>
 
+                {/* Content */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-               
-                     className="relative flex flex-col gap-4 items-center justify-center px-4 text-center h-full"
-  
+                    transition={{ duration: 0.6, delay: 0.6 }}
+                     className="relative z-10 max-w-4xl mx-auto px-4" // Added padding to content
                 >
-                    <div className="text-3xl md:text-5xl font-bold text-white text-center">
-                        AI Engineering <span className='text-[#88BF42]'>Expertise</span>
-                    </div>
-                    <div className="font-extralight text-base md:text-2xl text-neutral-200">
-                        Access top-tier AI engineers and data scientists
-                    </div>
+                    <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 leading-tight"> {/* Adjusted spacing */}
+                        Expert AI <span className='text-[#88BF42]'>Engineering</span> Teams, On Demand
+                    </h1>
+                    <p className="font-light text-xl md:text-2xl text-neutral-300 mb-8"> {/* Added bottom margin */}
+                        Instantly scale your capabilities with vetted, world-class AI and Machine Learning talent.
+                    </p>
+                     {/* Added CTA Buttons to Hero */}
+                    <motion.div
+                         variants={containerStaggerVariants} // Use container stagger for buttons
+                         initial="hidden"
+                         animate="visible" // Ensure buttons animate in after text
+                         transition={{ delay: 1.0 }} // Delay buttons until after text
+                         className="flex flex-wrap justify-center gap-4"
+                    >
+                       <motion.div variants={itemEntryVariants}>
+                            <RouterLink to="/contact">
+                                <Button className="bg-[#88bf42] hover:bg-[#7aad3a] text-white text-lg px-8 py-3 h-auto rounded-md shadow-lg">
+                                    Hire Your AI Team
+                                </Button>
+                            </RouterLink>
+                       </motion.div>
+                       
+                    </motion.div>
                 </motion.div>
             </section>
 
-            {/* Engineers Section (uses framer-motion and react-router-dom useNavigate) */}
-            <section className="py-20 bg-white">
+            {/* Engineers Section */}
+            <section ref={engineersSectionRef} className="py-20 bg-white"> {/* White background */}
                 <div className="container mx-auto px-4">
-                    <motion.div 
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
+                    <motion.div
+                        initial="hidden"
+                        animate={engineersSectionControls}
+                        variants={sectionTextVariants}
                         className="text-center mb-16"
                     >
-                        <h2 className="text-3xl font-bold text-black mb-4">Our AI Engineers</h2>
+                        <h2 className="text-3xl md:text-4xl font-bold text-[#0F0326] mb-4">Specialized Roles</h2>
                         <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                            Specialized expertise for your AI initiatives
+                            Find highly skilled AI engineers tailored to your specific project needs.
                         </p>
                     </motion.div>
 
                     {/* Use AnimatePresence to handle exit animations when engineers are hidden */}
                     <motion.div
-                         layout // Add layout to the parent container for smooth transitions
+                         layout // Added layout for smooth transitions when items are added/removed
                          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+                         initial="hidden"
+                         animate={engineersSectionControls} // Use correct controls
+                         variants={containerStaggerVariants}
                     >
                         <AnimatePresence>
-                            {displayedEngineers.map((engineer, index) => (
+                            {displayedEngineers.map((engineer) => (
                                 <motion.div
-                                    key={engineer.title} // Use a stable key like title
-                                    className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-all duration-300 hover:border-[#88bf42] hover:border-2 group"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: 20 }} // Add exit animation
-                                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                                    layout // Add layout to each item for smooth grid changes
+                                    key={engineer.title} // Using engineer.title as key is more stable
+                                    className="bg-white rounded-lg shadow-md p-6 border border-gray-200 h-full hover:shadow-xl transition-all duration-300 relative flex flex-col group cursor-pointer"
+                                    variants={itemEntryVariants} // Using itemEntryVariants for new items fading/sliding in
+                                    layout // Added layout for smooth transitions
+                                    exit={{ opacity: 0, y: 20, transition: { duration: 0.3 } }} // Keep exit animation
+                                    onClick={() => handleHireClick(engineer.title)}
                                 >
+                                     {/* Bottom border on hover */}
+                                    <div className="absolute inset-x-0 bottom-0 h-1 bg-[#88bf42] origin-bottom scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></div>
+
                                     <div className="flex flex-col h-full">
                                         <div className="flex-1">
-                                            <h4 className="text-xl font-semibold text-gray-900 mb-2 transition-colors">{engineer.title}</h4>
+                                            <h4 className="text-xl font-semibold text-[#0F0326] mb-2 leading-snug">{engineer.title}</h4>
                                             <div className="flex flex-wrap gap-2 mb-3">
                                                 {engineer.skills.map((skill, idx) => (
                                                     <span
                                                         key={idx}
-                                                        className="px-3 py-1 text-sm font-medium rounded-full bg-[#88bf42]/10 text-[#88bf42] border border-[#88bf42]/20"
+                                                        className="px-3 py-1 text-xs font-medium rounded-full bg-gray-200 text-gray-800"
                                                     >
                                                         {skill}
                                                     </span>
                                                 ))}
                                             </div>
-                                            <p className="text-gray-600 mb-4">{engineer.description}</p>
+                                            <p className="text-gray-700 text-base mb-4 line-clamp-3">{engineer.description}</p>
                                         </div>
-                                        <div className="mt-4 pt-4 border-t border-gray-100">
-                                            <Button
-                                                className="w-full bg-[#0F0326] hover:bg-[#0F0326]/80 text-white font-semibold transition-colors duration-300"
-                                                onClick={() => handleHireClick(engineer.title)}
-                                            >
-                                                Hire Now
-                                            </Button>
-                                        </div>
+                                         <div className="mt-auto pt-4 text-right">
+                                             <span className="inline-flex items-center text-[#88bf42] font-semibold text-sm group-hover:underline">
+                                                 Hire Now <ArrowRight className="ml-1 w-4 h-4" />
+                                             </span>
+                                         </div>
                                     </div>
                                 </motion.div>
                             ))}
@@ -943,33 +818,18 @@ const HireEngineers = () => {
                     </motion.div>
 
 
-                    {!showAll && (
-                        <motion.div
-                            className="w-full flex justify-center mt-12"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.3 }}
-                        >
-                            <Button
-                                className="bg-[#88bf42] text-white font-semibold rounded-md hover:bg-[#7aad3a] px-8 py-3 text-lg transition-colors duration-300"
-                                onClick={() => setShowAll(true)}
-                            >
-                                View All Engineers
-                            </Button>
-                        </motion.div>
-                    )}
+       
                 </div>
             </section>
 
-            {/* Other sections remain largely the same, ensuring correct imports */}
 
             {/* Why Hire From Us? Section */}
-            <WhyHireSection />
+            <WhyHireSection reasons={whyHireReasons} />
 
             {/* 3. Roles You Can Hire Section */}
             <RolesSection roles={roles} />
 
-            {/* 4. Hiring Models Section */}
+            {/* 4. Flexible Hiring Models Section */}
             <FlexibleHiringModelsSection />
 
             {/* 5. How It Works Section */}
@@ -981,8 +841,9 @@ const HireEngineers = () => {
             {/* 7. FAQ Section */}
             <FAQSection />
 
-            {/* 7. CTA Section */}
+            {/* 8. CTA Section */}
             <CTASection />
+
 
             <Footer />
 

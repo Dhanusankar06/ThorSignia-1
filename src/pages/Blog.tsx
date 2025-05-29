@@ -12,11 +12,11 @@ import Footer from '@/components/Footer';
 
 export default function BlogPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white flex flex-col">
       <Navbar />
       {/* Hero Section */}
-      <div className="relative w-full">
-  <div className="h-[45vh] max-h-[420px] relative overflow-hidden w-full flex flex-col justify-center items-center px-0 py-12 bg-gradient-to-r from-[#0B0F19] to-[#171E2E]">
+      <div className="relative w-full -mt-[64px]">
+  <div className="h-[45vh] max-h-[420px] relative overflow-hidden w-full flex flex-col justify-center items-center px-0 py-12 bg-gradient-to-r from-[#0B0F19] to-[#171E2E] pt-[64px]">
     {/* Minimal background: SVG grid + floating dots (like AI Services/Case Studies hero) */}
     <div className="absolute inset-0 z-0 overflow-hidden">
       {/* SVG grid pattern overlay */}
@@ -61,14 +61,15 @@ export default function BlogPage() {
     <div className="max-w-4xl text-center z-10 relative">
       {/* Animated Main Heading (matches home) */}
       <TextGenerateEffect
-        words="Insights & Innovation"
+        words="Explore the Future with AI
+"
         className="text-4xl md:text-6xl font-extrabold leading-tight text-white drop-shadow-lg mb-2"
         filter={true}
         duration={0.7}
       />
       {/* Animated Subheading */}
       <TextGenerateEffect
-        words="Explore our latest thoughts on technology, innovation, and digital transformation."
+        words="Ideas. Innovation. Intelligence"
         className="text-lg md:text-xl text-[#88BF42] max-w-2xl mx-auto mt-4 font-medium"
         filter={true}
         duration={1}
