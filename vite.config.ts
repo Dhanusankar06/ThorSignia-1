@@ -3,12 +3,7 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 export default defineConfig({
-  plugins: [
-    react({
-      jsxRuntime: 'automatic',
-      jsxImportSource: 'react'
-    }),
-  ],
+  plugins: [react()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src')
@@ -24,16 +19,7 @@ export default defineConfig({
       },
     }
   },
-  // Support CommonJS modules
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom'],
-    esbuildOptions: {
-      jsx: 'automatic'
-    }
-  },
-  esbuild: {
-    jsx: 'automatic',
-    jsxFactory: 'React.createElement',
-    jsxFragment: 'React.Fragment'
+    include: ['react', 'react-dom', 'react-router-dom']
   }
 });

@@ -72,9 +72,9 @@ const Footer = () => {
             </div>
             {/* Add subtle line/fade below Thor Signia section */}
             <div className="w-full h-px bg-gray-700/40 my-6"></div>
-            <p className="text-gray-400 text-sm mt-4">
+            {/* <p className="text-gray-400 text-sm mt-4">
               © {new Date().getFullYear()} Thor Signia. All rights reserved.
-            </p>
+            </p> */}
           </div>
 
           {/* Right Column CONTAINER: Now acts as a flex container for the next two items */}

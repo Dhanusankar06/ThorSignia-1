@@ -1,12 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-// Note: demovideo.tsx import was likely for the ProductDemoSection.
-// If ProductDemoSection is imported directly, the demovideo import above it is redundant.
-// import demovideo from './demovideo.tsx';
 
-// Adjust the import path for your Button component
-// This assumes your Button component is in src/components/ui/button.jsx or .tsx
 import { Button } from "../components/ui/button";
 import {
   Play,
@@ -29,8 +24,8 @@ import {
   Mic,
   Network,
   Circle,
-  Layers, // Added Layer icon for Enterprise Grade
-  CheckCircle, // Added CheckCircle icon for Smart Solutions
+  Layers,
+  CheckCircle,
   Share2,
   Megaphone,
   ShieldAlert,
@@ -39,19 +34,15 @@ import {
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-// import type { Swiper as SwiperType } from 'swiper'; // If you need SwiperType for strict typing
 
-// !!! IMPORTANT: Import Swiper CSS for it to work correctly !!!
-// You can import them here or globally in your main app file (e.g., App.jsx or main.jsx)
+// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-// import 'swiper/css/autoplay'; // Usually not needed for Autoplay module to work
 
 import { clsx } from 'clsx';
-import '../styles/globals.css'; // Ensure your globals.css contains tailwind directives
-import ProductDemoSection from './demovideo.tsx'; // Assuming this is where your video component is
-
+import '../styles/globals.css';
+import ProductDemoSection from './demovideo.tsx';
 
 // Trusted By Logos Data
 const trustedByLogos = [
@@ -850,298 +841,6 @@ const HomePage = () => {
     </div> {/* End grid */}
   </div> {/* End container */}
 </section>
-
-        {/* Awards & Recognition Section */}
-        <section className="py-12 md:py-16 bg-gray-100">
-  <div className="container mx-auto px-4 relative z-10">
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }} // Added viewport options
-      variants={itemVariants}
-      className="bg-[#0F0326] rounded-lg p-6 md:p-8 shadow-xl border border-gray-700"
-    >
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between relative z-10 gap-6 md:gap-8">
-        {/* Icon & Text Block */}
-        <div className="flex items-start gap-4 flex-grow">
-          <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 bg-[#88BF42]/60 rounded-full flex items-center justify-center border border-[#88BF42]/60">
-            <Trophy className="w-6 h-6 md:w-7 md:h-7 text-white" />
-          </div>
-          {/* Text Content */}
-          <div className="flex-grow">
-  <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
-    Most Innovative AI Company of the Year
-  </h3>
-  <p className="text-gray-300 text-sm md:text-base">
-    We are honored to receive the <span className="font-semibold text-white">World Business Conclave Most Innovative AI Company of the Year Award</span>, recognizing our commitment to cutting-edge technology, real-world impact, and excellence in AI innovation.
-  </p>
-</div>
-
-        </div>
-        {/* Link/Button */}
-        <RouterLink
-          to="/awards"
-          className="inline-flex items-center text-[#88BF42] hover:text-[#7AAD3A] font-semibold transition-colors group border border-[#88BF42]/60 hover:border-[#7AAD3A]/60 px-5 py-2.5 rounded-md flex-shrink-0 self-stretch md:self-auto justify-center md:justify-start"
-        >
-          <span className="mr-2">See Our Recognitions</span>
-          <ArrowRight className="w-4 h-4 transform transition-transform group-hover:translate-x-1" />
-        </RouterLink>
-      </div>
-    </motion.div>
-  </div>
-</section>
-
-
-
-        {/* Industries We Serve Section */}
-        <section className="py-16 md:py-24 bg-white">
-      <div className="container mx-auto px-4">
-        {/* Header Section */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }} // Added viewport options
-          variants={staggerChildren}
-          className="text-center mb-12 md:mb-16"
-        >
-          <motion.div variants={itemVariants} className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 mb-4">
-            <span className="text-[#88BF42] text-sm md:text-base font-semibold">Industries We Serve</span>
-          </motion.div>
-          <motion.h2 variants={itemVariants} className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-3 md:mb-4">
-            Tailored AI Solutions for Your <span className="text-[#88BF42]">Industry</span>
-          </motion.h2>
-          <motion.p variants={itemVariants} className="text-base md:text-lg text-[#696869] max-w-2xl mx-auto">
-            We partner with businesses to implement domain-specific, scalable AI systems that solve real problems—from operational bottlenecks to customer engagement.
-          </motion.p>
-        </motion.div>
-
-        {/* Industries Grid - Modified for Hover Effect */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }} // Added viewport options
-          variants={staggerChildren}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
-        >
-          {[
-            {
-              icon: Database,
-              title: 'Finance & Banking',
-              highlight: 'AI for risk management & fraud prevention',
-              desc: 'Smart automation for fraud detection, financial analysis, and client support.'
-            },
-            {
-              icon: Star,
-              title: 'Healthcare',
-              highlight: 'Streamlined patient & medical operations',
-              desc: 'Appointment scheduling, EHR access, and patient support with AI agents.'
-            },
-            {
-              icon: Bot,
-              title: 'E-commerce',
-              highlight: 'Hyper-personalized customer experiences',
-              desc: 'Automated support, dynamic product suggestions, and seamless service.'
-            },
-            {
-              icon: Eye,
-              title: 'Manufacturing',
-              highlight: 'Optimized quality control & efficiency',
-              desc: 'AI-driven visual inspection and predictive maintenance at scale.'
-            },
-            {
-              icon: Brain,
-              title: 'Education',
-              highlight: 'Smarter engagement & admin automation',
-              desc: 'Voice assistants handle admissions, program queries, and student support.'
-            },
-            {
-              icon: Cpu,
-              title: 'Technology',
-              highlight: 'Scalable support for tech businesses',
-              desc: 'Automated help desks, onboarding flows, and instant customer resolutions.'
-            }
-          ].map((industry, index) => (
-                <motion.div
-                  key={`industry-${index}`}
-                  variants={itemVariants}
-                  // 'group' class added here to allow group-hover utilities on children
-                  className="group rounded-lg p-0 overflow-hidden relative cursor-pointer
-                             bg-gradient-to-br from-white to-[#88BF42]/5
-                             hover:bg-gradient-to-br hover:from-white hover:to-[#88BF42]/10
-                             transition-all duration-300 ease-in-out"
-                >
-                  <div className="flex h-full">
-                    {/* Icon Container - Always visible */}
-                    <div className="flex-shrink-0 w-16 md:w-20 bg-[#88BF42]/10 flex items-start justify-center py-6 md:py-8">
-                        <div className="w-10 h-10 md:w-12 md:h-12 rounded-md flex items-center justify-center">
-                           {/* Icon - Always visible */}
-                           <industry.icon size={32} color="#88BF42" />
-                        </div>
-                    </div>
-                    {/* Text Container */}
-                    <div className="flex-grow p-6 md:p-8">
-                      {/* Title - Always visible */}
-                      <h3 className="text-lg md:text-xl font-bold text-[#0F0326] mb-2 md:mb-3">{industry.title}</h3>
-
-                      {/* Content that appears on hover */}
-                      {/* Use max-h-0 and opacity-0 by default, transition to max-h-96 and opacity-100 on group-hover */}
-                      <div className="max-h-0 opacity-0 overflow-hidden transition-all duration-500 group-hover:max-h-96 group-hover:opacity-100">
-                        {/* Highlight Text - Initially hidden */}
-                        <p className="text-[#88BF42] text-sm md:text-base font-medium mb-2">{industry.highlight}</p>
-                        {/* Description - Initially hidden */}
-                        <p className="text-[#696869] text-sm md:text-base">{industry.desc}</p>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-
-            {/* Button Section */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }} // Added viewport options
-              variants={itemVariants}
-              className="text-center mt-12 md:mt-16"
-            >
-              {/* Make sure Button component and RouterLink are correctly imported/defined */}
-              <Button asChild className="bg-[#88bf42] hover:bg-[#7aad3a] text-white text-base md:text-lg px-6 md:px-8 py-3 h-auto rounded-md">
-                <RouterLink to="/contact">Get Industry-Specific Solutions</RouterLink>
-              </Button>
-            </motion.div>
-          </div>
-        </section>
-
-
-
-        {/* Trusted by Industry Leaders Section */}
-        <section className="py-16 md:py-24 bg-gray-50">
-      <div className="container mx-auto px-4">
-        {/* Header Section */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={staggerChildren}
-          className="text-center mb-12 md:mb-16"
-        >
-          <motion.div variants={itemVariants} className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 mb-4">
-            <span className="text-[#88BF42] text-sm md:text-base font-semibold">Trusted by Industry Leaders</span>
-          </motion.div>
-          <motion.h2 variants={itemVariants} className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-3 md:mb-4">
-            Real Results from <span className="text-[#88BF42]">Real Clients</span>
-          </motion.h2>
-          <motion.p variants={itemVariants} className="text-base md:text-lg text-[#696869] max-w-2xl mx-auto">
-            How Thor Signia's AI systems are transforming operations across sectors.
-          </motion.p>
-        </motion.div>
-
-        {/* Case Studies Section - Changed Layout to Grid */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={staggerChildren} // Stagger the cards in the grid
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" // Responsive grid
-        >
-          {/* Case Study 1: Doctor Dreams */}
-          <motion.div variants={itemVariants} className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col"> {/* Use flex-col to stack image and content */}
-            <div className="w-full h-48 overflow-hidden"> {/* Image container at the top */}
-              <img
-                src="/assets/Doctor-dreams.jpg"
-                alt="Doctor Dreams Office"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="p-6 md:p-8 flex-grow"> {/* Text content below image, flex-grow to fill space */}
-              <div className="mb-4">
-                <span className="text-lg font-medium text-[#88BF42]">Sector: International Medical Studies</span>
-              </div>
-              <h4 className="font-bold text-lg md:text-xl text-[#0F0326] mb-2">Doctor Dreams</h4>
-              {/* CHANGED text-sm to text-lg */}
-              <p className="text-lg text-[#696869] mb-4">Medical Education Consultancy</p>
-
-              <h5 className="font-semibold text-[#0F0326] mb-2">Challenge:</h5>
-              {/* CHANGED text-sm to text-lg */}
-              <p className="text-[#696869] text-lg mb-4">Surging inquiries from students about global medical admissions.</p>
-
-              <h5 className="font-semibold text-[#0F0326] mb-2">Solution:</h5>
-              {/* CHANGED text-sm to text-lg */}
-              <p className="text-[#696869] text-lg">AI agents trained in university data, visa policies, and academic pathways for responsive, 24/7 student engagement.</p>
-            </div>
-          </motion.div>
-
-          {/* Case Study 2: SGF FAB Industries */}
-          <motion.div variants={itemVariants} className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
-            <div className="w-full h-48 overflow-hidden"> {/* Image container at the top */}
-              <img
-                src="/assets/crane-sgf.png"
-                alt="SGF Manufacturing Facility"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="p-6 md:p-8 flex-grow"> {/* Text content below image */}
-                <div className="mb-4">
-                    <span className="text-lg font-medium text-[#88BF42]">Sector: Manufacturing</span>
-                </div>
-                <h4 className="font-bold text-lg md:text-xl text-[#0F0326] mb-2">SGF FAB Industries</h4>
-                 {/* CHANGED text-sm to text-lg */}
-                <p className="text-lg text-[#696869] mb-4">Material Handling Equipment</p>
-
-                <h5 className="font-semibold text-[#0F0326] mb-2">Challenge:</h5>
-                 {/* CHANGED text-sm to text-lg */}
-                <p className="text-[#696869] text-lg mb-4">High rejection rate due to unnoticed product defects.</p>
-
-                <h5 className="font-semibold text-[#0F0326] mb-2">Solution:</h5>
-                 {/* CHANGED text-sm to text-lg */}
-                <p className="text-[#696869] text-lg">Deployed AI vision systems to detect anomalies and automate QC logs.</p>
-            </div>
-          </motion.div>
-
-          {/* Case Study 3: Anthill IQ */}
-          <motion.div variants={itemVariants} className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
-            <div className="w-full h-48 overflow-hidden"> {/* Image container at the top */}
-              <img
-                src="/assets/Anthill.jpg"
-                alt="Anthill IQ Workspace"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="p-6 md:p-8 flex-grow"> {/* Text content below image */}
-                <div className="mb-4">
-                    <span className="text-lg font-medium text-[#88BF42]">Sector: Real Estate / Premium Workspaces</span>
-                </div>
-                <h4 className="font-bold text-lg md:text-xl text-[#0F0326] mb-2">Anthill IQ</h4>
-                 {/* CHANGED text-sm to text-lg */}
-                <p className="text-lg text-[#696869] mb-4">Collaborative Workspace Provider</p>
-
-                <h5 className="font-semibold text-[#0F0326] mb-2">Challenge:</h5>
-                 {/* CHANGED text-sm to text-lg */}
-                <p className="text-[#696869] text-lg mb-4">Manual bookings and delayed inquiry responses.</p>
-
-                <h5 className="font-semibold text-[#0F0326] mb-2">Solution:</h5>
-                 {/* CHANGED text-sm to text-lg */}
-                <p className="text-[#696869] text-lg">AI chat with booking integration and real-time workspace availability.</p>
-            </div>
-          </motion.div>
-           {/* You can add more case studies here following the same structure */}
-        </motion.div>
-
-        {/* Optional Button Section - Kept commented out */}
-        {/* <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={itemVariants}
-          className="text-center mt-12 md:mt-16"
-        >
-           <Button asChild className="bg-[#88bf42] hover:bg-[#7aad3a] text-white text-base md:text-lg px-6 md:px-8 py-3 h-auto rounded-md">
-            <RouterLink to="/case-studies">View All Case Studies</RouterLink>
-          </Button>
-        </motion.div> */}
-      </div>
-    </section>
 
 
        {/* Assuming ProductDemoSection exists and you want to keep it */}
