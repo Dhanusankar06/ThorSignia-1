@@ -37,7 +37,6 @@ import {
   BarChart3
 } from 'lucide-react';
 
-// Import Swiper components and modules
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 // import type { Swiper as SwiperType } from 'swiper'; // If you need SwiperType for strict typing
@@ -105,7 +104,6 @@ const testimonials = [
   }
 ];
 
-// Animation variants
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
   visible: {
@@ -1153,7 +1151,7 @@ const HomePage = () => {
         {/* 8. Testimonials Strip */}
         {/* <section className="py-16 md:py-20 bg-white text-gray-900">
           <div className="container mx-auto px-4">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerChildren} className="text-center mb-12 md:mb-16">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerChildren} className="text-center mb-8 md:mb-10">
               <motion.div variants={itemVariants} className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 mb-4">
                   <span className="text-[#88BF42] text-sm md:text-base font-semibold">Testimonials</span>
                 </motion.div>
@@ -1209,7 +1207,7 @@ const HomePage = () => {
 
         {/* 9. Call-to-Action Section */}
         <motion.section
-          className="py-16 md:py-24 bg-white relative overflow-hidden"
+          className="py-10 md:py- bg-white relative overflow-hidden"
           initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}
           variants={staggerChildren}
         >

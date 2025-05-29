@@ -1,13 +1,16 @@
 // This component should be used within a React Router context (e.g., inside a <BrowserRouter>)
 
+<<<<<<< HEAD
 import React, { useState, useRef, useEffect } from "react";
 // Using React.JSX.IntrinsicElements instead of ComponentPropsWithoutRef
 
 // Import the logo from assets folder
 import logoImage from "../assets/images/thor-signia-logo.png"; // Make sure this path is correct relative to this component
 
+=======
+import React, { useState, useRef, useEffect } from "react"; // Standard React import
+>>>>>>> 4bfab1f23842148725e9de3950495af86678b4fe
 import { Link, useLocation } from "react-router-dom";
-
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
@@ -318,12 +321,10 @@ const navItems: NavItem[] = [
     href: "/contact#top",
     dropdown: false,
   },
-
 ];
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // Use one state for both desktop and mobile dropdowns, managed by click logic
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const location = useLocation();
   const pathname = location.pathname;
@@ -335,7 +336,6 @@ export default function Navbar() {
   // Effect to close desktop dropdown on outside click
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
-      // Only close desktop dropdown if it's open and click is outside the ref element
       if (window.innerWidth >= 768 && desktopNavRef.current && !desktopNavRef.current.contains(event.target as Node) && openDropdown !== null) {
         setOpenDropdown(null);
       }
@@ -346,50 +346,44 @@ export default function Navbar() {
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [openDropdown]); // Only re-run if openDropdown changes
+  }, [openDropdown]);
 
-  // Effect to handle scrolling on route change (including hash changes)
-   useEffect(() => {
-        // Close mobile menu and desktop dropdown on route change
-        setIsMenuOpen(false);
-        setOpenDropdown(null); // Close any open dropdown
+  // Effect to handle scrolling on route change
+  useEffect(() => {
+    setIsMenuOpen(false);
+    setOpenDropdown(null);
 
-        // Scroll to element if hash exists
-        if (currentHash) {
-             // Find the element by ID (remove the '#' from the hash)
-             const targetElement = document.getElementById(currentHash.substring(1));
-             if (targetElement) {
-                 // Use requestAnimationFrame for smoother scroll and to wait for potential layout shifts
-                 requestAnimationFrame(() => {
-                     targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                 });
-             }
-        } else {
-             // Scroll to top on pathname change if no hash is present
-             // Only scroll to top if the pathname actually changed
-             // Check if we navigated, not just initial load
-             if (location.key !== 'default') {
-                 window.scrollTo({ top: 0, behavior: 'smooth' });
-             } else {
-                 // On initial load with no hash, ensure it's at the top instantly
-                  window.scrollTo({ top: 0, behavior: 'instant' });
-             }
-        }
-   }, [location]); // Re-run effect whenever the location object changes
+    if (currentHash) {
+      const targetElement = document.getElementById(currentHash.substring(1));
+      if (targetElement) {
+        requestAnimationFrame(() => {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+    } else {
+      if (location.key !== 'default') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+    }
+  }, [location, currentHash]);
 
+  // Determine if the dropdown trigger text should be highlighted (active)
+  const isDropdownTriggerActiveByUrl = (item: NavItem) => {
+    if (!item.dropdown) return false;
 
-   // Determine if the dropdown trigger text should be highlighted (active)
-   const isDropdownTriggerActiveByUrl = (item: NavItem) => {
-      if (!item.dropdown) return false; // Only applies to dropdowns
+    if (item.href !== '/') {
+      const currentFullUrl = pathname + (currentHash || '');
+      const subItemMatch = item.items?.some(subItem => subItem.href === currentFullUrl);
+      return pathname === item.href || !!subItemMatch;
+    }
 
-      // Check if the current path *starts* with the base href (e.g., /services for /services#...)
-       // and the base href is not just '/' (home page)
-       if (item.href !== '/') {
-           // Check if the current pathname matches the item's base href exactly (e.g., /services)
-           // OR if any sub-item href (which includes hash) matches the current full URL.
-           const currentFullUrl = pathname + (currentHash || '');
-            const subItemMatch = item.items?.some(subItem => subItem.href === currentFullUrl);
+    if (item.href === '/' && pathname === '/') return true;
+    return false;
+  };
 
+<<<<<<< HEAD
             // Also check if the current pathname is a direct child path (e.g., /services/...)
             // This handles cases where the base href is just the section like /services
             const isBasePathOrChild = pathname.startsWith(item.href) && (pathname.length === item.href.length || pathname[item.href.length] === '/');
@@ -411,19 +405,22 @@ export default function Navbar() {
    };
 
   // Handle clicks on ANY navigation link originating from the menu/dropdowns
+=======
+  const toggleDropdown = (itemTitle: string) => {
+    setOpenDropdown(openDropdown === itemTitle ? null : itemTitle);
+  };
+
+>>>>>>> 4bfab1f23842148725e9de3950495af86678b4fe
   const handleNavLinkClick = () => {
-      // Close the desktop dropdown
-      setOpenDropdown(null);
-      // Close the mobile menu
-      setIsMenuOpen(false);
-      // Note: The useEffect listening to location handles the scrolling
+    setOpenDropdown(null);
+    setIsMenuOpen(false);
   };
 
   // Function to determine if a mobile link is active based on URL
   const isMobileLinkActive = (href: string) => {
     const currentFullUrl = pathname + (currentHash || '');
-    // For exact matches (including hash)
     if (currentFullUrl === href) return true;
+<<<<<<< HEAD
     // For base path matches without hash (e.g., /services matches /services#something)
     // This check is simplified, considering main links might have hashes.
     // A more robust check could see if pathname starts with the href's path part.
@@ -434,11 +431,16 @@ export default function Navbar() {
     // Special case for home page
     if (href === '/' && pathname === '/' && currentHash === '') return true;
 
+=======
+    if (href !== '/' && pathname === href && href.indexOf('#') === -1) return true;
+    if (href === '/' && pathname === '/') return true;
+>>>>>>> 4bfab1f23842148725e9de3950495af86678b4fe
     return false;
   };
 
 
   return (
+<<<<<<< HEAD
     // Background is solid white with border-b
     <header className="sticky top-0 z-50 w-full border-b bg-white">
       {/* Adjusted header height: md:h-24 for desktop, h-28 for mobile */}
@@ -462,12 +464,36 @@ export default function Navbar() {
           {navItems.map((item) => (
             // Added flex-shrink-0 to prevent items from squeezing too much
             <div key={item.title} className="relative group h-full flex items-center flex-shrink-0">
+=======
+    <header className="sticky top-0 left-0 w-full z-50 bg-white border-b">
+      <div className="container mx-auto px-2 md:px-4">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo - positioned first with fixed width */}
+          <div className="w-32 md:w-40 lg:w-44 flex-shrink-0 mr-2 md:mr-4 lg:mr-6">
+            <Link to="/" onClick={handleNavLinkClick}>
+              <img 
+                src="/thor-signia-logo.png" 
+                alt="Thor Signia Logo" 
+                className="h-25 w-auto" 
+              />
+            </Link>
+          </div>
+
+          {/* Desktop Navigation - positioned after logo */}
+          <div className="hidden md:flex space-x-1 lg:space-x-2 xl:space-x-3 flex-1 justify-center" ref={desktopNavRef}>
+            {navItems.map((item) => (
+            <div key={item.title} className="relative group h-full flex items-center">
+>>>>>>> 4bfab1f23842148725e9de3950495af86678b4fe
               {item.dropdown ? (
                 // Desktop Custom dropdown trigger (button)
                 <button
                   onClick={() => toggleDropdown(item.title)}
                   className={cn(
+<<<<<<< HEAD
                     "md:text-base font-bold transition-colors h-full flex items-center px-2 whitespace-nowrap", // md:text-base, px-2
+=======
+                    "text-xs sm:text-sm md:text-base lg:text-lg font-medium transition-colors h-full flex items-center px-1 md:px-2 whitespace-nowrap", 
+>>>>>>> 4bfab1f23842148725e9de3950495af86678b4fe
                     "hover:text-[#88bf42]",
                     // Active state based on URL match or if the dropdown is open
                     isDropdownTriggerActiveByUrl(item) || openDropdown === item.title ? "text-[#88bf42] border-b-2 border-[#88bf42]" : "text-foreground border-b-2 border-transparent",
@@ -476,8 +502,13 @@ export default function Navbar() {
                   aria-haspopup="menu"
                   aria-expanded={openDropdown === item.title}
                 >
+<<<<<<< HEAD
                    {/* Text style reflects URL activity or default */}
                    <span className={isDropdownTriggerActiveByUrl(item) || openDropdown === item.title ? "text-[#88bf42]" : "text-foreground"}>
+=======
+                   {/* Text style now only reflects URL activity or default */}
+                   <span className={isDropdownTriggerActiveByUrl(item) ? "text-[#88bf42]" : "text-foreground"}> 
+>>>>>>> 4bfab1f23842148725e9de3950495af86678b4fe
                        {item.title}
                    </span>
                    <ChevronDown className={cn(
@@ -492,11 +523,16 @@ export default function Navbar() {
                 <Link
                   to={item.href}
                   className={cn(
+<<<<<<< HEAD
                     "md:text-base font-bold transition-colors hover:text-[#88bf42] h-full flex items-center px-2 whitespace-nowrap", // md:text-base, px-2
                     // Handle /home#top vs /
                     (item.href === '/' && pathname === '/' && currentHash === '') ? "text-[#88bf42] border-b-2 border-[#88bf42]" : // Exact home match
                     (item.href !== '/' && pathname === item.href && currentHash === '') ? "text-[#88bf42] border-b-2 border-[#88bf42]" : // Exact non-hash match
                     "text-foreground border-b-2 border-transparent",
+=======
+                    "text-xs sm:text-sm md:text-base lg:text-lg font-medium transition-colors hover:text-[#88bf42] h-full flex items-center px-1 md:px-2 whitespace-nowrap", 
+                    pathname === item.href && currentHash === '' ? "text-[#88bf42] border-b-2 border-[#88bf42]" : "text-foreground border-b-2 border-transparent",
+>>>>>>> 4bfab1f23842148725e9de3950495af86678b4fe
                      "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   )}
                    onClick={handleNavLinkClick} // Close mobile menu if somehow open
@@ -509,9 +545,15 @@ export default function Navbar() {
               {item.dropdown && openDropdown === item.title && item.items && ( // Ensure items exist
                 <div
                   className={cn(
+<<<<<<< HEAD
                     "absolute top-full left-1/2 -translate-x-1/2 mt-0", // Center the dropdown horizontally
                     "w-[700px] max-w-[calc(100vw-32px)]", // Reduced width from 800px to 700px, kept max-width
                     "bg-background border rounded-md shadow-lg p-6", // Increased padding
+=======
+                    "absolute top-full left-0 mt-0",
+                    "w-[600px] max-w-[calc(100vw-42px)]", // Increased width, added max-width for small viewports
+                    "bg-background border rounded-md shadow-lg p-4", // Added more padding
+>>>>>>> 4bfab1f23842148725e9de3950495af86678b4fe
                     "z-50 animate-in slide-in-from-top-1 fade-in-0",
                     "flex gap-8" // Increased gap between columns
                   )}
@@ -542,7 +584,11 @@ export default function Navbar() {
                               />
                           )}
                         {/* Title */}
+<<<<<<< HEAD
                         <div className="text-xl font-semibold text-foreground leading-tight mb-2">{item.title} Overview</div>
+=======
+                        <div className="text-lg md:text-xl font-semibold text-foreground leading-tight mb-1">{item.title} Overview</div> {/* Added Overview */}
+>>>>>>> 4bfab1f23842148725e9de3950495af86678b4fe
                         {/* Description */}
                          {item.mainDescription && (
                              <p className="text-sm text-muted-foreground leading-snug">{item.mainDescription}</p>
@@ -561,6 +607,7 @@ export default function Navbar() {
                           const currentFullUrl = pathname + (currentHash || '');
                           const isSubItemActive = currentFullUrl === subItem.href;
 
+<<<<<<< HEAD
                          return (
                            <li key={subItem.title}>
                              <Link
@@ -584,6 +631,30 @@ export default function Navbar() {
                              </Link>
                            </li>
                          );
+=======
+                          return (
+                            <li key={subItem.title}>
+                              <Link
+                                to={subItem.href}
+                                onClick={handleNavLinkClick} // Close dropdown and mobile menu on click
+                                className={cn(
+                                  "flex items-start gap-2 rounded-sm px-3 py-2 text-sm md:text-base outline-none transition-colors",
+                                  "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                                   isSubItemActive ? "text-[#88bf42] font-semibold" : "text-foreground" // Active state for sub-items
+                                )}
+                                 role="menuitem" // ARIA role
+                              >
+                                {hasValidIcon && (
+                                   <IconComponent
+                                      name={subItemIconName} // Use IconName type directly
+                                      className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-1" // Vertically align icon
+                                    />
+                                )}
+                                <span className="leading-snug">{subItem.title}</span> {/* Adjusted leading */}
+                              </Link>
+                            </li>
+                          );
+>>>>>>> 4bfab1f23842148725e9de3950495af86678b4fe
                        })}
                      </ul>
                   </div>
@@ -593,6 +664,7 @@ export default function Navbar() {
           ))}
         </div>
 
+<<<<<<< HEAD
         {/* Mobile Navigation Toggle - Using inline SVG with explicit size */}
         <div className="md:hidden">
           <Button
@@ -637,15 +709,34 @@ export default function Navbar() {
                 <line x1="3" y1="18" x2="21" y2="18"></line>
               </svg>
             )}
+=======
+        {/* Mobile Navigation Toggle */}
+        <div className="md:hidden ml-auto pl-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-foreground hover:text-[#88bf42]" 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle Menu"
+          >
+            {isMenuOpen ? <X className="h-12 w-12" /> : <Menu className="h-12 w-12" />}
+>>>>>>> 4bfab1f23842148725e9de3950495af86678b4fe
           </Button>
         </div>
       </div>
 
+<<<<<<< HEAD
       {/* Mobile Navigation Menu - Text color is text-foreground for inactive items */}
       {/* Height calc(100vh - mobile header height h-28 = 112px) */}
       {isMenuOpen && (
         <div className="container pb-4 md:hidden h-[calc(100vh-112px)] overflow-y-auto"> {/* Height calc */}
           <nav className="flex flex-col space-y-4 mt-4"> {/* Spacing */}
+=======
+      {/* Mobile Navigation Menu */}
+      {isMenuOpen && (
+        <div className="container pb-4 md:hidden h-[calc(100vh-64px)] overflow-y-auto"> 
+          <nav className="flex flex-col space-y-4 mt-4">
+>>>>>>> 4bfab1f23842148725e9de3950495af86678b4fe
             {navItems.map((item) => (
               <div key={item.title}>
                 {/* Mobile links and dropdowns */}
@@ -654,6 +745,7 @@ export default function Navbar() {
                   <Link
                     to={item.href}
                     className={cn(
+<<<<<<< HEAD
                       "text-lg font-medium block py-2", // text-lg, py-2
                        // Default text-foreground, active is bold text-foreground, hover is green
                        "text-foreground",
@@ -661,6 +753,14 @@ export default function Navbar() {
                       "hover:text-[#88bf42]"
                     )}
                     onClick={handleNavLinkClick} // Close menu on click
+=======
+                      "text-lg sm:text-xl font-medium block py-2", 
+                      "text-foreground",
+                      isMobileLinkActive(item.href) && "font-bold",
+                      "hover:text-[#88bf42]"
+                    )}
+                    onClick={handleNavLinkClick}
+>>>>>>> 4bfab1f23842148725e9de3950495af86678b4fe
                   >
                     {item.title}
                   </Link>
@@ -670,12 +770,20 @@ export default function Navbar() {
                      <button
                         onClick={() => toggleDropdown(item.title)}
                         className={cn(
+<<<<<<< HEAD
                           "text-lg font-medium w-full text-left py-2", // text-lg, py-2
                           "flex justify-between items-center", // Alignment
                           // Default text-foreground, active is bold text-foreground
                            "text-foreground",
                           isDropdownTriggerActiveByUrl(item) && "font-bold",
                            "hover:text-foreground" // Keep hover subtle on trigger
+=======
+                          "text-lg sm:text-xl font-medium w-full text-left py-2",
+                          "flex justify-between items-center",
+                          "text-foreground",
+                          isDropdownTriggerActiveByUrl(item) && "font-bold",
+                          "hover:text-foreground"
+>>>>>>> 4bfab1f23842148725e9de3950495af86678b4fe
                         )}
                          aria-expanded={openDropdown === item.title}
                      >
@@ -689,15 +797,23 @@ export default function Navbar() {
 
                     {/* Mobile Dropdown Content */}
                     {item.items && openDropdown === item.title && (
-                      <div className="mt-2 ml-4 flex flex-col space-y-2"> {/* Indented sub-items */}
+                      <div className="mt-2 ml-4 flex flex-col space-y-2">
                         {/* Main Link for Mobile Dropdown Section */}
                          <Link
+<<<<<<< HEAD
                             to={item.href} // Link to main page
                             onClick={handleNavLinkClick} // Close menu on click
                             className={cn(
                               "text-base font-semibold py-1", // text-base, py-1, font-semibold
                                // Default text-foreground, active is bold text-foreground, hover is green
                                "text-foreground", // text-foreground
+=======
+                            to={item.href}
+                            onClick={handleNavLinkClick}
+                            className={cn(
+                              "text-base sm:text-lg font-semibold py-1",
+                              "text-foreground",
+>>>>>>> 4bfab1f23842148725e9de3950495af86678b4fe
                               isMobileLinkActive(item.href) && "font-bold",
                               "hover:text-[#88bf42]",
                               "flex items-center gap-2"
@@ -707,11 +823,19 @@ export default function Navbar() {
                                {item.mainIcon && typeof iconMap[item.mainIcon] !== 'undefined' && (
                                   <IconComponent
                                      name={item.mainIcon}
+<<<<<<< HEAD
                                      className="h-4 w-4 text-muted-foreground" // Small gray icon
+=======
+                                     className="h-4 w-4 text-muted-foreground"
+>>>>>>> 4bfab1f23842148725e9de3950495af86678b4fe
                                    />
                                )}
-                               <span>{item.title} Overview</span> {/* Added Overview */}
+                               <span>{item.title} Overview</span>
                          </Link>
+<<<<<<< HEAD
+=======
+                        
+>>>>>>> 4bfab1f23842148725e9de3950495af86678b4fe
                         {/* Sub-Items for Mobile Dropdown */}
                         {item.items.map((subItem) => {
                             const subItemIconName = subItem.icon as IconName | undefined;
@@ -725,6 +849,7 @@ export default function Navbar() {
                               key={subItem.title}
                               to={subItem.href}
                               className={cn(
+<<<<<<< HEAD
                                 "text-base py-1", // text-base, py-1
                                  // Default text-foreground, active is bold text-foreground, hover is green
                                 isMobileLinkActive(subItem.href) ? "text-foreground font-semibold" : "text-foreground", // text-foreground
@@ -732,11 +857,23 @@ export default function Navbar() {
                                 "flex items-center gap-2"
                               )}
                               onClick={handleNavLinkClick} // Close menu on click
+=======
+                                "text-base sm:text-lg py-1",
+                                isMobileLinkActive(subItem.href) ? "text-foreground font-semibold" : "text-muted-foreground",
+                                "hover:text-[#88bf42]",
+                                "flex items-center gap-2"
+                              )}
+                              onClick={handleNavLinkClick}
+>>>>>>> 4bfab1f23842148725e9de3950495af86678b4fe
                             >
                               {hasValidIcon && (
                                 <IconComponent
                                   name={subItemIconName}
+<<<<<<< HEAD
                                   className={cn("h-5 w-5 flex-shrink-0 text-muted-foreground")} // Icon size and color (gray)
+=======
+                                  className={cn("h-5 w-5 flex-shrink-0 text-muted-foreground")}
+>>>>>>> 4bfab1f23842148725e9de3950495af86678b4fe
                                 />
                               )}
                               <span>{subItem.title}</span>
@@ -752,6 +889,7 @@ export default function Navbar() {
           </nav>
         </div>
       )}
+      </div>
     </header>
   );
 }
