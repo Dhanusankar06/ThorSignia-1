@@ -1,11 +1,54 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 // Import icons needed - Mail, Phone, MessageCircle, Globe for Contact/Quick Links
-// We are embedding SVGs for social icons, so they are not imported here
 import { Mail, Phone, MessageCircle, Globe } from 'lucide-react';
 // Import the logo from assets folder - Ensure this path is correct relative to Footer.jsx
 import logoImage from '../assets/images/thor-signia-logo.png';
 
+// Define social media icons with proper brand colors and simplified paths
+const socialIcons = {
+  facebook: {
+    ariaLabel: "Facebook",
+    url: "https://www.facebook.com/thorsignia/",
+    svg: (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" fill="#1877F2">
+        {/* Font Awesome Facebook F */}
+        <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
+      </svg>
+    ),
+  },
+  twitter: {
+    ariaLabel: "X (Twitter)",
+    url: "https://x.com/Thorsignia",
+    svg: (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+        {/* X logo */}
+        <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" fill="#FFFFFF"/>
+      </svg>
+    ),
+  },
+  instagram: {
+    ariaLabel: "Instagram",
+    url: "https://www.instagram.com/thorsignia/",
+    svg: (
+      // Instagram uses a gradient background with white icon
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="white">
+        {/* Font Awesome Instagram */}
+        <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
+      </svg>
+    ),
+  },
+  linkedin: {
+    ariaLabel: "LinkedIn",
+    url: "https://www.linkedin.com/company/thorsignia/?originalSubdomain=in",
+    svg: (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="#0A66C2">
+        {/* Font Awesome LinkedIn */}
+        <path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/>
+      </svg>
+    ),
+  },
+};
 
 const Footer = () => {
   return (
@@ -36,50 +79,51 @@ const Footer = () => {
             <p className="text-gray-300 mb-8 max-w-md text-base italic"> {/* Increased text size slightly */}
             "Empowers enterprises to achieve unprecedented growth through the power of AI and innovation."
             </p>
-            <div className="flex space-x-4"> {/* Increased space between social icons */}
-              {/* Social Icons - Embedded SVG with Hover Effects */}
-              {/* Facebook Social Icon - Embedded SVG (Kept the same) */}
-              <a href="https://www.facebook.com/thorsignia/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="group w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors text-white hover:text-[#88bf42]">
-                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 transition duration-200 group-hover:w-6 group-hover:h-6">
-                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                 </svg>
+            {/* Social media icons row */}
+            <div className="flex space-x-6 items-center mt-2"> {/* Added margin-top for better spacing */}
+              {/* Facebook */}
+              <a href={socialIcons.facebook.url} target="_blank" rel="noopener noreferrer" aria-label={socialIcons.facebook.ariaLabel} className="group hover:scale-110 transition-transform">
+                <div className="w-6 h-6 flex items-center justify-center"> {/* Increased size to 24px */}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" fill="#1877F2" className="w-6 h-6">
+                    {/* Font Awesome Facebook F */}
+                    <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
+                  </svg>
+                </div>
               </a>
-               {/* Twitter Social Icon - EMBEDDED CORRECTED SVG */}
-              <a href="https://x.com/Thorsignia" target="_blank" rel="noopener noreferrer" aria-label="Twitter (X)" className="group w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors text-white hover:text-[#88bf42]">
-                 {/* Embedded CORRECTED X/Twitter SVG */}
-                 {/* Uses stroke="currentColor" to inherit color */}
-                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 transition duration-200 group-hover:w-6 group-hover:h-6">
-                    <path d="M18 6 6 18"/>
-                    <path d="m6 6 12 12"/>
-                 </svg>
+
+              {/* Twitter/X */}
+              <a href={socialIcons.twitter.url} target="_blank" rel="noopener noreferrer" aria-label={socialIcons.twitter.ariaLabel} className="group hover:scale-110 transition-transform">
+                <div className="w-6 h-6 flex items-center justify-center"> {/* Increased size to 24px */}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#FFFFFF" className="w-6 h-6">
+                    {/* X logo */}
+                    <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/>
+                  </svg>
+                </div>
               </a>
-              {/* Instagram Social Icon - Embedded SVG (Kept the same) */}
-              <a href="https://www.instagram.com/thorsignia/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="group w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors text-white hover:text-[#88bf42]">
-                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 transition duration-200 group-hover:w-6 group-hover:h-6">
-                     <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-                     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                     <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
-                 </svg>
+
+              {/* Instagram */}
+              <a href={socialIcons.instagram.url} target="_blank" rel="noopener noreferrer" aria-label={socialIcons.instagram.ariaLabel} className="group hover:scale-110 transition-transform">
+                <div className="w-6 h-6 rounded-sm flex items-center justify-center" style={{ background: 'linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)' }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="white" className="w-5 h-5"> {/* Slightly smaller to account for gradient background */}
+                    {/* Instagram icon */}
+                    <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
+                  </svg>
+                </div>
               </a>
-               {/* LinkedIn Social Icon - Embedded SVG (Kept the same) */}
-              <a href="https://www.linkedin.com/company/thorsignia/?originalSubdomain=in" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="group w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors text-white hover:text-[#88bf42]">
-                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 transition duration-200 group-hover:w-6 group-hover:h-6">
-                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2a2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                     <rect width="4" height="12" x="2" y="9"></rect>
-                     <circle cx="4" cy="4" r="2"></circle>
-                 </svg>
+
+              {/* LinkedIn */}
+              <a href={socialIcons.linkedin.url} target="_blank" rel="noopener noreferrer" aria-label={socialIcons.linkedin.ariaLabel} className="group hover:scale-110 transition-transform">
+                <div className="w-6 h-6 flex items-center justify-center"> {/* Increased size to 24px */}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="#0A66C2" className="w-6 h-6">
+                    {/* LinkedIn icon */}
+                    <path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/>
+                  </svg>
+                </div>
               </a>
             </div>
-            {/* Add subtle line/fade below Thor Signia section */}
-            <div className="w-full h-px bg-gray-700/40 my-6"></div>
-            <p className="text-gray-400 text-sm mt-4">
-              © {new Date().getFullYear()} Thor Signia. All rights reserved.
-            </p>
           </div>
 
           {/* Right Column CONTAINER: Now acts as a flex container for the next two items */}
-          {/* Use flex-col on mobile, flex-row on md+ */}
-          {/* Add gap-x for horizontal spacing on md+ */}
           <div className="md:col-span-1 lg:col-span-1 flex flex-col md:flex-row md:gap-12">
 
             {/* Quick Links SECTION: Becomes a flex item, takes equal space on md+ */}
@@ -118,7 +162,7 @@ const Footer = () => {
                  </li>
                 <li>
                    <Link to="/awards#top" className="text-gray-300 hover:text-[#88bf42] transition-colors">Awards</Link>
-                </li>
+                 </li>
                 <li>
                   <Link to="/blog#top" className="text-gray-300 hover:text-[#88bf42] transition-colors">Blog</Link>
                 </li>
@@ -158,8 +202,12 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* Single full-width divider line below the grid */}
+        <div className="w-full h-px bg-gray-700/40 my-6"></div>
+
+
         {/* Bottom Row: Copyright & Policies (kept layout, adjusted styling) */}
-        <div className="border-t border-gray-800 pt-8 mt-8"> {/* Added top margin */}
+        <div className="pt-8 mt-8"> {/* Added top margin */}
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-500 text-sm mb-4 md:mb-0"> {/* Changed copyright color to a slightly darker gray */}
               © {new Date().getFullYear()} Thor Signia. All rights reserved.
@@ -169,10 +217,9 @@ const Footer = () => {
               <Link to="/TermsAndConditions#top" className="text-gray-500 hover:text-white text-sm transition-colors font-medium">Terms and Conditions</Link>
               <Link to="/RefundPolicy#top" className="text-gray-500 hover:text-white text-sm transition-colors font-medium">Refund Policy</Link>
             </div>
+
           </div>
         </div>
-        {/* Single full-width divider line below the grid */}
-        <div className="w-full h-px bg-gray-700/40 my-6"></div>
       </div>
     </footer>
   );

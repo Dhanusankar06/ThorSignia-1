@@ -35,7 +35,7 @@ export default function OurPurpose() {
                  </motion.h2>
           {/* Paragraph - No extra margin needed as the above H2 has mb-4 */}
           <p className="text-base md:text-lg text-[#696869] max-w-2xl text-center mx-auto">
-          : Driving transformative AI solutions for enterprise excellence
+           Driving transformative AI solutions for enterprise excellence
           </p>
         </div>
         <MovingBorderDemo />

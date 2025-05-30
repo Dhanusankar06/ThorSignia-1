@@ -8,6 +8,7 @@ interface ServiceCardProps {
   icon: string;
   delay: number;
   link: string;
+  featured?: boolean;
 }
 
 const services = [
@@ -15,47 +16,54 @@ const services = [
     title: "Vulnerability Assessment & Pen Testing",
     description: "Identify and address security weaknesses before they can be exploited. Our team conducts thorough assessments and simulated attacks to find vulnerabilities.",
     icon: "/icons/vulnerability.svg",
-    link: "/penetration-testing"
+    link: "/penetration-testing",
+    featured: false
   },
   {
     title: "Cloud Security Assessments",
     description: "Evaluate and enhance the security of your cloud infrastructure. We ensure your cloud environment adheres to best practices and compliance requirements.",
     icon: "/icons/cloud-security.svg",
-    link: "/cloud-security"
+    link: "/cloud-security",
+    featured: false
   },
   {
     title: "Offensive Security",
     description: "Proactively identify vulnerabilities through ethical hacking techniques. Our offensive security approach helps strengthen your overall security posture.",
     icon: "/icons/offensive-security.svg",
-    link: "/offensive-security"
+    link: "/offensive-security",
+    featured: false
   },
   {
     title: "Red Teaming Services",
     description: "Simulate sophisticated cyber attacks to test your defense capabilities. Our red team identifies security gaps through real-world attack scenarios.",
     icon: "/icons/red-team.svg",
-    link: "/red-teaming"
+    link: "/red-teaming",
+    featured: false
   },
   {
     title: "IOT/OT Security",
     description: "Protect your connected devices and operational technology. We secure your IoT ecosystem against emerging threats unique to connected systems.",
     icon: "/icons/iot-security.svg",
-    link: "/iot-security"
+    link: "/iot-security",
+    featured: false
   },
   {
     title: "vCISO",
     description: "Access expert security leadership without the full-time cost. Our virtual CISO services provide strategic security guidance tailored to your organization.",
     icon: "/icons/vciso.svg",
-    link: "/vciso-services"
+    link: "/vciso-services",
+    featured: false
   },
   {
     title: "Training & Awareness",
     description: "Empower your team with cybersecurity knowledge. Our training programs build security awareness and prepare your staff to recognize and respond to threats.",
     icon: "/icons/training.svg",
-    link: "/securitytraining"
+    link: "/securitytraining",
+    featured: true
   }
 ];
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, icon, delay, link }) => {
+const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, icon, delay, link, featured = false }) => {
   return (
     <Link to={link}>
       <motion.div
@@ -63,7 +71,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, icon, del
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: delay * 0.1 }}
-        className="bg-white rounded-xl overflow-hidden group cursor-pointer h-full flex flex-col border border-gray-200 hover:border-[#88bf42]/50 hover:shadow-xl transition-all duration-300"
+        className={`bg-white rounded-xl overflow-hidden group cursor-pointer h-full flex flex-col border ${featured ? ' shadow-lg scale-105' : 'border-gray-200'} hover:border-[#88bf42]/50  transition-all duration-300`}
       >
         <div className="p-5 sm:p-6 lg:p-8 flex flex-col h-full">
           <div className="mb-5 sm:mb-6">
@@ -108,8 +116,9 @@ const ServiceCards: React.FC = () => {
           </p>
         </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {services.map((service, index) => (
+        {/* First row of services */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8">
+          {services.slice(0, 6).map((service, index) => (
             <ServiceCard 
               key={index}
               title={service.title}
@@ -117,7 +126,24 @@ const ServiceCards: React.FC = () => {
               icon={service.icon}
               delay={index}
               link={service.link}
+              featured={service.featured}
             />
+          ))}
+        </div>
+        
+        {/* Featured service in the center */}
+        <div className="flex justify-center">
+          {services.filter(service => service.featured).map((service, index) => (
+            <div key={index} className="max-w-md">
+              <ServiceCard 
+                title={service.title}
+                description={service.description}
+                icon={service.icon}
+                delay={6}
+                link={service.link}
+                featured={true}
+              />
+            </div>
           ))}
         </div>
         

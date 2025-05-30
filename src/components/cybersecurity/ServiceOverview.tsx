@@ -33,7 +33,7 @@ const ServiceOverview: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-3xl md:text-5xl font-bold text-[#0f0326] mb-2">
+            <h2 className="text-3xl md:text-5xl font-bold text-[#0f0326] mb-6">
             Proactive <span className="text-[#88bf42]">Cybersecurity Defense</span>
             </h2>
 

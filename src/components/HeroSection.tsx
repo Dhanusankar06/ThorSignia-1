@@ -304,9 +304,9 @@ const HomePage = () => {
           >
             {/* First image */}
             <img
-              src="/assets/HERO.png"
+              src="/assets/heroai.png"
               alt="AI Interface Example 1"
-              className="w-full h-full object-cover"
+              className="w-full h-full "
             />
           </motion.div>
 
@@ -321,7 +321,7 @@ const HomePage = () => {
             <img
               src="/assets/award.png"
               alt="AI Interface Example 2"
-              className="w-full h-[500px] object-cover"
+              className="w-full h-[500px] "
             />
           </motion.div>
         </div>
@@ -335,22 +335,23 @@ const HomePage = () => {
         {/* Heading + Paragraph Block (Order 1 on mobile) */}
         {/* Removed the buttons from this motion.div as they are now a separate item 5for ordering */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }} // Slightly longer initial animation delay
-          className="order-1" // Added order-1 to place it first on mobile
-        >
-          {/* Heading */}
-          <h1 className="text-[36px] md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4 md:mb-6">
-            Transforming Business with
-            <span className="text-[#88BF42]"> Intelligent Automation</span>
-          </h1>
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6 }}
+  className="order-1 text-center lg:text-left"
+>
+  {/* Heading */}
+  <h1 className="text-[36px] md:text-5xl lg:text-6xl font-extrabold text-white leading-snug md:leading-tight lg:leading-tight mb-4 md:mb-6">
+    Transforming Business with
+    <span className="text-[#88BF42]"> Intelligent Automation</span>
+  </h1>
 
-          {/* Paragraph Description */}
-          <p className="text-base md:text-lg text-white/90 mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0">
-            Harness the power of AI-driven platforms to automate operations, supercharge lead conversion, and deliver extraordinary user experiences—at scale and with precision.
-          </p>
-        </motion.div>
+  {/* Paragraph Description */}
+  <p className="text-base md:text-lg text-white/90 leading-relaxed md:leading-loose mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0">
+    Harness the power of AI-driven platforms to automate operations, supercharge lead conversion, and deliver extraordinary user experiences—at scale and with precision.
+  </p>
+</motion.div>
+
 
         {/* Images Block (MOBILE ONLY) (Order 2 on mobile) */}
         {/* Duplicate the image structure from the desktop-only column */}
@@ -367,9 +368,9 @@ const HomePage = () => {
                 >
                   {/* Replace with your first image URL */}
                   <img
-                    src="/assets/HERO.png"
+                    src="/assets/heroai.png"
                     alt="AI Interface Example 1"
-                    className="w-full h-full object-cover" // This already uses h-full object-cover
+                    className="w-full h-full " // This already uses h-full object-cover
                   />
                 </motion.div>
 
@@ -384,7 +385,7 @@ const HomePage = () => {
                   <img
                     src="/assets/award.png"
                     alt="AI Interface Example 2"
-                    className="w-full h-full object-cover" // This already uses h-full object-cover
+                    className="w-full h-full " // This already uses h-full object-cover
                   />
                 </motion.div>
             </div>
@@ -394,14 +395,14 @@ const HomePage = () => {
         {/* Buttons Block (Order 3 on mobile) */}
         {/* This div now contains only the buttons and is a separate flex item for ordering */}
         {/* Removed motion from this parent div, added order-3 */}
-        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 justify-center lg:justify-start mt-8 order-3">
+        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 justify-center lg:justify-start mt-6 order-3">
           <Button
             // Keep h-12 for height
             // Removed w-full sm:w-auto
             // Added a fixed width class (e.g., w-60 - adjust as needed)
             // Added mx-auto for centering on mobile (parent is items-center)
             // Keep reduced horizontal padding px-5 sm:px-6
-            className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white h-12 text-base w-60 mx-auto sm:mx-0 px-5 sm:px-6 rounded-md shadow-lg transition-all duration-300 hover:shadow-xl"
+            className="bg-[#88BF42] hover:bg-[#7AAD3A] text-white h-12 text-base w-60 mx-auto sm:mx-0 px-4 sm:px-6 rounded-md shadow-lg transition-all duration-300 hover:shadow-xl"
             asChild
           >
             <RouterLink to="/services" className="flex items-center justify-center">
@@ -434,7 +435,7 @@ const HomePage = () => {
           transition={{ duration: 0.5, delay: 0.8 }} // Animation after the main text block
           className="mt-12 text-center lg:text-left order-4" // Added order-4, removed lg:order-2
         >
-          <p className="text-white/70 text-sm mb-4">Trusted by forward-thinking companies across industries</p>
+          <p className="text-white/70 text-base mb-4">Trusted by forward-thinking companies across industries</p>
           <div className="flex flex-wrap justify-center lg:justify-start gap-6 items-center">
             {/* Note: Logos also have individual whileInView animations with staggered delay */}
             {trustedByLogos.slice(0, 9).map((logo, index) => (
@@ -822,13 +823,14 @@ const HomePage = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={staggerChildren} // Stagger animation for items within this column
-        className="text-center lg:text-left lg:pl-8 order-first lg:order-2" // Center text mobile, left desktop, add left padding desktop, order-first mobile, lg:order-2 desktop
+        className="text-center lg:text-left lg:pl-8 order-first lg:order-2 mb-4" // Center text mobile, left desktop, add left padding desktop, order-first mobile, lg:order-2 desktop
       >
         <motion.div variants={itemVariants} className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 mb-4">
           <span className="text-[#88BF42] text-sm md:text-base font-semibold">Why Choose Thorsignia</span>
         </motion.div>
 
-        <motion.h2 variants={itemVariants} className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-3 md:mb-4">
+        <motion.h2  variants={itemVariants} // Keep your animation variants
+className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-3 md:mb-4 leading-relaxed">
           Enterprise AI That <span className="text-[#88BF42] block">Works for You</span>
         </motion.h2>
 
@@ -1233,13 +1235,10 @@ const HomePage = () => {
             <motion.p variants={itemVariants} className="text-lg md:text-xl mb-6 md:mb-8 max-w-3xl mx-auto text-gray-600">
               Join the AI revolution and stay ahead of the competition with our cutting-edge solutions.
             </motion.p>
-            <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-3 md:gap-4">
+            <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-3 md:gap-4 mb-8 md:mb-12">
               <Button asChild className="bg-[#88bf42] hover:bg-[#7aad3a] text-white text-base md:text-lg px-6 md:px-8 py-3 h-auto w-52 rounded-md">
                 <RouterLink to="/contact">Get Started Today</RouterLink>
                 </Button>
-              {/* <Button asChild variant="outline" className="border-[#88bf42] text-[#88bf42] text-base md:text-lg px-6 md:px-8 py-3 h-auto w-70 rounded-md hover:bg-[#eaf4d6]">
-                <RouterLink to="/contact#consultation">Schedule a Consultation</RouterLink>
-                </Button> */}
             </motion.div>
           </div>
         </motion.section>

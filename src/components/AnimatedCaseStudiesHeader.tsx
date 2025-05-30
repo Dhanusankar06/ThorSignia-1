@@ -121,7 +121,7 @@ export default function AnimatedCaseStudiesHeader() {
 {/* Subheading */}
 <div className="overflow-hidden mt-6">
   <motion.p 
-    className="text-[#696869] text-lg max-w-2xl mx-auto md:mx-0 text-center md:text-center "
+    className="text-white text-lg max-w-2xl mx-auto md:mx-0 text-center md:text-center "
     initial={{ y: 40, opacity: 0 }}
     animate={{ y: 0, opacity: 1 }}
     transition={{ duration: 0.6, delay: 0.9 }}

@@ -96,8 +96,8 @@ export default function AnimatedHeader() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
-            Empowering Enterprises
+                       <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 leading-normal md:leading-tight"> {/* Increased leading for h1 */}
+                       Empowering Enterprises
           </h1>
           <h1 className="text-4xl md:text-6xl font-extrabold text-[#88BF42] leading-tight">
             Through AI Innovation

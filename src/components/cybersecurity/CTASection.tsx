@@ -58,7 +58,7 @@ const CTASection: React.FC = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
               Get Your Free <span className="text-[#88bf42]">Cybersecurity</span> Assessment
             </h2>
-            <p className="text-lg text-[#696869] mb-8">
+            <p className="text-lg text-white/60 mb-8">
               Discover potential vulnerabilities in your AI systems and infrastructure. 
               Our experts will provide a comprehensive report with actionable recommendations.
             </p>
@@ -106,7 +106,7 @@ const CTASection: React.FC = () => {
             ) : (
               <form className="space-y-6" onSubmit={handleSubmit}>
                 <div>
-                  <label htmlFor="name" className="block text-[#696869] mb-2">Full Name</label>
+                  <label htmlFor="name" className="block text-white/60 mb-2">Full Name</label>
                   <input 
                     type="text" 
                     id="name"
@@ -119,7 +119,7 @@ const CTASection: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-[#696869] mb-2">Email Address</label>
+                  <label htmlFor="email" className="block text-white/60 mb-2">Email Address</label>
                   <input 
                     type="email" 
                     id="email"
@@ -132,7 +132,7 @@ const CTASection: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="company" className="block text-[#696869] mb-2">Company</label>
+                  <label htmlFor="company" className="block text-white/60 mb-2">Company</label>
                   <input 
                     type="text" 
                     id="company"
@@ -145,7 +145,7 @@ const CTASection: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="message" className="block text-[#696869] mb-2">Message</label>
+                  <label htmlFor="message" className="block text-white/60 mb-2">Message</label>
                   <textarea 
                     id="message"
                     name="message"

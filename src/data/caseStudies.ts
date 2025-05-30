@@ -37,7 +37,7 @@ const caseStudiesData: CaseStudy[] = [
   {
     id: 1,
     slug: "sgf-fab-ai-quality-control",
-    title: "AI-Powered Quality Control System",
+    title: "Precision at Scale: SGF FAB’s AI-Driven Quality Revolution",
     company: "SGF FAB Industries",
     logo: "/assets/sgf.jpeg",
     category: "Manufacturing",
@@ -260,7 +260,7 @@ const caseStudiesData: CaseStudy[] = [
     roi: "312%",
     timeframe: "7 months",
     teamSize: "6 engineers",
-    keyMetric: "154% conversion increase",
+    keyMetric: "154% more conversions",
     accentColor: "#88bf42",
     challenge: [
       "Metro Fashion, a multinational clothing retailer with over 500 physical stores and a growing e-commerce presence, was struggling to compete with digital-native fashion brands. Their existing recommendation system was based on basic purchase history and performed poorly compared to competitors' solutions.",

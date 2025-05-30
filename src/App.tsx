@@ -36,6 +36,8 @@ import RedTeamingPage from "@/pages/cybersecurity/RedTeamingPage";
 import IOTSecurityPage from "@/pages/cybersecurity/IOTSecurityPage";
 import VCISOPage from "@/pages/cybersecurity/VCISOPage";
 import SecurityTrainingPage from "@/pages/cybersecurity/SecurityTrainingPage";
+import Pricing from "./pages/Pricing";
+import PricingPage from "./pages/Pricing";
 
 
 const queryClient = new QueryClient();
@@ -120,6 +122,7 @@ const App = () => (
           <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
           <Route path="/careers" element={<Careers />} />
 
+          <Route path="/pricing" element={<PricingPage />} /> 
 
           <Route path="/cyber-security" element={<CyberSecurity />} />
           <Route path="/cyber-security/vulnerability-assessment" element={<PenetrationTestPage />} />

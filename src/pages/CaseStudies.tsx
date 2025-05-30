@@ -146,7 +146,7 @@ const CaseStudiesPage = () => {
                   <div className="mt-auto justify-center md:justify-center">
                     <Button
                       asChild
-                      className="bg-[#88bf42] text-white px-6 py-3 w-48 rounded-md font-medium hover:bg-[#10b4b7]/10 transition"
+                      className="bg-[#88bf42] text-[#0f0326] px-6 py-3 w-48 rounded-md font-medium hover:bg-[#88bf42]/10 transition"
                     >
                       <Link to={`/case-studies/${caseStudiesData[0].slug}`} className="flex items-center justify-center">
                         Read Full Case Study

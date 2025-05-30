@@ -184,8 +184,8 @@ export default function AnimatedServiceHeader() {
           </div>
 
           {/* Main Heading */}
-          <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
-            AI Services That Drive <span className="text-[#88BF42]">Business Results</span>
+          <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 leading-normal md:leading-tight"> {/* Increased leading for h1 */}
+          AI Services That Drive <span className="text-[#88BF42]">Business Results</span>
           </h1>
 
           {/* Subheading */}

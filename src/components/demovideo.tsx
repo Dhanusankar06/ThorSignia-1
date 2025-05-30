@@ -62,7 +62,7 @@ const ProductDemoSection = () => { // <-- Added a functional component wrapper
   const demos = [
     { title: 'AI Voice Agent in Action', desc: 'See how our AI voice agents handle customer inquiries naturally and efficiently.', thumb: '/assets/ai-voice-demo.jpg', time: '2:45', link: '/demo/voice-ai', videoUrl: 'https://www.youtube.com/embed/KKNCiRWd_j0?si=U5-V45kP_9O30F3q&autoplay=1&mute=1&rel=0'}, // <-- Replace with actual URL
     { title: 'Lead Capture to Call Demo', desc: 'Watch our AI automatically qualify leads and initiate follow-up calls.', thumb: '/assets/lead-capture-demo.jpg', time: '3:12', link: '/demo/lead-capture', videoUrl: 'https://www.youtube.com/embed/KKNCiRWd_j0?si=U5-V45kP_9O30F3q&autoplay=1&mute=1&rel=0'}, // <-- Replace with actual URL
-    { title: 'How Campaign Automation Works', desc: 'Learn how our AI optimizes ad campaigns for maximum performance.', thumb: '/assets/campaign-automation-demo.jpg', time: '4:05', link: '/demo/campaign-automation', videoUrl: 'https://www.youtube.com/embed/KKNCiRWd_j0?si=U5-V45kP_9O30F3q&autoplay=1&mute=1&rel=0' }, // <-- Replace with actual URL
+    { title: 'Campaign Automation Process', desc: 'Learn how our AI optimizes ad campaigns for maximum performance.', thumb: '/assets/campaign-automation-demo.jpg', time: '4:05', link: '/demo/campaign-automation', videoUrl: 'https://www.youtube.com/embed/KKNCiRWd_j0?si=U5-V45kP_9O30F3q&autoplay=1&mute=1&rel=0' }, // <-- Replace with actual URL
   ];
   // -->
 

@@ -770,7 +770,7 @@ const ServicesPage = () => {
                   </div>
 
                   {/* Heading */}
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] leading-tight mb-3 md:mb-4">
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] leading-tight mb-4 md:mb-4">
                   Smarter AI. Faster Results. <span className="text-[#88BF42]">Real Business Impact.</span>
                   </h2>
 
@@ -1038,7 +1038,7 @@ scale growth with intelligent automation.                  </p>
 
         <div className="container mx-auto px-4 sm:px-6 md:px-8 relative z-10">
           {/* Header */}
-          <div className="max-w-3xl mx-auto text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16 reveal-on-scroll opacity-0" data-animation="fadeInUp">
+          <div className="max-w-3xl mx-auto text-center mb-6 sm:mb-10 md:mb-12 lg:mb-16 reveal-on-scroll opacity-0" data-animation="fadeInUp">
             <div className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 mb-4 sm:mb-6 w-fit mx-auto"> {/* Removed lg:mx-0 if header is centered */}
               <span className="text-[#88BF42] text-sm md:text-base font-semibold">Specialized Solutions</span>
             </div>

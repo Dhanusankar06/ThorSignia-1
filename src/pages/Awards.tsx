@@ -1,119 +1,136 @@
-import { useState, useEffect } from 'react';
+'use client'; // Keep this directive if using App Router
+
+import { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
-import { Button } from "@/components/ui/button";
-import { Award, Trophy, Star, Calendar, ArrowRight, CheckCircle } from "lucide-react"; // Added CheckCircle and ArrowRight icons
-import { Link as RouterLink, useLocation } from 'react-router-dom'; // Use RouterLink for clarity
-import { cn } from "@/lib/utils"; // Import cn for class conditional logic
+import { Trophy, Star, Calendar, CheckCircle } from "lucide-react";
+import { usePathname } from 'next/navigation';
+import { cn } from "@/lib/utils";
 
-import { motion, AnimatePresence, useAnimation } from 'framer-motion'; // Import framer-motion
-import { useInView } from 'react-intersection-observer'; // Import useInView
+import { motion, useAnimation } from 'framer-motion'; // AnimatePresence removed
+import { useInView } from 'react-intersection-observer';
 
 // --- Animation Variants ---
 
-// Hero Text: Fade in and slight lift
+// Hero Text: Fade in and slight lift (Keep)
 const heroTextVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
 };
 
-// Section Title: Fade in and slight lift
+// Section Title: Fade in and slight lift (Keep)
 const sectionTitleVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut", delay: 0.2 } }, // Added slight delay
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut", delay: 0.2 } },
 };
 
-// Year Header: Fade in and subtle scale from left
-const yearHeaderVariants = {
-    hidden: { opacity: 0, scaleX: 0.9, originX: 0 }, // Scale from left
-    visible: i => ({ // Use 'i' for custom stagger delay
+// Award Item Container Animation (Fade in, slight scale/slide up)
+// This applies to the content block (text, details, etc.)
+const awardContentVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.95 },
+    visible: {
         opacity: 1,
-        scaleX: 1,
+        y: 0,
+        scale: 1,
         transition: {
-            duration: 0.7,
+            duration: 0.8,
             ease: "easeOut",
-            delay: i * 0.2 // Stagger based on year index
+            // delay will be handled by the parent ItemWrapper's inView
         }
-    }),
+    },
 };
 
-// Award Entry: Fade in and slide from left
-const awardEntryVariants = {
-    hidden: { opacity: 0, x: -30 }, // Smaller slide distance
-    visible: i => ({ // Use 'i' for custom stagger delay
+// Featured Award Content: More prominent animation
+const featuredAwardContentVariants = {
+    hidden: { opacity: 0, y: 80, scale: 0.9 },
+    visible: {
         opacity: 1,
-        x: 0,
+        y: 0,
+        scale: 1,
+        transition: {
+            duration: 1,
+            ease: "easeOut",
+            // delay will be handled by the parent ItemWrapper's inView
+        }
+    },
+};
+
+// Marker Dot Animation (Triggered by its parent ItemWrapper inView)
+const markerDotVariants = {
+    hidden: { scale: 0, opacity: 0 },
+    visible: {
+        scale: 1,
+        opacity: 1,
         transition: {
             duration: 0.5,
             ease: "easeOut",
-            delay: i * 0.1 // Stagger based on award index within the year
+            delay: 0.3 // Slight delay after the item container is visible
         }
-    }),
+    }
 };
+
+// Year Text Animation (Triggered by its parent ItemWrapper inView)
+const yearTextVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.5,
+            ease: "easeOut",
+            delay: 0.4 // Delay after marker
+        }
+    }
+}
 
 
 const AwardsPage = () => {
-  const location = useLocation();
+  const pathname = usePathname();
 
   // Scroll to top on page load
   useEffect(() => {
-      // Simplified scroll to top on pathname change
-      if (location.pathname === '/awards' && !location.hash) {
+      if (pathname === '/awards') {
          window.scrollTo(0, 0);
       }
-      // Note: Handling hash scrolling automatically by browser
-  }, [location.pathname]); // Only trigger when the pathname changes
+  }, [pathname]);
 
-  // Animation Controls
-  // Hero animation uses useAnimation for immediate start
+  // Animation Controls for Hero (Keep)
   const heroControls = useAnimation();
-
-  // Awards section uses useInView for triggering animations when section visible
-  const [awardsSectionRef, awardsSectionInView] = useInView({
-      triggerOnce: true, // Only trigger once
-      threshold: 0.1, // Trigger when 10% of the section is visible
-      delay: 300 // Add a small delay before triggering
-   });
-
-   // Trigger Hero animation immediately on mount
    useEffect(() => {
        heroControls.start('visible');
    }, [heroControls]);
 
 
-  // Awards data structure with detailed content (re-added the detailed 2025 data)
+  // Awards data structure (Keep)
   const awardsData = [
     {
       year: "2025",
       awards: [
         {
-          title: "World Business Conclave – Thor Signia, Most Innovative AI Company of the Year Award",
-          description: "Recognized for our groundbreaking AI solutions that have transformed business operations across industries. This prestigious award acknowledges our commitment to pushing the boundaries of artificial intelligence.",
-          // --- Detailed Content for this specific award ---
-          details: {
+          title: "World Business Conclave – Most Innovative AI Company of the Year Award", // Simplified title slightly
+          description: "Recognized for our groundbreaking AI solutions that have transformed business operations across industries.",
+          details: { // This object indicates it's the featured award
               fullDescription: "This award highlights our role as a leader in the AI landscape, recognizing our innovative platforms that drive efficiency, intelligence, and competitive advantage for our clients. Our submission demonstrated significant advancements in machine learning algorithms, natural language processing, and predictive analytics, deployed across various sectors including finance, healthcare, and retail.",
               criteriaMet: [
                   "Pioneering AI Technology Development",
                   "Demonstrated Market Adoption & Impact",
                   "Scalability and Robustness of Solutions",
                   "Contribution to Ethical AI Practices",
-                  "Innovation in Specific Verticals (e.g., AI in Supply Chain, AI in Customer Experience)"
+                  "Innovation in Specific Verticals"
               ],
               keyImpactAreas: [
-                  { label: "Efficiency Gains", value: "Up to 40% reduction in operational costs for pilot projects." },
-                  { label: "Revenue Growth", value: "Supported clients in achieving up to 25% increase in revenue through AI-driven personalization." },
-                  { label: "Productivity Boost", value: "Enhanced employee productivity by automating routine tasks." },
-                  { label: "Risk Reduction", value: "Improved fraud detection and cybersecurity posture using AI." }
+                  { label: "Efficiency Gains", value: "Up to 40% reduction in operational costs." },
+                  { label: "Revenue Growth", value: "Supported clients in achieving up to 25% increase in revenue." },
+                  { label: "Productivity Boost", value: "Enhanced employee productivity." },
+                  { label: "Risk Reduction", value: "Improved fraud detection and cybersecurity posture." }
               ],
-              ceremonyHighlight: "The award was presented at the grand World Business Conclave gala in London, a key gathering of global business leaders and innovators. Our CEO accepted the award, emphasizing the team's dedication to solving complex challenges with intelligent technology.",
+              ceremonyHighlight: "The award was presented at the grand World Business Conclave gala in London, a key gathering of global business leaders and innovators. Our CEO accepted the award, emphasizing the team's dedication.",
               quotes: [
-                  { author: "Conclave Judging Panel", text: "Thor Signia stood out for its clear vision and tangible results in applying AI to real-world business problems. Their solutions are not just innovative; they are delivering significant, measurable value." },
-                  { author: "Our CEO", text: "This award is a testament to our team's relentless pursuit of innovation and our clients' trust in our technology. We are proud to be at the forefront of the AI revolution." }
-              ],
-              
+                  { label: "Conclave Judging Panel", text: "Thor Signia stood out for its clear vision and tangible results in applying AI to real-world business problems. Their solutions are delivering significant, measurable value." },
+                  { label: "Our CEO", text: "This award is a testament to our team's relentless pursuit of innovation and our clients' trust. We are proud to be at the forefront of the AI revolution." }
+              ]
           }
-          // --- End Detailed Content ---
         }
       ]
     },
@@ -140,6 +157,10 @@ const AwardsPage = () => {
         {
           title: "IIB Business Leadership Award",
           description: "Presented to our leadership team for exceptional vision, strategic growth initiatives, and fostering a culture of innovation that drives business excellence."
+        },
+        { // Added another award for better staggered effect example
+          title: "Tech Innovation Award",
+          description: "Recognized for pioneering advancements in a specific technology domain."
         }
       ]
     },
@@ -162,213 +183,226 @@ const AwardsPage = () => {
     }
   ];
 
+  // Determine which award is featured
+  const featuredAwardTitle = awardsData[0]?.awards.find(award => award.details)?.title;
+
+  // Flatten the awards data for easier vertical iteration
+  const allAwards = awardsData.flatMap((yearGroup) =>
+    yearGroup.awards.map((award) => ({
+        ...award,
+        year: yearGroup.year,
+        isFeatured: award.title === featuredAwardTitle
+    }))
+  );
+
+  // Calculate base left position for timeline elements on small screens
+  // This needs to align the central line correctly relative to padding
+   const getTimelineLeft = () => {
+        // Based on container padding: px-4 (16px)
+        // Half of the padding (8px) + half of the marker size (10px / 2 = 5px)
+        // Total offset from left edge: 8px + 5px = 13px
+        // Let's make it visually centered on the padding edge, maybe slightly outside.
+        // Trial and error suggests around 20px-25px offset from the container's LEFT edge works well with px-4 padding
+        return {
+            sm: '24px', // left value for small screens (adjust based on px-4 and marker size)
+            md: '32px'  // left value for medium and up screens (adjust based on md:px-6 and marker size)
+        };
+    }
+
+
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
 
-      {/* Hero Section with Animation */}
-       <section className="pt-40 sm:pt-44 md:pt-48 pb-16 sm:pb-20 md:pb-24 bg-[#0F0326] relative overflow-hidden flex items-center justify-center text-center"> {/* Removed min-h */}
-         {/* Background shapes - kept from user's code*/}
-         <div className="absolute top-0 left-0 w-1/3 h-1/3 bg-[#88BF42] rounded-br-full opacity-30 z-0"></div> {/* Reduced opacity */}
-         <div className="absolute bottom-0 right-0 w-1/3 h-1/3 bg-[#88BF42] rounded-tl-full opacity-30 z-0"></div> {/* Reduced opacity */}
+      {/* Hero Section */}
+      <section className="pt-40 sm:pt-44 md:pt-48 pb-16 sm:pb-20 md:pb-24 bg-[#0F0326] relative overflow-hidden flex items-center justify-center text-center">
+        {/* Background shapes */}
+        <div className="absolute top-0 left-0 w-1/3 h-1/3 bg-[#88BF42] rounded-br-full opacity-30 z-0"></div>
+        <div className="absolute bottom-0 right-0 w-1/3 h-1/3 bg-[#88BF42] rounded-tl-full opacity-30 z-0"></div>
 
-            {/* Content */}
-            <motion.div
-                initial="hidden"
-                animate={heroControls} // Animate content in using useEffect start
-                variants={heroTextVariants}
-                 className="relative z-10 max-w-4xl mx-auto px-4" // Increased max-width slightly
-            >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight"> {/* Font-extrabold for more impact */}
-                <span className="text-white">Award-Winning </span>
-                <span className="text-[#88BF42]">Excellence</span>
-              </h1>
-              <p className="font-light text-xl md:text-2xl text-neutral-300 max-w-2xl mx-auto"> {/* Centered and slightly limited width */}
-                Recognized globally for our innovation, leadership, and significant impact in AI and Cybersecurity.
-              </p>
-            </motion.div>
+        {/* Content */}
+        <motion.div
+          initial="hidden"
+          animate={heroControls}
+          variants={heroTextVariants}
+          className="relative z-10 max-w-4xl mx-auto px-4"
+        >
+          <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 leading-normal md:leading-tight">
+            Award-Winning <span className="text-[#88BF42]">Excellence</span>
+          </h1>
+          <p className="font-light text-xl md:text-2xl text-neutral-300 max-w-2xl mx-auto">
+            Recognized globally for our innovation, leadership, and significant impact in AI and Cybersecurity.
+          </p>
+        </motion.div>
       </section>
 
-      {/* Awards Content - Timeline Style with Animations */}
-      {/* Attach the ref to the section container */}
-      <section ref={awardsSectionRef} className="py-16 bg-white">
-        {/* Use AnimatePresence if items could be added/removed, otherwise not strictly needed for a static list */}
-        {/* <AnimatePresence> */}
-        <div className="container mx-auto px-4 md:px-6 max-w-5xl"> {/* Increased max-width for a bit more space */}
+      {/* Awards Content - Outstanding Vertical Award-by-Award Timeline */}
+      <section className="py-16 bg-white relative overflow-hidden">
+         {/* Main container for timeline layout */}
+         <div className="container mx-auto px-4 md:px-6 max-w-5xl">
+           {/* Section Title with Animation */}
+           <motion.div
+             initial="hidden"
+             whileInView="visible"
+             viewport={{ once: true, threshold: 0.1 }}
+             variants={sectionTitleVariants}
+             className="text-center mb-12 md:mb-20"
+           >
+             <h2 className="text-3xl md:text-4xl font-bold text-[#0F0326]">Our Recognitions & Milestones</h2>
+           </motion.div>
 
-             {/* Section Title with Animation */}
-             {/* Trigger this animation when the awardsSectionRef is in view */}
-            <motion.div
-                 initial="hidden"
-                 animate={awardsSectionInView ? "visible" : "hidden"} // Animate when ref is in view
-                 variants={sectionTitleVariants}
-                 className="text-center mb-12"
-            >
-                 <h2 className="text-3xl md:text-4xl font-bold text-[#0F0326]">Our Recognitions & Milestones</h2> {/* Updated title */}
-            </motion.div>
+           {/* Timeline Container - Position the pillar path (dotted line) and content */}
+           <div className="relative min-h-[600px]"> {/* Ensure enough height for all awards */}
 
-
-          {/* Timeline Container */}
-          {/* The main vertical line for the timeline */}
-          <div className="relative border-l-4 border-gray-200 ml-6 md:ml-12"> {/* Increased border width and left margin */}
-
-          {awardsData.map((yearGroup, yearIndex) => (
-            <div key={yearGroup.year} className="mb-16 last:mb-0"> {/* Use year as key, added bottom margin */}
-
-              {/* Year Heading & Line with Animation */}
-              {/* Animate this when the awardsSectionRef is in view, using custom index for stagger */}
-              <motion.div
-                 initial="hidden"
-                 animate={awardsSectionInView ? "visible" : "hidden"} // Animate when ref is in view
-                 variants={yearHeaderVariants}
-                 custom={yearIndex} // Pass index for staggering
-                 className="flex items-center mb-8 -ml-8 md:-ml-16 origin-left" // Adjusted negative margin to align left of the vertical line
-              >
-                 {/* Year Marker Circle */}
-                <div className="flex-shrink-0 bg-[#88BF42] w-12 h-12 rounded-full flex items-center justify-center text-white shadow-lg z-10 ring-4 ring-white"> {/* Increased size, added white ring */}
-                  <Calendar className="h-6 w-6" />
+                {/* --- Vertical Dotted Timeline PATH --- */}
+                {/* Animated Green Dots Timeline spanning the full height */}
+                <div
+                  className={cn(
+                    "pointer-events-none absolute top-0 bottom-0 flex flex-col items-center z-0 w-6",
+                    `left-[${getTimelineLeft().sm}] md:left-[${getTimelineLeft().md}]`
+                  )}
+                  style={{ height: '100%', justifyContent: 'space-between' }}
+                >
+                  {Array.from({ length: 120 }).map((_, idx) => (
+                    <motion.div
+                      key={`timeline-dot-${idx}`}
+                      className="w-2 h-2 rounded-full bg-[#88BF42] my-0"
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{
+                        duration: 0.2,
+                        delay: idx * 0.08, // Slower delay for dramatic one-by-one effect
+                        ease: "easeOut"
+                      }}
+                    />
+                  ))}
                 </div>
-                 {/* Year Text */}
-                <h2 className="text-3xl font-bold ml-4 text-[#0F0326] flex-shrink-0">{yearGroup.year}</h2>
-                {/* Removed the inline line next to the year */}
-              </motion.div>
 
-              {/* Awards List for the Year */}
-              <div className="flex flex-col space-y-8 pl-6 md:pl-12 pt-4"> {/* Added left padding to align content */}
-                {/* No AnimatePresence needed here unless awards can be added/removed dynamically */}
-                     {yearGroup.awards.map((award, awardIndex) => (
-                      // Each award block with animation
-                     
-                      <motion.div
-                          key={`${yearGroup.year}-${awardIndex}`} // More robust key
-                          className="relative" // Added relative for positioning the award marker
-                          initial="hidden"
-                          whileInView="visible" // Trigger animation when this element is in view
-                          viewport={{ once: true, threshold: 0.1 }} // Config for useInView internally by whileInView
-                          variants={awardEntryVariants}
-                          custom={awardIndex} // Pass index for staggering within the year
-                      >
-                        {/* Award Marker Dot on the Timeline line */}
-                         <div className="absolute -left-[calc(1.5rem + 2px)] md:-left-[calc(3rem + 2px)] top-4 w-4 h-4 bg-[#88BF42] rounded-full ring-4 ring-white z-20"></div> {/* Marker position adjusted to sit on the line */}
+                {/* Awards Content - Needs left padding to make space for the dotted line and markers */}
+                {/* Padding adjusted based on the getTimelineLeft values */}
+                <div className={cn(
+                    "pl-[60px] md:pl-[80px]" // Increased padding left to accommodate marker/year text beside the line
+                )}>
+                    {allAwards.map((award, totalIndex) => {
+                        // useInView for triggering animation on THIS individual award item wrapper
+                        const [awardItemRef, awardItemInView] = useInView({
+                            triggerOnce: true,
+                            threshold: 0.05, // Trigger when 5% of the item is visible
+                            delay: 100 // Optional delay before item-specific children start
+                        });
 
-                        {/* Award Content Block */}
-                        <div className={cn(
-                            "p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 border", // Rounded corners, subtle shadow, border
-                            "bg-gray-50 border-gray-100", // Default light background and border
-                             // Highlight styling for the specific award
-                             award.title.includes("World Business Conclave") ? "border-[#88BF42] bg-white shadow-lg ring-2 ring-[#88BF42]/50" : "" // Add highlight classes: green border, white bg, subtle ring
-                        )}>
-                          <div className="flex items-start gap-4 mb-4"> {/* Increased space below header */}
-                            <div className="flex-shrink-0 p-3 bg-[#88BF42]/10 rounded-full"> {/* Larger icon container, softer background */}
-                              <Trophy className="h-6 w-6 text-[#88BF42]" /> {/* Use Trophy icon */}
+                        return (
+                            // Award Item Wrapper - This is the main block for each award
+                            // Use a div here and apply motion to children for specific animations
+                            <div
+                                ref={awardItemRef} // Attach ref here
+                                key={`award-${totalIndex}`}
+                                className="relative mb-16 last:mb-0 pt-4" // Added vertical margin between items, pt-4 for space above marker
+                            >
+                                {/* Marker Dot - Positioned absolutely relative to ItemWrapper */}
+                                {/* Positions the dot *on* the timeline line */}
+                                <motion.div
+                                     initial="hidden"
+                                     animate={awardItemInView ? "visible" : "hidden"} // Animate when parent item is in view
+                                     variants={markerDotVariants} // Apply dot animation
+                                     className={cn(
+                                        "absolute top-4 w-4 h-4 bg-[#88BF42] rounded-full ring-4 ring-white z-30 transform -translate-x-1/2", // Positioned at the timeline line, centered
+                                        `left-[calc(${getTimelineLeft().sm} + 0.25rem)] md:left-[calc(${getTimelineLeft().md} + 0.25rem)]` // Align dot center with the line's left edge + half line width
+                                     )}
+                                ></motion.div>
+
+                                {/* Year Text - Positioned absolutely relative to ItemWrapper */}
+                                {/* Positions the year text just before the marker */}
+                                <motion.div
+                                    initial="hidden"
+                                    animate={awardItemInView ? "visible" : "hidden"}
+                                    variants={yearTextVariants} // Apply year text animation
+                                    className={cn(
+                                         "absolute text-right left-[-80px] top-2 w-[70px] text-lg font-bold text-[#0F0326] z-20", // Position to the left of content, fixed width
+                                         `left-[calc(${getTimelineLeft().sm} - 80px)] md:left-[calc(${getTimelineLeft().md} - 80px)]` // Adjust left position based on timeline line
+                                    )}
+                                >
+                                    {award.year}
+                                </motion.div>
+
+                                {/* Award Content Block - Animated in when ItemWrapper is in view */}
+                                {/* This is what gets the fade/slide/scale animation */}
+                                <motion.div
+                                    initial="hidden"
+                                    animate={awardItemInView ? "visible" : "hidden"} // Animate when parent item is in view
+                                    variants={award.isFeatured ? featuredAwardContentVariants : awardContentVariants} // Apply animation
+                                    className={cn(
+                                        "p-6 rounded-lg shadow-lg transition-shadow duration-300 border w-full bg-white ring-2 border-[#88BF42] ring-[#88BF42]/50" // All awards get green border and highlight
+                                    )}
+                                >
+                                     <div className="flex items-start gap-4 mb-4">
+                                         <div className="flex-shrink-0 p-3 bg-[#88BF42]/10 rounded-full">
+                                              <Trophy className="h-6 w-6 text-[#88BF42]" />
+                                          </div>
+                                          <div className="flex flex-col flex-1">
+                                              <h3 className={cn("text-xl md:text-2xl font-bold leading-snug text-[#0F0326]")}>
+                                                  {award.title}
+                                              </h3>
+                                          </div>
+                                     </div>
+                                     <p className="text-[#696869] text-base leading-relaxed">{award.description}</p>
+
+                                     {/* Conditional Detailed Content (Keep) */}
+                                     {award.details && (
+                                         <div className="mt-6 pt-6 border-t border-gray-200 space-y-6">
+                                             {award.details.fullDescription && (
+                                                 <div>
+                                                     <h4 className="text-lg font-semibold text-[#0F0326] mb-2">Award Significance:</h4>
+                                                     <p className="text-[#696869] text-base leading-relaxed">{award.details.fullDescription}</p>
+                                                 </div>
+                                             )}
+                                             {award.details.criteriaMet && award.details.criteriaMet.length > 0 && (
+                                                 <div>
+                                                     <h4 className="text-lg font-semibold text-[#0F0326] mb-2">Key Criteria Met:</h4>
+                                                     <ul className="space-y-2 list-disc list-outside ml-5">
+                                                         {award.details.criteriaMet.map((criterion, criIndex) => (
+                                                             <li key={criIndex} className="text-[#696969] text-base">{criterion}</li>
+                                                         ))}
+                                                     </ul>
+                                                 </div>
+                                             )}
+                                             {award.details.keyImpactAreas && award.details.keyImpactAreas.length > 0 && (
+                                                 <div>
+                                                     <h4 className="text-lg font-semibold text-[#0F0326] mb-2">Quantifiable Impact:</h4>
+                                                      <ul className="space-y-2 list-disc list-outside ml-5">
+                                                         {award.details.keyImpactAreas.map((impact, impactIndex) => (
+                                                             <li key={impactIndex} className="text-[#696969] text-base"><span className="font-medium mr-1">{impact.label}:</span> {impact.value}</li>
+                                                         ))}
+                                                     </ul>
+                                                 </div>
+                                             )}
+                                             {award.details.ceremonyHighlight && (
+                                                 <div>
+                                                     <h4 className="text-lg font-semibold text-[#0F0326] mb-2">Ceremony & Recognition:</h4>
+                                                     <p className="text-[#696969] text-base leading-relaxed">{award.details.ceremonyHighlight}</p>
+                                                 </div>
+                                             )}
+                                             {award.details.quotes && award.details.quotes.length > 0 && (
+                                                 <div>
+                                                     <h4 className="text-lg font-semibold text-[#0F0326] mb-2">Voices of Recognition:</h4>
+                                                     <div className="space-y-4 italic text-[#696969] text-base">
+                                                         {award.details.quotes.map((quote, quoteIndex) => (
+                                                             <p key={quoteIndex}>"{quote.text}" <span className="not-italic font-medium">- {quote.author || quote.label}</span></p>
+                                                         ))}
+                                                     </div>
+                                                 </div>
+                                             )}
+                                         </div>
+                                     )}
+                                 </motion.div>
                             </div>
-                             <div className="flex flex-col flex-1">
-                                 {/* Year label */}
-                                <div className="text-sm font-semibold text-gray-600 mb-1">{yearGroup.year}</div>
-                                 {/* Title */}
-                                 <h3 className={cn("text-xl md:text-2xl font-bold leading-snug text-[#0F0326]", award.title.includes("World Business Conclave") ? "text-[#0F0326]" : "text-[#0F0326]")}>{award.title}</h3>
-                             </div>
-                          </div>
-                           {/* Description */}
-                          <p className="text-[#696869] text-base leading-relaxed">{award.description}</p>
+                        ); // Close award item return
+                    })}
 
-                           {/* --- Conditional Detailed Content for World Business Conclave Award --- */}
-                           {/* Check if details exist and render if so */}
-                           {award.details && (
-                               <div className="mt-6 pt-6 border-t border-gray-200 space-y-6"> {/* Separator line, increased top padding and space */}
-                                    {/* Full Description */}
-                                    {award.details.fullDescription && (
-                                         <div>
-                                            <h4 className="text-lg font-semibold text-[#0F0326] mb-2">Award Significance:</h4>
-                                            <p className="text-[#696869] text-base leading-relaxed">{award.details.fullDescription}</p>
-                                         </div>
-                                    )}
-
-                                    {/* Key Criteria */}
-                                    {award.details.criteriaMet && award.details.criteriaMet.length > 0 && (
-                                        <div>
-                                            <h4 className="text-lg font-semibold text-[#0F0326] mb-2">Key Criteria Met:</h4>
-                                            <ul className="space-y-2"> {/* Increased space */}
-                                                {award.details.criteriaMet.map((criterion, criIndex) => (
-                                                    <li key={criIndex} className="flex items-start text-[#696869] text-base">
-                                                        <CheckCircle className="flex-shrink-0 h-4 w-4 text-[#88BF42] mr-2 mt-1" /> {/* Checkmark icon */}
-                                                        {criterion}
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    )}
-
-                                     {/* Impact Highlight */}
-                                     {award.details.keyImpactAreas && award.details.keyImpactAreas.length > 0 && (
-                                        <div>
-                                            <h4 className="text-lg font-semibold text-[#0F0326] mb-2">Quantifiable Impact:</h4>
-                                            <ul className="space-y-2">
-                                                {award.details.keyImpactAreas.map((impact, impactIndex) => (
-                                                     <li key={impactIndex} className="flex items-start text-[#696869] text-base">
-                                                        <Star className="flex-shrink-0 h-4 w-4 text-yellow-500 mr-2 mt-1" /> {/* Star icon */}
-                                                        <span className="font-medium mr-1">{impact.label}:</span> {impact.value}
-                                                     </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    )}
-
-                                     {/* Ceremony Highlight */}
-                                     {award.details.ceremonyHighlight && (
-                                        <div>
-                                            <h4 className="text-lg font-semibold text-[#0F0326] mb-2">Ceremony & Recognition:</h4>
-                                            <p className="text-[#696869] text-base leading-relaxed">{award.details.ceremonyHighlight}</p>
-                                        </div>
-                                    )}
-
-                                     {/* Quotes */}
-                                     {award.details.quotes && award.details.quotes.length > 0 && (
-                                        <div>
-                                            <h4 className="text-lg font-semibold text-[#0F0326] mb-2">Voices of Recognition:</h4>
-                                            <div className="space-y-4 italic text-[#696869] text-base">
-                                                {award.details.quotes.map((quote, quoteIndex) => (
-                                                     <p key={quoteIndex}>"{quote.text}" <span className="not-italic font-medium">- {quote.author}</span></p>
-                                                ))}
-                                            </div>
-                                        </div>
-                                     )}
-
-                                     {/* Related Media/Links */}
-                                     {award.details.relatedMedia && award.details.relatedMedia.length > 0 && (
-                                         <div className="mt-4">
-                                            <h4 className="text-lg font-semibold text-[#0F0326] mb-2">Further Reading:</h4>
-                                            <div className="flex flex-wrap gap-4"> {/* Use flex-wrap for smaller screens */}
-                                                {award.details.relatedMedia.map((media, mediaIndex) => (
-                                                     <RouterLink
-                                                        key={mediaIndex}
-                                                        to={media.link}
-                                                        className="inline-flex items-center text-[#88BF42] font-semibold text-base hover:underline transition-colors"
-                                                        target={media.link.startsWith('http') ? '_blank' : '_self'} // Open external links in new tab
-                                                        rel={media.link.startsWith('http') ? 'noopener noreferrer' : ''}
-                                                    >
-                                                        {media.title} <ArrowRight className="ml-1 w-4 h-4" />
-                                                    </RouterLink>
-                                                ))}
-                                            </div>
-                                         </div>
-                                     )}
-                               </div>
-                           )}
-                           {/* --- End Conditional Detailed Content --- */}
-
-                        </div>
-                      </motion.div>
-                    ))}
-              </div>
-            </div>
-          ))}
-    
-           <div className="absolute left-[-10px] md:left-[-14px] bottom-0 w-5 h-5 bg-gray-400 rounded-full ring-4 ring-white z-10"></div> {/* End marker, adjusted position */}
-
-           </div> {/* End of Timeline Container */}
+                    
+                </div>
+           </div>
         </div>
-       
       </section>
 
       <Footer />

@@ -222,7 +222,7 @@ const RolesSection = ({ roles }: { roles?: string[] }) => {
                            transition={{ duration: 0.2 }}
                       >
                           {/* Simple bordered badge */}
-                           <div className="px-6 py-3 border-2 border-[#0F0326] text-[#0F0326] rounded-full shadow-sm text-base font-medium whitespace-nowrap hover:bg-[#0F0326] hover:text-white transition-colors">
+                           <div className="px-6 py-3 border-2 border-[#88bf42] text-[#0F0326] rounded-full shadow-sm text-base font-medium whitespace-nowrap hover:bg-[#88bf42] hover:text-white transition-colors">
                               {role}
                           </div>
                       </motion.div>
@@ -276,9 +276,7 @@ const FlexibleHiringModelsSection = () => {
                           variants={itemEntryVariants}
                           layout
                       >
-                           <div className="mb-4 text-[#88bf42] text-4xl font-bold leading-none">
-                              {index + 1}
-                          </div>
+                           
                           <div className="flex-grow">
                               <h3 className="text-xl font-semibold text-white mb-2">{model.title}</h3>
                               <p className="text-gray-400 text-base">{model.description}</p>
@@ -355,66 +353,6 @@ const HowItWorksSection = () => {
 
 
 // Success Stories Section (RE-STYLED - Blocks with corner accent & quote icon)
-const SuccessStoriesSection = () => {
-   const controls = useAnimation();
-   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
-   useEffect(() => { if (inView) controls.start('visible'); }, [controls, inView]);
-
-  return (
-      <section ref={ref} className="py-20 bg-white"> {/* White background */}
-          <div className="container mx-auto px-4">
-              <motion.div
-                  className="text-center mb-16"
-                  initial="hidden"
-                  animate={controls}
-                  variants={sectionTextVariants}
-              >
-                  <h2 className="text-3xl md:text-4xl font-bold text-[#0F0326] mb-4">Client Successes</h2>
-                  <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                      Transforming visions into reality with expert AI teams.
-                  </p>
-              </motion.div>
-
-              <motion.div
-                  className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto"
-                  initial="hidden"
-                  animate={controls}
-                  variants={containerStaggerVariants}
-              >
-                  {successes.map((story) => (
-                      <motion.div
-                          key={story.id}
-                          className={`
-                              bg-white p-6 rounded-lg shadow-md h-full border border-gray-200
-                              transition-all duration-300 ease-in-out
-                              hover:shadow-lg hover:scale-[1.02] hover:border-[#88bf42]
-                              relative overflow-hidden
-                          `}
-                          variants={itemEntryVariants}
-                          layout
-                      >
-                          {/* Green Corner Accent */}
-                           <div className="absolute top-0 left-0 w-16 h-16 bg-[#88bf42]/10 rounded-br-lg"></div>
-                            {/* Quote Icon */}
-                            <div className="absolute top-6 right-6 text-gray-300"> {/* Positioned quote icon */}
-                                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M6.235 11.003c-.78.35-1.31.838-1.592 1.466-.282.628-.343 1.268-.183 1.921.16.653.551 1.192 1.617.622.425 1.436.703 2.442.836.156 1.544.67 2.75 1.543 3.616C9.178 21.203 9.86 21.61 10.665 21.83c.805.22 1.617.332 2.438.332 1.44 0 2.64-.32 3.605-.96s1.755-1.528 2.295-2.617c.54-1.089.795-2.25.765-3.483.022-1.34-.216-2.59-.713-3.754-.496-1.165-1.226-2.08-2.19-2.747-1.067-.778-2.306-1.304-3.714-1.575.18-.782.532-1.452 1.05-2.01.518-.557 1.112-.98 1.782-1.266 1.348-.568 2.886-.816 4.616-.74.82.036 1.478-.225 1.975-.783s.74-1.3.61-1.87c-.13- .57-.51-1.02-1.14-1.35C19.245 1.85 18.495 1.63 17.695 1.63c-1.22 0-2.32.35-3.3 1.05-1 .7-1.74 1.6-2.22 2.7-.48 1.1-.72 2.3-.72 3.6 0 .3.01.6.03.9zm-6 0c-.78.35-1.31.838-1.592 1.466-.282.628-.343 1.268-.183 1.921.16.653.551 1.192 1.617.622.425 1.436.703 2.442.836.156 1.544.67 2.75 1.543 3.616C3.178 21.203 3.86 21.61 4.665 21.83c.805.22 1.617.332 2.438.332 1.44 0 2.64-.32 3.605-.96s1.755-1.528 2.295-2.617c.54-1.089.795-2.25.765-3.483.022-1.34-.216-2.59-.713-3.754-.496-1.165-1.226-2.08-2.19-2.747-1.067-.778-2.306-1.304-3.714-1.575.18-.782.532-1.452 1.05-2.01.518-.557 1.112-.98 1.782-1.266 1.348-.568 2.886-.816 4.616-.74.82.036 1.478-.225 1.975-.783s.74-1.3.61-1.87c-.13- .57-.51-1.02-1.14-1.35C13.245 1.85 12.495 1.63 11.695 1.63c-1.22 0-2.32.35-3.3 1.05-1 .7-1.74 1.6-2.22 2.7-.48 1.1-.72 2.3-.72 3.6 0 .3.01.6.03.9z"/>
-                                </svg>
-                           </div>
-
-
-                          <div className="flex-grow pt-8"> {/* Added top padding to make space for accent */}
-                              <p className="text-gray-800 italic text-lg mb-4 leading-snug">"{story.result}"</p> {/* Result as italic quote */}
-                              <p className="text-[#0F0326] text-base font-medium">{story.project}</p> {/* Project title below */}
-                          </div>
-                          <p className="text-sm text-gray-600 mt-4">- {story.client}</p> {/* Top margin added */}
-                      </motion.div>
-                  ))}
-              </motion.div>
-          </div>
-      </section>
-  );
-};
 
 
 // FAQ Section (RE-STYLED - Accordion with colored border and rounded items)
@@ -450,7 +388,7 @@ const FAQSection = () => {
 
 
     return (
-        <section ref={ref} className="py-20 bg-gray-100"> {/* Light gray background */}
+        <section ref={ref} className="py-20 bg-white"> {/* Light gray background */}
             <div className="container mx-auto px-4">
                 <motion.div
                     className="text-center mb-16"
@@ -532,7 +470,7 @@ const CTASection = () => {
             animate={controls}
             className="text-4xl md:text-5xl font-bold mb-6 text-white" // White text
           >
-            Ready to Build Your <span className="text-[#88bf42]">AI Team</span>?
+            Ready to Build Your <span className="text-[#88bf42]">AI Team?</span>
           </motion.h2>
           <motion.p
             variants={sectionTextVariants}
@@ -727,13 +665,12 @@ const HireEngineers = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.6 }}
-                     className="relative z-10 max-w-4xl mx-auto px-4" // Added padding to content
+                     className="relative z-10 max-w-4xl mx-auto px-4 py-2" // Added padding to content
                 >
-                    <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 leading-tight"> {/* Adjusted spacing */}
+                       <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 leading-normal md:leading-tight"> {/* Increased leading for h1 */}
                         Expert AI <span className='text-[#88BF42]'>Engineering</span> Teams, On Demand
                     </h1>
-                    <p className="font-light text-xl md:text-2xl text-neutral-300 mb-8"> {/* Added bottom margin */}
-                        Instantly scale your capabilities with vetted, world-class AI and Machine Learning talent.
+                    <p className="font-light text-xl md:text-2xl text-neutral-300 mb-8 leading-relaxed"> {/* Increased leading for paragraph */}                        Instantly scale your capabilities with vetted, world-class AI and Machine Learning talent.
                     </p>
                      {/* Added CTA Buttons to Hero */}
                     <motion.div
@@ -756,7 +693,7 @@ const HireEngineers = () => {
             </section>
 
             {/* Engineers Section */}
-            <section ref={engineersSectionRef} className="py-20 bg-white"> {/* White background */}
+            <section ref={engineersSectionRef} className="py-20 bg-gray-100"> {/* White background */}
                 <div className="container mx-auto px-4">
                     <motion.div
                         initial="hidden"
@@ -835,9 +772,7 @@ const HireEngineers = () => {
             {/* 5. How It Works Section */}
             <HowItWorksSection />
 
-            {/* 6. Previous Engagements / Successes Section */}
-            <SuccessStoriesSection />
-
+          
             {/* 7. FAQ Section */}
             <FAQSection />
 
