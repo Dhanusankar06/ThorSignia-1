@@ -1,6 +1,6 @@
 'use client';
 
-// import logoImage from "../assets/images/thor-signia-logo.png"; // Make sure this path is correct relative to this component
+import logoImage from "../assets/images/thor-signia-logo.png"; // Make sure this path is correct relative to this component
 import React, { useState, useRef, useEffect } from "react"; // Standard React import
 import { Link as RouterLink, useLocation } from "react-router-dom"; // Renamed Link to RouterLink to avoid conflict with lucide-react/Icon
 import { cn } from "@/lib/utils";
@@ -551,7 +551,6 @@ export default function Navbar() {
               )}
             </div>
           ))}
-
         </div>
 
         {/* Mobile Navigation Toggle - Using inline SVG with explicit size */}
@@ -612,8 +611,7 @@ export default function Navbar() {
                        // Use startsWith for base path matching
                       (item.href === '/' && pathname === '/' && currentHash === '') ? "text-[#88bf42] font-bold" : // Exact home match
                       (item.href !== '/' && pathname.startsWith(item.href.split('#')[0]) && (pathname.length === item.href.split('#')[0].length || pathname[item.href.split('#')[0].length] === '/')) ? "text-[#88bf42] font-bold" : // Partial match for main sections
-                      "text-foreground",
-                      "hover:text-[#88bf42]"
+                      "text-foreground"
                     )}
                     onClick={handleNavLinkClick}
                   >
@@ -674,6 +672,7 @@ export default function Navbar() {
                           const subItemIconName = subItem.icon as IconName | undefined;
                           const hasValidIcon = subItemIconName && typeof iconMap[subItemIconName] !== 'undefined';
 
+                          
                           return (
                             <RouterLink
                               key={subItem.title}

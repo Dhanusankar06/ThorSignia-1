@@ -190,7 +190,7 @@ def create_assessment():
     """Create a new cybersecurity assessment submission."""
     if request.method == 'OPTIONS':
         response = make_response()
-        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Origin', 'https://thor-signia-three.vercel.app')
         response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
         response.headers.add('Access-Control-Allow-Methods', 'POST')
         return response
@@ -253,13 +253,13 @@ def create_assessment():
             'message': 'Assessment request saved successfully',
             'emailSent': email_sent
         })
-        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Origin', 'https://thor-signia-three.vercel.app')
         return response, 201
     except Exception as e:
         logger.exception("Error processing assessment submission")
         db.session.rollback()
         response = jsonify({"error": "Failed to save assessment"})
-        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Origin', 'https://thor-signia-three.vercel.app')
         return response, 500
 
 @api_bp.route('/api/careers/apply', methods=['POST', 'OPTIONS'])

@@ -22,21 +22,26 @@ const CTASection: React.FC = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/assessments', {
+      const response = await fetch('https://thor-signia-three.vercel.app/api/assessments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
-      if (!response.ok) throw new Error('Failed to submit assessment.');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to submit assessment.');
+      }
       setIsSubmitted(true);
     } catch (err) {
-      setError('There was an error submitting the assessment. Please try again.');
+      setError(err instanceof Error ? err.message : 'There was an error submitting the assessment. Please try again.');
     } finally {
       setIsLoading(false);
-      setTimeout(() => {
-        setIsSubmitted(false);
-        setFormData({ name: '', email: '', company: '', message: '' });
-      }, 5000);
+      if (isSubmitted) {
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({ name: '', email: '', company: '', message: '' });
+        }, 5000);
+      }
     }
   };
 
