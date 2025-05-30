@@ -5,6 +5,10 @@ from dotenv import load_dotenv
 import os
 import logging
 import urllib.parse
+import pymysql
+
+# Register PyMySQL as the MySQL driver
+pymysql.install_as_MySQLdb()
 
 # Configure logging
 logging.basicConfig(
@@ -49,8 +53,12 @@ def create_app():
         if mysql_user and mysql_password and mysql_host and mysql_port and mysql_db:
             # URL encode the password to handle special characters
             encoded_password = urllib.parse.quote_plus(mysql_password)
-            database_url = f"mysql://{mysql_user}:{encoded_password}@{mysql_host}:{mysql_port}/{mysql_db}"
+            database_url = f"mysql+pymysql://{mysql_user}:{encoded_password}@{mysql_host}:{mysql_port}/{mysql_db}"
             logger.info(f"Constructed MySQL URL from environment variables for host: {mysql_host}")
+    else:
+        # Convert mysql:// to mysql+pymysql:// if necessary
+        if database_url.startswith('mysql://'):
+            database_url = database_url.replace('mysql://', 'mysql+pymysql://', 1)
     
     # Configure SQLAlchemy with the database URL
     if database_url:
