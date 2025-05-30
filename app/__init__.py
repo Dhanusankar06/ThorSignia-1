@@ -34,32 +34,28 @@ def create_app():
     # Configure CORS to allow requests from any origin
     CORS(app, resources={r"/*": {"origins": "*"}})
     
-    # Configure the database - Use Railway PostgreSQL if available, otherwise SQLite
+    # Configure the database - Use Railway MySQL if available, otherwise SQLite
     database_url = os.getenv('DATABASE_URL')
     
     # If DATABASE_URL is not provided, try to construct it from individual components
     if not database_url:
-        pg_user = os.getenv('POSTGRES_USER')
-        pg_password = os.getenv('POSTGRES_PASSWORD')
-        pg_host = os.getenv('PGHOST')
-        pg_port = os.getenv('PGPORT')
-        pg_db = os.getenv('POSTGRES_DB')
+        mysql_user = os.getenv('MYSQL_USER')
+        mysql_password = os.getenv('MYSQL_PASSWORD')
+        mysql_host = os.getenv('MYSQL_HOST')
+        mysql_port = os.getenv('MYSQL_PORT')
+        mysql_db = os.getenv('MYSQL_DB')
         
-        # If all PostgreSQL environment variables are set, construct the DATABASE_URL
-        if pg_user and pg_password and pg_host and pg_port and pg_db:
+        # If all MySQL environment variables are set, construct the DATABASE_URL
+        if mysql_user and mysql_password and mysql_host and mysql_port and mysql_db:
             # URL encode the password to handle special characters
-            encoded_password = urllib.parse.quote_plus(pg_password)
-            database_url = f"postgresql://{pg_user}:{encoded_password}@{pg_host}:{pg_port}/{pg_db}"
-            logger.info(f"Constructed PostgreSQL URL from environment variables for host: {pg_host}")
+            encoded_password = urllib.parse.quote_plus(mysql_password)
+            database_url = f"mysql://{mysql_user}:{encoded_password}@{mysql_host}:{mysql_port}/{mysql_db}"
+            logger.info(f"Constructed MySQL URL from environment variables for host: {mysql_host}")
     
     # Configure SQLAlchemy with the database URL
     if database_url:
-        # Convert postgres:// to postgresql:// if necessary
-        if database_url.startswith('postgres://'):
-            database_url = database_url.replace('postgres://', 'postgresql://', 1)
-            
         app.config['SQLALCHEMY_DATABASE_URI'] = database_url
-        logger.info(f"Using PostgreSQL database at {database_url.split('@')[1].split('/')[0] if '@' in database_url else 'unknown host'}")
+        logger.info(f"Using MySQL database at {database_url.split('@')[1].split('/')[0] if '@' in database_url else 'unknown host'}")
     else:
         # Fallback to SQLite for local development
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///contacts.db'
