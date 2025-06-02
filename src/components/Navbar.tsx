@@ -311,11 +311,11 @@ const navItems: NavItem[] = [
     dropdown: false,
   },
   // === ADDED PRICING HERE ===
-  {
-    title: "Pricing",
-    href: "/pricing#top", // Assuming a pricing page exists
-    dropdown: false,
-  },
+  // {
+  //   title: "Pricing",
+  //   href: "/pricing#top", // Assuming a pricing page exists
+  //   dropdown: false,
+  // },
   // === END ADDED PRICING ===
   {
     title: "Contact",
@@ -362,13 +362,17 @@ export default function Navbar() {
         });
       }
     } else {
+      // Only scroll to top on route changes initiated by React Router (not initial load unless necessary)
+      // location.key changes on link clicks
       if (location.key !== 'default') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        window.scrollTo({ top: 0, behavior: 'instant' });
+         // For initial page load or refresh without hash, just scroll to top instantly
+         window.scrollTo({ top: 0, behavior: 'instant' });
       }
     }
   }, [location, currentHash]);
+
 
   // Handle clicks on ANY navigation link originating from the menu/dropdowns
   const handleNavLinkClick = () => {
@@ -398,8 +402,9 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 left-0 w-full z-50 bg-white border-b">
-      <div className="container mx-auto px-2 md:px-4">
-        <div className="flex items-center justify-between h-16">
+      {/* Increased the max-width of the container div */}
+      <div className="max-w-screen-2xl mx-auto px-2 md:px-4"> {/* Changed from container to max-w-screen-2xl */}
+        <div className="flex items-center justify-between h-20">
           {/* Logo - positioned first with fixed width */}
           <div className="w-32 md:w-40 lg:w-44 flex-shrink-0 mr-2 md:mr-4 lg:mr-6">
             <RouterLink to="/" onClick={handleNavLinkClick}>
@@ -411,8 +416,9 @@ export default function Navbar() {
             </RouterLink>
           </div>
 
-          {/* Desktop Navigation - positioned after logo */}
-          <div className="hidden md:flex space-x-1 lg:space-x-2 xl:space-x-3 flex-1 justify-center" ref={desktopNavRef}>
+          {/* Desktop Navigation - positioned after logo, aligned right */}
+          {/* Changed justify-center to justify-end */}
+          <div className="hidden md:flex space-x-1 lg:space-x-2 xl:space-x-3 flex-1 justify-end" ref={desktopNavRef}>
             {navItems.map((item) => (
             <div key={item.title} className="relative group h-full flex items-center">
               {item.dropdown ? (
@@ -465,7 +471,16 @@ export default function Navbar() {
               {item.dropdown && openDropdown === item.title && item.items && ( // Ensure items exist
                 <div
                   className={cn(
-                    "absolute top-full left-1/2 -translate-x-1/2 mt-0", // Center the dropdown horizontally
+                    // Positioning relative to the trigger button
+                    "absolute top-full right-0 mt-0", // Aligned dropdown to the right edge of the button
+                    // Adjust horizontal positioning if needed, right-0 makes it align to the right edge of the button's container (which is the button itself)
+                    // If the dropdown is too wide and goes off screen left, you might need left-auto right-0 or left-1/2 transform -translate-x-1/2 still depending on desired look.
+                    // Keeping left-1/2 -translate-x-1/2 for now as it centers it relative to the trigger, which might be better even if the triggers are on the right.
+                    // Let's revert to the centered positioning relative to the trigger button, as right-aligning the whole panel might push it off-screen.
+                    // "absolute top-full left-1/2 -translate-x-1/2 mt-0", // Centered relative to the trigger
+                    // Let's try anchoring to the right edge but offsetting slightly left to ensure it stays on screen
+                     "absolute top-full right-0 mt-0 md:-right-4 lg:-right-6", // Anchor to right edge, add slight padding/offset
+
                     "w-[700px] max-w-[calc(100vw-32px)]", // Reduced width from 800px to 700px, kept max-width
                     "bg-background border rounded-md shadow-lg p-6", // Increased padding
                     // "absolute top-full left-0 mt-0", // Old positioning
@@ -554,7 +569,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Navigation Toggle - Using inline SVG with explicit size */}
-        <div className="md:hidden">
+        <div className="md:hidden ">
           <Button
             variant="ghost"
             className="h-14 w-14 text-foreground hover:text-[#88bf42]"

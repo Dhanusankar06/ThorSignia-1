@@ -770,7 +770,7 @@ const ServicesPage = () => {
                   </div>
 
                   {/* Heading */}
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] leading-tight mb-4 md:mb-4">
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] leading-tight mb-6 md:mb-6">
                   Smarter AI. Faster Results. <span className="text-[#88BF42]">Real Business Impact.</span>
                   </h2>
 

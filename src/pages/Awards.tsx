@@ -230,7 +230,7 @@ const AwardsPage = () => {
           <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 leading-normal md:leading-tight">
             Award-Winning <span className="text-[#88BF42]">Excellence</span>
           </h1>
-          <p className="font-light text-xl md:text-2xl text-neutral-300 max-w-2xl mx-auto">
+          <p className="font-light text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto">
             Recognized globally for our innovation, leadership, and significant impact in AI and Cybersecurity.
           </p>
         </motion.div>

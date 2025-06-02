@@ -21,7 +21,7 @@ import AutomatedCampaignOrchestration from "./pages/services/AutomatedCampaignOr
 import ThreatDetection from "./pages/services/ThreatDetection";
 import CaseStudiesPage from "./pages/CaseStudies";
 import CaseStudyDetail from "./pages/CaseStudyDetail";
-import Careers from "./pages/Careers";
+import Careers from './pages/careers/index'; 
 import NotFound from "./pages/NotFound";
 import CyberSecurity from "@/pages/CyberSecurity";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
@@ -39,6 +39,7 @@ import VCISOPage from "@/pages/cybersecurity/VCISOPage";
 import SecurityTrainingPage from "@/pages/cybersecurity/SecurityTrainingPage";
 import Pricing from "./pages/Pricing";
 import PricingPage from "./pages/Pricing";
+import JobDetailsPage from './pages/careers/JobDetailsPage';
 
 
 const queryClient = new QueryClient();
@@ -122,6 +123,7 @@ const App = () => (
           <Route path="/case-studies" element={<CaseStudiesPage />} />
           <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
           <Route path="/careers" element={<Careers />} />
+          <Route path="/careers/:id" element={<JobDetailsPage />} />
 
           <Route path="/pricing" element={<PricingPage />} /> 
 

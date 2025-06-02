@@ -120,7 +120,7 @@ const CTASection: React.FC = () => {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 bg-[#0f0326]/50 border border-[#696869]/30 rounded-lg focus:outline-none focus:border-[#88bf42] text-white"
-                    placeholder="John Doe"
+                    
                   />
                 </div>
                 <div>
@@ -133,7 +133,7 @@ const CTASection: React.FC = () => {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 bg-[#0f0326]/50 border border-[#696869]/30 rounded-lg focus:outline-none focus:border-[#88bf42] text-white"
-                    placeholder="you@company.com"
+                    
                   />
                 </div>
                 <div>
@@ -146,7 +146,7 @@ const CTASection: React.FC = () => {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 bg-[#0f0326]/50 border border-[#696869]/30 rounded-lg focus:outline-none focus:border-[#88bf42] text-white"
-                    placeholder="Your Company"
+                    
                   />
                 </div>
                 <div>
@@ -172,7 +172,7 @@ const CTASection: React.FC = () => {
                   {isLoading ? 'Submitting...' : 'Submit Request'}
                 </motion.button>
                 {error && <p className="text-red-400 text-sm text-center">{error}</p>}
-                <p className="text-[#696869] text-sm text-center">
+                <p className="text-white text-sm text-center">
                   We respect your privacy. Your information will never be shared.
                 </p>
               </form>

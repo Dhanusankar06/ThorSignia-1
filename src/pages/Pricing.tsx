@@ -141,8 +141,7 @@ const PricingPage = () => {
         paymentDetails.upiId = upiId;
     }
 
-    // In a real application, you would integrate with a payment gateway (Stripe, PayPal, etc.)
-    // and send the paymentDetails and selectedTier.id securely to your backend.
+    
     alert(`Simulating payment submission for the ${selectedTier?.title || 'Selected'} package via ${selectedPaymentMethod.toUpperCase()}.\nDetails: ${JSON.stringify(paymentDetails, null, 2)}`);
     console.log("Simulating payment submission...", { selectedTierId, selectedPaymentMethod, paymentDetails });
     // You would typically redirect to a success page or show a confirmation message
@@ -163,16 +162,12 @@ const PricingPage = () => {
          <div className="absolute bottom-10 left-10 w-60 h-60 rounded-full bg-[#009898]/5 opacity-30 z-0 animate-pulse-slow delay-200"></div>
 
         <div className="max-w-4xl mx-auto px-4 relative z-10">
-          <motion.h1
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 text-white"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-             Complete Your <span className="text-[#88BF42]">AI Solution</span> Purchase
-          </motion.h1>
+        <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 leading-normal md:leading-tight"> {/* Increased leading for h1 */}
+            <span className="block text-white">Complete Your</span>
+              <span className="block text-[#88BF42]">AI Solution Purchase</span>
+            </h1>
           <motion.p
-            className="text-white/80 text-lg md:text-xl max-w-3xl mx-auto mb-8"
+            className="text-neutral-300 text-lg md:text-xl max-w-3xl mx-auto mb-8"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -211,11 +206,7 @@ const PricingPage = () => {
                          <p className="text-[#696869] text-lg">
                              Please provide your payment information to complete your purchase of the <span className="font-semibold text-[#0F0326]">"{selectedTier?.title || 'Selected Package'}"</span> package.
                          </p>
-                          <div className="mt-6 p-4 bg-white rounded-lg shadow-md border border-gray-100 inline-block">
-                                <p className="text-xl font-bold text-[#88BF42]">
-                                    Total: {selectedTier?.priceValue || 'N/A'} {selectedTier?.priceFrequency !== 'One-Time' && selectedTier?.priceFrequency}
-                                </p>
-                          </div>
+                         
                      </motion.div>
 
                      {/* Payment Form Container (This part remains the same - white card) */}
@@ -355,7 +346,7 @@ const PricingPage = () => {
                                         />
                                         <p className="mt-2 text-sm text-gray-600 italic">
                                             After clicking "Pay", you will typically receive a payment request on your UPI app (GPay, PhonePe, Paytm, etc.) linked to this ID.
-                                            <br/>(Note: This is a simulation, no real request will be sent).
+                                            <br/>
                                         </p>
                                     </div>
                                 </motion.div>
@@ -371,7 +362,7 @@ const PricingPage = () => {
 
                             {/* Pay Button */}
                             <Button type="submit" className="w-full py-6 text-lg font-semibold bg-[#88BF42] hover:bg-[#88BF42]/90 text-white transition-colors">
-                                Pay {selectedTier?.priceValue || 'N/A'} with {selectedPaymentMethod === 'card' ? 'Card' : 'UPI'}
+                                Pay with {selectedPaymentMethod === 'card' ? 'Card' : 'UPI'}
                             </Button>
                         </form>
                      </motion.div>

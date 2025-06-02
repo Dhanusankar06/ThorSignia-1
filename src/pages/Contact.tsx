@@ -412,13 +412,12 @@ const ContactPage = () => {
                     <Mail className="w-6 h-6 text-[#88BF42] flex-shrink-0 mt-1" />
                     <div>
                       <h3 className="font-semibold text-[#0F0326] mb-1">Email</h3>
-                      <p className="text-[#696869] text-base md:text-lg">info@thorsignia.in</p>
+                      <p className="text-[#696869] text-base md:text-lg">info@thorsignia.online</p>
                     </div>
                   </div>
 
                   {/* Hours Item */}
-                  <div className="flex items-start gap-3">
-                    {/* Using Clock icon from lucide-react */}
+                  {/* <div className="flex items-start gap-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-[#88BF42] flex-shrink-0 mt-1"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                     <div>
                       <h3 className="font-semibold text-[#0F0326] mb-1">Hours</h3>
@@ -427,7 +426,7 @@ const ContactPage = () => {
                         Sunday: Closed
                       </p>
                     </div>
-                  </div>
+                  </div> */}
 
                 </div> {/* End Contact Details Vertical Flex Container */}
 

@@ -1,50 +1,75 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// Import icons needed - Mail, Phone, MessageCircle, Globe for Contact/Quick Links
+// Import icons needed - Mail, Phone, MessageCircle, Globe for Contact/Explore
+// Note: lucide-react icons are not directly used in the footer content shown,
+// but kept in imports as they might be used elsewhere in the component or project.
 import { Mail, Phone, MessageCircle, Globe } from 'lucide-react';
 // Import the logo from assets folder - Ensure this path is correct relative to Footer.jsx
-import logoImage from '../assets/images/thor-signia-logo.png';
+// const logoImage = '../assets/images/thor-signia-logo.png'; // This import is not used, the img src uses a public path.
+import { cn } from "@/lib/utils"; // Assuming you have a utility for conditional classes
 
-// Define social media icons with proper brand colors and simplified paths
+// Define social media icons with standard SVG paths and styling
 const socialIcons = {
   facebook: {
     ariaLabel: "Facebook",
     url: "https://www.facebook.com/thorsignia/",
+    // Modern Facebook icon SVG with gradient blue background
     svg: (
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" fill="#1877F2">
-        {/* Font Awesome Facebook F */}
-        <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8 h-8">
+        <defs>
+          <linearGradient id="facebookGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#1877F2"/>
+            <stop offset="100%" stopColor="#0C63D4"/>
+          </linearGradient>
+        </defs>
+        <rect width="24" height="24" rx="6" fill="url(#facebookGradient)"/>
+        <path fill="white" d="M16.5 8H14c-.3 0-.5.2-.5.5v2h3v2.5h-3V20h-3v-7H8v-2.5h2.5V8c0-2.5 1.5-4 4-4h2V8z"/>
       </svg>
     ),
   },
   twitter: {
-    ariaLabel: "X (Twitter)",
-    url: "https://x.com/Thorsignia",
+    ariaLabel: "Twitter",
+    url: "https://twitter.com/Thorsignia",
+    // Classic Twitter bird logo in white on blue background
     svg: (
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-        {/* X logo */}
-        <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" fill="#FFFFFF"/>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8 h-8">
+        <rect width="24" height="24" rx="6" fill="#1DA1F2"/>
+        <path fill="white" d="M19.2 8.6c-.5.2-1.1.4-1.7.4.6-.4 1.1-.9 1.3-1.6-.6.3-1.2.6-1.9.7-.5-.6-1.3-.9-2.2-.9-1.7 0-3 1.3-3 3 0 .2 0 .4.1.7-2.5-.1-4.7-1.3-6.2-3.1-.3.4-.4 1-.4 1.5 0 1 .5 2 1.3 2.5-.5 0-1-.1-1.3-.4 0 1.4 1 2.6 2.4 2.9-.2.1-.5.1-.8.1-.2 0-.4 0-.6-.1.4 1.2 1.5 2 2.8 2-1 .8-2.3 1.3-3.7 1.3h-.7c1.3.8 2.9 1.3 4.5 1.3 5.4 0 8.4-4.5 8.4-8.4v-.4c.6-.4 1.1-.9 1.5-1.5z"/>
       </svg>
     ),
   },
   instagram: {
     ariaLabel: "Instagram",
     url: "https://www.instagram.com/thorsignia/",
+    // Standard Instagram icon SVG with gradient background applied to the main path
     svg: (
-      // Instagram uses a gradient background with white icon
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="white">
-        {/* Font Awesome Instagram */}
-        <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8 h-8">
+        <defs>
+          <radialGradient id="instagramGradient" cx="19%" cy="99%" r="108%">
+            <stop offset="0%" stopColor="#fdf497"/>
+            <stop offset="5%" stopColor="#fdf497"/>
+            <stop offset="45%" stopColor="#fd5949"/>
+            <stop offset="60%" stopColor="#d6249f"/>
+            <stop offset="90%" stopColor="#285AEB"/>
+          </radialGradient>
+        </defs>
+        <rect width="24" height="24" rx="6" fill="url(#instagramGradient)"/>
+        <g fill="#fff">
+          <path d="M12 15.9a3.9 3.9 0 1 1 0-7.8 3.9 3.9 0 0 1 0 7.8zm0-6.6a2.7 2.7 0 1 0 0 5.4 2.7 2.7 0 0 0 0-5.4z"/>
+          <circle cx="16.1" cy="7.9" r=".9"/>
+          <path d="M17.5 5.3h-11a1.2 1.2 0 0 0-1.2 1.2v11c0 .6.6 1.2 1.2 1.2h11c.6 0 1.2-.6 1.2-1.2v-11c0-.6-.6-1.2-1.2-1.2zm0 12.2h-11v-11h11v11z"/>
+        </g>
       </svg>
     ),
   },
   linkedin: {
     ariaLabel: "LinkedIn",
     url: "https://www.linkedin.com/company/thorsignia/?originalSubdomain=in",
+    // Official LinkedIn logo with square design and rounded corners
     svg: (
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="#0A66C2">
-        {/* Font Awesome LinkedIn */}
-        <path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8 h-8">
+        <rect width="24" height="24" rx="4" fill="#0A66C2"/>
+        <path fill="white" d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm-1.5 1.5h3v9h-3v-9zm4.5 0h3v1.3c.6-1 1.8-1.6 3-1.5 2.7 0 3.5 1.8 3.5 4.2v5h-3v-4.5c0-1.1 0-2.5-1.5-2.5s-1.5 1.2-1.5 2.5v4.5h-3v-9z"/>
       </svg>
     ),
   },
@@ -52,173 +77,95 @@ const socialIcons = {
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white border-t border-gray-800 pt-16 pb-8 relative overflow-hidden">
-      {/* Decorative elements similar to Services section (kept as is) */}
-      <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-[#88bf42]/5 opacity-30 z-0"></div>
-      <div className="absolute bottom-1/3 left-0 w-80 h-80 rounded-full bg-[#009898]/5 opacity-30 z-0"></div>
-      <div className="absolute bottom-0 right-10 w-24 h-24 rounded-full border-2 border-[#88bf42]/20 opacity-30"></div>
-      <div className="absolute top-1/2 left-10 w-16 h-16 rounded-lg border-2 border-[#009898]/20 opacity-30 rotate-12"></div>
-
-      <div className="container mx-auto px-4 md:px-6 max-w-7xl relative z-10">
-        {/* Main content grid: 1 column on mobile, 2 columns on medium/large screens */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12"> {/* Increased gap */}
-          {/* Left Column: Brand (now logo), Description, Social */}
-          <div className="md:col-span-1 lg:col-span-1 flex flex-col justify-start"> {/* Start items from top */}
-            {/* Replaced text with logo image */}
-            <Link to="/" className="mb-4 inline-block" aria-label="Thor Signia Home"> {/* Added Link wrapper for logo, increased bottom margin */}
-               <img
-                 src={logoImage}
-                 alt="Thor Signia Logo"
-                 // h-auto lets height adjust, max-h limits it, width scales proportionally
-                 className="h-auto max-h-[100px]" // Adjusted size, removed fixed width/height
-                 style={{ objectFit: 'contain' }} // Ensure image fits within its element
-               />
-            </Link>
-
-            {/* Kept description and social links */}
-            <p className="text-gray-300 mb-8 max-w-md text-base italic"> {/* Increased text size slightly */}
-            "Empowers enterprises to achieve unprecedented growth through the power of AI and innovation."
+    <footer className="bg-black text-white">
+      {/* This div wraps the main footer content (logo/text, columns, copyright) */}
+      {/* It uses standard Tailwind centered container classes to match the navigation bar. */}
+      {/* max-w-screen-2xl sets the max width, mx-auto centers it, and px-* adds horizontal padding. */}
+      <div className="max-w-screen-2xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8"> {/* Outer container for width/centering and padding */}
+        {/* Inner grid container - Increased gap from xl:gap-16 to xl:gap-20 */}
+        {/* --- MODIFICATION START --- */}
+        <div className="xl:grid xl:grid-cols-4 xl:gap-20"> {/* Changed gap size here to make it more prominent */}
+        {/* --- MODIFICATION END --- */}
+          <div className="space-y-6 xl:col-span-1 mb-8 xl:mb-0">
+            {/* Using the public path for the image src */}
+            {/* Changed the height class from h-14 (56px) to h-18 (72px) to match the image more closely */}
+            <img
+              className="h-18 w-48"
+              src="/thor-signia-logo.png" // Ensure this path is correct and the file is the right logo version
+              alt="Thor Signia"
+            />
+            <p className="text-gray-400 text-base leading-relaxed">
+              "Empowering enterprises to achieve unprecedented growth through the power of AI and innovation."
             </p>
+
             {/* Social media icons row */}
-            <div className="flex space-x-6 items-center mt-2"> {/* Added margin-top for better spacing */}
-              {/* Facebook */}
-              <a href={socialIcons.facebook.url} target="_blank" rel="noopener noreferrer" aria-label={socialIcons.facebook.ariaLabel} className="group hover:scale-110 transition-transform">
-                <div className="w-6 h-6 flex items-center justify-center"> {/* Increased size to 24px */}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" fill="#1877F2" className="w-6 h-6">
-                    {/* Font Awesome Facebook F */}
-                    <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
-                  </svg>
-                </div>
-              </a>
-
-              {/* Twitter/X */}
-              <a href={socialIcons.twitter.url} target="_blank" rel="noopener noreferrer" aria-label={socialIcons.twitter.ariaLabel} className="group hover:scale-110 transition-transform">
-                <div className="w-6 h-6 flex items-center justify-center"> {/* Increased size to 24px */}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#FFFFFF" className="w-6 h-6">
-                    {/* X logo */}
-                    <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/>
-                  </svg>
-                </div>
-              </a>
-
-              {/* Instagram */}
-              <a href={socialIcons.instagram.url} target="_blank" rel="noopener noreferrer" aria-label={socialIcons.instagram.ariaLabel} className="group hover:scale-110 transition-transform">
-                <div className="w-6 h-6 rounded-sm flex items-center justify-center" style={{ background: 'linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)' }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="white" className="w-5 h-5"> {/* Slightly smaller to account for gradient background */}
-                    {/* Instagram icon */}
-                    <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
-                  </svg>
-                </div>
-              </a>
-
-              {/* LinkedIn */}
-              <a href={socialIcons.linkedin.url} target="_blank" rel="noopener noreferrer" aria-label={socialIcons.linkedin.ariaLabel} className="group hover:scale-110 transition-transform">
-                <div className="w-6 h-6 flex items-center justify-center"> {/* Increased size to 24px */}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="#0A66C2" className="w-6 h-6">
-                    {/* LinkedIn icon */}
-                    <path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/>
-                  </svg>
-                </div>
-              </a>
+            <div className="flex space-x-4 items-center mt-6">
+              {Object.entries(socialIcons).map(([key, social]) => (
+                <a
+                  key={key}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.ariaLabel}
+                  className={cn(
+                    "inline-flex items-center justify-center w-9 h-9",
+                    "transition-transform duration-200 ease-out hover:scale-110",
+                  )}
+                >
+                  {social.svg}
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Right Column CONTAINER: Now acts as a flex container for the next two items */}
-          <div className="md:col-span-1 lg:col-span-1 flex flex-col md:flex-row md:gap-12">
+          {/* Services Section */}
+          {/* This is the second column in the grid - gap is applied by the parent */}
+          <div className="mt-10 xl:mt-0">
+            <h3 className="text-base font-bold text-[#88bf42] tracking-wider uppercase pb-3 mb-3">
+                Services
+            </h3>
+            <ul className="space-y-4">
+              <li><Link to="/services" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">AI Services</Link></li>
+               <li><Link to="/cyber-security" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Cybersecurity</Link></li>
+               <li><Link to="/ai-engineers" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Hire AI Engineers </Link></li>
+            </ul>
+          </div>
 
-            {/* Quick Links SECTION: Becomes a flex item, takes equal space on md+ */}
-            <div className="flex-1 mb-8 md:mb-0"> {/* Added mb-8 for spacing on mobile */}
-              <h3 className="text-xl font-semibold mb-5 text-white flex items-center gap-2"> {/* Slightly larger title */}
-                 {/* Optional Icon for section title */}
-                 <Globe className="w-5 h-5 text-[#88bf42]" />
-                 Quick Links
-              </h3>
-              {/* This list remains a simple vertical list */}
-              <ul className="space-y-3 text-base"> {/* Added space-y for vertical spacing */}
-                <li>
-                  <Link to="/" className="text-gray-300 hover:text-[#88bf42] transition-colors">Home</Link>
-                </li>
-                <li>
-                  <Link to="/about#top" className="text-gray-300 hover:text-[#88bf42] transition-colors">About Us</Link>
-                </li>
-                <li>
-                   {/* Example: Link with an optional icon (can be added to others) */}
-                  <Link to="/services#top" className="text-gray-300 hover:text-[#88bf42] transition-colors flex items-center gap-1">
-                      Services
-                  </Link>
-                </li>
-                 <li>
-                   <Link to="/cyber-security#top" className="text-gray-300 hover:text-[#88bf42] transition-colors flex items-center gap-1">
-                       Cyber Security
-                   </Link>
-                 </li>
-                <li>
-                  <Link to="/case-studies#top" className="text-gray-300 hover:text-[#88bf42] transition-colors flex items-center gap-1">
-                      Case Studies
-                  </Link>
-                </li>
-                 <li>
-                   <Link to="/ai-engineers#top" className="text-gray-300 hover:text-[#88bf42] transition-colors">AI Engineers</Link>
-                 </li>
-                <li>
-                   <Link to="/awards#top" className="text-gray-300 hover:text-[#88bf42] transition-colors">Awards</Link>
-                 </li>
-                <li>
-                  <Link to="/blog#top" className="text-gray-300 hover:text-[#88bf42] transition-colors">Blog</Link>
-                </li>
-                <li>
-                  <Link to="/contact#top" className="text-gray-300 hover:text-[#88bf42] transition-colors">Contact Us</Link>
-                </li>
-              </ul>
-            </div>
+          {/* Company Section */}
+          {/* This is the third column - gap is applied by the parent */}
+          <div className="mt-10 xl:mt-0">
+            <h3 className="text-base font-bold text-[#88bf42] tracking-wider uppercase pb-3 mb-3">
+                Company
+            </h3>
+            <ul className="space-y-4">
+              <li><Link to="/about" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">About Us</Link></li>
+              <li><Link to="/case-studies" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Case Studies</Link></li>
+              <li><Link to="/awards" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Awards</Link></li>
+              <li><Link to="/blog" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Blog</Link></li>
+              <li><Link to="/careers" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Careers</Link></li>
+            </ul>
+          </div>
 
-            {/* Contact SECTION - REMOVED LOCATION LIST ITEMS */}
-            <div className="flex-1">
-              <h3 className="text-xl font-semibold mb-5 text-white flex items-center gap-2"> {/* Slightly larger title */}
-                 <MessageCircle className="w-5 h-5 text-[#88bf42]" />
-                Contact
-              </h3>
-              {/* Contact list - Only Email and Phone */}
-              <ul className="space-y-4 text-base"> {/* Increased space between contact items, slightly larger text */}
-
-                {/* Location List Items were here - THEY ARE NOW REMOVED */}
-
-                {/* Email Item */}
-                <li className="flex items-start group"> {/* items-start aligns icon to top of text block */}
-                <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center mr-4 text-[#88bf42] group-hover:bg-white/20 transition-colors flex-shrink-0"> {/* Icon container size w-7 h-7 */}
-                    <Mail className="w-5 h-5" /> {/* Icon size w-5 h-5 (20px) */}
-                  </div>
-                  <span className="text-gray-300">info@thorsignia.in</span>
-                </li>
-                {/* Phone Item */}
-                <li className="flex items-start group"> {/* items-start aligns icon to top of text block */}
-                <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center mr-4 text-[#88bf42] group-hover:bg-white/20 transition-colors flex-shrink-0"> {/* Icon container size w-7 h-7 */}
-                    <Phone className="w-5 h-5" /> {/* Icon size w-5 h-5 (20px) */}
-                  </div>
-                  <span className="text-gray-300">+91 90080 97780</span>
-                </li>
-              </ul>
-            </div>
+          {/* Contact & Legal Section */}
+          {/* This is the fourth column - gap is applied by the parent */}
+          <div className="mt-10 xl:mt-0">
+            <h3 className="text-base font-bold text-[#88bf42] tracking-wider uppercase pb-3 mb-3">
+                Contact & Legal
+            </h3>
+            <ul className="space-y-4">
+              <li><Link to="/contact" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Contact Us</Link></li>
+              {/* <li><Link to="/pricing" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Pricing</Link></li> */}
+              <li><Link to="/PrivacyPolicy" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Privacy Policy</Link></li>
+              <li><Link to="/TermsAndConditions" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Terms & Conditions</Link></li>
+              <li><Link to="/RefundPolicy" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Refund Policy</Link></li>
+            </ul>
           </div>
         </div>
 
-        {/* Single full-width divider line below the grid */}
-        <div className="w-full h-px bg-gray-700/40 my-6"></div>
-
-
-        {/* Bottom Row: Copyright & Policies (kept layout, adjusted styling) */}
-        <div className="pt-8 mt-8"> {/* Added top margin */}
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-500 text-sm mb-4 md:mb-0"> {/* Changed copyright color to a slightly darker gray */}
-              © {new Date().getFullYear()} Thor Signia. All rights reserved.
-            </p>
-            <div className="flex space-x-6">
-              <Link to="/PrivacyPolicy#top" className="text-gray-500 hover:text-white text-sm transition-colors font-medium">Privacy Policy</Link> {/* Changed policy link color */}
-              <Link to="/TermsAndConditions#top" className="text-gray-500 hover:text-white text-sm transition-colors font-medium">Terms and Conditions</Link>
-              <Link to="/RefundPolicy#top" className="text-gray-500 hover:text-white text-sm transition-colors font-medium">Refund Policy</Link>
-            </div>
-
-          </div>
+        <div className="mt-12 border-t border-gray-700 pt-8">
+          <p className="text-center text-base text-gray-400">
+            © {new Date().getFullYear()} Thor Signia. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

@@ -670,7 +670,7 @@ const HireEngineers = () => {
                        <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 leading-normal md:leading-tight"> {/* Increased leading for h1 */}
                         Expert AI <span className='text-[#88BF42]'>Engineering</span> Teams, On Demand
                     </h1>
-                    <p className="font-light text-xl md:text-2xl text-neutral-300 mb-8 leading-relaxed"> {/* Increased leading for paragraph */}                        Instantly scale your capabilities with vetted, world-class AI and Machine Learning talent.
+                    <p className="font-light text-lg md:text-xl text-neutral-300 mb-8 leading-relaxed"> {/* Increased leading for paragraph */}                        Instantly scale your capabilities with vetted, world-class AI and Machine Learning talent.
                     </p>
                      {/* Added CTA Buttons to Hero */}
                     <motion.div
@@ -719,16 +719,16 @@ const HireEngineers = () => {
                             {displayedEngineers.map((engineer) => (
                                 <motion.div
                                     key={engineer.title} // Using engineer.title as key is more stable
-                                    className="bg-white rounded-lg shadow-md p-6 border border-gray-200 h-full hover:shadow-xl transition-all duration-300 relative flex flex-col group cursor-pointer"
+                                    className="bg-white rounded-lg shadow-md p-6 border border-[#88bf42] h-full hover:shadow-xl transition-all duration-300 relative flex flex-col group cursor-pointer"
                                     variants={itemEntryVariants} // Using itemEntryVariants for new items fading/sliding in
                                     layout // Added layout for smooth transitions
                                     exit={{ opacity: 0, y: 20, transition: { duration: 0.3 } }} // Keep exit animation
                                     onClick={() => handleHireClick(engineer.title)}
                                 >
                                      {/* Bottom border on hover */}
-                                    <div className="absolute inset-x-0 bottom-0 h-1 bg-[#88bf42] origin-bottom scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></div>
+                                    <div className="absolute inset-x-0 bottom-0 h-1 bg-[#88bf42] origin-bottom border-b-2 border-[#88bf42] scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></div>
 
-                                    <div className="flex flex-col h-full">
+                                    <div className="flex flex-col h-full border-[#88bf42]">
                                         <div className="flex-1">
                                             <h4 className="text-xl font-semibold text-[#0F0326] mb-2 leading-snug">{engineer.title}</h4>
                                             <div className="flex flex-wrap gap-2 mb-3">

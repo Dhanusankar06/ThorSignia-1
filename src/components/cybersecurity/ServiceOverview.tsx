@@ -52,7 +52,7 @@ const ServiceOverview: React.FC = () => {
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
         >
           {/* Feature 1 */}
-          <div className="bg-white/70 border border-[#88bf42]/20 p-6 rounded-lg hover:shadow-xl transition-all duration-300 hover:border-[#009898]/40">
+          <div className="bg-white/70 border border-[#88bf42] p-6 rounded-lg hover:shadow-xl transition-all duration-300 hover:border-[#88bf42]">
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
@@ -70,7 +70,7 @@ const ServiceOverview: React.FC = () => {
             </p>
           </div>
           {/* Feature 2 */}
-          <div className="bg-white/70 border border-[#88bf42]/20 p-6 rounded-lg hover:shadow-xl transition-all duration-300 hover:border-[#009898]/40">
+          <div className="bg-white/70 border border-[#88bf42] p-6 rounded-lg hover:shadow-xl transition-all duration-300 hover:border-[#88bf42]">
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
@@ -88,7 +88,7 @@ const ServiceOverview: React.FC = () => {
             </p>
           </div>
           {/* Feature 3 */}
-          <div className="bg-white/70 border border-[#88bf42]/20 p-6 rounded-lg hover:shadow-xl transition-all duration-300 hover:border-[#009898]/40">
+          <div className="bg-white/70 border border-[#88bf42] p-6 rounded-lg hover:shadow-xl transition-all duration-300 hover:border-[#88bf42]">
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
