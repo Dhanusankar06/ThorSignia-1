@@ -1,116 +1,113 @@
-# Thor Signia Website
+# Thor Signia
 
-## Overview
-
-This is the codebase for the Thor Signia website, featuring a modern React frontend and a Flask Python backend with PostgreSQL for data storage. The site includes interactive case studies, a dynamic Careers page with resume upload, and robust backend integration.
+Thor Signia is a modern web application built with React and Flask, offering intelligent voice, chat, and campaign automation solutions.
 
 ## Features
 
-- Modern React frontend with TailwindCSS and shadcn-ui
-- Flask backend with PostgreSQL database
-- **Careers page**: Apply for jobs/internships, upload resume (PDF, DOC, DOCX, TXT)
-- All applications stored securely in the database
-- Contact form with secure email notifications
-- Consistent branding and button styles across all pages
-- Ready for Vercel/Railway deployment
+- Contact Form with reCAPTCHA integration
+- MySQL database integration
+- RESTful API endpoints
+- Modern UI with responsive design
+- Security features including rate limiting and input sanitization
+
+## Tech Stack
+
+### Frontend
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- Framer Motion
+- Shadcn/ui components
+
+### Backend
+- Flask
+- SQLAlchemy
+- PyMySQL
+- Flask-CORS
 
 ## Getting Started
 
 ### Prerequisites
-
 - Node.js (v14 or higher)
-- npm (v6 or higher)
-- Python 3.8 or higher
-- pip
+- Python (v3.8 or higher)
+- MySQL
 
 ### Installation
 
 1. Clone the repository
-2. Install frontend dependencies:
-   ```bash
-   npm install
-   ```
-3. Install backend dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. Run the development servers (in separate terminals):
-   ```bash
-   npm run dev      # Frontend
-   python app.py    # Backend
-   ```
-5. Build for production:
-   ```bash
-   npm run build
-   ```
+```bash
+git clone https://github.com/yourusername/thor-signia.git
+cd thor-signia
+```
 
-## Backend API
+2. Install frontend dependencies
+```bash
+npm install
+```
 
-- `POST /api/contacts` - Create a new contact submission
-- `POST /api/careers/apply` - Apply for a job/internship (name, email, mobile, resume)
-- `GET /api/contacts/health` - Health check endpoint
+3. Set up Python virtual environment and install backend dependencies
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: .\venv\Scripts\activate
+pip install -r requirements.txt
+```
 
-## Database & Storage
+4. Create .env file in the root directory with the following variables:
+```env
+FLASK_ENV=development
+SECRET_KEY=your_secret_key
+MYSQL_USER=your_mysql_user
+MYSQL_PASSWORD=your_mysql_password
+MYSQL_HOST=your_mysql_host
+MYSQL_PORT=your_mysql_port
+MYSQL_DB=your_mysql_database
+RECAPTCHA_SITE_KEY=your_recaptcha_site_key
+RECAPTCHA_SECRET_KEY=your_recaptcha_secret_key
+```
 
-- **PostgreSQL** (production) or SQLite (development fallback)
-- All career applications and resumes are stored in the database
-- Email notifications for contact form submissions
-- Local JSON backup for contact form (development only)
+### Running the Application
 
-## Careers Page
+1. Start the frontend development server:
+```bash
+npm run dev
+```
 
-- Browse open positions and internships
-- Click **Apply** to open a modal and submit your application
-- Upload your resume (PDF, DOC, DOCX, TXT)
-- All fields are required (name, email, mobile number, resume)
-- Applications are stored in the database and can be managed by the backend
+2. Start the Flask backend server:
+```bash
+python app.py
+```
 
-## Troubleshooting
+The application will be available at:
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:5000
 
-- **Linter errors**: If you see errors about `ChangeEvent` or `FormEvent`, ensure you are using the correct React types. Use `React.ChangeEvent` and `React.FormEvent` in your code.
-- **Missing files**: If you delete a component, remove its import from all files (see Vite errors for missing files).
-- **Database issues**: Ensure your `DATABASE_URL` is set correctly in your environment or `.env` file.
+## API Endpoints
 
-## Project Structure
+### Contact Form
+- `POST /api/contact` - Submit contact form
+- `GET /api/contact` - Get all contacts (development only)
+- `GET /api/contact/:id` - Get specific contact (development only)
 
-- `/src` - Frontend React code (pages, components, UI)
-- `/app` - Backend Flask code (models, routes, services)
-- `/public` - Static assets (images, resumes, etc.)
-- `/dist` - Built frontend (after running `npm run build`)
+### Health Check
+- `GET /api/health` - API health check endpoint
+
+## Deployment
+
+The application is configured for deployment on Vercel (frontend) and can be deployed to any Python hosting service for the backend.
 
 ## Contributing
 
-Pull requests are welcome! Please:
-- Follow the existing code style
-- Test your changes locally
-- Update documentation as needed
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## Support
+## License
 
-For issues or questions, open an issue on GitHub or contact the Thor Signia team.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
----
+## Contact
 
-## Security Features
-
-### Contact Form Protection
-- **reCAPTCHA v3**: Invisible bot protection for the contact form
-  - Frontend integration in Contact.tsx using Google's reCAPTCHA API
-  - Backend verification in contact.py model
-- **Honeypot field**: Additional bot detection mechanism
-- **Timing protection**: Prevents automated form submissions
-
-### Setup reCAPTCHA
-1. Register your site at [Google reCAPTCHA Admin Console](https://www.google.com/recaptcha/admin)
-2. Choose reCAPTCHA v3
-3. Add your domain(s) without protocols (e.g., `thor-signia-three.vercel.app` not `https://thor-signia-three.vercel.app`)
-4. Get your Site Key and Secret Key
-5. Update the frontend:
-   - Use the Site Key in `Contact.tsx` (replace the existing `RECAPTCHA_SITE_KEY` value)
-   - Ensure the key is used in both the script loading and execution functions
-6. Update the backend:
-   - Add `RECAPTCHA_SECRET_KEY` to your environment variables
-   - Ensure the Python `requests` library is installed
-
-
-Thor Signia © 2024. All rights reserved.
+Thor Signia - info@thorsignia.online
