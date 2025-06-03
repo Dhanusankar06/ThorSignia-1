@@ -13,3 +13,4 @@ MarkupSafe==3.0.2
 greenlet==3.1.1
 email-validator==2.1.0.post1
 gunicorn==21.2.0
+requests==2.31.0

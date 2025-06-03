@@ -1,126 +1,279 @@
+from flask import Blueprint, jsonify, request, current_app, make_response
 from app import db
-from datetime import datetime
-from sqlalchemy import Column, Integer, String, Text, DateTime
+from app.models.contact import Contact
+from app.services.email_service import EmailService
+import logging
+import os
 import re
+import time
+import requests
+from functools import wraps
+from datetime import datetime, timedelta
 
-class Contact(db.Model):
-    """Contact form submission model."""
-    
-    __tablename__ = 'contact'
-    
-    id = Column(Integer, primary_key=True)
-    name = Column(String(100), nullable=False)
-    email = Column(String(120), nullable=False)
-    phone = Column(String(20), nullable=True)
-    company = Column(String(100), nullable=False)
-    message = Column(Text, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    
-    def __init__(self, name, email, phone, company, message):
-        self.name = self.validate_name(name)
-        self.email = self.validate_email(email)
-        self.phone = self.validate_phone(phone)
-        self.company = self.validate_company(company)
-        self.message = self.validate_message(message)
-    
-    @staticmethod
-    def validate_name(name):
-        """Validate and sanitize name"""
-        if not name or not isinstance(name, str):
-            raise ValueError("Name is required and must be a string")
+bp = Blueprint('contacts', __name__, url_prefix='/api/contacts')
+logger = logging.getLogger(__name__)
+
+# Simple in-memory rate limiting store
+# In production, this should use Redis or similar
+ip_request_count = {}
+ip_request_timestamp = {}
+MAX_REQUESTS = 5  # Maximum 5 requests
+RATE_LIMIT_WINDOW = 60  # per minute (60 seconds)
+
+def rate_limit(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        # Get client IP
+        ip = request.remote_addr
+        current_time = time.time()
         
-        # Trim and limit length
-        name = name.strip()[:100]
+        # Initialize if IP not seen before
+        if ip not in ip_request_count:
+            ip_request_count[ip] = 0
+            ip_request_timestamp[ip] = current_time
         
-        # Basic sanitization
-        name = re.sub(r'[<>\'";]', '', name)
+        # Reset counter if window has passed
+        if current_time - ip_request_timestamp[ip] > RATE_LIMIT_WINDOW:
+            ip_request_count[ip] = 0
+            ip_request_timestamp[ip] = current_time
         
-        if not name:
-            raise ValueError("Name cannot be empty after sanitization")
-            
-        return name
-    
-    @staticmethod
-    def validate_email(email):
-        """Validate email format"""
-        if not email or not isinstance(email, str):
-            raise ValueError("Email is required and must be a string")
-            
-        # Trim and limit length
-        email = email.strip()[:120]
+        # Increment counter
+        ip_request_count[ip] += 1
         
-        # Basic sanitization
-        email = re.sub(r'[<>\'";]', '', email)
+        # Check if rate limit exceeded
+        if ip_request_count[ip] > MAX_REQUESTS:
+            return jsonify({"error": "Rate limit exceeded. Please try again later."}), 429
         
-        # Email format validation
-        email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-        if not re.match(email_pattern, email):
-            raise ValueError("Invalid email format")
-            
-        return email
-    
-    @staticmethod
-    def validate_phone(phone):
-        """Validate phone number"""
-        if not phone:
-            return None
-            
-        if not isinstance(phone, str):
-            raise ValueError("Phone must be a string")
-            
-        # Trim and limit length  
-        phone = phone.strip()[:20]
+        return f(*args, **kwargs)
+    return decorated_function
+
+def add_security_headers(response):
+    """Add security headers to response"""
+    response.headers['Content-Security-Policy'] = "default-src 'self'"
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'DENY'
+    response.headers['X-XSS-Protection'] = '1; mode=block'
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+    return response
+
+@bp.after_request
+def secure_headers(response):
+    """Add security headers to all responses"""
+    return add_security_headers(response)
+
+def validate_email(email):
+    """Validate email format"""
+    email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return re.match(email_pattern, email) is not None
+
+def sanitize_input(text):
+    """Basic input sanitization"""
+    if not text:
+        return ""
+    # Remove potentially dangerous characters
+    return re.sub(r'[<>\'";\\/]', '', text)
+
+def verify_recaptcha(token):
+    """Verify reCAPTCHA token with Google's API"""
+    if not token:
+        return False
         
-        # Allow only digits, spaces, +, -, and parentheses
-        phone = re.sub(r'[^\d\s\+\-\(\)]', '', phone)
-            
-        return phone
-    
-    @staticmethod
-    def validate_company(company):
-        """Validate and sanitize company"""
-        if not company or not isinstance(company, str):
-            raise ValueError("Company is required and must be a string")
-            
-        # Trim and limit length
-        company = company.strip()[:100]
+    recaptcha_secret = os.getenv('RECAPTCHA_SECRET_KEY')
+    if not recaptcha_secret:
+        logger.error("RECAPTCHA_SECRET_KEY not set in environment variables")
+        return False
         
-        # Basic sanitization
-        company = re.sub(r'[<>\'";]', '', company)
+    try:
+        response = requests.post(
+            'https://www.google.com/recaptcha/api/siteverify',
+            data={
+                'secret': recaptcha_secret,
+                'response': token
+            }
+        )
+        result = response.json()
         
-        if not company:
-            raise ValueError("Company cannot be empty after sanitization")
-            
-        return company
-    
-    @staticmethod
-    def validate_message(message):
-        """Validate and sanitize message"""
-        if not message or not isinstance(message, str):
-            raise ValueError("Message is required and must be a string")
-            
-        # Trim and limit length (maximum 2000 characters)
-        message = message.strip()[:2000]
+        # Check if verification was successful and score is acceptable
+        if result.get('success') and result.get('score', 0) >= 0.5:  # Adjust threshold as needed
+            return True
+        else:
+            logger.warning(f"reCAPTCHA verification failed: {result}")
+            return False
+    except Exception as e:
+        logger.exception(f"Error verifying reCAPTCHA: {e}")
+        return False
+
+@bp.route('', methods=['POST', 'OPTIONS'])
+@rate_limit
+def create_contact():
+    """Create a new contact submission."""
+    # Handle preflight CORS requests
+    if request.method == 'OPTIONS':
+        response = make_response()
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        response.headers.add('Access-Control-Allow-Methods', 'POST')
+        return response
         
-        # Basic sanitization
-        message = re.sub(r'[<>\'";]', '', message)
+    try:
+        # Get form data
+        data = request.get_json()
+        if not data:
+            return jsonify({"error": "Invalid JSON data"}), 400
         
-        if not message:
-            raise ValueError("Message cannot be empty after sanitization")
+        # Bot detection checks
+        
+        # 1. Check honeypot field
+        if data.get('honeypot'):
+            # Log potential bot activity but return success to avoid alerting the bot
+            logger.warning(f"Honeypot field triggered from IP: {request.remote_addr}")
+            return jsonify({"message": "Contact saved successfully"}), 200
+        
+        # 2. Verify reCAPTCHA token
+        recaptcha_token = data.get('recaptchaToken')
+        if not verify_recaptcha(recaptcha_token):
+            # Log potential bot activity but return a generic error
+            logger.warning(f"reCAPTCHA verification failed from IP: {request.remote_addr}")
+            return jsonify({"error": "Security verification failed"}), 400
+        
+        # Validate required fields
+        required_fields = ['name', 'email', 'company', 'message']
+        for field in required_fields:
+            if not data.get(field):
+                return jsonify({"error": f"Missing required field: {field}"}), 400
+        
+        # Validate email format
+        if not validate_email(data.get('email', '')):
+            return jsonify({"error": "Invalid email format"}), 400
+        
+        # Sanitize inputs
+        sanitized_data = {
+            'name': sanitize_input(data['name']),
+            'email': sanitize_input(data['email']),
+            'phone': sanitize_input(data.get('phone', '')),
+            'company': sanitize_input(data['company']),
+            'message': sanitize_input(data['message'])
+        }
+        
+        # Validate data lengths
+        if len(sanitized_data['name']) > 100:
+            return jsonify({"error": "Name is too long (max 100 characters)"}), 400
+        if len(sanitized_data['email']) > 120:
+            return jsonify({"error": "Email is too long (max 120 characters)"}), 400
+        if len(sanitized_data['phone']) > 20:
+            return jsonify({"error": "Phone number is too long (max 20 characters)"}), 400
+        if len(sanitized_data['company']) > 100:
+            return jsonify({"error": "Company name is too long (max 100 characters)"}), 400
+        if len(sanitized_data['message']) > 2000:
+            return jsonify({"error": "Message is too long (max 2000 characters)"}), 400
+        
+        # Create new contact
+        new_contact = Contact(
+            name=sanitized_data['name'],
+            email=sanitized_data['email'],
+            phone=sanitized_data['phone'],
+            company=sanitized_data['company'],
+            message=sanitized_data['message']
+        )
+        
+        # Save to database
+        db.session.add(new_contact)
+        db.session.commit()
+        
+        # Prepare contact data for email
+        contact_data = {
+            'name': sanitized_data['name'],
+            'email': sanitized_data['email'],
+            'phone': sanitized_data['phone'],
+            'company': sanitized_data['company'],
+            'message': sanitized_data['message'],
+            'timestamp': new_contact.created_at.isoformat() if new_contact.created_at else None
+        }
+        
+        # Send email notification - don't block on this
+        email_result = EmailService.send_contact_notification(contact_data)
+        
+        # Backup the submission - don't block on this
+        backup_result = EmailService.backup_submission(contact_data)
+        
+        # Create response with proper CORS headers
+        response = jsonify({
+            'id': new_contact.id,
+            'message': 'Contact saved successfully',
+            'emailSent': email_result.get('success', False),
+            'backupCreated': backup_result.get('success', False)
+        })
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response, 201
+        
+    except Exception as e:
+        logger.exception("Error processing contact submission")
+        db.session.rollback()
+        
+        # Return error with proper CORS headers
+        response = jsonify({"error": "Failed to save contact"})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response, 500
+
+@bp.route('', methods=['GET'])
+def get_contacts():
+    """Get all contacts (development environment only)."""
+    try:
+        # In production, don't allow listing all contacts
+        if os.getenv('FLASK_ENV') == 'production':
+            return jsonify({"error": "Access restricted in production"}), 403
+        
+        contacts = Contact.query.order_by(Contact.created_at.desc()).all()
+        
+        # Return with proper CORS headers
+        response = jsonify([contact.to_dict() for contact in contacts])
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+        
+    except Exception as e:
+        logger.exception("Error retrieving contacts")
+        
+        # Return error with proper CORS headers
+        response = jsonify({"error": "Failed to retrieve contacts"})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response, 500
+
+@bp.route('/<int:id>', methods=['GET'])
+def get_contact(id):
+    """Get a specific contact (development environment only)."""
+    try:
+        # In production, don't allow accessing specific contacts
+        if os.getenv('FLASK_ENV') == 'production':
+            return jsonify({"error": "Access restricted in production"}), 403
+        
+        contact = Contact.query.get(id)
+        if not contact:
+            # Return error with proper CORS headers
+            response = jsonify({"error": "Contact not found"})
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            return response, 404
             
-        return message
-    
-    def __repr__(self):
-        return f'<Contact {self.name} - {self.email}>'
-    
-    def to_dict(self):
-        """Convert instance to a dictionary."""
-        return {
-            'id': self.id,
-            'name': self.name,
-            'email': self.email,
-            'phone': self.phone,
-            'company': self.company,
-            'message': self.message,
-            'created_at': self.created_at.isoformat() if self.created_at else None
-        } 
+        # Return with proper CORS headers
+        response = jsonify(contact.to_dict())
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+        
+    except Exception as e:
+        logger.exception(f"Error retrieving contact {id}")
+        
+        # Return error with proper CORS headers
+        response = jsonify({"error": "Failed to retrieve contact"})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response, 500
+
+# Health check route
+@bp.route('/health', methods=['GET'])
+def health_check():
+    """Simple route to check if the API is running."""
+    # Return with proper CORS headers
+    response = jsonify({
+        "status": "ok",
+        "service": "contacts-api"
+    })
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response

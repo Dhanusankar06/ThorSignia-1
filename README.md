@@ -91,4 +91,26 @@ For issues or questions, open an issue on GitHub or contact the Thor Signia team
 
 ---
 
+## Security Features
+
+### Contact Form Protection
+- **reCAPTCHA v3**: Invisible bot protection for the contact form
+  - Frontend integration in Contact.tsx using Google's reCAPTCHA API
+  - Backend verification in contact.py model
+- **Honeypot field**: Additional bot detection mechanism
+- **Timing protection**: Prevents automated form submissions
+
+### Setup reCAPTCHA
+1. Register your site at [Google reCAPTCHA Admin Console](https://www.google.com/recaptcha/admin)
+2. Choose reCAPTCHA v3
+3. Add your domain(s) without protocols (e.g., `thor-signia-three.vercel.app` not `https://thor-signia-three.vercel.app`)
+4. Get your Site Key and Secret Key
+5. Update the frontend:
+   - Use the Site Key in `Contact.tsx` (replace the existing `RECAPTCHA_SITE_KEY` value)
+   - Ensure the key is used in both the script loading and execution functions
+6. Update the backend:
+   - Add `RECAPTCHA_SECRET_KEY` to your environment variables
+   - Ensure the Python `requests` library is installed
+
+
 Thor Signia © 2024. All rights reserved.

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,6 +13,8 @@ import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 // WorldMap import is not needed as we are using an image now
+
+const RECAPTCHA_SITE_KEY='6Ld3P1QrAAAAAMF8yMjR62NtkHR3yZ1aT8zkPQ4a';
 
 // Animation variants
 const fadeIn = {
@@ -65,6 +67,16 @@ const slideInRight = {
   }
 };
 
+// Add reCAPTCHA interface to window object
+declare global {
+  interface Window {
+    grecaptcha?: {
+      ready: (callback: () => void) => void;
+      execute: (siteKey: string, options: { action: string }) => Promise<string>;
+    };
+  }
+}
+
 const ContactPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -76,8 +88,49 @@ const ContactPage = () => {
     company: '',
     requestType: '', // This field is in the state but not used in the form currently
     message: '',
-    authorizeContact: false
+    authorizeContact: false,
+    honeypot: '', // Honeypot field to catch bots
   });
+  
+  // Form timing protection
+  const formLoadTime = useRef(Date.now());
+  const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
+  
+  // Load reCAPTCHA script
+  useEffect(() => {
+    // Only load if not already loaded
+    if (!window.grecaptcha) {
+      const script = document.createElement('script');
+      script.src = 'https://www.google.com/recaptcha/api.js?render=6Ld3P1QrAAAAAMF8yMjR62NtkHR3yZ1aT8zkPQ4a'; 
+      script.async = true;
+      script.defer = true;
+      script.onload = () => {
+        setRecaptchaLoaded(true);
+      };
+      document.head.appendChild(script);
+      
+      return () => {
+        document.head.removeChild(script);
+      };
+    } else {
+      setRecaptchaLoaded(true);
+    }
+  }, []);
+  
+  // Execute reCAPTCHA when form is about to be submitted
+  const executeRecaptcha = async () => {
+    if (!window.grecaptcha) {
+      console.error('reCAPTCHA not loaded');
+      return null;
+    }
+    
+    try {
+      return await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, {action: 'contact_form'}); 
+    } catch (error) {
+      console.error('reCAPTCHA execution failed:', error);
+      return null;
+    }
+  };
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -95,6 +148,38 @@ const ContactPage = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    
+    // Bot detection checks
+    
+    // 1. Check if honeypot field is filled (bots will fill this, humans won't see it)
+    if (formData.honeypot) {
+      console.log('Honeypot triggered - likely bot submission');
+      // Simulate success but don't actually submit
+      setIsSubmitted(true);
+      setTimeout(() => setIsSubmitted(false), 5000);
+      return;
+    }
+    
+    // 2. Check if form was submitted too quickly (less than 3 seconds)
+    const timeSinceLoad = Date.now() - formLoadTime.current;
+    if (timeSinceLoad < 3000) {
+      console.log('Form submitted too quickly - likely bot submission');
+      // Simulate success but don't actually submit
+      setIsSubmitted(true);
+      setTimeout(() => setIsSubmitted(false), 5000);
+      return;
+    }
+    
+    // 3. Get reCAPTCHA token
+    let token = null;
+    if (recaptchaLoaded) {
+      token = await executeRecaptcha();
+      if (!token) {
+        alert('Could not verify you are human. Please try again.');
+        return;
+      }
+    }
+    
     setIsLoading(true);
     try {
       // Ensure you have the /api/contacts endpoint set up correctly
@@ -112,6 +197,7 @@ const ContactPage = () => {
           // requestType: formData.requestType, // Include if select is added back
           message: formData.message,
           authorizeContact: formData.authorizeContact, // Include if backend needs confirmation
+          recaptchaToken: token, // Send token to backend for verification
         })
       });
       if (!response.ok) {
@@ -126,9 +212,11 @@ const ContactPage = () => {
         lastName: '',
         email: '',
         phone: '',
+        company: '',
         requestType: '',
         message: '',
-        authorizeContact: false
+        authorizeContact: false,
+        honeypot: '',
       });
       // Hide success message after a delay
       setTimeout(() => setIsSubmitted(false), 5000);
@@ -243,6 +331,19 @@ const ContactPage = () => {
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Honeypot field - hidden from humans but bots will fill it */}
+                  <div className="absolute opacity-0 h-0 w-0 overflow-hidden pointer-events-none">
+                    <Label htmlFor="honeypot" className="text-[#0F0326]">Leave this empty</Label>
+                    <Input
+                      id="honeypot"
+                      name="honeypot"
+                      value={formData.honeypot}
+                      onChange={handleChange}
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                  </div>
+                  
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="firstName" className="text-[#0F0326]">First Name*</Label>
@@ -338,7 +439,8 @@ const ContactPage = () => {
                     <Button
                       type="submit"
                       disabled={isLoading || !formData.authorizeContact}
-                      className="w-full bg-[#88BF42] hover:bg-[#88BF42]/90 text-white py-6  text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full bg-[#88BF42] hover:bg-[#88BF42]/90 text-white py-6 text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                      data-action="submit"
                     >
                       {isLoading ? (
                         <>
@@ -350,6 +452,13 @@ const ContactPage = () => {
                       )}
                     </Button>
                   </motion.div>
+                  
+                  {/* Invisible reCAPTCHA badge */}
+                  <div className="text-xs text-gray-500 text-center mt-4">
+                    This site is protected by reCAPTCHA and the Google
+                    <a href="https://policies.google.com/privacy" className="text-[#88BF42] hover:underline"> Privacy Policy</a> and
+                    <a href="https://policies.google.com/terms" className="text-[#88BF42] hover:underline"> Terms of Service</a> apply.
+                  </div>
                 </form>
               )}
             </motion.div>
@@ -371,7 +480,7 @@ const ContactPage = () => {
 
                 {/* Intro Paragraph */}
                 <p className="text-[#696869] text-base md:text-lg mb-6 leading-relaxed">
-                    We’re more than happy to connect with you! Whether you have questions, need expert guidance, or are exploring innovative ways to grow your business — our dedicated team is here to help. Reach out today and discover how our cutting-edge solutions can drive your success and transform your vision into reality.
+                    We're more than happy to connect with you! Whether you have questions, need expert guidance, or are exploring innovative ways to grow your business — our dedicated team is here to help. Reach out today and discover how our cutting-edge solutions can drive your success and transform your vision into reality.
                 </p>
 
                 {/* Why Reach Out? Section */}
@@ -443,7 +552,7 @@ const ContactPage = () => {
       </section>
 
       {/* === Modified: We Are Global Section === */}
-      <section className="py-12 md:py-20 bg-[#f5f8ff]"> {/* Added a subtle background color */}
+      <section className="py-12 md:py-20 bg-[#f5f8ff]">
           <div className="container mx-auto px-4">
               {/* Section Title */}
               <motion.div
@@ -454,7 +563,7 @@ const ContactPage = () => {
                   className="text-center mb-12"
               >
                   <h2 className="text-3xl md:text-4xl font-bold text-[#0F0326] mb-4">
-                      <Globe className="inline-block w-8 h-8 text-[#88BF42] mr-2 mb-1" /> {/* Added Globe icon to title */}
+                      <Globe className="inline-block w-8 h-8 text-[#88BF42] mr-2 mb-1" />
                       Our Global Reach
                   </h2>
                   <p className="text-[#696869] text-base md:text-lg max-w-2xl mx-auto">
@@ -471,7 +580,6 @@ const ContactPage = () => {
                   className="mt-8 rounded-2xl shadow-xl overflow-hidden bg-white p-0 border border-gray-100 w-full"
               >
                   {/* Relative container for the map image and absolutely positioned markers */}
-                  {/* Increased height and removed padding for full-width appearance */}
                   <div className="relative h-[500px] md:h-[600px] w-full overflow-hidden">
                       {/* Map Image - Using the path provided by the user */}
                       <img
@@ -518,15 +626,11 @@ const ContactPage = () => {
                           <span className="absolute top-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-[#0F0326] bg-white/80 px-2 py-1 rounded whitespace-nowrap">Singapore</span>
                       </div>
                   </div>
-
-                  
               </motion.div>
           </div>
       </section>
-      {/* === End: We Are Global Section === */}
       <Footer />
     </div>
-
   );
 };
 
