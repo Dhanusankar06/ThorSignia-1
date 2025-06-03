@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request, current_app, make_response
 from app import db
-from app.models.contact import Contact
+from app.models.contact_model import Contact
 from app.services.email_service import EmailService
 import logging
 import os
