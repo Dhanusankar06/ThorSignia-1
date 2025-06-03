@@ -59,7 +59,6 @@ def verify_railway_database():
                 user = credentials
                 password = ""
             
-            # Parse host and database
             if '/' in host_info:
                 host_port, database = host_info.split('/')
                 
@@ -67,11 +66,11 @@ def verify_railway_database():
                     host, port = host_port.split(':')
                 else:
                     host = host_port
-                    port = "5432"  # Default PostgreSQL port
+                    port = "5432"  
             else:
                 host = host_info
-                database = "postgres"  # Default database name
-                port = "5432"  # Default PostgreSQL port
+                database = "postgres"  
+                port = "5432"  
         else:
             logger.error("Invalid database URL format")
             return False

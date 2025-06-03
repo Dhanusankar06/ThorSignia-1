@@ -105,11 +105,10 @@ const ContactPage = () => {
         },
         // Pass all relevant data needed by your backend
         body: JSON.stringify({
-          firstName: formData.firstName,
-          lastName: formData.lastName,
+          name: formData.firstName, // Use firstName as the name field for backend
           email: formData.email,
           phone: formData.phone,
-          company: formData.company,
+          company: formData.company || 'Not provided', // Ensure company is always provided
           // requestType: formData.requestType, // Include if select is added back
           message: formData.message,
           authorizeContact: formData.authorizeContact, // Include if backend needs confirmation
