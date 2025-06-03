@@ -180,8 +180,12 @@ def create_contact():
         db.session.rollback()
         
         # Return error with proper CORS headers
-        response = jsonify({"error": "Failed to save contact"})
+        response = jsonify({
+            "error": "Failed to save contact",
+            "message": str(e) if os.environ.get('FLASK_ENV') != 'production' else "An internal server error occurred"
+        })
         response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Content-Type', 'application/json')
         return response, 500 
 
 @api_bp.route('/api/assessments', methods=['POST', 'OPTIONS'])

@@ -201,9 +201,18 @@ const ContactPage = () => {
         })
       });
       if (!response.ok) {
-         // Attempt to read error message from response body if available
-        const errorBody = await response.json();
-        throw new Error(errorBody.message || `Failed to submit contact form. Status: ${response.status}`);
+        // Attempt to read error message from response body if available
+        let errorMessage = `Failed to submit contact form. Status: ${response.status}`;
+        try {
+          const errorBody = await response.json();
+          if (errorBody.error || errorBody.message) {
+            errorMessage = errorBody.message || errorBody.error || errorMessage;
+          }
+        } catch (jsonError) {
+          // If response is not JSON, use status text
+          console.error('Error parsing error response:', jsonError);
+        }
+        throw new Error(errorMessage);
       }
       setIsSubmitted(true);
       // Clear form data on successful submission
