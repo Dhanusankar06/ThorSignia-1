@@ -108,7 +108,7 @@ const ContactPage = () => {
           name: formData.firstName, // Use firstName as the name field for backend
           email: formData.email,
           phone: formData.phone,
-          company: formData.company || 'Not provided', // Ensure company is always provided
+          company: formData.company, // Company field is now optional in the backend
           // requestType: formData.requestType, // Include if select is added back
           message: formData.message,
           authorizeContact: formData.authorizeContact, // Include if backend needs confirmation
