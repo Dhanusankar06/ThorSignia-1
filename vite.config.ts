@@ -9,6 +9,21 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src')
     }
   },
+  server: {
+    proxy: {
+      '/api/contact': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/api/contacts': {  // Keep this for backward compatibility
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace('/api/contacts', '/api/contact')
+      }
+    }
+  },
   build: {
     assetsInlineLimit: 0,
     rollupOptions: {

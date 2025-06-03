@@ -1,11 +1,11 @@
 from flask import Flask, Response, request, jsonify, make_response, Blueprint
+import requests
 
 api_bp = Blueprint('api', __name__)
 
 from app import create_app, db
-from app.models.contact_model import Contact
+# from app.models.contact_model import Contact
 from api.assessment import Assessment
-from app.services.email_service import EmailService
 import re
 import logging
 import time
@@ -13,30 +13,28 @@ from functools import wraps
 import os
 from werkzeug.utils import secure_filename
 
-api_bp = Blueprint('api', __name__)
-
 logger = logging.getLogger(__name__)
+
+# Get allowed origins from environment or use defaults
+ALLOWED_ORIGINS = [
+    'http://localhost:5000',
+    'http://127.0.0.1:5000',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'https://thor-signia-three.vercel.app'
+]
+
+def get_allowed_origin(request):
+    origin = request.headers.get('Origin')
+    if origin in ALLOWED_ORIGINS:
+        return origin
+    return ALLOWED_ORIGINS[0]
 
 # Simple in-memory rate limiting store
 ip_request_count = {}
 ip_request_timestamp = {}
 MAX_REQUESTS = 5  # Maximum 5 requests
 RATE_LIMIT_WINDOW = 60  # per minute (60 seconds)
-
-# Define upload folder for resumes
-import tempfile
-
-if "VERCEL" in os.environ or os.environ.get("VERCEL_ENV"):
-    # Use /tmp/uploads for Vercel/serverless
-    UPLOAD_FOLDER = os.path.join(tempfile.gettempdir(), "uploads")
-else:
-    # Use local uploads folder for development
-    UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'uploads')
-
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
-
-ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx', 'txt'}
 
 def rate_limit(f):
     @wraps(f)
@@ -77,31 +75,51 @@ def sanitize_input(text):
     # Remove potentially dangerous characters
     return re.sub(r'[<>\'";]', '', text)
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+def verify_recaptcha(token):
+    """Verify reCAPTCHA token with Google's API"""
+    try:
+        secret_key = os.getenv('RECAPTCHA_SECRET_KEY')
+        if not secret_key:
+            logger.error("reCAPTCHA secret key not configured")
+            return False
+
+        response = requests.post('https://www.google.com/recaptcha/api/siteverify', {
+            'secret': secret_key,
+            'response': token
+        })
+        result = response.json()
+        
+        if result['success']:
+            # For v3, you might want to check the score
+            score = result.get('score', 0)  # score between 0.0 and 1.0
+            return score >= 0.5  # Adjust this threshold as needed
+        return False
+    except Exception as e:
+        logger.error(f"reCAPTCHA verification failed: {str(e)}")
+        return False
 
 @api_bp.route('/api/health', methods=['GET'])
 def api_health():
     """Health check endpoint."""
     response = jsonify({'status': 'ok', 'message': 'Thor Signia API is running'})
-    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Origin', get_allowed_origin(request))
     return response
 
-@api_bp.route('/api/contacts', methods=['POST', 'OPTIONS'])
+@api_bp.route('/api/contact', methods=['POST', 'OPTIONS'])
 @rate_limit
 def create_contact():
     """Create a new contact submission."""
-    # Handle preflight CORS requests
     if request.method == 'OPTIONS':
         response = make_response()
-        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Origin', get_allowed_origin(request))
         response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
         response.headers.add('Access-Control-Allow-Methods', 'POST')
         return response
         
     try:
-        # Get form data
         data = request.get_json()
+        logger.info(f"Received contact form data: {data}")
+        
         if not data:
             return jsonify({"error": "Invalid JSON data"}), 400
         
@@ -124,17 +142,7 @@ def create_contact():
             'message': sanitize_input(data['message'])
         }
         
-        # Validate data lengths
-        if len(sanitized_data['name']) > 100:
-            return jsonify({"error": "Name is too long (max 100 characters)"}), 400
-        if len(sanitized_data['email']) > 120:
-            return jsonify({"error": "Email is too long (max 120 characters)"}), 400
-        if len(sanitized_data['phone']) > 20:
-            return jsonify({"error": "Phone number is too long (max 20 characters)"}), 400
-        if len(sanitized_data['company']) > 100:
-            return jsonify({"error": "Company name is too long (max 100 characters)"}), 400
-        if len(sanitized_data['message']) > 2000:
-            return jsonify({"error": "Message is too long (max 2000 characters)"}), 400
+        logger.info(f"Creating new contact with data: {sanitized_data}")
         
         # Create new contact
         new_contact = Contact(
@@ -146,47 +154,37 @@ def create_contact():
         )
         
         # Save to database
-        db.session.add(new_contact)
-        db.session.commit()
-        
-        # Prepare contact data for email
-        contact_data = {
-            'name': sanitized_data['name'],
-            'email': sanitized_data['email'],
-            'phone': sanitized_data['phone'],
-            'company': sanitized_data['company'],
-            'message': sanitized_data['message'],
-            'timestamp': new_contact.created_at.isoformat() if new_contact.created_at else None
-        }
-        
-        # Send email notification - don't block on this
-        email_result = EmailService.send_contact_notification(contact_data)
-        
-        # Backup the submission - don't block on this
-        backup_result = EmailService.backup_submission(contact_data) if hasattr(EmailService, 'backup_submission') else {'success': False}
-        
-        # Create response with proper CORS headers
-        response = jsonify({
-            'id': new_contact.id,
-            'message': 'Contact saved successfully',
-            'emailSent': email_result.get('success', False),
-            'backupCreated': backup_result.get('success', False)
-        })
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        return response, 201
+        try:
+            logger.info("Attempting to save contact to database...")
+            db.session.add(new_contact)
+            db.session.commit()
+            logger.info(f"Successfully saved contact with ID: {new_contact.id}")
+            
+            # Create response
+            response = jsonify({
+                'id': new_contact.id,
+                'message': 'Contact saved successfully'
+            })
+            response.headers.add('Access-Control-Allow-Origin', get_allowed_origin(request))
+            return response, 201
+            
+        except Exception as db_error:
+            logger.error(f"Database error: {str(db_error)}")
+            db.session.rollback()
+            raise
         
     except Exception as e:
         logger.exception("Error processing contact submission")
-        db.session.rollback()
+        if 'db' in locals():
+            db.session.rollback()
         
-        # Return error with proper CORS headers
         response = jsonify({
             "error": "Failed to save contact",
             "message": str(e) if os.environ.get('FLASK_ENV') != 'production' else "An internal server error occurred"
         })
-        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Origin', get_allowed_origin(request))
         response.headers.add('Content-Type', 'application/json')
-        return response, 500 
+        return response, 500
 
 @api_bp.route('/api/assessments', methods=['POST', 'OPTIONS'])
 @rate_limit
@@ -194,7 +192,7 @@ def create_assessment():
     """Create a new cybersecurity assessment submission."""
     if request.method == 'OPTIONS':
         response = make_response()
-        response.headers.add('Access-Control-Allow-Origin', 'https://thor-signia-three.vercel.app')
+        response.headers.add('Access-Control-Allow-Origin', get_allowed_origin(request))
         response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
         response.headers.add('Access-Control-Allow-Methods', 'POST')
         return response
@@ -257,13 +255,13 @@ def create_assessment():
             'message': 'Assessment request saved successfully',
             'emailSent': email_sent
         })
-        response.headers.add('Access-Control-Allow-Origin', 'https://thor-signia-three.vercel.app')
+        response.headers.add('Access-Control-Allow-Origin', get_allowed_origin(request))
         return response, 201
     except Exception as e:
         logger.exception("Error processing assessment submission")
         db.session.rollback()
         response = jsonify({"error": "Failed to save assessment"})
-        response.headers.add('Access-Control-Allow-Origin', 'https://thor-signia-three.vercel.app')
+        response.headers.add('Access-Control-Allow-Origin', get_allowed_origin(request))
         return response, 500
 
 @api_bp.route('/api/careers/apply', methods=['POST', 'OPTIONS'])

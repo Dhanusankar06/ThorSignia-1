@@ -16,6 +16,11 @@ import Footer from '@/components/Footer';
 
 const RECAPTCHA_SITE_KEY='6Ld3P1QrAAAAAMF8yMjR62NtkHR3yZ1aT8zkPQ4a';
 
+// Add API URL configuration
+const API_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://thor-signia-three.vercel.app/api/contact'
+  : '/api/contact';
+
 // Animation variants
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -182,22 +187,19 @@ const ContactPage = () => {
     
     setIsLoading(true);
     try {
-      // Ensure you have the /api/contacts endpoint set up correctly
-      const response = await fetch('/api/contacts', {
+      const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        // Pass all relevant data needed by your backend
         body: JSON.stringify({
-          name: formData.firstName, // Use firstName as the name field for backend
+          name: formData.firstName,
           email: formData.email,
           phone: formData.phone,
-          company: formData.company, // Company field is now optional in the backend
-          // requestType: formData.requestType, // Include if select is added back
+          company: formData.company,
           message: formData.message,
-          authorizeContact: formData.authorizeContact, // Include if backend needs confirmation
-          recaptchaToken: token, // Send token to backend for verification
+          authorizeContact: formData.authorizeContact,
+          recaptchaToken: token,
         })
       });
       if (!response.ok) {

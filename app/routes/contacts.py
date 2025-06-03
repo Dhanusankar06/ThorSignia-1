@@ -1,7 +1,6 @@
 from flask import Blueprint, jsonify, request, current_app, make_response
 from app import db
-from app.models.contact_model import Contact
-from app.services.email_service import EmailService
+from app.models.contact import Contact
 import logging
 import os
 import re
@@ -9,7 +8,7 @@ import time
 from functools import wraps
 from datetime import datetime, timedelta
 
-bp = Blueprint('contacts', __name__, url_prefix='/api/contacts')
+bp = Blueprint('contacts', __name__, url_prefix='/api/contact')
 logger = logging.getLogger(__name__)
 
 # Simple in-memory rate limiting store
@@ -87,6 +86,8 @@ def create_contact():
     try:
         # Get form data
         data = request.get_json()
+        logger.info(f"Received contact form data: {data}")
+        
         if not data:
             return jsonify({"error": "Invalid JSON data"}), 400
         
@@ -109,17 +110,7 @@ def create_contact():
             'message': sanitize_input(data['message'])
         }
         
-        # Validate data lengths
-        if len(sanitized_data['name']) > 100:
-            return jsonify({"error": "Name is too long (max 100 characters)"}), 400
-        if len(sanitized_data['email']) > 120:
-            return jsonify({"error": "Email is too long (max 120 characters)"}), 400
-        if len(sanitized_data['phone']) > 20:
-            return jsonify({"error": "Phone number is too long (max 20 characters)"}), 400
-        if len(sanitized_data['company']) > 100:
-            return jsonify({"error": "Company name is too long (max 100 characters)"}), 400
-        if len(sanitized_data['message']) > 2000:
-            return jsonify({"error": "Message is too long (max 2000 characters)"}), 400
+        logger.info(f"Creating new contact with data: {sanitized_data}")
         
         # Create new contact
         new_contact = Contact(
@@ -131,40 +122,30 @@ def create_contact():
         )
         
         # Save to database
-        db.session.add(new_contact)
-        db.session.commit()
-        
-        # Prepare contact data for email
-        contact_data = {
-            'name': sanitized_data['name'],
-            'email': sanitized_data['email'],
-            'phone': sanitized_data['phone'],
-            'company': sanitized_data['company'],
-            'message': sanitized_data['message'],
-            'timestamp': new_contact.created_at.isoformat() if new_contact.created_at else None
-        }
-        
-        # Send email notification - don't block on this
-        email_result = EmailService.send_contact_notification(contact_data)
-        
-        # Backup the submission - don't block on this
-        backup_result = EmailService.backup_submission(contact_data)
-        
-        # Create response with proper CORS headers
-        response = jsonify({
-            'id': new_contact.id,
-            'message': 'Contact saved successfully',
-            'emailSent': email_result.get('success', False),
-            'backupCreated': backup_result.get('success', False)
-        })
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        return response, 201
+        try:
+            logger.info("Attempting to save contact to database...")
+            db.session.add(new_contact)
+            db.session.commit()
+            logger.info(f"Successfully saved contact with ID: {new_contact.id}")
+            
+            # Create response
+            response = jsonify({
+                'id': new_contact.id,
+                'message': 'Contact saved successfully'
+            })
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            return response, 201
+            
+        except Exception as db_error:
+            logger.error(f"Database error: {str(db_error)}")
+            db.session.rollback()
+            raise
         
     except Exception as e:
         logger.exception("Error processing contact submission")
-        db.session.rollback()
+        if 'db' in locals():
+            db.session.rollback()
         
-        # Return error with proper CORS headers
         response = jsonify({
             "error": "Failed to save contact",
             "message": str(e) if os.environ.get('FLASK_ENV') != 'production' else "An internal server error occurred"
@@ -228,7 +209,6 @@ def get_contact(id):
 @bp.route('/health', methods=['GET'])
 def health_check():
     """Simple route to check if the API is running."""
-    # Return with proper CORS headers
     response = jsonify({
         "status": "ok",
         "service": "contacts-api"

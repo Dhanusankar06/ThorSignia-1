@@ -35,59 +35,80 @@ def create_app():
     app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
     app.config['PERMANENT_SESSION_LIFETIME'] = 3600  # 1 hour
     
-    # Configure CORS to allow requests from any origin
-    CORS(app, resources={r"/*": {"origins": "*"}})
+    # Configure CORS with specific origins
+    CORS(app, resources={
+        r"/*": {
+            "origins": [
+                "http://localhost:5000",
+                "http://127.0.0.1:5000",
+                "http://localhost:3000",
+                "http://127.0.0.1:3000",
+                "https://thor-signia-three.vercel.app"
+            ],
+            "methods": ["GET", "POST", "OPTIONS"],
+            "allow_headers": ["Content-Type", "Authorization"]
+        }
+    })
     
-    # Configure the database - Use Railway MySQL if available, otherwise SQLite
-    database_url = os.getenv('DATABASE_URL')
-    
-    # If DATABASE_URL is not provided, try to construct it from individual components
-    if not database_url:
-        mysql_user = os.getenv('MYSQL_USER')
-        mysql_password = os.getenv('MYSQL_PASSWORD')
-        mysql_host = os.getenv('MYSQL_HOST')
-        mysql_port = os.getenv('MYSQL_PORT')
-        mysql_db = os.getenv('MYSQL_DB')
+    # Database Configuration
+    try:
+        # First try to use DATABASE_URL if provided
+        database_url = os.getenv('DATABASE_URL')
         
-        # If all MySQL environment variables are set, construct the DATABASE_URL
-        if mysql_user and mysql_password and mysql_host and mysql_port and mysql_db:
-            # URL encode the password to handle special characters
-            encoded_password = urllib.parse.quote_plus(mysql_password)
-            database_url = f"mysql+pymysql://{mysql_user}:{encoded_password}@{mysql_host}:{mysql_port}/{mysql_db}"
-            logger.info(f"Constructed MySQL URL from environment variables for host: {mysql_host}")
-    else:
-        # Convert mysql:// to mysql+pymysql:// if necessary
-        if database_url.startswith('mysql://'):
-            database_url = database_url.replace('mysql://', 'mysql+pymysql://', 1)
-    
-    # Configure SQLAlchemy with the database URL
-    if database_url:
-        app.config['SQLALCHEMY_DATABASE_URI'] = database_url
-        logger.info(f"Using MySQL database at {database_url.split('@')[1].split('/')[0] if '@' in database_url else 'unknown host'}")
-    else:
-        # Fallback to SQLite for local development
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///contacts.db'
-        logger.info("Using SQLite database")
-    
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['JSON_SORT_KEYS'] = False
-    
-    # Security headers middleware
-    @app.after_request
-    def add_security_headers(response):
-        # Add security headers, but allow cross-origin requests
-        response.headers['X-Content-Type-Options'] = 'nosniff'
-        response.headers['X-XSS-Protection'] = '1; mode=block'
+        if database_url:
+            # Convert mysql:// to mysql+pymysql:// if necessary
+            if database_url.startswith('mysql://'):
+                database_url = database_url.replace('mysql://', 'mysql+pymysql://', 1)
+            logger.info("Using DATABASE_URL for connection")
+        else:
+            # If DATABASE_URL not provided, construct from individual components
+            mysql_user = os.getenv('MYSQL_USER')
+            mysql_password = os.getenv('MYSQL_PASSWORD')
+            mysql_host = os.getenv('MYSQL_HOST')
+            mysql_port = os.getenv('MYSQL_PORT')
+            mysql_db = os.getenv('MYSQL_DB')
+            
+            if all([mysql_user, mysql_password, mysql_host, mysql_port, mysql_db]):
+                encoded_password = urllib.parse.quote_plus(mysql_password)
+                database_url = f"mysql+pymysql://{mysql_user}:{encoded_password}@{mysql_host}:{mysql_port}/{mysql_db}"
+                logger.info(f"Constructed MySQL URL from environment variables")
+            else:
+                logger.warning("No valid MySQL configuration found")
+                database_url = None
         
-        # Set CORS headers to ensure they aren't overridden
-        response.headers['Access-Control-Allow-Origin'] = '*'
-        response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
-        response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS, POST, PUT, DELETE'
-        
-        return response
-    
-    # Initialize plugins
-    db.init_app(app)
+        if database_url:
+            app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+            app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+            app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+                'pool_size': 10,
+                'pool_recycle': 60,
+                'pool_pre_ping': True
+            }
+            
+            # Initialize the database
+            db.init_app(app)
+            
+            # Test the connection
+            with app.app_context():
+                db.engine.connect()
+                logger.info("Successfully connected to MySQL database!")
+                
+                # Create tables
+                logger.info("Creating database tables...")
+                db.create_all()
+                logger.info("Database tables created successfully!")
+                
+                # Verify tables
+                inspector = db.inspect(db.engine)
+                tables = inspector.get_table_names()
+                logger.info(f"Available tables in database: {tables}")
+                
+        else:
+            raise Exception("No valid database configuration found")
+            
+    except Exception as e:
+        logger.error(f"Database configuration error: {str(e)}")
+        raise
     
     with app.app_context():
         # Import parts of the application
@@ -97,9 +118,6 @@ def create_app():
         app.register_blueprint(contacts.bp)
         from api.index import api_bp
         app.register_blueprint(api_bp)
-        
-        # Create database tables (if they don't exist)
-        db.create_all()
         
         # Add a basic API health check route
         @app.route('/api/health')
