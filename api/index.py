@@ -13,7 +13,22 @@ from functools import wraps
 import os
 from werkzeug.utils import secure_filename
 
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# Upload configuration
+UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'uploads')
+ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx', 'txt'}
+MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
+
+def allowed_file(filename):
+    """Check if the uploaded file has an allowed extension."""
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+# Ensure upload folder exists
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # Get allowed origins from environment or use defaults
 ALLOWED_ORIGINS = [
