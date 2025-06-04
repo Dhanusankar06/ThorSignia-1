@@ -705,60 +705,108 @@ const ContactPage = () => {
 
               {/* Image Map with Locations - Full width map */}
               <motion.div
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={fadeIn}
-                  className="mt-8 rounded-2xl shadow-xl overflow-hidden bg-white p-0 border border-gray-100 w-full"
-              >
-                  {/* Relative container for the map image and absolutely positioned markers */}
-                  <div className="relative h-[500px] md:h-[600px] w-full overflow-hidden">
-                      {/* Map Image - Using the path provided by the user */}
-                      <img
-                          src="/assets/world.png"
-                          alt="World Map showing global presence"
-                          className="w-full h-full object-cover"
-                      />
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeIn}
+                className="mt-8 rounded-2xl shadow-xl overflow-hidden bg-white p-0 border border-gray-100 w-full"
+            >
+                <div className="relative w-full overflow-hidden h-[350px] sm:h-[450px] md:h-[500px] lg:h-[600px]">
+                    <img
+                        src="/assets/world.png"
+                        alt="World Map showing global presence"
+                        className="w-full h-full object-cover"
+                    />
 
-                      {/* Location Markers (Dots) and Labels - Accurately positioned */}
-                      
-                      {/* USA - More accurate position */}
-                      <div className="absolute z-10" style={{ top: '38%', left: '19%' }}>
-                          <div className="w-4 h-4 bg-[#007bff] rounded-full animate-pulse"></div>
-                          <span className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-[#0F0326] bg-white/80 px-2 py-1 rounded whitespace-nowrap">USA</span>
-                      </div>
+                    {/* USA */}
+                    <div className="absolute z-10" style={{ top: '38%', left: '19%' }}>
+                        <div className="w-2.5 h-2.5 md:w-4 md:h-4 bg-[#007bff] rounded-full animate-pulse"></div>
+                        <span className="absolute -top-5 md:-top-6 left-1/2 transform -translate-x-1/2 text-[10px] md:text-xs font-bold text-[#0F0326] bg-white/80 px-1.5 py-0.5 md:px-2 md:py-1 rounded whitespace-nowrap">USA</span>
+                    </div>
 
-                      {/* UAE - More accurate position */}
-                      <div className="absolute z-10" style={{ top: '42%', left: '60%' }}>
-                          <div className="w-4 h-4 bg-[#007bff] rounded-full animate-pulse"></div>
-                          <span className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-[#0F0326] bg-white/80 px-2 py-1 rounded whitespace-nowrap">UAE</span>
-                      </div>
+                    {/* UAE */}
+                    <div className="absolute z-10" style={{ top: '42%', left: '60%' }}>
+                        <div className="w-2.5 h-2.5 md:w-4 md:h-4 bg-[#007bff] rounded-full animate-pulse"></div>
+                        <span className="absolute -top-5 md:-top-6 left-1/2 transform -translate-x-1/2 text-[10px] md:text-xs font-bold text-[#0F0326] bg-white/80 px-1.5 py-0.5 md:px-2 md:py-1 rounded whitespace-nowrap">UAE</span>
+                    </div>
 
-                      {/* Hyderabad - More accurate position */}
-                      <div className="absolute z-10" style={{ top: '51%', left: '71%' }}>
-                          <div className="w-4 h-4 bg-[#007bff] rounded-full animate-pulse"></div>
-                          <span className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-[#0F0326] bg-white/80 px-2 py-1 rounded whitespace-nowrap">Hyderabad</span>
-                      </div>
+                    {/* Hyderabad */}
+                    <div className="absolute z-10" style={{ top: '50%', left: '71.5%' }}> 
+                        <div className="w-2.5 h-2.5 md:w-4 md:h-4 bg-[#007bff] rounded-full animate-pulse"></div>
+                        <span className="
+                            absolute whitespace-nowrap
+                            text-[10px] font-bold text-[#0F0326] bg-white/80 px-1.5 py-0.5 rounded
+                            
+                            /* --- Mobile: North-West of its dot, reduced spacing --- */
+                            bottom-full right-full mb-0.5 mr-0.5 
 
-                      {/* Bangalore (Bengaluru) - More accurate position with label BELOW dot */}
-                      <div className="absolute z-10" style={{ top: '52%', left: '70%' }}>
-                          <div className="w-4 h-4 bg-[#88BF42] rounded-full animate-pulse"></div>
-                          <span className="absolute top-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-[#0F0326] bg-white/80 px-2 py-1 rounded whitespace-nowrap">Bangalore</span>
-                      </div>
+                            /* --- MD+: ABOVE the dot, centered --- */
+                            md:bottom-auto md:right-auto md:mb-0 md:mr-0 /* Reset mobile positioning & margins */
+                            md:top-[-1.5rem]                    /* -top-6 */
+                            md:left-1/2 
+                            md:-translate-x-1/2 
+                            md:text-xs md:px-2 md:py-1
+                        ">Hyderabad</span>
+                    </div>
 
-                      {/* Malaysia - More accurate position */}
-                      <div className="absolute z-10" style={{ top: '51%', left: '76%' }}>
-                          <div className="w-4 h-4 bg-[#007bff] rounded-full animate-pulse"></div>
-                          <span className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-[#0F0326] bg-white/80 px-2 py-1 rounded whitespace-nowrap">Malaysia</span>
-                      </div>
+                    {/* Bangalore (Bengaluru) */}
+                    <div className="absolute z-10" style={{ top: '52.5%', left: '69.5%' }}>
+                        <div className="w-2.5 h-2.5 md:w-4 md:h-4 bg-[#88BF42] rounded-full animate-pulse"></div>
+                        <span className="
+                            absolute whitespace-nowrap
+                            text-[10px] font-bold text-[#0F0326] bg-white/80 px-1.5 py-0.5 rounded
 
-                      {/* Singapore - More accurate position with label BELOW dot */}
-                      <div className="absolute z-10" style={{ top: '53%', left: '77%' }}>
-                          <div className="w-4 h-4 bg-[#007bff] rounded-full animate-pulse"></div>
-                          <span className="absolute top-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-[#0F0326] bg-white/80 px-2 py-1 rounded whitespace-nowrap">Singapore</span>
-                      </div>
-                  </div>
-              </motion.div>
+                            /* --- Mobile: South-West of its dot, reduced spacing --- */
+                            top-full right-full mt-0.5 mr-0.5
+
+                            /* --- MD+: BELOW the dot, centered --- */
+                            md:top-auto md:right-auto md:mt-0 md:mr-0 /* Reset mobile positioning & margins */
+                            md:top-[1.5rem]                     /* top-6 */
+                            md:left-1/2 
+                            md:-translate-x-1/2 
+                            md:text-xs md:px-2 md:py-1
+                        ">Bangalore</span>
+                    </div>
+
+                    {/* Malaysia */}
+                    <div className="absolute z-10" style={{ top: '50.5%', left: '76.5%' }}>
+                        <div className="w-2.5 h-2.5 md:w-4 md:h-4 bg-[#007bff] rounded-full animate-pulse"></div>
+                        <span className="
+                            absolute whitespace-nowrap
+                            text-[10px] font-bold text-[#0F0326] bg-white/80 px-1.5 py-0.5 rounded
+
+                            /* --- Mobile: North-East of its dot, reduced spacing --- */
+                            bottom-full left-full mb-0.5 ml-0.5
+
+                            /* --- MD+: ABOVE the dot, centered --- */
+                            md:bottom-auto md:left-auto md:mb-0 md:ml-0 /* Reset mobile positioning & margins */
+                            md:top-[-1.5rem] /* -top-6 */
+                            md:left-1/2
+                            md:-translate-x-1/2
+                            md:text-xs md:px-2 md:py-1
+                        ">Malaysia</span>
+                    </div>
+
+                    {/* Singapore */}
+                    <div className="absolute z-10" style={{ top: '53.5%', left: '77.5%' }}>
+                        <div className="w-2.5 h-2.5 md:w-4 md:h-4 bg-[#007bff] rounded-full animate-pulse"></div>
+                        <span className="
+                            absolute whitespace-nowrap
+                            text-[10px] font-bold text-[#0F0326] bg-white/80 px-1.5 py-0.5 rounded
+
+                            /* --- Mobile: South-East of its dot, reduced spacing --- */
+                            top-full left-full mt-0.5 ml-0.5
+
+                            /* --- MD+: BELOW the dot, centered --- */
+                            md:top-auto md:left-auto md:mt-0 md:ml-0 /* Reset mobile positioning & margins */
+                            md:top-[1.5rem] /* top-6 */
+                            md:left-1/2
+                            md:-translate-x-1/2
+                            md:text-xs md:px-2 md:py-1
+                        ">Singapore</span>
+                    </div>
+                </div>
+            </motion.div>
           </div>
       </section>
       <Footer />

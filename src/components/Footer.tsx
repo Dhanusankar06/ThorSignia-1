@@ -115,13 +115,16 @@ const Footer = () => {
           {/* Wrapper for the three right-aligned sections */}
           <div className="xl:col-span-6 xl:col-start-7"> {/* This div takes up the remaining space for the right sections, aligned right */}
             {/* Grid for Services, Company, Contact Us. Controls inter-spacing and mobile stacking. */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 md:gap-x-4 lg:gap-x-6 xl:gap-x-4 mt-10 xl:mt-0">
+            {/* MODIFIED: Reduced gaps */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-y-6 md:gap-x-3 lg:gap-x-4 xl:gap-x-3 mt-10 xl:mt-0">
               {/* Services Section */}
-              <div> {/* Removed mt-10 xl:mt-0 from original div */}
-                <h3 className="text-base font-bold text-[#88bf42] tracking-wider uppercase pb-3 mb-3">
+              <div>
+                {/* MODIFIED: Reduced heading spacing */}
+                <h3 className="text-base font-bold text-[#88bf42] tracking-wider uppercase pb-2 mb-2">
                     Services
                 </h3>
-                <ul className="space-y-4">
+                {/* MODIFIED: Reduced list item spacing */}
+                <ul className="space-y-3">
                   <li><Link to="/services" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">AI Services</Link></li>
                    <li><Link to="/cyber-security" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Cybersecurity</Link></li>
                    <li><Link to="/ai-engineers" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Outsourcing AI </Link></li>
@@ -129,11 +132,13 @@ const Footer = () => {
               </div>
 
               {/* Company Section */}
-              <div> {/* Removed mt-10 xl:mt-0 from original div */}
-                <h3 className="text-base font-bold text-[#88bf42] tracking-wider uppercase pb-3 mb-3">
+              <div>
+                {/* MODIFIED: Reduced heading spacing */}
+                <h3 className="text-base font-bold text-[#88bf42] tracking-wider uppercase pb-2 mb-2">
                     Company
                 </h3>
-                <ul className="space-y-4">
+                {/* MODIFIED: Reduced list item spacing */}
+                <ul className="space-y-3">
                   <li><Link to="/about" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">About Us</Link></li>
                   <li><Link to="/case-studies" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Case Studies</Link></li>
                   <li><Link to="/awards" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Awards</Link></li>
@@ -143,23 +148,25 @@ const Footer = () => {
               </div>
 
               {/* Contact Section */}
-              <div> {/* Removed mt-10 xl:mt-0 from original div */}
-                <h3 className="text-base font-bold text-[#88bf42] tracking-wider uppercase pb-3 mb-3">
+              <div>
+                {/* MODIFIED: Reduced heading spacing */}
+                <h3 className="text-base font-bold text-[#88bf42] tracking-wider uppercase pb-2 mb-2">
                     Contact Us
                 </h3>
-                <ul className="space-y-4">
+                {/* MODIFIED: Reduced list item spacing */}
+                <ul className="space-y-3">
                   <li>
-                    <a href="tel:+919008097780" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">
-                      Call Us: +91 9008097780 {/* Replace with actual phone number */}
+                    {/* MODIFIED: Added whitespace-nowrap */}
+                    <a href="tel:+919008097780" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200 whitespace-nowrap">
+                      Call Us: +91 9008097780
                     </a>
                   </li>
                   <li>
-                     <a href="mailto:info@thorsignia.online" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">
-                      Mail Us: info@thorsignia.online {/* Replace with actual email */}
+                     {/* MODIFIED: Added whitespace-nowrap */}
+                     <a href="mailto:info@thorsignia.online" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200 whitespace-nowrap">
+                      Mail Us: info@thorsignia.online
                      </a>
                   </li>
-                  {/* Pricing link kept here if needed */}
-                  {/* <li><Link to="/pricing" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Pricing</Link></li> */}
                 </ul>
               </div>
             </div> {/* Closing div for the inner grid of 3 sections */}
@@ -170,7 +177,7 @@ const Footer = () => {
         <div className="mt-12 border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-6">
           {/* Left side: Copyright */}
           <p className="text-base text-gray-400 text-center md:text-left flex-shrink-0">
-            &copy; {new Date().getFullYear()} Thor Signia. All rights reserved.
+            © {new Date().getFullYear()} Thor Signia. All rights reserved.
           </p>
           {/* Right side: Legal links - ADDED SITEMAP LINK HERE */}
           <ul className="flex space-x-4 flex-wrap justify-center md:justify-start">
