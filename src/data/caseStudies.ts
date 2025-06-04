@@ -34,7 +34,7 @@ const caseStudiesData: CaseStudy[] = [
     category: "Manufacturing",
     imageUrl: "/assets/ai-visual-inspection.jpg",
     coverImage: "/assets/crane-sgf.png",
-    summary: "Since 2015, Thor Signia has led the digital transformation of SGF Fab Industries, helping elevate them into a digitally competitive brand. What began with a single website project evolved into a long-term strategic partnership covering SEO, branding, lead generation, and event support—positioning Thor Signia as their exclusive digital growth partner.   ",   
+    summary: "Since 2015, Thor Signia has led the digital transformation of SGF Fab Industries, helping elevate them into a digitally competitive brand. What began with a single website project evolved into a long term strategic partnership covering SEO, branding, lead generation, and event support positioning Thor Signia as their exclusive digital growth partner.   ",   
     accentColor: "#88bf42",
     challenge: [
       "Although SGF Fab had decades of experience and an impressive client portfolio, their digital presence did not reflect the scale or credibility of their work. Their website was outdated, search visibility was poor, and inbound inquiries were minimal—making it difficult for new clients to discover or assess the brand.",
@@ -134,10 +134,10 @@ const caseStudiesData: CaseStudy[] = [
     category: "Workspaces / Real Estate",
     imageUrl: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=1770&auto=format&fit=crop",
     coverImage: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=1770&auto=format&fit=crop",
-    summary: "Thor Signia built the digital foundation for Anthill IQ’s rapid expansion—designing a scalable website, streamlining lead generation, and supporting multi-location growth. What began as a web project evolved into a long-term strategic partnership focused on performance and adaptability.                                                                                                ",
+    summary: "Thor Signia built the digital foundation for Anthill IQ’s rapid expansion designing a scalable website, streamlining lead generation, and supporting multi location growth. What began as a web project evolved into a long-term strategic partnership focused on performance and adaptability.                                                                                                ",
     accentColor: "#88bf42",
     challenge: [
-      "Anthill IQ had a clear vision for its physical spaces—well-designed, community-driven work environments—but lacked a digital presence to match. Their website needed to do more than just inform; it had to attract, convert, and support customers at every stage.",
+      "Anthill IQ had a clear vision for its physical spaces—well-designed, community driven work environments—but lacked a digital presence to match. Their website needed to do more than just inform; it had to attract, convert, and support customers at every stage.",
       "Key challenges included:",
        "No central platform to showcase multiple workspace locations",
         "Lack of lead-generation tools and booking pathways",
@@ -192,7 +192,7 @@ const caseStudiesData: CaseStudy[] = [
     category: "E-commerce / D2C",
     imageUrl: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=1742&auto=format&fit=crop",
     coverImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1770&auto=format&fit=crop",
-    summary: "Thor Signia partnered with KraftPoint to modernize their D2C operations—overhauling their e-commerce setup, automating Instagram workflows, and managing high-performing ad campaigns. The goal: streamline digital growth while preserving the brand’s unique, handcrafted appeal.",    
+    summary: "Thor Signia partnered with KraftPoint to modernize their D2C operations overhauling their e-commerce setup, automating Instagram workflows, and managing high performing ad campaigns. The goal: streamline digital growth while preserving the brand’s unique, handcrafted appeal.",    
     accentColor: "#10b4b7",
     challenge: [
       "While KraftPoint had a strong product range and a loyal customer base, their online systems lacked scalability. Their website was slow and cluttered, the checkout process was losing potential buyers, and their digital ads weren’t delivering consistent returns.",

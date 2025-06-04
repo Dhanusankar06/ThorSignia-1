@@ -342,7 +342,7 @@ const HomePage = () => {
 
           {/* Paragraph Description */}
           <p className="text-base md:text-lg text-white/90 leading-relaxed md:leading-loose mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0">
-            Harness the power of AI-driven platforms to automate operations, supercharge lead conversion, and deliver extraordinary user experiences—at scale and with precision.
+            Harness the power of AI driven platforms to automate operations, supercharge lead conversion, and deliver extraordinary user experiences at scale and with precision.
           </p>
         </motion.div>
 
@@ -717,10 +717,10 @@ const HomePage = () => {
         >
           {[
             { icon: Mic, title: 'Intelligent Voice Automation', desc: 'Enable seamless, human-like conversations with AI-powered voice bots for inbound and outbound calls. Reduce wait times, boost conversions, and handle high-volume interactions with ease.', link: '/services/intelligent-voice-automation' },
-            { icon: Share2, title: 'Social Engagement Automation', desc: 'Automate responses, schedule posts, and analyze performance across platforms like Instagram, LinkedIn, WhatsApp, and more—so you stay engaged, even when offline.', link: '/services/social-engagement-automation' },
+            { icon: Share2, title: 'Social Engagement Automation', desc: 'Automate responses, schedule posts, and analyze performance across platforms like Instagram, LinkedIn, WhatsApp, and more so you stay engaged, even when offline.', link: '/services/social-engagement-automation' },
             { icon: BarChart3, title: 'AI-Powered Lead Intelligence', desc: 'Identify, nurture, and convert high-intent prospects using AI insights. Segment users, personalize touchpoints, and maximize ROI on every campaign.', link: '/services/lead-intelligence' },
-            { icon: Bot, title: 'Conversational AI Chatbots', desc: 'Chatbots that handle FAQs, engage prospects, and support customers in real-time—without missing a beat.', link: '/services/interactive-ai-chatbots' },
-            { icon: Megaphone, title: 'Automated Campaign Orchestration', desc: 'Automate advertising campaigns and optimize performance across multiple channels.Seamlessly launch and manage ads across platforms using smart automation and performance optimization.', link: '/services/automated-campaign-orchestration' },
+            { icon: Bot, title: 'Conversational AI Chatbots', desc: 'Chatbots that handle FAQs, engage prospects, and support customers in real-time without missing a beat.', link: '/services/interactive-ai-chatbots' },
+            { icon: Megaphone, title: 'Automated Campaign Orchestration', desc: 'Automate advertising campaigns and optimize performance across multiple channels Seamlessly launch and manage ads across platforms using smart automation and performance optimization.', link: '/services/automated-campaign-orchestration' },
             { icon: ShieldAlert, title: 'AI-Powered Threat Detection', desc: 'Real-time AI surveillance that flags security risks, detects anomalies, and protects your digital assets.', link: '/services/threat-detection' }
           ].map((service, index) => (
              <motion.div
@@ -832,7 +832,7 @@ className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-3 md:mb-
 
         {/* Restored original paragraph spacing */}
         <motion.p variants={itemVariants} className="text-base md:text-lg text-[#696869] leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-6 md:mb-8">
-          We specialize in building smart, scalable AI systems that solve real business problems—fast. From automation to analytics, Thorsignia delivers measurable results at enterprise scale.
+          We specialize in building smart, scalable AI systems that solve real business problems fast. From automation to analytics, Thorsignia delivers measurable results at enterprise scale.
         </motion.p>
 
         <motion.p variants={itemVariants} className="text-base md:text-lg text-[#696869] leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-4 md:mb-6">

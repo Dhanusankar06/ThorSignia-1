@@ -81,8 +81,9 @@ const Footer = () => {
   return (
     <footer className="bg-black text-white">
       <div className="max-w-screen-2xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-        <div className="xl:grid xl:grid-cols-4 xl:gap-20">
-          <div className="space-y-6 xl:col-span-1 mb-4 xl:mb-0">
+        {/* Reduced gap between grid columns on xl screens */}
+        <div className="xl:grid xl:grid-cols-12 xl:gap-8 xl:items-start"> {/* Main grid: 12 cols, logo left, 3 sections right, top-aligned items */}
+          <div className="space-y-6 xl:col-span-4 mb-4 xl:mb-0"> {/* Logo section takes 4 cols */}
             <img
               className="h-18 w-48"
               src="/thor-signia-logo.png"
@@ -109,61 +110,67 @@ const Footer = () => {
                 </a>
               ))}
             </div>
-          </div>
+          </div> {/* End of logo section div */}
 
-          {/* Services Section */}
-          <div className="mt-10 xl:mt-0">
-            <h3 className="text-base font-bold text-[#88bf42] tracking-wider uppercase pb-3 mb-3">
-                Services
-            </h3>
-            <ul className="space-y-4">
-              <li><Link to="/services" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">AI Services</Link></li>
-               <li><Link to="/cyber-security" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Cybersecurity</Link></li>
-               <li><Link to="/ai-engineers" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Outsourcing AI </Link></li>
-            </ul>
-          </div>
+          {/* Wrapper for the three right-aligned sections */}
+          <div className="xl:col-span-6 xl:col-start-7"> {/* This div takes up the remaining space for the right sections, aligned right */}
+            {/* Grid for Services, Company, Contact Us. Controls inter-spacing and mobile stacking. */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 md:gap-x-4 lg:gap-x-6 xl:gap-x-4 mt-10 xl:mt-0">
+              {/* Services Section */}
+              <div> {/* Removed mt-10 xl:mt-0 from original div */}
+                <h3 className="text-base font-bold text-[#88bf42] tracking-wider uppercase pb-3 mb-3">
+                    Services
+                </h3>
+                <ul className="space-y-4">
+                  <li><Link to="/services" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">AI Services</Link></li>
+                   <li><Link to="/cyber-security" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Cybersecurity</Link></li>
+                   <li><Link to="/ai-engineers" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Outsourcing AI </Link></li>
+                </ul>
+              </div>
 
-          {/* Company Section */}
-          <div className="mt-10 xl:mt-0">
-            <h3 className="text-base font-bold text-[#88bf42] tracking-wider uppercase pb-3 mb-3">
-                Company
-            </h3>
-            <ul className="space-y-4">
-              <li><Link to="/about" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">About Us</Link></li>
-              <li><Link to="/case-studies" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Case Studies</Link></li>
-              <li><Link to="/awards" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Awards</Link></li>
-              <li><Link to="/blog" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Blog</Link></li>
-              <li><Link to="/careers" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Careers</Link></li>
-            </ul>
-          </div>
+              {/* Company Section */}
+              <div> {/* Removed mt-10 xl:mt-0 from original div */}
+                <h3 className="text-base font-bold text-[#88bf42] tracking-wider uppercase pb-3 mb-3">
+                    Company
+                </h3>
+                <ul className="space-y-4">
+                  <li><Link to="/about" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">About Us</Link></li>
+                  <li><Link to="/case-studies" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Case Studies</Link></li>
+                  <li><Link to="/awards" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Awards</Link></li>
+                  <li><Link to="/blog" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Blog</Link></li>
+                  <li><Link to="/careers" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Careers</Link></li>
+                </ul>
+              </div>
 
-          {/* Contact Section (Legal links moved out) */}
-          <div className="mt-10 xl:mt-0">
-            <h3 className="text-base font-bold text-[#88bf42] tracking-wider uppercase pb-3 mb-3">
-                Contact Us
-            </h3>
-            <ul className="space-y-4">
-              <li>
-                <a href="tel:+919008097780" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">
-                  Call Us: +91 9008097780 {/* Replace with actual phone number */}
-                </a>
-              </li>
-              <li>
-                 <a href="mailto:info@thorsignia.online" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">
-                  Mail Us: info@thorsignia.online {/* Replace with actual email */}
-                 </a>
-              </li>
-              {/* Pricing link kept here if needed */}
-              {/* <li><Link to="/pricing" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Pricing</Link></li> */}
-            </ul>
-          </div>
+              {/* Contact Section */}
+              <div> {/* Removed mt-10 xl:mt-0 from original div */}
+                <h3 className="text-base font-bold text-[#88bf42] tracking-wider uppercase pb-3 mb-3">
+                    Contact Us
+                </h3>
+                <ul className="space-y-4">
+                  <li>
+                    <a href="tel:+919008097780" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">
+                      Call Us: +91 9008097780 {/* Replace with actual phone number */}
+                    </a>
+                  </li>
+                  <li>
+                     <a href="mailto:info@thorsignia.online" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">
+                      Mail Us: info@thorsignia.online {/* Replace with actual email */}
+                     </a>
+                  </li>
+                  {/* Pricing link kept here if needed */}
+                  {/* <li><Link to="/pricing" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Pricing</Link></li> */}
+                </ul>
+              </div>
+            </div> {/* Closing div for the inner grid of 3 sections */}
+          </div> {/* Closing div for the xl:col-span-6 wrapper */}
         </div>
 
         {/* --- BOTTOM SECTION: Copyright Left, Legal Links Right --- */}
         <div className="mt-12 border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-6">
           {/* Left side: Copyright */}
           <p className="text-base text-gray-400 text-center md:text-left flex-shrink-0">
-            © {new Date().getFullYear()} Thor Signia. All rights reserved.
+            &copy; {new Date().getFullYear()} Thor Signia. All rights reserved.
           </p>
           {/* Right side: Legal links - ADDED SITEMAP LINK HERE */}
           <ul className="flex space-x-4 flex-wrap justify-center md:justify-start">

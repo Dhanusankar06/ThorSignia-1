@@ -735,14 +735,14 @@ const ContactPage = () => {
                       </div>
 
                       {/* Hyderabad - More accurate position */}
-                      <div className="absolute z-10" style={{ top: '49%', left: '70%' }}>
+                      <div className="absolute z-10" style={{ top: '51%', left: '71%' }}>
                           <div className="w-4 h-4 bg-[#007bff] rounded-full animate-pulse"></div>
                           <span className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-[#0F0326] bg-white/80 px-2 py-1 rounded whitespace-nowrap">Hyderabad</span>
                       </div>
 
                       {/* Bangalore (Bengaluru) - More accurate position with label BELOW dot */}
-                      <div className="absolute z-10" style={{ top: '50%', left: '69%' }}>
-                          <div className="w-5 h-5 bg-[#88BF42] rounded-full animate-pulse"></div>
+                      <div className="absolute z-10" style={{ top: '52%', left: '70%' }}>
+                          <div className="w-4 h-4 bg-[#88BF42] rounded-full animate-pulse"></div>
                           <span className="absolute top-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-[#0F0326] bg-white/80 px-2 py-1 rounded whitespace-nowrap">Bangalore</span>
                       </div>
 

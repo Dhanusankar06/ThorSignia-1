@@ -9,20 +9,11 @@ import {
   BarChart, 
   Clock, 
   Building, 
-  ChevronRight, 
-  CheckCircle2, 
-  Award, 
-  ArrowUpRight,
-  MessageCircle,
   LineChart,
   Users,
-  Lightbulb,
-  Star
 } from "lucide-react";
 import { Link } from 'react-router-dom';
 import caseStudiesData from '@/data/caseStudies';
-import { Vortex } from '@/components/ui/vortex';
-import { CanvasRevealEffect } from '@/components/ui/canvas-reveal-effect';
 import AnimatedCaseStudiesHeader from '@/components/AnimatedCaseStudiesHeader';
 
 const CaseStudiesPage = () => {
@@ -191,7 +182,7 @@ const CaseStudiesPage = () => {
       Our AI in Action, Measurable Results That Matter
       </h2>
       <p className="text-gray-600">
-      Thor Signia’s AI solutions consistently deliver transformational value — across industries, use
+      Thor Signia’s AI solutions consistently deliver transformational value across industries, use
       cases, and company sizes.      </p>
     </div>
 
@@ -199,7 +190,7 @@ const CaseStudiesPage = () => {
       {[
         { value: "157%", label: "Increase in ROI", description: "AI automations that maximize your output per dollar",icon: <BarChart className="h-7 w-7 text-[#88bf42]" /> },
         { value: "42%", label: "Operational Efficiency Gains", description: "Streamlined workflows reduce delays and manual load.",icon: <Clock className="h-7 w-7 text-[#88bf42]" /> },
-        { value: "6 Months", label: "Average Deployment Timeline", description: "From idea to AI-powered implementation, fast.",icon: <LineChart className="h-7 w-7 text-[#88bf42]" /> },
+        { value: "6 Months", label: "Avg Deployment Timeline", description: "From idea to AI-powered implementation, fast.",icon: <LineChart className="h-7 w-7 text-[#88bf42]" /> },
         { value: "99.9%", label: "Client Satisfaction", description: "Our clients don’t just like our work—they return and refer",icon: <Users className="h-7 w-7 text-[#88bf42]" /> }
       ].map((stat, index) => (
         <div 
@@ -239,7 +230,7 @@ const CaseStudiesPage = () => {
       <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
         Let’s Build Your Success Story
       </h2>
-      <p className="text-gray-600 mb-6 text-sm md:text-base text-left">
+      <p className="text-gray-600 mb-6 text-sm md:text-base text-center">
         Join the growing list of businesses achieving breakthrough results with our AI solutions.
         Schedule a consultation to discuss your unique challenges.
       </p>
