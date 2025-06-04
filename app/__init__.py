@@ -89,20 +89,90 @@ def create_app():
             # Initialize the database
             db.init_app(app)
             
-            # Test the connection
+            # Initialize database and create tables
             with app.app_context():
-                db.engine.connect()
-                logger.info("Successfully connected to MySQL database!")
+                try:
+                    # Ensure database is initialized
+                    db.init_app(app)
+                    
+                    # Create tables if they don't exist
+                    logger.info("Creating database tables...")
+                    
+                    # Import models to ensure they're registered
+                    from app.models.contact import Contact
+                    from app.models.career_application import CareerApplication
+                    
+                    # Create tables explicitly
+                    try:
+                        db.create_all()
+                        logger.info("Database tables created successfully!")
+                        
+                        # Verify tables
+                        inspector = db.inspect(db.engine)
+                        tables = inspector.get_table_names()
+                        logger.info(f"Available tables in database: {tables}")
+                        
+                        if not tables:
+                            logger.error("No tables found after creation!")
+                            raise Exception("Failed to create database tables")
+                        
+                        # Create test data to verify
+                        test_contact = Contact(
+                            name="Test User",
+                            email="test@example.com",
+                            message="This is a test message"
+                        )
+                        db.session.add(test_contact)
+                        
+                        try:
+                            db.session.commit()
+                            logger.info("Test data created successfully!")
+                            
+                            # Verify test data was created
+                            test_contact = Contact.query.first()
+                            if test_contact:
+                                logger.info(f"Test contact created with ID: {test_contact.id}")
+                            else:
+                                logger.error("Failed to verify test data creation")
+                                raise Exception("Test data creation verification failed")
+                        except Exception as e:
+                            logger.error(f"Failed to create test data: {str(e)}")
+                            db.session.rollback()
+                            raise
+                        
+                        # Verify career application table
+                        test_career = CareerApplication(
+                            job_title="Test Job",
+                            name="Test User",
+                            email="test@example.com",
+                            mobile_number="1234567890",
+                            original_filename="test.pdf",
+                            file_path="/path/to/test.pdf"
+                        )
+                        db.session.add(test_career)
+                        
+                        try:
+                            db.session.commit()
+                            logger.info("Career application test data created successfully!")
+                        except Exception as e:
+                            logger.error(f"Failed to create career application test data: {str(e)}")
+                            db.session.rollback()
+                            raise
+                    except Exception as e:
+                        logger.error(f"Failed to create tables: {str(e)}")
+                        raise
+                    
+                except Exception as e:
+                    logger.error(f"Database initialization error: {str(e)}")
+                    raise
                 
-                # Create tables
-                logger.info("Creating database tables...")
-                db.create_all()
-                logger.info("Database tables created successfully!")
-                
-                # Verify tables
-                inspector = db.inspect(db.engine)
-                tables = inspector.get_table_names()
-                logger.info(f"Available tables in database: {tables}")
+                # Test the connection
+                try:
+                    db.engine.connect()
+                    logger.info("Successfully connected to MySQL database!")
+                except Exception as e:
+                    logger.error(f"Database connection error: {str(e)}")
+                    raise
                 
         else:
             raise Exception("No valid database configuration found")
