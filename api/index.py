@@ -17,9 +17,17 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Upload configuration
-UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'uploads')
+# Adjust UPLOAD_FOLDER based on the environment
+if os.environ.get('VERCEL_ENV'):  # Vercel sets VERCEL_ENV (e.g., 'production', 'preview', 'development')
+    UPLOAD_FOLDER = '/tmp/uploads'  # Use /tmp directory on Vercel (writable but temporary)
+else:
+    UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'uploads') # Local development path
+
 ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx', 'txt'}
 MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
+
+# Ensure upload folder exists
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 def allowed_file(filename):
     """Check if the uploaded file has an allowed extension."""
@@ -27,7 +35,6 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-# Ensure upload folder exists
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # Get allowed origins from environment or use defaults
@@ -336,4 +343,4 @@ def apply_career():
         db.session.rollback()
         response = jsonify({"error": "Failed to process application"})
         response.headers.add('Access-Control-Allow-Origin', '*')
-        return response, 500 
+        return response, 500
