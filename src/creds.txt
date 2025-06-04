@@ -1,0 +1,18 @@
+# Flask Configuration
+FLASK_ENV=development
+SECRET_KEY=2b0f3a5c8e4d6f1290b7a4e8d3c6f9a1
+PORT=5000
+
+# Database Configuration (Railway MySQL)
+DATABASE_URL=mysql://root:JsnsSxILhQcYAnLmUrjbbCarCAmsavFp@switchyard.proxy.rlwy.net:46299/railway
+
+# Alternative MySQL Configuration (used if DATABASE_URL is not set)
+MYSQL_USER=root
+MYSQL_PASSWORD=JsnsSxILhQcYAnLmUrjbbCarCAmsavFp
+MYSQL_HOST=switchyard.proxy.rlwy.net
+MYSQL_PORT=46299
+MYSQL_DB=railway
+
+# reCAPTCHA Configuration
+RECAPTCHA_SITE_KEY=6Ld3P1QrAAAAAMF8yMjR62NtkHR3yZ1aT8zkPQ4a
+RECAPTCHA_SECRET_KEY=6Ld3P1QrAAAAAKgVSJXpCMaDcaKfAXowwNu8pLhn

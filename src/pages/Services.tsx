@@ -780,7 +780,7 @@ const ServicesPage = () => {
 From rapid deployment to measurable ROI, we streamline your operations, boost efficiency, and
 scale growth with intelligent automation.                  </p>
 
-                  {/* Features Grid - Optimized for mobile display */}
+                                                 {/* Features Grid - Optimized for mobile display */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-0 max-w-md sm:max-w-none mx-auto lg:mx-0">
                       {/* Feature Item 1 */}
                       <div className="flex items-start bg-white border border-gray-100 rounded-lg p-3 sm:p-4 shadow-sm text-left">
@@ -789,10 +789,11 @@ scale growth with intelligent automation.                  </p>
                               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-check-circle-2"><circle cx="12" cy="12" r="10"/><path d="m8 15 2 2 6-6"/></svg>
                           </div>
                           <div>
-                              {/* Feature Title - Changed text-sm sm:text-base to text-base */}
-                              <h3 className="font-medium text-[#0F0326] mb-1 text-[18px]">Custom Solutions</h3>
+                              {/* Feature Title - ⭐ MODIFIED: Added !important to font size classes ⭐ */}
+                              {/* text-[16px] for mobile, sm:text-[18px] for sm+ */}
+                              <h2 className="font-medium text-[#0F0326] mb-1 !text-[16px] sm:!text-[18px]">Custom Solutions</h2>
                               {/* Feature Description */}
-                             
+
                           </div>
                       </div>
 
@@ -803,9 +804,9 @@ scale growth with intelligent automation.                  </p>
                               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-check-circle-2"><circle cx="12" cy="12" r="10"/><path d="m8 15 2 2 6-6"/></svg>
                           </div>
                           <div>
-                              {/* Feature Title - Changed text-sm sm:text-base to text-base */}
-                              <h3 className="font-medium text-[#0F0326] mb-1 text-[18px]">Rapid Deployment</h3>
-                             
+                              {/* Feature Title - ⭐ MODIFIED: Added !important to font size classes ⭐ */}
+                              <h2 className="font-medium text-[#0F0326] mb-1 !text-[16px] sm:!text-[18px]">Rapid Deployment</h2>
+
                           </div>
                       </div>
 
@@ -816,9 +817,9 @@ scale growth with intelligent automation.                  </p>
                               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-check-circle-2"><circle cx="12" cy="12" r="10"/><path d="m8 15 2 2 6-6"/></svg>
                           </div>
                           <div>
-                              {/* Feature Title - Changed text-sm sm:text-base to text-base */}
-                              <h3 className="font-medium text-[#0F0326] mb-1 text-[18px]">Measurable ROI</h3>
-                              
+                              {/* Feature Title - ⭐ MODIFIED: Added !important to font size classes ⭐ */}
+                              <h2 className="font-medium text-[#0F0326] mb-1 !text-[16px] sm:!text-[18px]">Measurable ROI</h2>
+
                           </div>
                       </div>
 
@@ -829,9 +830,9 @@ scale growth with intelligent automation.                  </p>
                               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-check-circle-2"><circle cx="12" cy="12" r="10"/><path d="m8 15 2 2 6-6"/></svg>
                           </div>
                           <div>
-                              {/* Feature Title - Changed text-sm sm:text-base to text-base */}
-                              <h3 className="font-medium text-[#0F0326] mb-1 text-[18px]">Ongoing Support</h3>
-                      
+                              {/* Feature Title - ⭐ MODIFIED: Added !important to font size classes ⭐ */}
+                              <h2 className="font-medium text-[#0F0326] mb-1 !text-[16px] sm:!text-[18px]">Ongoing Support</h2>
+
                           </div>
                       </div>
                   </div>
@@ -933,7 +934,7 @@ scale growth with intelligent automation.                  </p>
                 <div className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} min-h-[350px] sm:min-h-[400px] h-full`}>
                   {/* Service Demo/Image - better mobile sizing */}
                   <div className="w-full lg:w-1/2 p-4 sm:p-6 md:p-8 bg-gradient-to-br from-[#88bf42]/5 to-[#0f0326]/5 flex items-center justify-center overflow-hidden">
-                    <PinContainer title={service.title}>
+                    <PinContainer title={service.title} className="text-base">
                       <div className={`relative w-full h-full min-h-[200px] sm:min-h-[260px] max-h-[300px] sm:max-h-[400px] aspect-square mx-auto rounded-2xl overflow-hidden shadow-2xl flex items-center justify-center ${service.bgColor}`}> 
                         <div className="w-36 h-36 rounded-full flex items-center justify-center">
                           {cloneElement(service.icon, { className: "h-28 w-28 text-white drop-shadow-xl" })}
@@ -1038,7 +1039,7 @@ scale growth with intelligent automation.                  </p>
 
         <div className="container mx-auto px-4 sm:px-6 md:px-8 relative z-10">
           {/* Header */}
-          <div className="max-w-3xl mx-auto text-center mb-6 sm:mb-10 md:mb-12 lg:mb-16 reveal-on-scroll opacity-0" data-animation="fadeInUp">
+          <div className="max-w-3xl mx-auto text-center mb-2 sm:mb-10 md:mb-12 lg:mb-16 reveal-on-scroll opacity-0" data-animation="fadeInUp">
             <div className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 mb-4 sm:mb-6 w-fit mx-auto"> {/* Removed lg:mx-0 if header is centered */}
               <span className="text-[#88BF42] text-sm md:text-base font-semibold">Specialized Solutions</span>
             </div>
