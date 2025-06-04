@@ -319,7 +319,7 @@ const navItems: NavItem[] = [
       },
     ],
   },
- 
+
   {
     title: "Awards",
     href: "/awards#top",
@@ -357,7 +357,8 @@ export default function Navbar() {
   // Effect to close desktop dropdown on outside click
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
-      if (window.innerWidth >= 768 && desktopNavRef.current && !desktopNavRef.current.contains(event.target as Node) && openDropdown !== null) {
+      // Only close on outside click if screen width is >= 1024px (lg breakpoint) where desktop nav is visible
+      if (window.innerWidth >= 1024 && desktopNavRef.current && !desktopNavRef.current.contains(event.target as Node) && openDropdown !== null) {
         setOpenDropdown(null);
       }
     };
@@ -400,13 +401,12 @@ export default function Navbar() {
     setIsMenuOpen(false);
   };
 
-  // Function to determine if a mobile link is active based on URL
+  // Function to determine if a mobile link is active based on URL (mostly for mobile menu styling)
+  // This function is primarily used for styling the mobile menu items, not desktop ones.
   const isMobileLinkActive = (href: string) => {
     const currentFullUrl = pathname + (currentHash || '');
     if (currentFullUrl === href) return true;
     // For base path matches without hash (e.g., /services matches /services#something)
-    // This check is simplified, considering main links might have hashes.
-    // A more robust check could see if pathname starts with the href's path part.
      const hrefPath = href.split('#')[0];
      const currentPath = pathname.split('#')[0];
      if (hrefPath !== '/' && currentPath.startsWith(hrefPath) && (currentPath.length === hrefPath.length || (currentPath.length > hrefPath.length && currentPath[hrefPath.length] === '/'))) return true;
@@ -414,8 +414,6 @@ export default function Navbar() {
     // Special case for home page
     if (href === '/' && pathname === '/' && currentHash === '') return true;
 
-    if (href !== '/' && pathname === href && href.indexOf('#') === -1) return true;
-    if (href === '/' && pathname === '/') return true;
     return false;
   };
 
@@ -423,24 +421,27 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 left-0 w-full z-50 bg-white border-b">
       {/* Increased the max-width of the container div */}
-      <div className="max-w-screen-2xl mx-auto px-2 md:px-4"> {/* Changed from container to max-w-screen-2xl */}
+      {/* Using md:px-6 lg:px-8 for padding from tablets upwards */}
+      <div className="max-w-screen-2xl mx-auto px-2 md:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo - positioned first with increased mobile width */}
-          {/* Updated w-32 to w-48 for mobile */}
+          {/* Logo */}
+          {/* Logo width changes: w-48 (mobile), md:w-40 (tablet), lg:w-44 (desktop) */}
           <div className="w-48 md:w-40 lg:w-44 flex-shrink-0 mr-2 md:mr-4 lg:mr-6">
             <RouterLink to="/" onClick={handleNavLinkClick}>
               <img
                 src="/thor-signia-logo.png"
                 alt="Thor Signia Logo"
-                 // Updated h-30 to h-auto for standard scaling
-                className="h-auto w-auto"
+                className="h-auto w-auto" // Kept auto for better scaling
               />
             </RouterLink>
           </div>
 
-          {/* Desktop Navigation - positioned after logo, aligned right */}
-          {/* Changed justify-center to justify-end */}
-          <div className="hidden md:flex space-x-1 lg:space-x-2 xl:space-x-3 flex-1 justify-end" ref={desktopNavRef}>
+          {/* Desktop Navigation - appears on lg+ screens */}
+          {/* ⭐ MODIFIED: Changed space-x classes for tighter spacing ⭐ */}
+          {/* Still uses justify-end for right alignment */}
+          {/* From md:space-x-3 lg:space-x-4 xl:space-x-6 */}
+          {/* To   md:space-x-2 lg:space-x-3 xl:space-x-4 */}
+          <div className="hidden lg:flex md:space-x-2 lg:space-x-3 xl:space-x-4 flex-1 justify-end" ref={desktopNavRef}>
             {navItems.map((item) => (
             <div key={item.title} className="relative group h-full flex items-center">
               {item.dropdown ? (
@@ -449,7 +450,9 @@ export default function Navbar() {
                   onClick={() => setOpenDropdown(openDropdown === item.title ? null : item.title)}
                   className={cn(
                     // Base styles for all desktop links (dropdown or not)
-                    "text-xs sm:text-sm md:text-base lg:text-lg font-medium transition-colors h-full flex items-center px-1 md:px-2 whitespace-nowrap",
+                    // Using consistent text-base size
+                    // Using md:px-3 for internal padding from md upwards
+                    "text-base font-semibold transition-colors h-full flex items-center px-1 md:px-3 whitespace-nowrap",
                     "hover:text-[#88bf42]",
                     // Active state based on URL match or if the dropdown is open
                     openDropdown === item.title ? "text-[#88bf42] border-b-2 border-[#88bf42]" : "text-foreground border-b-2 border-transparent",
@@ -475,7 +478,9 @@ export default function Navbar() {
                   to={item.href}
                   className={cn(
                      // Base styles for all desktop links (dropdown or not)
-                    "text-xs sm:text-sm md:text-base lg:text-lg font-medium transition-colors hover:text-[#88bf42] h-full flex items-center px-1 md:px-2 whitespace-nowrap",
+                    // Using consistent text-base size
+                    // Using md:px-3 for internal padding from md upwards
+                    "text-base font-semibold transition-colors hover:text-[#88bf42] h-full flex items-center px-1 md:px-3 whitespace-nowrap",
                     // Handle /home#top vs /
                     (item.href === '/' && pathname === '/' && currentHash === '') ? "text-[#88bf42] border-b-2 border-[#88bf42]" : // Exact home match
                     // Check if the current path starts with the item's path, ignoring hash for the base check
@@ -500,9 +505,6 @@ export default function Navbar() {
 
                     "w-[700px] max-w-[calc(100vw-32px)]", // Reduced width from 800px to 700px, kept max-width
                     "bg-background border rounded-md shadow-lg p-6", // Increased padding
-                    // "absolute top-full left-0 mt-0", // Old positioning
-                    // "w-[600px] max-w-[calc(100vw-42px)]", // Old width
-                    // "bg-background border rounded-md shadow-lg p-4", // Old padding
                     "z-50 animate-in slide-in-from-top-1 fade-in-0",
                     "flex gap-8" // Increased gap between columns
                   )}
@@ -533,7 +535,7 @@ export default function Navbar() {
                                 className="h-10 w-10 text-[#88bf42] mb-4" // Icon size and color
                               />
                           )}
-                        {/* Title */}
+                        {/* Title - Kept existing size scaling */}
                         <div className="text-lg md:text-xl font-semibold text-foreground leading-tight mb-1">{item.title} Overview</div> {/* Added Overview */}
                         {/* Description */}
                          {item.mainDescription && (
@@ -559,6 +561,7 @@ export default function Navbar() {
                                to={subItem.href}
                                onClick={handleNavLinkClick} // Close dropdown and mobile menu on click
                                className={cn(
+                                 // Using consistent text-base size
                                  "flex items-center gap-3 rounded-sm px-3 py-2 outline-none transition-colors", // Increased gap, slightly more padding
                                  "hover:bg-[#88bf42]/20 hover:text-[#88bf42] focus:bg-[#88bf42]/20 focus:text-[#88bf42]",
                                   // Font size text-base (16px), active is green and bold, inactive is text-foreground
@@ -585,8 +588,9 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Mobile Navigation Toggle - Using inline SVG with explicit size */}
-        <div className="md:hidden ">
+        {/* Mobile menu button - positioned to the right of desktop nav, hidden on lg+ screens */}
+        {/* Visible below lg (on mobile and tablet) */}
+        <div className="lg:hidden ">
           <Button
             variant="ghost"
             className="h-14 w-14 text-foreground hover:text-[#88bf42]"
@@ -627,9 +631,10 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Navigation Menu */}
+      {/* Mobile Menu Panel - Full screen overlay, hidden on lg+ screens */}
+      {/* Visible below lg (on mobile and tablet) */}
       {isMenuOpen && (
-        <div className="container pb-4 md:hidden h-[calc(100vh-112px)] overflow-y-auto">
+        <div className="container pb-4 lg:hidden h-[calc(100vh-112px)] overflow-y-auto">
           <nav className="flex flex-col space-y-4 mt-4">
             {navItems.map((item) => (
               <div key={item.title}>
@@ -637,7 +642,7 @@ export default function Navbar() {
                   <RouterLink
                     to={item.href}
                     className={cn(
-                      // Mobile link styles - Applied text-base and font-medium as requested for all non-dropdown links
+                      // Mobile link styles - text-base font-medium
                       "text-base font-medium block py-2",
                       "text-foreground",
                        // Use startsWith for base path matching
@@ -654,8 +659,8 @@ export default function Navbar() {
                     <button
                       onClick={() => setOpenDropdown(openDropdown === item.title ? null : item.title)}
                       className={cn(
-                        // Mobile dropdown title styles - Kept existing text-lg font-medium
-                        "text-lg font-medium w-full text-left py-2",
+                        // Mobile dropdown title styles - text-base font-medium
+                        "text-base font-medium w-full text-left py-2",
                         "flex justify-between items-center",
                         "text-foreground",
                         openDropdown === item.title && "font-bold",
@@ -677,7 +682,7 @@ export default function Navbar() {
                     {/* Mobile Dropdown Content */}
                     {item.items && openDropdown === item.title && (
                       <div className="mt-2 ml-4 flex flex-col space-y-2">
-                        {/* Main Link for Mobile Dropdown Section */}
+                        {/* Main Link for Mobile Dropdown Section - Kept text-base font-semibold */}
                         <RouterLink
                           to={item.href}
                           onClick={handleNavLinkClick}
@@ -712,7 +717,7 @@ export default function Navbar() {
                               key={subItem.title}
                               to={subItem.href}
                               className={cn(
-                                "text-base py-1", // Keep text-base for sub-items
+                                "text-base py-1", // text-base for sub-items, active is font-semibold
                                 isSubItemActive ? "text-foreground font-semibold" : "text-muted-foreground", // Active state for sub-items (check exact match)
                                 "hover:text-[#88bf42]",
                                 "flex items-center gap-2"
@@ -737,7 +742,7 @@ export default function Navbar() {
             ))}
           </nav>
         </div>
-      )} 
+      )}
       </div>
     </header>
   );

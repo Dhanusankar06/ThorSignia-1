@@ -8,11 +8,10 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Loader2, Mail, Linkedin, Twitter, Instagram, Github, CheckCircle2, MapPin, Phone, Facebook, MessageCircle, TrendingUp, Zap, Globe } from 'lucide-react';
+import { Loader2, Mail, Linkedin, Twitter, Instagram, Github, CheckCircle2, MapPin, Phone, Facebook, MessageCircle, TrendingUp, Zap, Globe, AlertTriangle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-// WorldMap import is not needed as we are using an image now
 
 const RECAPTCHA_SITE_KEY='6Ld3P1QrAAAAAMF8yMjR62NtkHR3yZ1aT8zkPQ4a';
 
@@ -20,6 +19,13 @@ const RECAPTCHA_SITE_KEY='6Ld3P1QrAAAAAMF8yMjR62NtkHR3yZ1aT8zkPQ4a';
 const API_URL = process.env.NODE_ENV === 'production' 
   ? 'https://thor-signia-two.vercel.app//api/contact'
   : '/api/contact';
+
+// Rate limiting configuration
+const RATE_LIMIT = {
+  maxSubmissions: 15, // Maximum submissions per hour
+  timeWindow: 60 * 60 * 1000, // 1 hour in milliseconds
+  storageKey: 'contact_form_submissions'
+};
 
 // Animation variants
 const fadeIn = {
@@ -41,7 +47,6 @@ const staggerChildren = {
   }
 };
 
-// Kept pulseAnimation, though it's not applied to the map div itself
 const pulseAnimation = {
   initial: { scale: 1 },
   animate: {
@@ -82,6 +87,84 @@ declare global {
   }
 }
 
+// Rate limiting functions
+const getSubmissionHistory = () => {
+  try {
+    const stored = localStorage.getItem(RATE_LIMIT.storageKey);
+    if (!stored) return [];
+    
+    const submissions = JSON.parse(stored);
+    const now = Date.now();
+    
+    // Filter out submissions older than 1 hour
+    return submissions.filter(timestamp => (now - timestamp) < RATE_LIMIT.timeWindow);
+  } catch (error) {
+    console.error('Error reading submission history:', error);
+    return [];
+  }
+};
+
+const addSubmissionTimestamp = () => {
+  try {
+    const history = getSubmissionHistory();
+    history.push(Date.now());
+    localStorage.setItem(RATE_LIMIT.storageKey, JSON.stringify(history));
+  } catch (error) {
+    console.error('Error saving submission history:', error);
+  }
+};
+
+const canUserSubmit = () => {
+  const history = getSubmissionHistory();
+  return history.length < RATE_LIMIT.maxSubmissions;
+};
+
+const getRemainingSubmissions = () => {
+  const history = getSubmissionHistory();
+  return Math.max(0, RATE_LIMIT.maxSubmissions - history.length);
+};
+
+const getTimeUntilReset = () => {
+  const history = getSubmissionHistory();
+  if (history.length === 0) return 0;
+  
+  const oldestSubmission = Math.min(...history);
+  const resetTime = oldestSubmission + RATE_LIMIT.timeWindow;
+  const now = Date.now();
+  
+  return Math.max(0, resetTime - now);
+};
+
+// Rate limit warning component
+const RateLimitWarning = ({ remaining, timeUntilReset }) => {
+  if (remaining > 5) return null;
+  
+  const formatTime = (ms) => {
+    const minutes = Math.ceil(ms / (1000 * 60));
+    return minutes > 60 ? `${Math.ceil(minutes / 60)} hour(s)` : `${minutes} minute(s)`;
+  };
+  
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg"
+    >
+      <div className="flex items-center">
+        <AlertTriangle className="w-5 h-5 text-yellow-400 mr-2" />
+        <div>
+          <p className="text-sm text-yellow-800">
+            <strong>Rate Limit Notice:</strong> You have {remaining} submission{remaining !== 1 ? 's' : ''} remaining this hour.
+            {remaining === 0 && timeUntilReset > 0 && (
+              <> You can submit again in {formatTime(timeUntilReset)}.</>
+            )}
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
 const ContactPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -91,19 +174,34 @@ const ContactPage = () => {
     email: '',
     phone: '',
     company: '',
-    requestType: '', // This field is in the state but not used in the form currently
+    requestType: '',
     message: '',
     authorizeContact: false,
-    honeypot: '', // Honeypot field to catch bots
+    honeypot: '',
+  });
+  
+  // Rate limiting state
+  const [rateLimitInfo, setRateLimitInfo] = useState({
+    canSubmit: true,
+    remaining: RATE_LIMIT.maxSubmissions,
+    timeUntilReset: 0
   });
   
   // Form timing protection
   const formLoadTime = useRef(Date.now());
   const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
   
+  // Update rate limit info
+  const updateRateLimitInfo = () => {
+    setRateLimitInfo({
+      canSubmit: canUserSubmit(),
+      remaining: getRemainingSubmissions(),
+      timeUntilReset: getTimeUntilReset()
+    });
+  };
+
   // Load reCAPTCHA script
   useEffect(() => {
-    // Only load if not already loaded
     if (!window.grecaptcha) {
       const script = document.createElement('script');
       script.src = 'https://www.google.com/recaptcha/api.js?render=6Ld3P1QrAAAAAMF8yMjR62NtkHR3yZ1aT8zkPQ4a'; 
@@ -120,6 +218,16 @@ const ContactPage = () => {
     } else {
       setRecaptchaLoaded(true);
     }
+  }, []);
+
+  // Rate limit checking effect
+  useEffect(() => {
+    updateRateLimitInfo();
+    
+    // Update every minute
+    const interval = setInterval(updateRateLimitInfo, 60000);
+    
+    return () => clearInterval(interval);
   }, []);
   
   // Execute reCAPTCHA when form is about to be submitted
@@ -142,7 +250,6 @@ const ContactPage = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // This handler is present but the select is commented out in the form. Kept for completeness.
   const handleSelectChange = (value: string) => {
     setFormData(prev => ({ ...prev, requestType: value }));
   };
@@ -154,28 +261,31 @@ const ContactPage = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     
-    // Bot detection checks
+    // Check rate limit first
+    if (!canUserSubmit()) {
+      const timeLeft = getTimeUntilReset();
+      const minutes = Math.ceil(timeLeft / (1000 * 60));
+      alert(`You've reached the maximum number of submissions (${RATE_LIMIT.maxSubmissions}) per hour. Please try again in ${minutes} minutes.`);
+      return;
+    }
     
-    // 1. Check if honeypot field is filled (bots will fill this, humans won't see it)
+    // Bot detection checks
     if (formData.honeypot) {
       console.log('Honeypot triggered - likely bot submission');
-      // Simulate success but don't actually submit
       setIsSubmitted(true);
       setTimeout(() => setIsSubmitted(false), 5000);
       return;
     }
     
-    // 2. Check if form was submitted too quickly (less than 3 seconds)
     const timeSinceLoad = Date.now() - formLoadTime.current;
     if (timeSinceLoad < 3000) {
       console.log('Form submitted too quickly - likely bot submission');
-      // Simulate success but don't actually submit
       setIsSubmitted(true);
       setTimeout(() => setIsSubmitted(false), 5000);
       return;
     }
     
-    // 3. Get reCAPTCHA token
+    // Get reCAPTCHA token
     let token = null;
     if (recaptchaLoaded) {
       token = await executeRecaptcha();
@@ -202,8 +312,16 @@ const ContactPage = () => {
           recaptchaToken: token,
         })
       });
+      
       if (!response.ok) {
-        // Attempt to read error message from response body if available
+        // Handle rate limit error from backend
+        if (response.status === 429) {
+          const errorBody = await response.json();
+          alert(errorBody.message || 'Rate limit exceeded. Please try again later.');
+          updateRateLimitInfo();
+          return;
+        }
+        
         let errorMessage = `Failed to submit contact form. Status: ${response.status}`;
         try {
           const errorBody = await response.json();
@@ -211,13 +329,15 @@ const ContactPage = () => {
             errorMessage = errorBody.message || errorBody.error || errorMessage;
           }
         } catch (jsonError) {
-          // If response is not JSON, use status text
           console.error('Error parsing error response:', jsonError);
         }
         throw new Error(errorMessage);
       }
+      
+      // Add submission timestamp on successful submission
+      addSubmissionTimestamp();
+      
       setIsSubmitted(true);
-      // Clear form data on successful submission
       setFormData({
         firstName: '',
         lastName: '',
@@ -229,7 +349,10 @@ const ContactPage = () => {
         authorizeContact: false,
         honeypot: '',
       });
-      // Hide success message after a delay
+      
+      // Update rate limit info
+      updateRateLimitInfo();
+      
       setTimeout(() => setIsSubmitted(false), 5000);
 
     } catch (error: any) {
@@ -241,12 +364,10 @@ const ContactPage = () => {
   };
 
   return (
-    // Removed the gradient background from the main div
     <div className="min-h-screen bg-white">
       <Navbar />
       {/* Hero Section */}
       <section className="relative w-full">
-        {/* Increased height slightly for better visual balance */}
         <div className="h-[50vh] max-h-[450px] relative overflow-hidden w-full flex flex-col justify-center items-center px-4 py-12 bg-gradient-to-r from-[#0B0F19] to-[#171E2E]">
           {/* SVG grid pattern overlay */}
           <div className="absolute inset-0 opacity-30 z-10">
@@ -320,12 +441,16 @@ const ContactPage = () => {
               variants={fadeIn}
               className="bg-white rounded-2xl shadow-lg p-8 md:p-10 border border-gray-100"
             >
-              <motion.div
-                className="mb-8"
-              >
+              <motion.div className="mb-8">
                 <h2 className="text-2xl md:text-3xl font-bold text-[#0F0326] mb-3">Reach Out</h2>
                 <p className="text-[#696869] text-base md:text-lg">Ready to discuss how thorsignia can help your organization? Simply fill out this form to contact sales.</p>
               </motion.div>
+
+              {/* Rate Limit Warning */}
+              <RateLimitWarning 
+                remaining={rateLimitInfo.remaining} 
+                timeUntilReset={rateLimitInfo.timeUntilReset} 
+              />
 
               {isSubmitted ? (
                 <motion.div
@@ -339,6 +464,9 @@ const ContactPage = () => {
                   </div>
                   <h3 className="text-2xl font-bold text-[#0F0326] mb-3">Thank You!</h3>
                   <p className="text-[#696869] text-base md:text-lg mb-6">Your message has been sent successfully. We'll get back to you shortly.</p>
+                  <p className="text-sm text-gray-500">
+                    Submissions remaining this hour: {rateLimitInfo.remaining}
+                  </p>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -374,7 +502,6 @@ const ContactPage = () => {
                         name="lastName"
                         value={formData.lastName}
                         onChange={handleChange}
-                         // Removed required based on screenshot
                         className="border-gray-200 focus:border-[#88BF42] focus:ring-[#88BF42]/20 transition-all"
                       />
                     </div>
@@ -386,7 +513,6 @@ const ContactPage = () => {
                       name="company"
                       value={formData.company}
                       onChange={handleChange}
-                       // Removed required based on screenshot
                       className="border-gray-200 focus:border-[#88BF42] focus:ring-[#88BF42]/20 transition-all"
                     />
                   </div>
@@ -422,7 +548,7 @@ const ContactPage = () => {
                       value={formData.message}
                       onChange={handleChange}
                       placeholder="Tell us what you need..."
-                      required // Message is required
+                      required
                       className="min-h-[80px] border-gray-200 focus:border-[#88BF42] focus:ring-[#88BF42]/20 transition-all"
                     />
                   </div>
@@ -444,16 +570,18 @@ const ContactPage = () => {
                   </div>
                   <motion.div
                     variants={fadeIn}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    whileHover={{ scale: rateLimitInfo.canSubmit ? 1.02 : 1 }}
+                    whileTap={{ scale: rateLimitInfo.canSubmit ? 0.98 : 1 }}
                   >
                     <Button
                       type="submit"
-                      disabled={isLoading || !formData.authorizeContact}
+                      disabled={isLoading || !formData.authorizeContact || !rateLimitInfo.canSubmit}
                       className="w-full bg-[#88BF42] hover:bg-[#88BF42]/90 text-white py-6 text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                       data-action="submit"
                     >
-                      {isLoading ? (
+                      {!rateLimitInfo.canSubmit ? (
+                        'Rate Limit Exceeded'
+                      ) : isLoading ? (
                         <>
                           <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                           Sending...
@@ -463,6 +591,11 @@ const ContactPage = () => {
                       )}
                     </Button>
                   </motion.div>
+                  
+                  {/* Show remaining submissions */}
+                  <div className="text-xs text-gray-500 text-center">
+                    Submissions remaining this hour: {rateLimitInfo.remaining}/{RATE_LIMIT.maxSubmissions}
+                  </div>
                   
                   {/* Invisible reCAPTCHA badge */}
                   <div className="text-xs text-gray-500 text-center mt-4">
@@ -535,19 +668,7 @@ const ContactPage = () => {
                     </div>
                   </div>
 
-                  {/* Hours Item */}
-                  {/* <div className="flex items-start gap-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-[#88BF42] flex-shrink-0 mt-1"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    <div>
-                      <h3 className="font-semibold text-[#0F0326] mb-1">Hours</h3>
-                      <p className="text-[#696869] text-base md:text-lg">
-                        Monday - Saturday: 9:00 AM - 6:00 PM<br />
-                        Sunday: Closed
-                      </p>
-                    </div>
-                  </div> */}
-
-                </div> {/* End Contact Details Vertical Flex Container */}
+                </div>
 
                 {/* Social Media Links */}
                 <div className="flex items-center gap-4">
