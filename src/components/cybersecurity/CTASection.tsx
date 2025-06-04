@@ -22,7 +22,7 @@ const CTASection: React.FC = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('https://thor-signia-three.vercel.app/api/assessments', {
+      const response = await fetch('https://thor-signia-two.vercel.app//api/assessments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

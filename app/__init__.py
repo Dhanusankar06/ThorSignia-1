@@ -43,12 +43,13 @@ def create_app():
                 "http://127.0.0.1:5000",
                 "http://localhost:3000",
                 "http://127.0.0.1:3000",
-                "https://thor-signia-three.vercel.app"
+                "https://thor-signia-two.vercel.app/"
             ],
             "methods": ["GET", "POST", "OPTIONS"],
             "allow_headers": ["Content-Type", "Authorization"]
         }
     })
+
     
     # Database Configuration
     try:

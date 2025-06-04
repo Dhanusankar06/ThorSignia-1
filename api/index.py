@@ -21,8 +21,9 @@ ALLOWED_ORIGINS = [
     'http://127.0.0.1:5000',
     'http://localhost:3000',
     'http://127.0.0.1:3000',
-    'https://thor-signia-three.vercel.app'
+    'https://thor-signia-two.vercel.app/'
 ]
+
 
 def get_allowed_origin(request):
     origin = request.headers.get('Origin')
