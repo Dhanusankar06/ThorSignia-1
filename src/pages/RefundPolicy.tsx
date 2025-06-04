@@ -53,7 +53,7 @@ const RefundPolicy = () => {
         <h2 className="text-2xl font-bold text-gray-900 mt-12 mb-4">Process for Refund Request</h2> 
         <p className="mb-4 text-lg">To initiate a refund request, please follow these steps:</p> 
         <ol className="list-decimal pl-6 mb-8 space-y-2 text-lg"> 
-          <li>Email your request to <a href="mailto:accounts@thorsignia.online" className="text-[#3563E9] underline hover:text-[#2a4ea3] transition-colors" target="_blank" rel="noopener noreferrer">accounts@thorsignia.online</a> with the subject line "Refund Request."</li> 
+          <li>Email your request to <a href="mailto:info@thorsignia.online" className="text-[#3563E9] underline hover:text-[#2a4ea3] transition-colors" target="_blank" rel="noopener noreferrer">info@thorsignia.online</a> with the subject line "Refund Request."</li> 
           <li>Include your name, project details, invoice number, and a detailed explanation of the issue.</li>
           <li>Our team will review your request and may contact you for further clarification or resolution.</li> 
         </ol>
@@ -68,7 +68,7 @@ const RefundPolicy = () => {
 
         
         <h2 className="text-2xl font-bold text-gray-900 mt-12 mb-4">Contact Us</h2> 
-        <p className="mb-8 text-lg">For any questions or concerns regarding our refund policy, please contact our support team at <a href="mailto:accounts@thorsignia.online" className="text-[#3563E9] underline hover:text-[#2a4ea3] transition-colors" target="_blank" rel="noopener noreferrer">accounts@thorsignia.online</a></p> 
+        <p className="mb-8 text-lg">For any questions or concerns regarding our refund policy, please contact our support team at <a href="mailto:info@thorsignia.online" className="text-[#3563E9] underline hover:text-[#2a4ea3] transition-colors" target="_blank" rel="noopener noreferrer">info@thorsignia.online</a></p> 
 
         
         <p className="mt-8 text-lg">We appreciate your trust in ThorSignia and strive to deliver value-driven services. This refund policy is subject to revision as per company guidelines.</p> 

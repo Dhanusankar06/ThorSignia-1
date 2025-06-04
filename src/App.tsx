@@ -10,8 +10,7 @@ import ContactPage from "./pages/Contact";
 import AIEngineersPage from "./pages/AIEngineers";
 import AboutPage from "./pages/About";
 import AwardsPage from "./pages/Awards";
-import Blog from "./pages/Blog";
-import BlogPost from "./pages/BlogPost";
+import BlogPost from "./pages/blog/[slug]";
 import ServicesPage from "./pages/Services";
 import IntelligentVoiceAutomation from "./pages/services/IntelligentVoiceAutomation";
 import SocialEngagementAutomation from "./pages/services/SocialEngagementAutomation";
@@ -40,7 +39,9 @@ import SecurityTrainingPage from "@/pages/cybersecurity/SecurityTrainingPage";
 import Pricing from "./pages/Pricing";
 import PricingPage from "./pages/Pricing";
 import JobDetailsPage from './pages/careers/JobDetailsPage';
-
+import SitemapPage from './pages/SitemapPage'; 
+import BlogPage from './pages/blog/index';
+import SingleBlogPostPage from './pages/blog/[slug]';
 
 const queryClient = new QueryClient();
 
@@ -111,8 +112,8 @@ const App = () => (
           <Route path="/ai-engineers" element={<AIEngineersPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/awards" element={<AwardsPage />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:id" element={<BlogPost />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<SingleBlogPostPage />} /> 
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/services/intelligent-voice-automation" element={<IntelligentVoiceAutomation />} />
           <Route path="/services/social-engagement-automation" element={<SocialEngagementAutomation />} />
@@ -127,6 +128,7 @@ const App = () => (
 
           <Route path="/pricing" element={<PricingPage />} /> 
 
+          
           <Route path="/cyber-security" element={<CyberSecurity />} />
           <Route path="/cyber-security/vulnerability-assessment" element={<PenetrationTestPage />} />
           <Route path="/cyber-security/cloud-security-assessments" element={<CloudSecurityPage />} />
@@ -149,6 +151,8 @@ const App = () => (
           <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
           <Route path="/TermsAndConditions" element={<TermsAndConditions />} />
           <Route path="/RefundPolicy" element={<RefundPolicy />} />
+
+          <Route path="/sitemap" element={<SitemapPage />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -122,8 +122,7 @@ const TermsAndConditions = () => (
       <p className="mb-4 text-lg">For questions or concerns regarding these Terms, please contact us:</p> 
        
       <ol className="list-decimal pl-6 mb-8 space-y-2 text-lg"> 
-        <li><strong>Email:</strong> <a href="mailto:accounts@thorsignia.online" className="text-[#3563E9] underline hover:text-[#2a4ea3] transition-colors" target="_blank" rel="noopener noreferrer">accounts@thorsignia.online</a></li>
-        <li><strong>Address:</strong> 945, 1st Floor, 5th Main, Sector 7, HSR Layout, Bangalore - 560034. Karnataka, India.</li> 
+        <li><strong>Email:</strong> <a href="mailto:info@thorsignia.online" className="text-[#3563E9] underline hover:text-[#2a4ea3] transition-colors" target="_blank" rel="noopener noreferrer">info@thorsignia.online</a></li>
       </ol>
 
       

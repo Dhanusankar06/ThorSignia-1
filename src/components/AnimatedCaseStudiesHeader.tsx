@@ -137,7 +137,7 @@ export default function AnimatedCaseStudiesHeader() {
   animate={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.5, delay: 1.6 }}
 >
-  <motion.button
+  {/* <motion.button
     whileHover={{ 
       scale: 1.05, 
       boxShadow: "0 10px 25px -5px rgba(136, 191, 66, 0.4)" 
@@ -155,7 +155,7 @@ export default function AnimatedCaseStudiesHeader() {
         →
       </motion.span>
     </span>
-  </motion.button>
+  </motion.button> */}
 
   <motion.div
     whileHover={{ 

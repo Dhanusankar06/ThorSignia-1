@@ -94,7 +94,7 @@ const PrivacyPolicy = () => (
         <li>Withdraw consent for data processing where applicable.</li> {/* Removed "6.5" */}
       </ol>
        {/* Contact Email Link - Added text-lg, kept styling */}
-      <p className="mb-8 text-lg">To exercise your rights, please contact us at <a href="mailto:accounts@thorsignia.online" className="text-[#3563E9] underline hover:text-[#2a4ea3] transition-colors">accounts@thorsignia.online</a></p> {/* Added text-lg, mb-8 */}
+      <p className="mb-8 text-lg">To exercise your rights, please contact us at <a href="mailto:info@thorsignia.online" className="text-[#3563E9] underline hover:text-[#2a4ea3] transition-colors">info@thorsignia.online</a></p> {/* Added text-lg, mb-8 */}
 
       {/* Section 7: Data Retention */}
       {/* Heading - Changed color to black, removed border/padding */}
@@ -134,8 +134,7 @@ const PrivacyPolicy = () => (
       <p className="mb-4 text-lg">If you have any questions or concerns about this Privacy Policy, please contact us at:</p> {/* Added text-lg, mb-4 */}
        {/* Contact Info List - Changed to ordered list, added spacing, removed manual numbering */}
       <ol className="list-decimal pl-6 mb-8 space-y-2 text-lg"> {/* Changed ul to ol, list-disc to list-decimal, added space-y-2, text-lg */}
-        <li><strong>Email:</strong> <a href="mailto:accounts@thorsignia.online" className="text-[#3563E9] underline hover:text-[#2a4ea3] transition-colors">accounts@thorsignia.online</a></li> {/* Removed "11.1" */}
-        <li><strong>Address:</strong> 945, 1st Floor, 5th Main, Sector 7, HSR Layout, Bangalore - 560034, Karnataka, India.</li> {/* Removed "11.2" */}
+        <li><strong>Email:</strong> <a href="mailto:info@thorsignia.online" className="text-[#3563E9] underline hover:text-[#2a4ea3] transition-colors">info@thorsignia.online</a></li> {/* Removed "11.1" */}
       </ol>
 
       {/* Closing Paragraph - Added text-lg and increased top margin */}

@@ -246,6 +246,11 @@ const navItems: NavItem[] = [
 
   },
   {
+    title: "Outsourcing AI",
+    href: "/ai-engineers#top",
+    dropdown: false,
+  },
+  {
     title: "Case Studies",
     href: "/case-studies#top",
     dropdown: true,
@@ -253,53 +258,68 @@ const navItems: NavItem[] = [
     mainDescription: "Discover how our AI solutions deliver measurable results for clients.",
     items: [
       {
-        title: "AI-Powered Quality Control System",
+        title: "Digital Transformation for Industrial Growth",
         href: "/case-studies/sgf-fab-ai-quality-control",
         icon: "ClipboardCheck",
       },
       {
-        title: "AI Voice Assistant for Medical Education",
+        title: "AI Automation for Student Engagement",
         href: "/case-studies/doctor-dreams-ai-voice-assistant",
         icon: "Stethoscope",
       },
       {
-        title: "AI Chatbot for Workspace Management",
+        title: "Scalable Web Infrastructure for a Growing Coworking Brand",
         href: "/case-studies/anthill-iq-smart-workspace",
         icon: "Briefcase",
       },
       {
-        title: "AI-Powered Customer Service Revolution",
+        title: "AI Automation for Sales & Social Commerce",
         href: "/case-studies/financial-services-ai-transformation",
         icon: "Landmark",
       },
-      {
-        title: "AI-Driven Retail Personalization Engine",
-        href: "/case-studies/retail-personalization-engine",
-        icon: "Sparkles", // Using the Sparkles icon mapped above
-      },
-      {
-        title: "Healthcare AI Voice Assistant",
-        href: "/case-studies/healthcare-voice-assistant",
-        icon: "Stethoscope",
-      },
-      {
-        title: "AI-Powered Predictive Maintenance",
-        href: "/case-studies/manufacturing-predictive-maintenance",
-        icon: "Wrench",
-      },
+
     ],
   },
   {
     title: "Blog",
-    href: "/blog#top",
-    dropdown: false,
-
+    href: "/blog#top", // Link to the main blog listing page
+    dropdown: true,
+    mainIcon: "Book", // Icon for the main Blog link in the dropdown (already set)
+    mainDescription: "Stay updated with our latest articles on Enterprise AI, Industry insights, and Tech.", // Description for the main Blog link (already set)
+    items: [
+      {
+        title: "The Future of Enterprise AI: Trends to Watch in 2025",
+        href: "/blog/future-of-enterprise-ai-trends-2025#top", // Added #top
+        icon: "TrendingUp", // Changed from BookOpen to TrendingUp (Trends)
+      },
+      {
+        title: "How Custom AI Solutions Are Transforming Manufacturing",
+        href: "/blog/how-custom-ai-solutions-are-transforming-manufacturing#top", // Added #top
+        icon: "Wrench", // Changed from Factory (not mapped) to Wrench (Industry/Building/Tooling)
+      },
+      {
+        title: "Ethical Considerations in AI Development and Deployment",
+        href: "/blog/ethical-considerations-in-ai-development-and-deployment#top", // Added #top
+        icon: "ShieldCheck", // Changed from Briefcase to ShieldCheck (Responsibility/Trust/Security)
+      },
+      {
+        title: "Building a Successful Enterprise AI Strategy From Scratch",
+        href: "/blog/building-a-successful-enterprise-ai-strategy-from-scratch#top", // Added #top
+        icon: "Settings", // Changed from Landmark to Settings (Strategy/Configuration)
+      },
+      {
+        title: "Real-time Data Processing: How AI Is Enabling Faster Decision Making",
+        href: "/blog/real-time-data-processing-how-ai-is-enabling-faster-decision-making#top", // Added #top
+        icon: "Cpu", // Changed from Clock to Cpu (Processing/AI)
+      },
+      {
+        title: "How to Build a High-Performing AI Development Team",
+        href: "/blog/how-to-build-a-high-performing-ai-development-team#top", // Added #top
+        icon: "Users", // Changed from Clock to Users (Team)
+      },
+    ],
   },
-  {
-    title: "AI Engineers",
-    href: "/ai-engineers#top",
-    dropdown: false,
-  },
+ 
   {
     title: "Awards",
     href: "/awards#top",
@@ -405,13 +425,15 @@ export default function Navbar() {
       {/* Increased the max-width of the container div */}
       <div className="max-w-screen-2xl mx-auto px-2 md:px-4"> {/* Changed from container to max-w-screen-2xl */}
         <div className="flex items-center justify-between h-20">
-          {/* Logo - positioned first with fixed width */}
-          <div className="w-32 md:w-40 lg:w-44 flex-shrink-0 mr-2 md:mr-4 lg:mr-6">
+          {/* Logo - positioned first with increased mobile width */}
+          {/* Updated w-32 to w-48 for mobile */}
+          <div className="w-48 md:w-40 lg:w-44 flex-shrink-0 mr-2 md:mr-4 lg:mr-6">
             <RouterLink to="/" onClick={handleNavLinkClick}>
               <img
                 src="/thor-signia-logo.png"
                 alt="Thor Signia Logo"
-                className="h-25 w-auto"
+                 // Updated h-30 to h-auto for standard scaling
+                className="h-auto w-auto"
               />
             </RouterLink>
           </div>
@@ -472,14 +494,9 @@ export default function Navbar() {
                 <div
                   className={cn(
                     // Positioning relative to the trigger button
-                    "absolute top-full right-0 mt-0", // Aligned dropdown to the right edge of the button
-                    // Adjust horizontal positioning if needed, right-0 makes it align to the right edge of the button's container (which is the button itself)
-                    // If the dropdown is too wide and goes off screen left, you might need left-auto right-0 or left-1/2 transform -translate-x-1/2 still depending on desired look.
-                    // Keeping left-1/2 -translate-x-1/2 for now as it centers it relative to the trigger, which might be better even if the triggers are on the right.
-                    // Let's revert to the centered positioning relative to the trigger button, as right-aligning the whole panel might push it off-screen.
-                    // "absolute top-full left-1/2 -translate-x-1/2 mt-0", // Centered relative to the trigger
-                    // Let's try anchoring to the right edge but offsetting slightly left to ensure it stays on screen
-                     "absolute top-full right-0 mt-0 md:-right-4 lg:-right-6", // Anchor to right edge, add slight padding/offset
+                    // --- Updated positioning to center the dropdown ---
+                     "absolute top-full left-1/2 -translate-x-1/2 mt-0", // Center relative to trigger
+                    // --- End Updated Positioning ---
 
                     "w-[700px] max-w-[calc(100vw-32px)]", // Reduced width from 800px to 700px, kept max-width
                     "bg-background border rounded-md shadow-lg p-6", // Increased padding
@@ -687,14 +704,16 @@ export default function Navbar() {
                           const subItemIconName = subItem.icon as IconName | undefined;
                           const hasValidIcon = subItemIconName && typeof iconMap[subItemIconName] !== 'undefined';
 
-                          
+                          // Check if the current URL (pathname + hash) exactly matches the subItem href
+                          const isSubItemActive = pathname + (currentHash || '') === subItem.href;
+
                           return (
                             <RouterLink
                               key={subItem.title}
                               to={subItem.href}
                               className={cn(
                                 "text-base py-1", // Keep text-base for sub-items
-                                isMobileLinkActive(subItem.href) ? "text-foreground font-semibold" : "text-muted-foreground", // Active state for sub-items
+                                isSubItemActive ? "text-foreground font-semibold" : "text-muted-foreground", // Active state for sub-items (check exact match)
                                 "hover:text-[#88bf42]",
                                 "flex items-center gap-2"
                               )}
@@ -718,7 +737,7 @@ export default function Navbar() {
             ))}
           </nav>
         </div>
-      )}
+      )} 
       </div>
     </header>
   );

@@ -131,21 +131,27 @@ const ServiceCards: React.FC = () => {
           ))}
         </div>
         
-        {/* Featured service in the center */}
-        <div className="flex justify-center">
-          {services.filter(service => service.featured).map((service, index) => (
-            <div key={index} className="max-w-md">
-              <ServiceCard 
-                title={service.title}
-                description={service.description}
-                icon={service.icon}
-                delay={6}
-                link={service.link}
-                featured={true}
-              />
-            </div>
-          ))}
-        </div>
+     {/* Featured card centered in the second column of 3-column layout */}
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+  <div className="lg:col-start-2">
+    {services
+      .filter(service => service.featured)
+      .map((service, index) => (
+        <ServiceCard
+          key={index}
+          title={service.title}
+          description={service.description}
+          icon={service.icon}
+          delay={6}
+          link={service.link}
+          featured={false} // ensure same style as others
+        />
+      ))}
+  </div>
+</div>
+
+
+
         
         <motion.div
           initial={{ opacity: 0 }}

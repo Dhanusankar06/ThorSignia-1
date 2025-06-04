@@ -1,3 +1,5 @@
+'use client'; // Added if you need client-side features
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 // Import icons needed - Mail, Phone, MessageCircle, Globe for Contact/Explore
@@ -78,27 +80,18 @@ const socialIcons = {
 const Footer = () => {
   return (
     <footer className="bg-black text-white">
-      {/* This div wraps the main footer content (logo/text, columns, copyright) */}
-      {/* It uses standard Tailwind centered container classes to match the navigation bar. */}
-      {/* max-w-screen-2xl sets the max width, mx-auto centers it, and px-* adds horizontal padding. */}
-      <div className="max-w-screen-2xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8"> {/* Outer container for width/centering and padding */}
-        {/* Inner grid container - Increased gap from xl:gap-16 to xl:gap-20 */}
-        {/* --- MODIFICATION START --- */}
-        <div className="xl:grid xl:grid-cols-4 xl:gap-20"> {/* Changed gap size here to make it more prominent */}
-        {/* --- MODIFICATION END --- */}
-          <div className="space-y-6 xl:col-span-1 mb-8 xl:mb-0">
-            {/* Using the public path for the image src */}
-            {/* Changed the height class from h-14 (56px) to h-18 (72px) to match the image more closely */}
+      <div className="max-w-screen-2xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+        <div className="xl:grid xl:grid-cols-4 xl:gap-20">
+          <div className="space-y-6 xl:col-span-1 mb-4 xl:mb-0">
             <img
               className="h-18 w-48"
-              src="/thor-signia-logo.png" // Ensure this path is correct and the file is the right logo version
+              src="/thor-signia-logo.png"
               alt="Thor Signia"
             />
             <p className="text-gray-400 text-base leading-relaxed">
               "Empowering enterprises to achieve unprecedented growth through the power of AI and innovation."
             </p>
 
-            {/* Social media icons row */}
             <div className="flex space-x-4 items-center mt-6">
               {Object.entries(socialIcons).map(([key, social]) => (
                 <a
@@ -119,7 +112,6 @@ const Footer = () => {
           </div>
 
           {/* Services Section */}
-          {/* This is the second column in the grid - gap is applied by the parent */}
           <div className="mt-10 xl:mt-0">
             <h3 className="text-base font-bold text-[#88bf42] tracking-wider uppercase pb-3 mb-3">
                 Services
@@ -127,12 +119,11 @@ const Footer = () => {
             <ul className="space-y-4">
               <li><Link to="/services" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">AI Services</Link></li>
                <li><Link to="/cyber-security" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Cybersecurity</Link></li>
-               <li><Link to="/ai-engineers" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Hire AI Engineers </Link></li>
+               <li><Link to="/ai-engineers" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Outsourcing AI </Link></li>
             </ul>
           </div>
 
           {/* Company Section */}
-          {/* This is the third column - gap is applied by the parent */}
           <div className="mt-10 xl:mt-0">
             <h3 className="text-base font-bold text-[#88bf42] tracking-wider uppercase pb-3 mb-3">
                 Company
@@ -146,27 +137,46 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Contact & Legal Section */}
-          {/* This is the fourth column - gap is applied by the parent */}
+          {/* Contact Section (Legal links moved out) */}
           <div className="mt-10 xl:mt-0">
             <h3 className="text-base font-bold text-[#88bf42] tracking-wider uppercase pb-3 mb-3">
-                Contact & Legal
+                Contact Us
             </h3>
             <ul className="space-y-4">
-              <li><Link to="/contact" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Contact Us</Link></li>
+              <li>
+                <a href="tel:+919008097780" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">
+                  Call Us: +91 9008097780 {/* Replace with actual phone number */}
+                </a>
+              </li>
+              <li>
+                 <a href="mailto:info@thorsignia.online" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">
+                  Mail Us: info@thorsignia.online {/* Replace with actual email */}
+                 </a>
+              </li>
+              {/* Pricing link kept here if needed */}
               {/* <li><Link to="/pricing" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Pricing</Link></li> */}
-              <li><Link to="/PrivacyPolicy" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Privacy Policy</Link></li>
-              <li><Link to="/TermsAndConditions" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Terms & Conditions</Link></li>
-              <li><Link to="/RefundPolicy" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Refund Policy</Link></li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-12 border-t border-gray-700 pt-8">
-          <p className="text-center text-base text-gray-400">
+        {/* --- BOTTOM SECTION: Copyright Left, Legal Links Right --- */}
+        <div className="mt-12 border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-6">
+          {/* Left side: Copyright */}
+          <p className="text-base text-gray-400 text-center md:text-left flex-shrink-0">
             © {new Date().getFullYear()} Thor Signia. All rights reserved.
           </p>
+          {/* Right side: Legal links - ADDED SITEMAP LINK HERE */}
+          <ul className="flex space-x-4 flex-wrap justify-center md:justify-start">
+              <li><Link to="/PrivacyPolicy" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200 text-sm">Privacy Policy</Link></li>
+              <li><Link to="/TermsAndConditions" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200 text-sm">Terms & Conditions</Link></li>
+              <li><Link to="/RefundPolicy" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200 text-sm">Refund Policy</Link></li>
+              {/* --- New Sitemap Link Added Here --- */}
+              <li><Link to="/sitemap" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200 text-sm">Sitemap</Link></li>
+              {/* --- End New Sitemap Link --- */}
+          </ul>
         </div>
+        {/* --- END BOTTOM SECTION --- */}
+
       </div>
     </footer>
   );

@@ -267,13 +267,15 @@ const HomePage = () => {
    
 
  {/* Hero Section */}
+
 <section className="relative bg-[#0F0326] text-white overflow-hidden min-h-screen flex items-center">
   {/* Background images with gradient overlay */}
   <div className="absolute inset-0">
     {/* Neural network background */}
-    <div className="absolute inset-0 bg-[url('/assets/glowing-neural.png')] bg-cover bg-center opacity-10 hidden lg:block"></div>
+    <div className="absolute inset-0 bg-[url('/assets/glowing-neural.png')] bg-cover bg-center opacity-20 hidden lg:block"></div>
 
-
+    {/* Gradient overlay - Added for effect, adjust as needed */}
+    {/* <div className="absolute inset-0 bg-gradient-to-t from-[#0F0326] via-transparent to-[#0F0326] opacity-50"></div> */}
   </div>
 
   <div className="container mx-auto px-4 py-16 md:py-20 lg:py-24 relative z-10">
@@ -283,38 +285,39 @@ const HomePage = () => {
 
       {/* Images Column (DESKTOP ONLY) - This column is primarily for the desktop layout */}
       {/* Hide this column completely on mobile, show it on large screens */}
-      <div className="lg:w-1/2 w-full relative h-full md:h-full lg:h-[800px] max-w-lg mx-auto lg:mx-0 order-first lg:order-2 mb-8 lg:mb-0 hidden lg:block"> {/* Added hidden lg:block */}
-        {/* Container for the two images with improved alignment */}
-        <div className="grid grid-rows-2 gap-4 h-full"> {/* Using grid-rows-2 to divide space evenly */}
+      {/* Centered using mx-auto within the lg:w-1/2 column */}
+      <div className="lg:w-1/2 w-full relative h-full md:h-full max-w-lg mx-auto order-first lg:order-2 mb-8 lg:mb-0 hidden lg:block"> {/* mx-auto centers the max-w-lg div */}
+        {/* Container for the image with improved alignment */}
+        <div className="grid grid-rows-1 h-full"> {/* Using grid-rows-1 as only one image is present */}
           {/* First Image */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }} // Animates after text block starts
-            className="rounded-lg overflow-hidden shadow-2xl h-full" // Using h-full to fill the grid cell completely
+            className="rounded-lg overflow-hidden shadow-2xl h-full flex items-center justify-center" // Added flex/items/justify-center to help center image within its div
           >
             {/* First image */}
             <img
               src="/assets/heroai.png"
               alt="AI Interface Example 1"
-              className="w-full h-full "
+              className="w-full h-full object-contain" // Use object-contain to ensure image fits without cropping, centered by parent flex
             />
           </motion.div>
 
-          {/* Second Image */}
-          <motion.div
+          {/* Second Image - Commented Out */}
+          {/* <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }} // Animates shortly after the first image
             className="rounded-lg overflow-hidden shadow-2xl h-full" // Using h-full to fill the grid cell completely
           >
-            {/* Second image */}
+            
             <img
               src="/assets/award.png"
               alt="AI Interface Example 2"
               className="w-full h-[500px] "
             />
-          </motion.div>
+          </motion.div> */}
         </div>
       </div>
 
@@ -326,59 +329,60 @@ const HomePage = () => {
         {/* Heading + Paragraph Block (Order 1 on mobile) */}
         {/* Removed the buttons from this motion.div as they are now a separate item 5for ordering */}
         <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.6 }}
-  className="order-1 text-center lg:text-left"
->
-  {/* Heading */}
-  <h1 className="text-[36px] md:text-5xl lg:text-6xl font-extrabold text-white leading-snug md:leading-tight lg:leading-tight mb-4 md:mb-6">
-    Transforming Business with
-    <span className="text-[#88BF42]"> Intelligent Automation</span>
-  </h1>
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="order-1 text-center lg:text-left mb-4 md:mb-6"
+        >
+          {/* Heading */}
+          <h1 className="text-[36px] md:text-5xl lg:text-6xl font-extrabold text-white leading-snug md:leading-tight lg:leading-tight mb-4 md:mb-6">
+            Transforming Business with
+            <span className="text-[#88BF42]"> Intelligent Automation</span>
+          </h1>
 
-  {/* Paragraph Description */}
-  <p className="text-base md:text-lg text-white/90 leading-relaxed md:leading-loose mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0">
-    Harness the power of AI-driven platforms to automate operations, supercharge lead conversion, and deliver extraordinary user experiences—at scale and with precision.
-  </p>
-</motion.div>
+          {/* Paragraph Description */}
+          <p className="text-base md:text-lg text-white/90 leading-relaxed md:leading-loose mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0">
+            Harness the power of AI-driven platforms to automate operations, supercharge lead conversion, and deliver extraordinary user experiences—at scale and with precision.
+          </p>
+        </motion.div>
 
 
         {/* Images Block (MOBILE ONLY) (Order 2 on mobile) */}
         {/* Duplicate the image structure from the desktop-only column */}
         {/* Show this block on mobile, hide on large screens */}
-        <div className="w-full relative h-full md:h-[450px] max-w-lg mx-auto mb-8 block lg:hidden order-2"> {/* Added block lg:hidden and order-2, mb-8 for spacing */}
-             {/* Flex container for the two stacked images */}
+         {/* Centered using mx-auto */}
+        <div className="w-full relative h-full max-w-lg mx-auto mb-8 block lg:hidden order-2"> {/* mx-auto centers the max-w-lg div, removed fixed height */}
+             {/* Flex container for the stacked image */}
              <div className="flex flex-col gap-4 h-full"> {/* h-full makes it fill parent height */}
                 {/* First Image */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.5 }} // Animates shortly after text block
-                  className="flex-1 rounded-lg overflow-hidden shadow-2xl h-full"
+                   className="flex-1 rounded-lg overflow-hidden shadow-2xl h-full flex items-center justify-center" // Added flex/items/justify-center to help center image within its div
                 >
                   {/* Replace with your first image URL */}
                   <img
                     src="/assets/heroai.png"
                     alt="AI Interface Example 1"
-                    className="w-full h-full " // This already uses h-full object-cover
+                    className="w-full h-full object-contain" // Use object-contain
                   />
                 </motion.div>
 
-                {/* Second Image */}
-                <motion.div
+                {/* Second Image - Commented Out */}
+                {/* <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.7 }} // Animates shortly after the first image
                   className="flex-1 rounded-lg overflow-hidden shadow-2xl h-full"
                 >
-                  {/* Replace with your second image URL */}
+
                   <img
                     src="/assets/award.png"
                     alt="AI Interface Example 2"
                     className="w-full h-full " // This already uses h-full object-cover
                   />
-                </motion.div>
+                </motion.div> */}
             </div>
         </div>
 
@@ -417,9 +421,9 @@ const HomePage = () => {
           </Button>
         </div>
 
-        {/* Trusted By Section (Order 4 on mobile) */}
+        {/* Trusted By Section (Order 4 on mobile) - Commented Out */}
         {/* This div is now a separate flex item for ordering */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }} // Keep whileInView for visibility-based animation
           viewport={{ once: true, amount: 0.1 }} // Added viewport options
@@ -428,7 +432,7 @@ const HomePage = () => {
         >
           <p className="text-white/70 text-base mb-4">Trusted by forward-thinking companies across industries</p>
           <div className="flex flex-wrap justify-center lg:justify-start gap-6 items-center">
-            {/* Note: Logos also have individual whileInView animations with staggered delay */}
+            Note: Logos also have individual whileInView animations with staggered delay
             {trustedByLogos.slice(0, 9).map((logo, index) => (
               <motion.a
                 key={index}
@@ -449,7 +453,7 @@ const HomePage = () => {
               </motion.a>
             ))}
           </div>
-        </motion.div>
+        </motion.div>  */}
 
 
 
@@ -459,6 +463,7 @@ const HomePage = () => {
     </div>
   </div>
 </section>
+
         {/* 2. Quick Company Intro */}
         <section className="py-16 lg:py-24 bg-gray-50 relative overflow-hidden">
   {/* Potential Background Element here if needed */}

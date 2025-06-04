@@ -10,10 +10,7 @@ export interface CaseStudy {
   imageUrl: string;
   coverImage: string;
   summary: string;
-  roi: string;
-  timeframe: string;
-  teamSize: string;
-  keyMetric: string;
+  
   accentColor: string;
   challenge: string[];
   strategy: string[];
@@ -23,13 +20,7 @@ export interface CaseStudy {
     name: string;
     icon: string;
   }[];
-  testimonial: {
-    quote: string;
-    author: string;
-    position: string;
-    company: string;
-    image: string;
-  };
+ 
   relatedCaseStudies: number[];
 }
 
@@ -37,38 +28,42 @@ const caseStudiesData: CaseStudy[] = [
   {
     id: 1,
     slug: "sgf-fab-ai-quality-control",
-    title: "Precision at Scale: SGF FAB’s AI-Driven Quality Revolution",
+    title: "Digital Transformation for Industrial Growth",
     company: "SGF FAB Industries",
     logo: "/assets/sgf.jpeg",
     category: "Manufacturing",
     imageUrl: "/assets/ai-visual-inspection.jpg",
     coverImage: "/assets/crane-sgf.png",
-    summary: "Developed a custom computer vision system for quality control in industrial fabrication, resulting in significant reduction in production defects and improved operational efficiency.",
-    roi: "285%",
-    timeframe: "8 months",
-    teamSize: "7 engineers",
-    keyMetric: "73% fewer defects",
+    summary: "Since 2015, Thor Signia has led the digital transformation of SGF Fab Industries, helping elevate them into a digitally competitive brand. What began with a single website project evolved into a long-term strategic partnership covering SEO, branding, lead generation, and event support—positioning Thor Signia as their exclusive digital growth partner.   ",   
     accentColor: "#88bf42",
     challenge: [
-      "SGF FAB Industries, a leading manufacturer of material handling equipment and industrial fabrication solutions, was facing challenges with quality control in their production processes. Their manual inspection methods were time-consuming, inconsistent, and unable to keep pace with increasing production demands.",
-      "The company was experiencing a defect rate of approximately 8.5%, resulting in significant material waste, rework costs, and occasional customer complaints. With their focus on quality and safety being central to their brand identity, SGF FAB needed a solution that could maintain their high standards while improving operational efficiency."
+      "Although SGF Fab had decades of experience and an impressive client portfolio, their digital presence did not reflect the scale or credibility of their work. Their website was outdated, search visibility was poor, and inbound inquiries were minimal—making it difficult for new clients to discover or assess the brand.",
+      "They needed:A clean, modern website tailored to industrial buyersA content and SEO strategy that could generate qualified business leads for new product launches and industry eventsA long-term partner who could evolve with their needs across channels"
     ],
     strategy: [
-      "Thor Signia proposed a custom AI-powered computer vision system designed specifically for industrial fabrication quality control. The strategy focused on creating a comprehensive solution that could detect defects in real-time during the manufacturing process.",
-      "Our approach included: 1) High-resolution camera systems installed at key inspection points throughout the production line, 2) Custom computer vision AI models trained specifically on SGF FAB's product specifications and potential defect types, 3) Real-time analysis capabilities with immediate alerts for quality issues, and 4) A comprehensive dashboard for quality management teams to monitor trends and identify process improvement opportunities."
+      "Thor Signia proposed a phased digital growth model with a focus on strong fundamentals, scalable outreach, and consistent content presence:",
+      "Redesign the Website to improve user experience, highlight technical capabilities, and support product discoveryImplement SEO to improve visibility for high-intent industrial search termsDevelop Content Assets that educate prospects and drive conversionsLaunch Targeted Campaigns for B2B buyers across Google and LinkedInSupport Product Launches & Events with media, messaging, and amplificationEach phase was designed to support SGF Fab’s reputation as a technically reliable and forward-thinking manufacturing partner."
     ],
     execution: [
-      "Implementation began with a detailed analysis of SGF FAB's production processes and the creation of a comprehensive defect database. We collected thousands of sample images of both defective and non-defective products to train the AI models.",
-      "The Thor Signia team deployed specialized industrial cameras at strategic points in the production line, connected to edge computing devices for real-time image processing. The system was designed to operate in the challenging factory environment, with robust protection against dust, vibration, and variable lighting conditions.",
-      "We worked closely with SGF FAB's quality control and production teams to refine the detection algorithms and establish appropriate alert thresholds. The system was deployed in phases, starting with the most critical inspection points and gradually expanding to cover the entire production process."
+      "Website Design & Development",
+"We launched a new responsive website focused on cranes, hoists, and fabrication solutions. Technical details, certifications, and case use were structured to help procurement teams evaluate faster. The site footer continues to carry: “Powered by THORSIGNIA”.",
+
+"Search Engine Optimization (SEO)",
+"A targeted SEO plan was deployed to rank for relevant industry terms like “EOT crane manufacturer in Bangalore”. SGF Fab now consistently ranks on the first page for priority keywords.",
+
+"Content & Lead Generation",
+"We developed downloadable product specs, blog content, and lead forms integrated with analytics to track engagement and optimize lead quality.",
+
+"Digital Marketing & Campaigns",
+"We ran targeted ads across Google and LinkedIn to connect with buyers in logistics, construction, and heavy engineering sectors—opening doors to new industries and regions.",
+
+"Event & Product Launch Support",
+"In 2025, when SGF Fab launched the Yale BatteryStar Hoist in collaboration with Columbus McKinnon, Thor Signia supported the event with PR, visuals, and web updates to ensure maximum visibility."
     ],
     results: [
-      "Defect detection rate improved from 82% with manual inspection to 99.3% with the AI system",
-      "Overall defect rate reduced from 8.5% to 2.3% (73% reduction)",
-      "Quality control efficiency improved by 62%, allowing staff to focus on process improvement rather than routine inspection",
-      "Material waste reduced by 58%, resulting in significant cost savings",
-      "Production throughput increased by 27% due to faster inspection processes",
-      "Customer complaints related to quality issues decreased by 84%"
+      "60% Increase in Organic Leads within the first year of launching the new website",
+      "High Visibility in Search Results for key industrial terms, reducing reliance on paid ads",   
+       "Successful Expansion into New Markets through targeted campaign outreach"
     ],
     servicesUsed: [
       {
@@ -76,50 +71,50 @@ const caseStudiesData: CaseStudy[] = [
         icon: "Settings"
       }
     ],
-    testimonial: {
-      quote: "Thor Signia's AI quality control system has transformed our production processes. The precision and consistency of the defect detection have significantly improved our product quality while reducing waste and operational costs. Their team took the time to understand our specific manufacturing challenges and delivered a solution perfectly tailored to our needs.",
-      author: "Rajesh Kumar",
-      position: "Operations Director",
-      company: "SGF FAB Industries",
-      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop"
-    },
-    relatedCaseStudies: [4, 5, 6]
+   
+    relatedCaseStudies: [2,3,4]
   },
   {
     id: 2,
     slug: "doctor-dreams-ai-voice-assistant",
-    title: "AI Voice Agents for Medical Education",
+    title: "Conversational Automation for Medical Education Enquiries",
     company: "Doctor Dreams",
     logo: "/assets/case1.jpeg",
     category: "Education",
     imageUrl: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1770&auto=format&fit=crop",
     coverImage: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1770&auto=format&fit=crop",
-    summary: "Implemented AI voice agents for student inquiries about medical education abroad, reducing response time and improving student satisfaction.",
-    roi: "215%",
-    timeframe: "6 months",
-    teamSize: "5 engineers",
-    keyMetric: "65% faster response",
+    summary: "Thor Signia streamlined Doctor Dreams’ student engagement by deploying WhatsApp automation, revamping their website, and optimizing social media workflows—enabling faster responses, better lead conversion, and scalable communication during peak admission seasons.",   
     accentColor: "#88bf42",
     challenge: [
-      "Doctor Dreams, India's leading consultancy for medical education abroad, was struggling to efficiently handle the high volume of student inquiries about international medical programs. Their team was receiving over 500 inquiries daily during peak admission seasons, resulting in delayed responses and potential missed opportunities.",
-      "Students often had similar questions about admission requirements, university rankings, curriculum details, and visa processes, but each inquiry required personalized attention. The consultancy needed a solution that could provide immediate, accurate responses to common questions while maintaining the personalized approach that was central to their service quality."
+      "During peak admission periods, Doctor Dreams handled over 500 student inquiries daily. While most questions were routine—about eligibility, fees, course details, and admission timelines—they still required a human to respond.",
+      "This manual process led to delays, inconsistent follow-ups, and counselor fatigue. As response times stretched to hours, the risk of losing interested students increased. Doctor Dreams needed a system that could handle repetitive queries instantly, maintain clarity and trust, and free up their team for more complex conversations."
     ],
     strategy: [
-      "Thor Signia proposed an AI voice agent system specifically trained on international medical education data. The strategy focused on creating a solution that could handle routine inquiries while seamlessly escalating complex cases to human consultants.",
-      "Our approach included: 1) A specialized AI voice agent with extensive knowledge of medical programs across various countries, 2) Natural language processing capabilities to understand student inquiries even when expressed in regional dialects or with medical terminology variations, 3) Integration with Doctor Dreams' database of university information and admission requirements, and 4) A smooth handoff protocol for transferring conversations to human consultants when necessary."
+      "We focused on creating a lightweight but high-impact solution that could improve engagement across key touchpoints:",
+      "Automate Repetitive Conversations through WhatsApp",
+      "Enhance Online Discoverability and Trust through better social media presence",
+      "Simplify the Student Journey through a redesigned, conversion-friendly website",
+      "Our goal was to reduce human dependency for initial conversations, increase inquiry resolution speed, and support students across time zones—without compromising the personalized experience that Doctor Dreams is known for."
     ],
     execution: [
-      "Implementation began with comprehensive training of the AI system on Doctor Dreams' extensive database of medical education information. We created detailed knowledge bases covering programs in Russia, Belarus, Georgia, China, Bangladesh, Philippines, Bosnia, Nepal, and Serbia.",
-      "The Thor Signia team developed natural language understanding models that could accurately interpret student inquiries about specific medical programs, admission requirements, and application processes. The system was designed to recognize when questions required human expertise and seamlessly transfer the conversation to the appropriate consultant.",
-      "We worked closely with Doctor Dreams' counseling team to refine the AI's responses and ensure they aligned with the company's guidance approach. The system was deployed gradually, starting with handling basic informational queries and expanding to more complex conversations as accuracy improved."
+     "1. WhatsApp Chatbot Deployment",
+     "We built and integrated a custom WhatsApp chatbot capable of answering frequently asked questions related to medical education across different countries. It provided instant replies 24/7 and passed complex queries to human counselors when needed.",
+      
+      "2. Social Media Management",
+      "We took over Doctor Dreams’ social media channels, creating regular, relevant content that spoke directly to the needs and aspirations of prospective students. This helped increase organic reach and improve trust.",            
+      
+      "3. Website Revamp",
+      "We redesigned the website to improve load time, mobile responsiveness, and clarity. The new structure made it easier for students to understand their options, submit inquiries, and get in touch with counselors.",
+      
     ],
     results: [
-      "Response time to initial student inquiries reduced from an average of 4.5 hours to under 10 minutes (65% improvement)",
-      "Consultant productivity increased by 42% as they focused on complex counseling rather than routine information sharing",
-      "Student satisfaction ratings improved by 28% due to faster response times and consistent information quality",
-      "System successfully handled 76% of initial inquiries without requiring human intervention",
-      "Lead conversion rate increased by 34% due to improved response times and follow-up consistency",
-      "Expanded service hours to 24/7 availability for international student inquiries"
+      "Response time reduced from 4.5 hours to under 10 minutes",
+      "Over 70% of student queries were handled without human intervention",
+      "Lead conversion rate increased by 34%",
+      "Student satisfaction scores rose by 28%",
+      "Counselor productivity improved by focusing only on high-quality leads",
+      "Enabled 24/7 inquiry handling without adding to the team size",
+      "Achieved an ROI of 215% within six months"
     ],
     servicesUsed: [
       {
@@ -127,50 +122,57 @@ const caseStudiesData: CaseStudy[] = [
         icon: "MessageCircle"
       }
     ],
-    testimonial: {
-      quote: "The AI voice assistant from Thor Signia has revolutionized how we handle student inquiries. It provides immediate, accurate information about our medical programs abroad, allowing our counselors to focus on providing in-depth guidance. The system's ability to understand various accents and dialects has been particularly impressive, making it accessible to students from all regions of India.",
-      author: "Dr. Mubarak",
-      position: "CEO",
-      company: "Doctor Dreams",
-      image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=1770&auto=format&fit=crop"
-    },
-    relatedCaseStudies: [1, 3, 6]
+    
+    relatedCaseStudies: [1, 3, 4]
   },
   {
     id: 3,
     slug: "anthill-iq-smart-workspace",
-    title: "AI Chatbot for Workspace Management",
+    title: "Scalable Web Infrastructure for a Growing Coworking Brand",
     company: "Anthill IQ",
     logo: "/assets/case2.png",
-    category: "Real Estate",
+    category: "Workspaces / Real Estate",
     imageUrl: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=1770&auto=format&fit=crop",
     coverImage: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=1770&auto=format&fit=crop",
-    summary: "Implemented smart chat interface for workspace inquiries and bookings, enabling immediate responses to potential clients and improving space utilization rates.",
-    roi: "196%",
-    timeframe: "5 months",
-    teamSize: "4 engineers",
-    keyMetric: "42% higher conversion",
+    summary: "Thor Signia built the digital foundation for Anthill IQ’s rapid expansion—designing a scalable website, streamlining lead generation, and supporting multi-location growth. What began as a web project evolved into a long-term strategic partnership focused on performance and adaptability.                                                                                                ",
     accentColor: "#88bf42",
     challenge: [
-      "Anthill IQ, a premium co-working and office space provider in Bangalore, was experiencing challenges in managing workspace inquiries and bookings efficiently. Their team was handling numerous daily inquiries about space availability, pricing, amenities, and booking procedures, often resulting in delayed responses during peak hours.",
-      "The company needed to provide immediate information to potential clients, many of whom were making decisions about workspace solutions under tight timeframes. Additionally, Anthill IQ wanted to optimize their space utilization by improving the booking process and providing better visibility into availability across their various workspace options."
+      "Anthill IQ had a clear vision for its physical spaces—well-designed, community-driven work environments—but lacked a digital presence to match. Their website needed to do more than just inform; it had to attract, convert, and support customers at every stage.",
+      "Key challenges included:",
+       "No central platform to showcase multiple workspace locations",
+        "Lack of lead-generation tools and booking pathways",
+        "Limited visibility on search engines for local coworking-related searches",
+        "A need for flexible infrastructure to support rapid expansion",
+
     ],
     strategy: [
-      "Thor Signia proposed a smart chat interface specifically designed for workspace management. The strategy centered on creating an AI assistant that could provide immediate, accurate information about Anthill IQ's offerings while facilitating seamless booking processes.",
-      "Our approach included: 1) An AI chatbot with comprehensive knowledge of Anthill IQ's workspace options, amenities, and pricing, 2) Integration with their booking and management system for real-time availability information, 3) Virtual tour capabilities to showcase spaces to potential clients, and 4) Automated follow-up sequences to nurture leads and encourage conversions."
+      "Thor Signia proposed a digital-first approach focused on:",
+      "Scalable Web Architecture to support multiple locations and services",
+      "Conversion-Centered UX Design with clear CTAs like “Book Now” and “Schedule a Tour”",
+      "Location-Based SEO Optimization to improve visibility for hyperlocal searches",
+      "Custom Content & Visual Strategy to align with Anthill IQ’s brand values and workspace experience",
+      "The plan was built to serve not just the immediate needs, but the brand’s future growth as new locations came online."
     ],
     execution: [
-      "Implementation began with detailed mapping of Anthill IQ's workspace inventory, including private offices, dedicated desks, meeting rooms, event spaces, and training rooms. We created a comprehensive knowledge base covering all aspects of their offerings.",
-      "The Thor Signia team developed integration with Anthill IQ's booking system to enable real-time availability checks and reservation capabilities directly through the chat interface. The system was designed to collect necessary information from clients and facilitate seamless bookings without requiring staff intervention.",
-      "We implemented the chat interface across multiple channels, including Anthill IQ's website, mobile app, and social media platforms, ensuring consistent experience regardless of how potential clients made contact. The system was refined through continuous feedback from both staff and clients."
+      "1. Website Design & Development",
+      "We built a clean, mobile-optimized site tailored to Anthill IQ’s brand identity. Each location received its own landing page, enabling both better user targeting and local SEO visibility.",
+      
+      "2. Lead-Generation Systems",
+      "Strategic CTAs and direct inquiry forms were integrated throughout the site, streamlining the path from interest to contact. Friction in the booking process was minimized to encourage conversions.",
+      
+      "3. Content & Brand Support",
+      "We collaborated closely with the Anthill IQ team to develop content that highlighted their core offerings, workspace designs, and member community. Visual assets and page layouts were customized to reflect the aesthetic and tone of each location.",
+      
+      "4. SEO-Ready Infrastructure",
+      "The site was built with scalability and discoverability in mind—structured to grow as new branches were added and optimized to rank for high-intent local queries like “coworking space in Arekere” or “managed offices in Bangalore.”"
     ],
     results: [
-      "Response time to workspace inquiries reduced from an average of 3.2 hours to immediate (70% improvement)",
-      "Booking conversion rate increased by 42% due to immediate information availability and streamlined process",
-      "Staff time spent on routine inquiries reduced by 68%, allowing focus on client relationships and space management",
-      "Space utilization improved by 23% through optimized booking management and availability visibility",
-      "After-hours booking capabilities resulted in 28% of new reservations occurring outside business hours",
-      "Client satisfaction ratings increased by 36% due to improved service responsiveness"
+      "A fully scalable website launched and expanded in sync with Anthill IQ’s physical growth",
+      "Increased lead conversion through intuitive UX and direct booking pathways",
+      "Strong SEO performance across multiple local search terms",
+      "Higher engagement and trust from both new and existing clients",
+      "Ongoing collaboration with Thor Signia for content updates, performance monitoring, and future digital features",
+      "The site continues to be powered and maintained by Thor Signia as of 2025—serving as a central hub for customer engagement, sales inquiries, and brand storytelling."
     ],
     servicesUsed: [
       {
@@ -178,51 +180,52 @@ const caseStudiesData: CaseStudy[] = [
         icon: "MessageSquare"
       }
     ],
-    testimonial: {
-      quote: "The AI chatbot has transformed how we manage workspace inquiries and bookings. It provides immediate assistance to potential clients, answers their questions accurately, and guides them through the booking process seamlessly. The system's ability to handle inquiries 24/7 has significantly improved our conversion rates and client satisfaction. Thor Signia delivered exactly what our business needed.",
-      author: "Priya Sharma",
-      position: "Operations Director",
-      company: "Anthill IQ",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop"
-    },
-    relatedCaseStudies: [1, 2, 5]
+    
+    relatedCaseStudies: [1, 2, 4]
   },
   {
     id: 4,
     slug: "financial-services-ai-transformation",
-    title: "AI-Powered Customer Service Revolution",
-    company: "Global Financial Group",
-    logo: "/assets/case3.jpeg",
-    category: "Financial Services",
+    title: "AI Automation for Sales & Social Commerce",
+    company: "KraftPoint",
+    logo: "/assets/kraftpoint.png",
+    category: "E-commerce / D2C",
     imageUrl: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=1742&auto=format&fit=crop",
     coverImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1770&auto=format&fit=crop",
-    summary: "Transformed customer service operations using AI agents, reducing call center costs by 42% while improving satisfaction scores by 23%.",
-    roi: "285%",
-    timeframe: "9 months",
-    teamSize: "8 engineers",
-    keyMetric: "42% cost reduction",
+    summary: "Thor Signia partnered with KraftPoint to modernize their D2C operations—overhauling their e-commerce setup, automating Instagram workflows, and managing high-performing ad campaigns. The goal: streamline digital growth while preserving the brand’s unique, handcrafted appeal.",    
     accentColor: "#10b4b7",
     challenge: [
-      "Global Financial Group (GFG) was facing increasing customer service demands across their retail banking, credit card, and investment divisions. Their legacy call center operation was struggling with: 1) Average wait times exceeding 18 minutes, 2) First-call resolution rates below 65%, 3) CSAT scores declining for three consecutive quarters, and 4) Rising operational costs in their customer service centers across three continents.",
-      "Additionally, the company's reliance on outsourced call centers created inconsistent customer experiences and knowledge gaps when handling complex financial inquiries. With customer retention directly tied to service quality, GFG needed a transformative solution that could scale globally while significantly reducing costs."
+      "While KraftPoint had a strong product range and a loyal customer base, their online systems lacked scalability. Their website was slow and cluttered, the checkout process was losing potential buyers, and their digital ads weren’t delivering consistent returns.",
+      "On social media, engagement was high but mostly manual—leading to missed opportunities for lead capture and follow-ups. With product demand increasing, the team needed a system that could keep up without burning out resources."
     ],
     strategy: [
-      "Our approach began with a comprehensive analysis of GFG's customer service data, identifying key interaction patterns, common inquiries, and pain points in the current process. We designed a multi-phase implementation strategy to ensure minimal disruption to existing operations.",
-      "We proposed an intelligent AI agent solution with three key components: 1) A conversational AI system with specific training in financial services terminology and regulations, 2) A seamless handoff protocol between AI and human agents for complex cases, and 3) An analytics dashboard providing real-time insights on customer interactions and service quality metrics.",
-      "Most importantly, we developed a custom voice personality that matched GFG's brand identity, ensuring that customer interactions maintained the company's professional yet approachable tone across all touchpoints."
+      "We took a full-funnel approach—combining brand positioning with infrastructure upgrades and automated marketing:",
+      "Website redevelopment to improve user experience, speed, and mobile checkout",
+      "E-commerce enhancements to reduce drop-offs and improve product discovery",
+      "Instagram automation to maintain high engagement without daily manual input",
+      "Meta Ads Management to optimize ad spend, retarget visitors, and drive conversions",
+      "The goal was simple: make every customer touchpoint—from discovery to purchase—as smooth and efficient as possible."
     ],
     execution: [
-      "Implementation began with a data integration phase, connecting the AI system to GFG's customer information database, knowledge base, and transaction systems. We created secure API connections to allow the AI to access customer accounts while maintaining strict compliance with financial regulations.",
-      "The Thor Signia team deployed the AI voice agents in a phased approach: 1) First handling simple inquiries like balance checks and transaction histories, 2) Expanding to account management functions and product information, and 3) Finally managing complex cases including dispute resolution and financial planning assistance.",
-      "Throughout the process, our team continuously refined the system based on performance data, customer feedback, and changing business requirements. We conducted bi-weekly training sessions with GFG's customer service team to ensure smooth collaboration between human and AI agents."
+      "1. Website Development",
+      "We redesigned KraftPoint’s website to be fast, intuitive, and visually aligned with their brand. Emphasis was placed on product categorization, seamless mobile navigation, and a simplified checkout experience.",
+      
+      "2. E-Commerce Optimization",
+      "Product pages were restructured for clarity and faster loading. Cart abandonment tools and backend analytics were set up to track behavior and improve conversions.",
+      
+      "3. Instagram Automation",
+      "We implemented automation for DMs, story replies, and comment handling. This allowed KraftPoint to stay responsive during peak seasons without manual effort, and also collect qualified leads directly from Instagram.",
+      
+      "4. Meta Ads Management",
+      "Our team managed KraftPoint’s Facebook and Instagram ad campaigns, including A/B testing creatives, setting up retargeting funnels, and analyzing performance weekly to continuously refine spend."
     ],
     results: [
-      "42% reduction in overall customer service operational costs",
-      "Average call wait time decreased from 18 minutes to under 60 seconds",
-      "First-call resolution rate improved from 65% to 92%",
-      "Customer satisfaction scores increased by 23% within six months",
-      "AI system successfully handled 78% of all customer inquiries without human intervention",
-      "Service capacity expanded to 24/7 coverage across all global markets"
+      "Website bounce rate dropped by 41% within the first month of relaunch",
+      "Cart abandonment reduced by 33% through improved UX and automation",
+      "Average ad ROAS (Return on Ad Spend) increased by 2.4x over three months",
+      "Instagram engagement became fully automated for incoming DMs and story replies",
+      "Online sales grew steadily month-on-month without increasing ad spend",
+      "Customer support workload reduced, allowing the team to focus on fulfillment and product development"
     ],
     servicesUsed: [
       {
@@ -238,311 +241,11 @@ const caseStudiesData: CaseStudy[] = [
         icon: "Settings"
       }
     ],
-    testimonial: {
-      quote: "Thor Signia's AI solution transformed how we connect with customers. Not only did we see dramatic cost savings, but the improvement in satisfaction scores has directly impacted our retention rates. The technology is impressive, but what really set them apart was their understanding of the financial services industry and regulatory requirements.",
-      author: "Sarah Johnson",
-      position: "Chief Customer Officer",
-      company: "Global Financial Group",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop"
-    },
-    relatedCaseStudies: [3, 4, 6]
+    
+    relatedCaseStudies: [1, 2, 3]
   },
-  {
-    id: 5,
-    slug: "retail-personalization-engine",
-    title: "AI-Driven Retail Personalization Engine",
-    company: "Metro Fashion",
-    logo: "/assets/metro.jpg",
-    category: "Retail & E-commerce",
-    imageUrl: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=1770&auto=format&fit=crop",
-    coverImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1815&auto=format&fit=crop",
-    summary: "Developed a hyper-personalization engine for a major fashion retailer, increasing conversion rates by 154% and customer lifetime value by 68%.",
-    roi: "312%",
-    timeframe: "7 months",
-    teamSize: "6 engineers",
-    keyMetric: "154% more conversions",
-    accentColor: "#88bf42",
-    challenge: [
-      "Metro Fashion, a multinational clothing retailer with over 500 physical stores and a growing e-commerce presence, was struggling to compete with digital-native fashion brands. Their existing recommendation system was based on basic purchase history and performed poorly compared to competitors' solutions.",
-      "The company faced declining online conversion rates (hovering at 1.8%, well below industry average), high cart abandonment rates (78%), and difficulty creating personalized experiences across their omnichannel presence. Additionally, their marketing team lacked the data infrastructure to effectively segment customers and tailor communications."
-    ],
-    strategy: [
-      "Our team proposed a comprehensive AI personalization engine that would operate across Metro Fashion's digital and physical touchpoints. The strategy centered on building a unified customer data platform that would aggregate information from website interactions, in-store purchases, mobile app usage, and marketing engagement.",
-      "We designed a three-part solution: 1) A real-time personalization system for product recommendations, content curation, and pricing optimization, 2) A predictive analytics platform to identify emerging customer preferences and trend forecasting, and 3) An omnichannel orchestration layer to deliver consistent experiences across web, mobile, email, and in-store interactions.",
-      "The technical architecture leveraged our proprietary AI models specifically trained on fashion retail data, with custom extensions to accommodate Metro Fashion's unique product taxonomy and customer segments."
-    ],
-    execution: [
-      "Implementation began with building a unified data lake consolidating customer interaction data from disparate systems, followed by creating a real-time processing pipeline for immediate personalization decisions.",
-      "We deployed an initial version focused on product recommendations on the website and mobile app, then expanded to include personalized email campaigns, retargeting advertisements, and in-store associate tablets for clienteling.",
-      "The Thor Signia team worked closely with Metro Fashion's merchandising department to incorporate their domain expertise into the AI models, ensuring that recommendations maintained brand aesthetic while maximizing relevance. This included weekly feedback sessions and continuous model refinement."
-    ],
-    results: [
-      "Online conversion rate increased from 1.8% to 4.6% (154% improvement)",
-      "Average order value grew by 37% across all channels",
-      "Customer lifetime value increased by 68% for customers exposed to the personalization engine",
-      "Email marketing revenue jumped 83% due to personalized content and timing",
-      "In-store sales associated with digital touchpoints increased by 42%",
-      "Return rates decreased by 28% due to better product-customer matching"
-    ],
-    servicesUsed: [
-      {
-        name: "AI-Driven Lead Funnels",
-        icon: "LineChart"
-      },
-      {
-        name: "Omnichannel Engagement",
-        icon: "Database"
-      },
-      {
-        name: "Tailored AI Architectures",
-        icon: "Settings"
-      }
-    ],
-    testimonial: {
-      quote: "Thor Signia's personalization engine completely transformed our customer experience and business results. Their team took the time to understand our unique challenges as a fashion retailer and built a solution that works seamlessly across our digital and physical channels. The ROI has been remarkable - we've seen improvements in every key metric we track.",
-      author: "Miguel Rodriguez",
-      position: "Chief Digital Officer",
-      company: "Metro Fashion",
-      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop"
-    },
-    relatedCaseStudies: [1, 5, 6]
-  },
-  {
-    id: 6,
-    slug: "healthcare-voice-assistant",
-    title: "AI-Powered Healthcare Voice Assistant",
-    company: "National Health Network",
-    logo: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=1770&auto=format&fit=crop",
-    category: "Healthcare",
-    imageUrl: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1770&auto=format&fit=crop",
-    coverImage: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1780&auto=format&fit=crop",
-    summary: "Implemented an AI voice assistant for a healthcare network, handling patient inquiries, appointment scheduling, and medication reminders with 97% accuracy.",
-    roi: "192%",
-    timeframe: "12 months",
-    teamSize: "10 engineers",
-    keyMetric: "89% patient satisfaction",
-    accentColor: "#88bf42",
-    challenge: [
-      "National Health Network (NHN), a healthcare system with 12 hospitals and over 200 clinics, was facing severe administrative challenges. Their call centers were overwhelmed, with patients experiencing long wait times for basic services like appointment scheduling, prescription refills, and billing inquiries.",
-      "Healthcare staff were spending approximately 30% of their time on routine administrative tasks rather than patient care. Additionally, the system was struggling with missed appointments (18% no-show rate) and medication adherence issues among chronically ill patients, directly impacting health outcomes and operational efficiency."
-    ],
-    strategy: [
-      "Thor Signia proposed a specialized healthcare AI voice assistant designed to handle patient interactions while maintaining strict HIPAA compliance and medical data security. The strategy centered on creating a system that would feel natural and empathetic to patients while efficiently managing high-volume administrative functions.",
-      "Our approach included: 1) A HIPAA-compliant voice interface system with secure authentication protocols, 2) Integration with NHN's existing electronic health record (EHR) and scheduling systems, 3) A proactive outreach component for appointment reminders and preventive care notifications, and 4) Analytics dashboards for administrative staff to monitor system performance and patient engagement.",
-      "The solution was designed to work across multiple channels including phone calls, a mobile app, and smart speakers, providing patients with flexibility in how they interacted with their healthcare providers."
-    ],
-    execution: [
-      "Implementation began with a careful security architecture design phase to ensure all patient data was protected in accordance with healthcare regulations. We created a secure integration layer between the AI system and NHN's clinical and administrative databases.",
-      "The voice assistant was trained on medical terminology, common patient inquiries, and healthcare workflows specific to NHN's operations. We incorporated natural language understanding capabilities to accurately interpret patient needs even when expressed in non-medical terms.",
-      "Thor Signia worked closely with NHN's clinical and administrative teams to refine the system, conducting extensive testing with both staff and selected patient groups. The deployment followed a measured approach, starting with appointment scheduling and gradually expanding to medication management and billing support."
-    ],
-    results: [
-      "Administrative staff time spent on routine tasks reduced by 62%",
-      "Patient call wait times decreased from an average of 14 minutes to under 45 seconds",
-      "Appointment no-show rates reduced from 18% to 7.5% through automated reminders",
-      "Patient satisfaction with administrative interactions improved by 38 percentage points",
-      "Medication adherence rates increased by 23% for patients using reminder services",
-      "System successfully handled 82% of all patient administrative inquiries without human intervention"
-    ],
-    servicesUsed: [
-      {
-        name: "Conversational Voice Interfaces",
-        icon: "MessageCircle"
-      },
-      {
-        name: "Smart Chat Interfaces",
-        icon: "MessageSquare"
-      },
-      {
-        name: "Tailored AI Architectures",
-        icon: "Settings"
-      }
-    ],
-    testimonial: {
-      quote: "The AI assistant has transformed how we interact with patients and manage our daily operations. Our staff can now focus on delivering quality care instead of routine administrative tasks. Patients appreciate the immediate response times and the system's ability to understand their needs. The impact on our operational efficiency and patient satisfaction has exceeded our expectations.",
-      author: "Dr. James Chen",
-      position: "Chief Medical Officer",
-      company: "National Health Network",
-      image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=1770&auto=format&fit=crop"
-    },
-    relatedCaseStudies: [1, 4, 6]
-  },
-  {
-    id: 7,
-    slug: "manufacturing-predictive-maintenance",
-    title: "AI-Powered Predictive Maintenance",
-    company: "Global Manufacturing Corp",
-    logo: "/assets/gmc.png",
-    category: "Manufacturing",
-    imageUrl: "https://images.unsplash.com/photo-1581093804475-577d77e21bf9?q=80&w=1770&auto=format&fit=crop",
-    coverImage: "/assets/AI-Powered Predictive Maintenance.png",
-    summary: "Developed a predictive maintenance system that reduced equipment downtime by 78% and maintenance costs by $4.3M annually across 8 manufacturing facilities.",
-    roi: "347%",
-    timeframe: "10 months",
-    teamSize: "9 engineers",
-    keyMetric: "78% reduced downtime",
-    accentColor: "#88bf42",
-    challenge: [
-      "Global Manufacturing Corp (GMC), a major industrial equipment manufacturer with facilities across North America and Europe, was experiencing significant operational challenges due to unplanned equipment downtime. Their traditional preventive maintenance approach was inefficient, resulting in approximately 1,200 hours of production downtime annually per facility.",
-      "This downtime was costing the company an estimated $18.5M annually across their eight primary manufacturing facilities. Additionally, maintenance costs were increasing year-over-year as equipment aged, and quality control issues were arising from inconsistent machine performance. GMC needed a solution that could predict failures before they occurred and optimize maintenance scheduling."
-    ],
-    strategy: [
-      "Thor Signia proposed an AI-powered predictive maintenance system that would leverage GMC's existing sensor infrastructure while adding critical IoT components where needed. Our strategy focused on creating a comprehensive system that could identify patterns preceding equipment failure across diverse machinery types.",
-      "The approach included: 1) A sensor data integration platform to consolidate information from disparate equipment types and manufacturers, 2) Advanced AI models trained specifically on industrial equipment patterns, 3) A maintenance optimization algorithm to schedule interventions with minimal production impact, and 4) Mobile interfaces for maintenance teams to receive real-time alerts and guidance.",
-      "The solution was designed to operate in GMC's challenging factory environments, with robust edge computing capabilities for real-time analysis even in areas with limited connectivity."
-    ],
-    execution: [
-      "Implementation began with a thorough assessment of GMC's existing sensor infrastructure and the installation of additional IoT sensors on critical equipment. We created secure data pipelines to capture and process over 500 distinct data points across all machinery.",
-      "The Thor Signia team deployed edge computing devices throughout the facilities to enable real-time analysis, with a central cloud platform for comprehensive pattern recognition and machine learning model training. This hybrid architecture ensured both immediate response capabilities and continuous system improvement.",
-      "We worked closely with GMC's maintenance teams to incorporate their expertise into the AI models and develop intuitive interfaces for the mobile applications. The system was deployed gradually, starting with the most critical equipment and expanding to cover all production machinery."
-    ],
-    results: [
-      "Unplanned downtime reduced by 78% across all facilities, from 1,200 to 264 hours annually per facility",
-      "Annual maintenance cost savings of $4.3M through optimized scheduling and reduced emergency repairs",
-      "Equipment lifespan extended by an average of 23% through early intervention and optimized operation",
-      "Product quality improvements resulting in a 14% reduction in defect rates",
-      "Maintenance labor efficiency increased by 41% through better scheduling and prioritization",
-      "Spare parts inventory reduced by 26% due to more accurate failure prediction and needs assessment"
-    ],
-    servicesUsed: [
-      {
-        name: "Tailored AI Architectures",
-        icon: "Settings"
-      },
-      {
-        name: "Omnichannel Engagement",
-        icon: "Database"
-      }
-    ],
-    testimonial: {
-      quote: "The impact of Thor Signia's predictive maintenance system has been transformative for our operations. We've gone from reactive firefighting to a proactive, data-driven approach that has dramatically reduced our downtime and maintenance costs. Their team's understanding of both AI technology and manufacturing processes made them the ideal partner for this critical initiative.",
-      author: "Robert Williams",
-      position: "VP of Operations",
-      company: "Global Manufacturing Corp",
-      image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=1887&auto=format&fit=crop"
-    },
-    relatedCaseStudies: [3, 5, 6]
-  },
-  {
-    id: 8,
-    slug: "logistics-optimization-ai",
-    title: "Logistics Route Optimization AI",
-    company: "InterContinental Shipping",
-    logo: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=1770&auto=format&fit=crop",
-    category: "Logistics & Transportation",
-    imageUrl: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1770&auto=format&fit=crop",
-    coverImage: "https://images.unsplash.com/photo-1591841341847-67df5f0f3961?q=80&w=1770&auto=format&fit=crop",
-    summary: "Created a route optimization AI for a global shipping company, reducing fuel consumption by 28% and delivery times by 31% while handling 22% more shipments.",
-    roi: "263%",
-    timeframe: "8 months",
-    teamSize: "7 engineers",
-    keyMetric: "28% fuel reduction",
-    accentColor: "#88bf42",
-    challenge: [
-      "InterContinental Shipping (ICS), a global logistics provider managing over 5,000 vehicles across 35 countries, was facing increasing pressure from rising fuel costs, environmental regulations, and customer demands for faster delivery times. Their legacy route planning system relied heavily on dispatcher experience and static routes that couldn't adapt to changing conditions.",
-      "This approach was resulting in fuel inefficiencies, delivery delays during peak periods, and underutilization of their fleet capacity. Additionally, the company lacked visibility into real-time route performance, making it difficult to identify and address operational inefficiencies."
-    ],
-    strategy: [
-      "Thor Signia designed a comprehensive AI-powered logistics optimization platform tailored to ICS's global operation. Our strategy centered on creating a dynamic system that could adapt routes in real-time based on multiple variables including traffic conditions, weather, delivery priorities, and vehicle capacity.",
-      "The proposed solution included: 1) A core optimization engine using advanced machine learning algorithms to calculate optimal routes across the entire fleet, 2) Real-time adaptation capabilities to adjust routes as conditions change throughout the day, 3) Driver mobile applications with turn-by-turn navigation and delivery management, and 4) A management dashboard providing comprehensive visibility into fleet performance and optimization opportunities.",
-      "The platform was designed to integrate with ICS's existing order management and warehouse systems while providing a framework for future expansion into additional optimization areas."
-    ],
-    execution: [
-      "Implementation began with data integration across ICS's diverse systems and the creation of a unified data model for global operations. We established connections to external data sources including traffic systems, weather services, and road condition databases across all operating regions.",
-      "The Thor Signia team deployed the core optimization engine in phases, starting with regional pilots and expanding to global coverage. We developed specialized AI models for different types of deliveries (urban, long-haul, specialized cargo) to ensure optimal results across ICS's diverse operations.",
-      "We worked closely with dispatchers and drivers to refine the system interfaces and ensure that the AI recommendations were actionable and beneficial in real-world conditions. The full system was rolled out over six months, with continuous improvements based on performance data and user feedback."
-    ],
-    results: [
-      "Fuel consumption reduced by 28% across the entire fleet through optimized routing",
-      "Average delivery times decreased by 31% while handling 22% more shipments",
-      "Vehicle utilization improved by 34%, reducing the need for fleet expansion",
-      "Driver overtime hours reduced by 41% through more efficient route planning",
-      "Customer satisfaction scores increased by 27% due to improved delivery reliability",
-      "CO₂ emissions reduced by an estimated 42,000 metric tons annually, supporting ICS's sustainability goals"
-    ],
-    servicesUsed: [
-      {
-        name: "Tailored AI Architectures",
-        icon: "Settings"
-      },
-      {
-        name: "Omnichannel Engagement",
-        icon: "Database"
-      },
-      {
-        name: "AI-Driven Lead Funnels",
-        icon: "LineChart"
-      }
-    ],
-    testimonial: {
-      quote: "Thor Signia's logistics optimization platform has revolutionized our operations on a global scale. The system's ability to dynamically adapt routes in real-time across different countries and conditions has delivered efficiency improvements we didn't think were possible. Beyond the impressive fuel and time savings, we've been able to grow our business substantially without adding vehicles to our fleet.",
-      author: "Maria Gonzalez",
-      position: "Global Logistics Director",
-      company: "InterContinental Shipping",
-      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop"
-    },
-    relatedCaseStudies: [2, 4, 6]
-  },
-  {
-    id: 9,
-    slug: "ai-customer-acquisition-platform",
-    title: "AI Customer Acquisition Platform",
-    company: "TechSphere Solutions",
-    logo: "https://images.unsplash.com/photo-1560179707-f14e90ef3623?q=80&w=1774&auto=format&fit=crop",
-    category: "SaaS / Technology",
-    imageUrl: "https://images.unsplash.com/photo-1543286386-713bdd548da4?q=80&w=1770&auto=format&fit=crop",
-    coverImage: "https://images.unsplash.com/photo-1522252234503-e356532cafd5?q=80&w=1825&auto=format&fit=crop",
-    summary: "Built an AI-powered customer acquisition platform for a B2B SaaS company, resulting in 215% more qualified leads and 72% lower acquisition costs.",
-    roi: "418%",
-    timeframe: "6 months",
-    teamSize: "5 engineers",
-    keyMetric: "215% more leads",
-    accentColor: "#88bf42",
-    challenge: [
-      "TechSphere Solutions, a rapidly growing B2B software provider, was struggling with inefficient customer acquisition processes despite increasing their marketing budget. Their sales team was spending excessive time on prospects with low conversion potential, while marketing campaigns were generating high volumes of unqualified leads.",
-      "The company's customer acquisition costs had risen by 47% year-over-year, while conversion rates from initial contact to closed deal had fallen to just 2.3%. TechSphere needed a solution that could identify high-potential prospects, engage them through personalized outreach, and optimize the entire sales funnel."
-    ],
-    strategy: [
-      "Thor Signia designed an AI-powered customer acquisition platform specifically tailored to TechSphere's B2B sales context. Our strategy focused on creating an end-to-end system that would transform each stage of the acquisition process from initial targeting through closed deals.",
-      "The proposed solution included: 1) A prospect identification system using machine learning to identify companies with high purchase intent, 2) Automated multi-channel outreach with personalized messaging based on prospect attributes, 3) Engagement scoring algorithms to prioritize sales team efforts on the most promising leads, and 4) Continuous optimization through closed-loop performance analysis.",
-      "The platform was designed to integrate with TechSphere's existing CRM and marketing automation systems while providing enhanced capabilities through AI-powered decision making and content generation."
-    ],
-    execution: [
-      "Implementation began with developing custom machine learning models trained on TechSphere's historical customer data, industry databases, and web behavior signals. We created lookalike models to identify prospects with characteristics similar to their most successful existing customers.",
-      "The Thor Signia team built automated engagement sequences across email, social, advertising, and direct outreach channels. These sequences adapted dynamically based on prospect responses and engagement patterns, creating personalized journeys at scale.",
-      "We developed intuitive interfaces for the sales team that highlighted the highest-priority prospects and provided actionable insights for each conversation. The system continuously learned from successful and unsuccessful interactions, refining its targeting and engagement strategies over time."
-    ],
-    results: [
-      "Qualified leads increased by 215% while marketing spend remained constant",
-      "Customer acquisition costs reduced by 72% through improved targeting efficiency",
-      "Conversion rate from initial contact to closed deal improved from 2.3% to 8.7%",
-      "Sales cycle duration decreased by 41% due to better prospect qualification",
-      "Sales team productivity increased by 68% through AI-powered prioritization",
-      "Customer retention rates improved by 18% due to better initial fit identification"
-    ],
-    servicesUsed: [
-      {
-        name: "AI-Driven Lead Funnels",
-        icon: "LineChart"
-      },
-      {
-        name: "Autonomous Social Management",
-        icon: "Globe"
-      },
-      {
-        name: "Smart Chat Interfaces",
-        icon: "MessageSquare"
-      }
-    ],
-    testimonial: {
-      quote: "Thor Signia's customer acquisition platform has completely transformed our go-to-market approach. We're not just generating more leads - we're connecting with the right prospects at the right time with the right message. Our sales team is now focused on high-potential opportunities rather than sorting through unqualified leads. The ROI has been phenomenal, both in terms of new business and operational efficiency.",
-      author: "David Park",
-      position: "Chief Revenue Officer",
-      company: "TechSphere Solutions",
-      image: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=1974&auto=format&fit=crop"
-    },
-    relatedCaseStudies: [1, 2, 5]
-  }
+  
+  
 ];
 
 export default caseStudiesData; 

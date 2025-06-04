@@ -182,44 +182,7 @@ const CaseStudyDetail = () => {
                 <p className="text-lg text-white max-w-2xl mb-8">
                   {caseStudy.summary}
                 </p>
-                <div className="flex flex-wrap gap-6 mb-6 rounded-xl p-4 shadow ">
-                  <div className="flex items-center min-w-[140px]">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-[#10b4b7]/10 shadow">
-                      <BarChart className="w-5 h-5 text-[#88bf42]" />
-                    </div>
-                    <div>
-                      <p className="text-white text-sm">ROI</p>
-                      <p className="text-white font-bold text-lg">{caseStudy.roi}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center min-w-[140px]">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-[#10b4b7]/10 shadow">
-                      <Clock className="w-5 h-5 text-[#88bf42]" />
-                    </div>
-                    <div>
-                      <p className="text-white text-sm">Timeframe</p>
-                      <p className="text-white font-bold text-lg">{caseStudy.timeframe}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center min-w-[140px]">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-[#10b4b7]/10 shadow">
-                      <Users className="w-5 h-5 text-[#88bf42]" />
-                    </div>
-                    <div>
-                      <p className="text-white text-sm">Team Size</p>
-                      <p className="text-white font-bold text-lg">{caseStudy.teamSize}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center min-w-[180px]">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-[#10b4b7]/10 shadow">
-                      <Award className="w-5 h-5 text-[#88bf42]" />
-                    </div>
-                    <div>
-                      <p className="text-white text-sm">Key Metric</p>
-                      <p className="text-white font-bold text-lg">{caseStudy.keyMetric}</p>
-                    </div>
-                  </div>
-                </div>
+                
               </div>
             </div>
           </div>
@@ -306,48 +269,10 @@ const CaseStudyDetail = () => {
                   </div>
                 </div>
                 
-                {/* Testimonial Section */}
-                <div id="testimonial" ref={testimonialRef} className="mb-16 scroll-mt-32 animate-fade-in" style={{ animationDelay: '0.8s' }}>
-                  <SectionHeading 
-                    icon={Quote} 
-                    title="Client Testimonial" 
-                    accentColor="#88bf42" 
-                  />
-                  <div className="bg-[#f8f9fa] rounded-xl shadow-md overflow-hidden p-8 border border-gray-100 relative">
-                    <div className="absolute top-0 left-0 right-0 h-2 rounded-t-xl bg-[#88bf42]">
-                    </div>
-                    <div className="flex items-start">
-                      <div className="hidden md:block mr-6">
-                        <div className="w-20 h-20 rounded-full overflow-hidden">
-                          <img 
-                            src={caseStudy.testimonial.image} 
-                            alt={caseStudy.testimonial.author} 
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="mb-6">
-                          <Quote className="w-12 h-12 text-[#88bf42]" />
-                        </div>
-                        <p className="text-lg text-black italic mb-6">
-                          "{caseStudy.testimonial.quote}"
-                        </p>
-                        <div>
-                          <p className="font-bold text-lg text-black">
-                            {caseStudy.testimonial.author}
-                          </p>
-                          <p className="text-black">
-                            {caseStudy.testimonial.position}, {caseStudy.testimonial.company}
-                          </p>
-                          
-                        </div>
-                        
-                      </div>
+                
                      
-                    </div>
-                  </div>
-                </div>
+                    
+                
                 <Link to="/case-studies" className="inline-flex items-center text-black bg-white border hover:bg-[#88bf42] hover:text-white px-4 py-2 rounded-lg shadow mb-6 transition duration-200 mt-20 md:mt-0 font-semibold">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   <span>Back to Case Studies</span>
@@ -415,17 +340,7 @@ const CaseStudyDetail = () => {
                           <span>The Results</span>
                         </button>
                         
-                        <button 
-                          onClick={() => scrollToSection('testimonial')}
-                          className={`flex items-center w-full p-2 rounded-lg transition-all duration-200 ${
-                            activeSection === 'testimonial' 
-                              ? 'bg-[#88bf42] text-white font-semibold' 
-                              : 'hover:bg-[#88bf42]/10 text-black'
-                          }`}
-                        >
-                          <Quote className="w-5 h-5 mr-2" />
-                          <span>Client Testimonial</span>
-                        </button>
+                        
                       </div>
                       
                       {/* Services Used */}

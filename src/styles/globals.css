@@ -768,3 +768,60 @@
 .hover\:pause-animation:hover {
   animation-play-state: paused;
 }
+
+/* In your global CSS file (e.g., src/app/globals.css or src/index.css) */
+
+.active-toc-item {
+  /* Example styles for the active item */
+  font-weight: 600; /* Semi-bold */
+  color: #88BF42 !important; /* Tailwind green-500 - Use !important if needed to override default link styles */
+  border-left: 3px solid #88BF42; /* Add a green bar on the left */
+  padding-left: 12px; /* Increase padding on the left */
+  transition: all 0.2s ease-in-out; /* Smooth transition for style changes */
+}
+
+/* You might need to adjust the padding on the non-active links */
+/* to align them with the active one that has padding-left: 12px */
+.space-y-2 ul > li > a:not(.active-toc-item) {
+  padding-left: 15px; /* Adjust to match the active item's total left space */
+  border-left: 3px solid transparent; /* Maintain the border space */
+}
+
+/* Ensure the hover state still works */
+.space-y-2 ul > li > a:hover:not(.active-toc-item) {
+    color: #88BF42; /* Tailwind green-700 */
+}
+
+.space-y-2 ul > li > a {
+  padding: 4px 8px; /* Example padding - adjust as needed */
+  display: block; /* Make the whole padded area clickable */
+  border-radius: 4px; /* Optional: subtle rounding */
+  transition: all 0.2s ease-in-out; /* Smooth transition for active/hover states */
+  /* Default text color is handled by Tailwind classes directly in the component */
+}
+
+
+/* --- Styling for the active Table of Contents item (applied by react-scroll) --- */
+/* This matches the green background and bold text often seen in this pattern */
+.active-toc-item {
+font-weight: 600; /* Make text bold */
+color: #88BF42 !important; /* Tailwind green-600 - Use !important if necessary to override */
+background-color: #dcfce7; /* Tailwind green-100 - Light green background */
+
+/* If you want a left border on active items, uncomment and adjust */
+/* border-left: 3px solid #16a34a; */
+/* padding-left: calc(8px - 3px); Adjust padding to keep text aligned if adding border */
+}
+
+/* Optional: Hover state for non-active items */
+.space-y-2 ul > li > a:hover:not(.active-toc-item) {
+  color: #88BF42; /* Tailwind green-700 (darker green on hover) */
+  background-color: #f0f0f0; /* Light gray hover background */
+}
+
+/* Optional: Style for disabled ToC links */
+/* .space-y-2 ul > li > a.cursor-not-allowed { */
+  /* Default styling is already in the component's className */
+  /* Add any additional disabled styles here if needed */
+  /* opacity: 0.6; */
+/* } */

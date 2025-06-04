@@ -63,13 +63,7 @@ const CaseStudiesPage = () => {
             {study.summary}
           </p>
           
-          <div className="flex justify-between items-center pt-4 border-t border-gray-100">
-            <div className="flex items-center space-x-4">
-              <div>
-                <p className="text-xs text-gray-500">Key Metric</p>
-                <p className="font-semibold text-[#88bf42]">{study.keyMetric}</p>
-              </div>
-            </div>
+         
             
             <Button 
               variant="outline" 
@@ -83,7 +77,7 @@ const CaseStudiesPage = () => {
             </Button>
           </div>
         </div>
-      </div>
+      
     );
   };
 
@@ -131,16 +125,7 @@ const CaseStudiesPage = () => {
                       {caseStudiesData[0].summary}
                     </p>
                     
-                    <div className="grid grid-cols-2 gap-4 mb-6">
-                      <div className="bg-gray-50 rounded-lg p-3">
-                        <p className="text-xs text-gray-500 mb-1 text-center">ROI</p>
-                        <p className="text-xl font-semibold text-[#88bf42] text-center">{caseStudiesData[0].roi}</p>
-                      </div>
-                      <div className="bg-gray-50 rounded-lg p-3">
-                        <p className="text-xs text-gray-500 mb-1 text-center">Timeframe</p>
-                        <p className="text-xl font-semibold text-[#88bf42] text-center">{caseStudiesData[0].timeframe}</p>
-                      </div>
-                    </div>
+                    
                   </div>
                   
                   <div className="mt-auto justify-center md:justify-center">
@@ -273,15 +258,11 @@ const CaseStudiesPage = () => {
     </div>
 
   </div>
-</section>
+</section>  
+  <Footer />
 
-
-
-      
-      <Footer />
-
-    </div>
-  );
+</div>
+);
 };
 
 export default CaseStudiesPage;
