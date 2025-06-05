@@ -705,6 +705,17 @@ const ContactPage = () => {
 
               {/* Image Map with Locations - Full width map */}
               <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={fadeIn}
+                  className="text-center mb-12"
+              >
+                  
+              </motion.div>
+
+              {/* Image Map with Locations - Full width map */}
+              <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -731,40 +742,42 @@ const ContactPage = () => {
                     </div>
 
                     {/* Hyderabad */}
-                    <div className="absolute z-10" style={{ top: '50%', left: '71.5%' }}> 
+                    <div className="absolute z-10" style={{ top: '51%', left: '71%' }}>
                         <div className="w-2.5 h-2.5 md:w-4 md:h-4 bg-[#007bff] rounded-full animate-pulse"></div>
                         <span className="
                             absolute whitespace-nowrap
                             text-[10px] font-bold text-[#0F0326] bg-white/80 px-1.5 py-0.5 rounded
-                            
-                            /* --- Mobile: North-West of its dot, reduced spacing --- */
-                            bottom-full right-full mb-0.5 mr-0.5 
 
-                            /* --- MD+: ABOVE the dot, centered --- */
+                            /* --- Mobile: North-West of its dot, moved left --- */
+                            bottom-full right-full mb-0.5 mr-0.5 /* Changed 'left-full mr-0.5' to 'right-full mr-0.5' */
+
+                            /* --- MD+: ABOVE the dot, centered, plus slightly more left shift --- */
                             md:bottom-auto md:right-auto md:mb-0 md:mr-0 /* Reset mobile positioning & margins */
                             md:top-[-1.5rem]                    /* -top-6 */
-                            md:left-1/2 
-                            md:-translate-x-1/2 
+                            md:left-1/2
+                            md:-translate-x-1/2
                             md:text-xs md:px-2 md:py-1
+                            md:-ml-6 /* Adjusted: Increased negative left margin */
                         ">Hyderabad</span>
                     </div>
 
                     {/* Bangalore (Bengaluru) */}
-                    <div className="absolute z-10" style={{ top: '52.5%', left: '69.5%' }}>
+                    <div className="absolute z-10" style={{ top: '52%', left: '70%' }}>
                         <div className="w-2.5 h-2.5 md:w-4 md:h-4 bg-[#88BF42] rounded-full animate-pulse"></div>
                         <span className="
                             absolute whitespace-nowrap
                             text-[10px] font-bold text-[#0F0326] bg-white/80 px-1.5 py-0.5 rounded
 
-                            /* --- Mobile: South-West of its dot, reduced spacing --- */
-                            top-full right-full mt-0.5 mr-0.5
+                            /* --- Mobile: South-West of its dot, moved left --- */
+                            top-full right-full mt-0.5 mr-0.5 /* Changed 'left-full mr-0.5' to 'right-full mr-0.5' */
 
-                            /* --- MD+: BELOW the dot, centered --- */
+                            /* --- MD+: BELOW the dot, centered, plus small left shift --- */
                             md:top-auto md:right-auto md:mt-0 md:mr-0 /* Reset mobile positioning & margins */
                             md:top-[1.5rem]                     /* top-6 */
-                            md:left-1/2 
-                            md:-translate-x-1/2 
+                            md:left-1/2
+                            md:-translate-x-1/2
                             md:text-xs md:px-2 md:py-1
+                            md:-ml-2 /* Added: Negative left margin */
                         ">Bangalore</span>
                     </div>
 
