@@ -17,7 +17,7 @@ const RECAPTCHA_SITE_KEY='6Ld3P1QrAAAAAMF8yMjR62NtkHR3yZ1aT8zkPQ4a';
 
 // Add API URL configuration
 const API_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://thor-signia-two.vercel.app//api/contact'
+  ? 'https://www.thorsignia.in/api/contact'
   : '/api/contact';
 
 // Rate limiting configuration
