@@ -3,14 +3,17 @@
 
 "use client"; // Indicates this is a client component, needed for hooks like useParams
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom'; // Import useParams to get URL parameters, Link for navigation
 import { blogPosts } from '@/data/blog-posts'; // Import your blog data array
 import BlogPostComponent from '@/components/blogpost'; // Import the component that renders a single blog post
 import Navbar from '@/components/Navbar'; // Assuming Navbar exists
 import Footer from '@/components/Footer'; // Assuming Footer exists
 
-const SingleBlogPostPage: React.FC = () => {
+const SingleBlogPostPage = () => {
+  useEffect(() => {
+    document.title = "Blog Post | ThorSignia";
+  }, []);
   // Get the dynamic segment from the URL.
   // The route is defined as /blog/:slug, so useParams will give us { slug: '...' }
   const { slug } = useParams<{ slug: string }>();

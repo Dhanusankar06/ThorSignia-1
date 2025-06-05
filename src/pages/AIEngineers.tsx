@@ -511,7 +511,11 @@ interface Engineer {
 
 
 // Main component for the page
-const HireEngineers = () => {
+const AIEngineersPage = () => {
+  useEffect(() => {
+    document.title = "OnDemand AI | ThorSignia";
+  }, []);
+
     // State for "Load More" functionality
     const [visibleEngineersCount, setVisibleEngineersCount] = useState(6); // Start showing 6
     const ENGINEERS_TO_LOAD = 3; // How many engineers to load per click
@@ -786,4 +790,4 @@ const HireEngineers = () => {
     );
 };
 
-export default HireEngineers;
+export default AIEngineersPage;

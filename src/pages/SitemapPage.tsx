@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link as RouterLink } from "react-router-dom"; // Assuming you are using react-router-dom
 import { cn } from "@/lib/utils"; // Your utility function for conditional classes
 import Navbar from '../components/Navbar';
@@ -328,8 +328,10 @@ const renderColumn = (column: typeof sitemapColumns[number]) => (
     </div>
 );
 
-
 export default function SitemapPage() {
+  useEffect(() => {
+    document.title = "Sitemap | ThorSignia";
+  }, []);
   // Split the columns into two groups for the two rows
   const firstRowColumns = sitemapColumns.slice(0, 3);
   const secondRowColumns = sitemapColumns.slice(3, 6);

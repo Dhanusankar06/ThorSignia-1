@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -7,6 +7,9 @@ import { ArrowRight } from 'lucide-react';
 import { Link as RouterLink } from 'react-router-dom';
 
 const CloudSecurityPage = () => {
+  useEffect(() => {
+    document.title = "Cloud Security | ThorSignia";
+  }, []);
   // Custom testimonials for Cloud Security (Keeping this for completeness)
   const cloudSecurityTestimonials = [
     {

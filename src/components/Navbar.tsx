@@ -246,7 +246,7 @@ const navItems: NavItem[] = [
 
   },
   {
-    title: "Outsourcing AI",
+    title: "On Demand AI",
     href: "/ai-engineers#top",
     dropdown: false,
   },
@@ -321,7 +321,7 @@ const navItems: NavItem[] = [
   },
 
   {
-    title: "Awards",
+    title: "Accolades",
     href: "/awards#top",
     dropdown: false,
   },

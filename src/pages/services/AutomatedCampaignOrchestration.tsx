@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ArrowRight, Megaphone, Check } from 'lucide-react';
 import Navbar from '@/components/Navbar'; // Assuming Navbar is responsive
 import Footer from '@/components/Footer'; // Assuming Footer is responsive
@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
 
 const AutomatedCampaignOrchestrationPage = () => {
+  useEffect(() => {
+    document.title = "Automated Campaign Orchestration | ThorSignia";
+  }, []);
   return (
     <div className="min-h-screen flex flex-col">
       {/* Navbar is assumed to be responsive */}

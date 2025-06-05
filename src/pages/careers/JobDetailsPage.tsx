@@ -1,5 +1,5 @@
 // pages/careers/JobDetailsPage.tsx
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, ChangeEvent, FormEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'; // Import useParams and useNavigate
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -7,7 +7,11 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react'; // Import back arrow icon
 import { jobListings, JobListing } from '@/data/jobListings'; // Import data and type
 
-const JobDetailsPage: React.FC = () => {
+const JobDetailsPage = () => {
+  useEffect(() => {
+    document.title = "Job Details | ThorSignia";
+  }, []);
+
   const { id } = useParams<{ id: string }>(); // Get the 'id' from the URL
   const navigate = useNavigate(); // Hook for navigation
 
@@ -38,7 +42,7 @@ const JobDetailsPage: React.FC = () => {
 
 
   // Handle file change (copied from original modal)
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const allowed = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain'];
@@ -74,7 +78,7 @@ const JobDetailsPage: React.FC = () => {
 
 
   // Handle form submission (copied and adapted from original modal)
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null); // Clear previous errors
 

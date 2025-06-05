@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -7,6 +7,9 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
 const PenetrationTestPage = () => {
+  useEffect(() => {
+    document.title = "Penetration Testing | ThorSignia";
+  }, []);
   // Custom testimonials for Penetration Testing
   const penetrationTestingTestimonials = [
     {

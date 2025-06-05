@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react'; // Import useState
+import React, { useState, useEffect } from 'react'; // Import useState
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, CreditCard, DollarSign, Lock } from 'lucide-react';
@@ -30,6 +30,9 @@ const slideInUp = {
 
 
 const PricingPage = () => {
+  useEffect(() => {
+    document.title = "Pricing | ThorSignia";
+  }, []);
   // State to manage the selected tier for payment - Initialize with a default tier ID
   // NOTE: In a real app, this would likely come from a state passed to the page
   // or extracted from the URL (e.g., /buy/pro)

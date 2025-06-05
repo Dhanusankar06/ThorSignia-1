@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -17,6 +17,9 @@ import caseStudiesData from '@/data/caseStudies';
 import AnimatedCaseStudiesHeader from '@/components/AnimatedCaseStudiesHeader';
 
 const CaseStudiesPage = () => {
+  useEffect(() => {
+    document.title = "Case Studies | ThorSignia";
+  }, []);
   // Function to render a case study card
   const renderCaseStudy = (study, index) => {
     return (

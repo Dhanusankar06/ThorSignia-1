@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ArrowRight, MessageSquare, Check, Bot } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
 
 const InteractiveAIChatbotsPage = () => {
+  useEffect(() => {
+    document.title = "Interactive AI Chatbots | ThorSignia";
+  }, []);
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />

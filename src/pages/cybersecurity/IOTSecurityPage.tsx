@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
@@ -6,6 +6,9 @@ import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link as RouterLink } from 'react-router-dom';
 const IOTSecurityPage = () => {
+  useEffect(() => {
+    document.title = "IoT Security | ThorSignia";
+  }, []);
   // Simplified animation variants
   const fadeIn = {
     initial: { opacity: 0, y: 20 },

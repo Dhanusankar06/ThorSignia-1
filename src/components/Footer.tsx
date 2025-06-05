@@ -127,7 +127,7 @@ const Footer = () => {
                 <ul className="space-y-3">
                   <li><Link to="/services" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">AI Services</Link></li>
                    <li><Link to="/cyber-security" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Cybersecurity</Link></li>
-                   <li><Link to="/ai-engineers" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Outsourcing AI </Link></li>
+                   <li><Link to="/ai-engineers" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">On Demand AI </Link></li>
                 </ul>
               </div>
 
@@ -141,7 +141,7 @@ const Footer = () => {
                 <ul className="space-y-3">
                   <li><Link to="/about" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">About Us</Link></li>
                   <li><Link to="/case-studies" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Case Studies</Link></li>
-                  <li><Link to="/awards" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Awards</Link></li>
+                  <li><Link to="/awards" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Accolades</Link></li>
                   <li><Link to="/blog" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Blog</Link></li>
                   <li><Link to="/careers" className="text-gray-300 hover:text-[#88bf42] transition-colors duration-200">Careers</Link></li>
                 </ul>

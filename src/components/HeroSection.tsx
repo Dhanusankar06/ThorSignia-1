@@ -1,6 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import Particles, { initParticlesEngine } from "@tsparticles/react";
+import { loadSlim } from "@tsparticles/slim"; // Or loadFull, etc., if you need more features
 
 import { Button } from "../components/ui/button";
 import {
@@ -42,7 +44,7 @@ import 'swiper/css/pagination';
 
 import { clsx } from 'clsx';
 import '../styles/globals.css';
-import ProductDemoSection from './demovideo.tsx';
+import ProductDemoSection from './demovideo.tsx'; // Assuming this component exists
 
 // Trusted By Logos Data
 const trustedByLogos = [
@@ -95,6 +97,7 @@ const testimonials = [
   }
 ];
 
+// Framer Motion Variants
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
   visible: {
@@ -135,150 +138,184 @@ const containerVariants = {
 };
 
 
-// Note: AnimatedDiagram and associated helper functions are included
-// as they were in the original code, assuming they are used elsewhere or intended.
-// If they are not used, they could be removed.
-const generateCircularNodes = () => {
-  const centerX = 50;
-  const centerY = 50;
-  const radius = 35;
-  const totalNodes = 8;
-
-  const nodes = [
-    { id: 'center', label: 'AI Core', x: centerX, y: centerY, icon: <Cpu className="h-4 w-4 md:h-6 md:w-6" /> },
-  ];
-
-  for (let i = 0; i < totalNodes; i++) {
-    const angle = (i * 2 * Math.PI) / totalNodes;
-    const x = centerX + radius * Math.cos(angle);
-    const y = centerY + radius * Math.sin(angle);
-    nodes.push({
-      id: `node-${i}`,
-      label: getNodeLabel(i),
-      x,
-      y,
-      icon: getNodeIcon(i),
-    });
-  }
-  return nodes;
-};
-
-const getNodeLabel = (index) => {
-  const labels = ['ChatBot', 'Vision', 'Lead Generation', 'Campaign', 'Cloud', 'Security', 'Social Media', 'Voice'];
-  return labels[index];
-};
-
-const getNodeIcon = (index) => {
-  const icons = [
-    <MessageSquare className="h-3 w-3 md:h-5 md:w-5" />,
-    <Eye className="h-3 w-3 md:h-5 md:w-5" />,
-    <Brain className="h-3 w-3 md:h-5 md:w-5" />,
-    <Bot className="h-3 w-3 md:h-5 md:w-5" />,
-    <Cloud className="h-3 w-3 md:h-5 md:w-5" />,
-    <Shield className="h-3 w-3 md:h-5 md:w-5" />,
-    <Database className="h-3 w-3 md:h-5 md:w-5" />,
-    <BarChart2 className="h-3 w-3 md:h-5 md:w-5" />,
-  ];
-  return icons[index];
-};
-
-const nodes = generateCircularNodes();
-
-const AnimatedDiagram = () => {
-  return (
-    <div className="relative w-full h-full">
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={`sparkle-${i}`}
-            className={`absolute w-1 h-1 md:w-1.5 md:h-1.5 rounded-full sparkle-animation`}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              backgroundColor: i % 2 === 0 ? '#88BF42' : '#ffffff',
-              opacity: 0.6,
-              boxShadow: i % 2 === 0
-                ? '0 0 8px 1px rgba(136, 191, 66, 0.5)'
-                : '0 0 8px 1px rgba(255, 255, 255, 0.5)'
-            }}
-          />
-        ))}
-      </div>
-      {nodes.map((node, index) => (
-        <motion.div
-          key={node.id}
-          className={`absolute z-10 transform -translate-x-1/2 -translate-y-1/2 ${
-            node.id === 'center' ? 'pulse-animation' : ''
-          }`}
-          style={{ top: `${node.y}%`, left: `${node.x}%` }}
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{
-            duration: 0.5,
-            delay: node.id === 'center' ? 0.2 : (index * 0.1) + 0.3
-          }}
-        >
-          <div className={`rounded-full flex items-center justify-center ${
-            node.id === 'center'
-              ? 'bg-[#88BF42] w-14 h-14 md:w-20 md:h-20 shadow-[0_0_20px_rgba(136,191,66,0.4)] md:shadow-[0_0_30px_rgba(136,191,66,0.4)]'
-              : 'bg-white w-10 h-10 md:w-14 md:h-14 shadow-[0_0_15px_rgba(255,255,255,0.2)] md:shadow-[0_0_20px_rgba(255,255,255,0.2)]'
-          }`}>
-            <div className={node.id === 'center' ? 'text-white' : 'text-[#0F0326]'}>
-              {node.icon}
-            </div>
-          </div>
-          <div className="absolute top-full mt-1 md:mt-2 left-1/2 transform -translate-x-1/2 text-[10px] md:text-xs font-medium text-white whitespace-nowrap">
-            {node.label}
-          </div>
-        </motion.div>
-      ))}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-[70%] h-[70%] border border-white/10 rounded-full rotate-animation"></div>
-        <div className="absolute w-[85%] h-[85%] border border-white/5 rounded-full rotate-animation-reverse"></div>
-      </div>
-    </div>
-  );
+// Particles.js Options for Background Network
+const particlesOptions = {
+  fullScreen: {
+    enable: false, // We want it to fill the parent div, not the whole screen
+  },
+  background: {
+    color: {
+      value: "transparent", // The section background handles the color
+    },
+  },
+  particles: {
+    number: {
+      value: 80, // Number of particles
+      density: {
+        enable: true,
+        value_area: 800,
+      },
+    },
+    color: {
+      // Choose a color that contrasts with your background but isn't too bright
+      // value: "#ffffff", // White
+      value: "#88BF42", // Your green color
+    },
+    shape: {
+      type: "circle", // Particles are circles
+    },
+    opacity: {
+      value: 0.6, // Increased opacity slightly for better visibility
+      random: true, // Random opacity
+      anim: {
+        enable: false,
+        speed: 1,
+        opacity_min: 0.2, // Increased min opacity slightly
+        sync: false,
+      },
+    },
+    size: {
+      value: 3, // Size of particles
+      random: true, // Random size
+      anim: {
+        enable: false,
+        speed: 40,
+        size_min: 0.1,
+        sync: false,
+      },
+    },
+    links: { // These are the lines connecting particles
+      enable: true,
+      distance: 150, // Max distance for a line
+      color: "#88BF42", // Color of lines (matching particles or different)
+      opacity: 0.6, // Increased line opacity slightly
+      width: 1,
+    },
+    move: {
+      enable: true,
+      speed: 1, // How fast particles move
+      direction: "none",
+      random: false,
+      straight: false,
+      out_mode: "out",
+      bounce: false,
+      attract: {
+        enable: false,
+        rotateX: 600,
+        rotateY: 1200,
+      },
+    },
+  },
+  interactivity: {
+    detect_on: "canvas",
+    events: {
+      onhover: {
+        enable: true, // Enable hover effects
+        mode: "grab", // Mode is 'grab' for connecting lines
+      },
+      onclick: {
+        enable: true, // Enable click effects
+        mode: "push", // Mode is 'push' to add particles
+      },
+      resize: true,
+    },
+    modes: {
+      grab: {
+        distance: 140,
+        links: {
+          opacity: 1, // Make lines fully visible on hover
+        },
+      },
+      bubble: {
+        distance: 400,
+        size: 40,
+        duration: 2,
+        opacity: 8,
+        speed: 3,
+      },
+      repulse: {
+        distance: 200,
+        duration: 0.4,
+      },
+      push: {
+        quantity: 4,
+      },
+      remove: {
+        quantity: 2,
+      },
+    },
+  },
+  retina_detect: true,
 };
 
 
 const HomePage = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showStickyCTA, setShowStickyCTA] = useState(false);
-  const swiperRef = useRef(null); // For SwiperType, import it if strict typing
+  const [particlesReady, setParticlesReady] = useState(false);
+  const swiperRef = useRef(null);
 
+  // Effect to initialize Particles.js engine
+  useEffect(() => {
+    console.log("Initializing particles engine..."); // Debugging log
+    initParticlesEngine(async (engine) => {
+      // Load the slim version of tsParticles.
+      // loadFull is also available and includes more options.
+      await loadSlim(engine);
+      console.log("Particles engine loaded."); // Debugging log
+    }).then(() => {
+      console.log("Particles engine ready."); // Debugging log
+      setParticlesReady(true);
+    }).catch(error => {
+      console.error("Error initializing particles engine:", error);
+      // Set ready to true even on error to allow the rest of the page to render
+      setParticlesReady(true);
+    });
+  }, []); // Empty dependency array ensures this runs only once on mount
+
+  // Effect for scroll-based state updates
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-      setShowStickyCTA(window.scrollY > (window.innerWidth < 768 ? 400 : 600));
+      // Adjust threshold for showing sticky CTA based on screen width
+      setShowStickyCTA(window.scrollY > (window.innerWidth < 768 ? 500 : 700));
     };
+
+    // Add scroll listener
     window.addEventListener('scroll', handleScroll);
+
+    // Clean up scroll listener on component unmount
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, []); // Empty dependency array ensures this runs only once and cleans up
 
 
   return (
-    <div className="flex flex-col max-w-20xl bg-white"> {/* Adjusted max-width to a more standard class */}
+    // Using a single root div with full width
+    <div className="flex flex-col w-full bg-white"> {/* Use w-full instead of max-w-20xl */}
+      {/* Main content area */}
       <main className="flex-grow bg-white">
 
 
-
-   {/* Hero Section */}
-   
-
  {/* Hero Section */}
-
-<section className="relative bg-[#0F0326] text-white overflow-hidden min-h-screen flex items-center">
-  {/* Background images with gradient overlay */}
-  <div className="absolute inset-0">
-    {/* Neural network background */}
-    <div className="absolute inset-0 bg-[url('/assets/glowing-neural.png')] bg-cover bg-center opacity-20 hidden lg:block"></div>
-
-    {/* Gradient overlay - Added for effect, adjust as needed */}
-    {/* <div className="absolute inset-0 bg-gradient-to-t from-[#0F0326] via-transparent to-[#0F0326] opacity-50"></div> */}
+ <section className="relative bg-[#0F0326] text-white overflow-hidden min-h-screen flex items-center">
+  {/* Background Network Animation Container */}
+  {/* This div covers the whole section and contains the Particles component */}
+  {/* REMOVED opacity-20 from this container */}
+  <div className="absolute inset-0 z-0">
+ 
+     {particlesReady && (
+       <Particles
+          id="tsparticles"
+          // Corrected prop name from 'params' to 'options'
+          options={particlesOptions}
+          className="w-full h-full" // Ensure the Particles component fills the container
+        />
+      )}
   </div>
 
-  <div className="container mx-auto px-4 py-16 md:py-20 lg:py-24 relative z-10">
+  {/* Content Container (Heading, Paragraphs, Buttons, Images) */}
+  {/* Ensure this container has a higher z-index than the background */}
+  <div className="container mx-auto px-4 py-16 md:py-20 lg:py-24 relative z-10"> {/* z-10 ensures content is above background */}
     {/* Main Flex Container: Stacks vertically on small, horizontal on large */}
     {/* Corrected ordering for mobile using order-first and order-last */}
     <div className="flex flex-col lg:flex-row items-center gap-8 md:gap-12 h-full">
@@ -311,7 +348,7 @@ const HomePage = () => {
             transition={{ duration: 0.6, delay: 0.7 }} // Animates shortly after the first image
             className="rounded-lg overflow-hidden shadow-2xl h-full" // Using h-full to fill the grid cell completely
           >
-            
+
             <img
               src="/assets/award.png"
               alt="AI Interface Example 2"
@@ -336,7 +373,7 @@ const HomePage = () => {
         >
           {/* Heading */}
           <h1 className="text-[36px] md:text-5xl lg:text-6xl font-extrabold text-white leading-snug md:leading-tight lg:leading-tight mb-4 md:mb-6">
-            Transforming Business with
+            Transforming Businesses with
             <span className="text-[#88BF42]"> Intelligent Automation</span>
           </h1>
 
@@ -415,9 +452,7 @@ const HomePage = () => {
             // Keep reduced horizontal padding px-5 sm:px-6
             className="border-2 border-[#88bf42] text-[#88bf42] text-base h-12 w-60 mx-auto sm:mx-0 px-5 sm:px-6 rounded-md hover:bg-[#88bf42] hover:text-white transition-all duration-300"
           >
-            <RouterLink to="/contact" className="flex items-center justify-center">
-              Book a Free Demo
-            </RouterLink>
+            <RouterLink to="/contact">Book a Free Demo</RouterLink>
           </Button>
         </div>
 
@@ -464,6 +499,10 @@ const HomePage = () => {
   </div>
 </section>
 
+
+
+
+
         {/* 2. Quick Company Intro */}
         <section className="py-16 lg:py-24 bg-gray-50 relative overflow-hidden">
   {/* Potential Background Element here if needed */}
@@ -485,7 +524,7 @@ const HomePage = () => {
         {/* Desktop Left Column: Text, Paragraphs, Button */}
         <motion.div
           variants={itemVariants} // Animate this block relative to parent stagger
-          className="flex flex-col space-y-6 md:space-y-8 text-center md:text-left"
+          className="flex flex-col space-y-6  text-center md:text-left"
         >
           {/* Tag */}
           <motion.div
@@ -499,9 +538,9 @@ const HomePage = () => {
           {/* Heading */}
           <motion.h2
             variants={itemVariants} // Animate this item within the block
-            className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] leading-tight"
+            className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] leading-normal"
           >
-            Pioneering the Future of <span className="text-[#88BF42]">AI Solutions</span>
+            Pioneering the Future of <br /><span className="text-[#88BF42]">AI Solutions</span>
           </motion.h2>
           {/* Paragraphs */}
           {/* Wrap paragraphs in a div if they should animate together */}
@@ -563,8 +602,8 @@ const HomePage = () => {
              className="grid grid-cols-2 gap-4 md:gap-6"
            >
                <div className="p-4 md:p-6 bg-white rounded-lg md:rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100 text-center md:text-left">
-                 <div className="text-3xl md:text-4xl font-bold text-[#88BF42] mb-1 md:mb-2">99.9%</div>
-                 <div className="text-[#0F0326] text-sm md:text-base font-medium">Client Satisfaction</div>
+                 <div className="text-3xl md:text-4xl font-bold text-[#88BF42] mb-1 md:mb-2">100%</div>
+                 <div className="text-[#0F0326] text-sm md:text-base font-medium">ROI</div>
                </div>
                <div className="p-4 md:p-6 bg-white rounded-lg md:rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100 text-center md:text-left">
                  <div className="text-3xl md:text-4xl font-bold text-[#88BF42] mb-1 md:mb-2">250+</div>
@@ -653,8 +692,8 @@ const HomePage = () => {
             className="order-5 grid grid-cols-2 gap-4" // Changed order to 5, 2x2 grid on mobile
           >
                <div className="p-4 bg-white rounded-lg shadow-md border border-gray-100 text-center">
-                 <div className="text-3xl font-bold text-[#88BF42] mb-1">99.9%</div>
-                 <div className="text-[#0F0326] text-sm font-medium">Client Satisfaction</div>
+                 <div className="text-3xl font-bold text-[#88BF42] mb-1">100%</div>
+                 <div className="text-[#0F0326] text-sm font-medium">ROI</div>
                </div>
                <div className="p-4 bg-white rounded-lg shadow-md border border-gray-100 text-center">
                  <div className="text-3xl font-bold text-[#88BF42] mb-1">50+</div>
@@ -691,7 +730,7 @@ const HomePage = () => {
 
         {/* 4. What We Offer Section */}
 
-  
+
     <section className="py-16 md:py-20 bg-white">
       <div className="container mx-auto px-4">
         {/* Header Section */}
@@ -793,7 +832,7 @@ const HomePage = () => {
                { icon: Shield, title: 'Scalable & Secure Systems', desc: 'Future-proof infrastructure with enterprise-grade security.' },
                { icon: Award, title: 'Expert Support & Consulting', desc: 'End-to-end guidance from AI specialists.' }
              ].map((feature, index) => (
-               
+
                <motion.div
                  key={`feature-${index}`}
                  variants={itemVariants} // Animate each item
@@ -821,7 +860,7 @@ const HomePage = () => {
         variants={staggerChildren} // Stagger animation for items within this column
         className="text-center lg:text-left lg:pl-8 order-first lg:order-2 mb-4" // Center text mobile, left desktop, add left padding desktop, order-first mobile, lg:order-2 desktop
       >
-        <motion.div variants={itemVariants} className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 mb-4">
+        <motion.div variants={itemVariants} className="inline-block bg-[#88BF42]/10 rounded-full px-4 md:px-6 py-1 md:py-2 mb-4 -mt-3">
           <span className="text-[#88BF42] text-sm md:text-base font-semibold">Why Choose Thorsignia</span>
         </motion.div>
 
@@ -851,10 +890,11 @@ className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-3 md:mb-
 
 
        {/* Assuming ProductDemoSection exists and you want to keep it */}
-       <ProductDemoSection />
+       {/* <ProductDemoSection /> */}
 
 
         {/* 8. Testimonials Strip */}
+        {/* Testimonials section is commented out in the provided code */}
         {/* <section className="py-16 md:py-20 bg-white text-gray-900">
           <div className="container mx-auto px-4">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerChildren} className="text-center mb-8 md:mb-10">
@@ -904,9 +944,9 @@ className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-3 md:mb-
                    </SwiperSlide>
                 ))}
               </Swiper>
-             
+
               <div className="swiper-pagination-custom text-center mt-6"></div>
-           
+
             </div>
           </div>
         </section> */}
@@ -948,6 +988,7 @@ className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-3 md:mb-
         </motion.section>
       </main>
 
+      {/* Sticky CTA Button */}
       <AnimatePresence>
         {showStickyCTA && (
           <motion.div
@@ -961,7 +1002,6 @@ className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F0326] mb-3 md:mb-
         )}
       </AnimatePresence>
     </div>
-
   );
 }
 

@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import { Link } from "react-router-dom"
 import { Globe, Lightbulb, Users, Zap, BarChart3, Phone, Mail, MapPin, Facebook, Twitter, Linkedin } from "lucide-react"
 import Navbar from '@/components/Navbar'
@@ -12,6 +13,9 @@ import WhoWeAre from '@/components/WhoWeAre'
 
 
 export default function AboutPage() {
+  useEffect(() => {
+    document.title = "About Us | ThorSignia";
+  }, []);
   return (
     <div className="min-h-screen bg-white">
       <Navbar />

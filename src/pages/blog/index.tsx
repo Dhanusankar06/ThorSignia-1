@@ -3,7 +3,7 @@
 
 "use client"; // Indicates this is a client component
 
-import React from 'react';
+import React, { useEffect } from 'react';
 // Link, cn, Icons (Facebook, etc.) are imported in the original but not used here.
 // Keep them if they are used elsewhere in the file or in components imported by this file.
 // import { Link } from "react-router-dom";
@@ -17,7 +17,10 @@ import Navbar from "@/components/Navbar"; // Assuming Navbar exists
 import Footer from '@/components/Footer'; // Assuming Footer exists
 
 
-const BlogPage: React.FC = () => {
+const BlogPage = () => {
+  useEffect(() => {
+    document.title = "Blog | ThorSignia";
+  }, []);
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <Navbar />

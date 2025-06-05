@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ArrowRight, ShieldAlert, Check } from 'lucide-react';
 import Navbar from '@/components/Navbar'; // Assuming Navbar is responsive
 import Footer from '@/components/Footer'; // Assuming Footer is responsive
@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
 
 const ThreatDetectionPage = () => {
+  useEffect(() => {
+    document.title = "AI-Powered Threat Detection | ThorSignia";
+  }, []);
   return (
     <div className="min-h-screen flex flex-col">
       {/* Navbar is assumed to be responsive */}

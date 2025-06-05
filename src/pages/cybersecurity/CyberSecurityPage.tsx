@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 // Components
@@ -11,6 +11,9 @@ import TestimonialSection from '@/components/cybersecurity/TestimonialSection';
 import ContactSection from '@/components/cybersecurity/ContactSection';
 
 const CyberSecurityPage = () => {
+  useEffect(() => {
+    document.title = "Cybersecurity Services | ThorSignia";
+  }, []);
   return (
     <div className="bg-white min-h-screen">
       <Hero />

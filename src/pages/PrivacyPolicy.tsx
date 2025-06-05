@@ -1,8 +1,13 @@
+import React, { useEffect } from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom'; 
-const PrivacyPolicy = () => (
+const PrivacyPolicy = () => {
+  useEffect(() => {
+    document.title = "Privacy Policy | ThorSignia";
+  }, []);
+  return (
   <>
     <Navbar />
  
@@ -145,4 +150,5 @@ const PrivacyPolicy = () => (
   </>
 );
 
+};
 export default PrivacyPolicy;

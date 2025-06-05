@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -6,6 +7,9 @@ import { Button } from '@/components/ui/button';
 import { Link as RouterLink } from 'react-router-dom';
 
 const SecurityTrainingPage = () => {
+  useEffect(() => {
+    document.title = "Security Training | ThorSignia";
+  }, []);
   // Animation variants
   const fadeIn = {
     initial: { opacity: 0, y: 20 },

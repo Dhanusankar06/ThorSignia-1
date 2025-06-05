@@ -10,6 +10,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Brain, CircleCheck } from 'lucide-react';
 
 const Index = () => {
+  useEffect(() => {
+    document.title = "ThorSignia | AI & Cybersecurity Solutions";
+  }, []);
   const heroRef = useRef(null);
   const location = useLocation();
 

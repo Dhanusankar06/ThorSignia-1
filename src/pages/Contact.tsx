@@ -166,6 +166,9 @@ const RateLimitWarning = ({ remaining, timeUntilReset }) => {
 };
 
 const ContactPage = () => {
+  useEffect(() => {
+    document.title = "Contact Us | ThorSignia";
+  }, []);
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -724,7 +727,7 @@ const ContactPage = () => {
             >
                 <div className="relative w-full overflow-hidden h-[350px] sm:h-[450px] md:h-[500px] lg:h-[600px]">
                     <img
-                        src="/assets/world.png"
+                        src="/assets/world2.png"
                         alt="World Map showing global presence"
                         className="w-full h-full object-cover"
                     />

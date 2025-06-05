@@ -1,8 +1,13 @@
+import React, { useEffect } from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom'; 
-const TermsAndConditions = () => (
+const TermsAndConditions = () => {
+  useEffect(() => {
+    document.title = "Terms and Conditions | ThorSignia";
+  }, []);
+  return (
   <>
     <Navbar />    <div className="max-w-6xl mx-auto px-4 py-16 text-gray-800 bg-white "> {/* Changed text-[#0F0326] to text-gray-800, py-12 to py-16 */}
     {/* <Link to="/" className="inline-flex items-center text-[#88BF42] hover:text-[#7AAD3A] mb-6 transition-colors">
@@ -133,4 +138,5 @@ const TermsAndConditions = () => (
   </>
 );
 
+};
 export default TermsAndConditions;

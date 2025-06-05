@@ -1,5 +1,5 @@
 // pages/careers/index.tsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -8,6 +8,9 @@ import { Briefcase, Users, Lightbulb, Award, ArrowRight } from 'lucide-react';
 import { jobListings, JobListing } from '@/data/jobListings'; // Import the combined data and type
 
 const Careers = () => {
+  useEffect(() => {
+    document.title = "Careers | ThorSignia";
+  }, []);
   // Filter the listings into jobs and internships for display sections
   const jobs = jobListings.filter(listing => listing.type === 'job');
   const internships = jobListings.filter(listing => listing.type === 'internship');

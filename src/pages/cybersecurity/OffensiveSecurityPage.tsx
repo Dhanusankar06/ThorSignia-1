@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -7,6 +7,9 @@ import { Button } from '@/components/ui/button';
 import { Link as RouterLink } from 'react-router-dom';
 
 const OffensiveSecurityPage = () => {
+  useEffect(() => {
+    document.title = "Offensive Security | ThorSignia";
+  }, []);
   // Custom testimonials for Offensive Security (Keeping for completeness)
   const offensiveSecurityTestimonials = [
     {

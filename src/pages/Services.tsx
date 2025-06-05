@@ -175,6 +175,9 @@ interface ImplementationStep {
 }
 
 const ServicesPage = () => {
+  useEffect(() => {
+    document.title = "AI Services | ThorSignia";
+  }, []);
   const [activeTab, setActiveTab] = useState("ai-voice-agents");
   // Added state for the service grid component
   const [activeService, setActiveService] = useState(servicesData[0]);
@@ -850,8 +853,8 @@ scale growth with intelligent automation.                  </p>
                           <div className="grid grid-cols-2 gap-4 sm:gap-6 mb-8">
                               {/* Stat Item 1 */}
                               <div className="text-center p-4 sm:p-6 bg-gradient-to-br from-[#88bf42]/15 to-[#0f0326]/15 rounded-2xl backdrop-blur-sm shadow-inner">
-                                  <h3 className="text-3xl md:text-4xl font-bold mb-2 text-[#0F0326]">99.9%</h3>
-                                  <p className="text-[#696869] text-sm">Customer Satisfaction</p>
+                                  <h3 className="text-3xl md:text-4xl font-bold mb-2 text-[#0F0326]">+75%</h3>
+                                  <p className="text-[#696869] text-sm">Revenue Growth</p>
                               </div>
 
                               {/* Stat Item 2 */}
