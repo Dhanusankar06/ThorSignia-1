@@ -202,11 +202,11 @@ const navItems: NavItem[] = [
     href: "/careers#top",
     dropdown: false,
   },
-  {
-    title: "Pricing",
-    href: "/pricing#top",
-    dropdown: false,
-  },
+  // {
+  //   title: "Pricing",
+  //   href: "/pricing#top",
+  //   dropdown: false,
+  // },
   {
     title: "Contact",
     href: "/contact#top",
@@ -299,9 +299,9 @@ const sitemapColumns = [
     {
         title: "Legal",
         links: [
-             { text: "Terms and Conditions", href: "/terms-and-conditions" }, // Example paths - ADJUST IF YOUR PATHS ARE DIFFERENT
-             { text: "Refund Policy", href: "/refund-policy" },      // Example paths - ADJUST IF YOUR PATHS ARE DIFFERENT
-             { text: "Privacy Policy", href: "/privacy-policy" },    // Example paths - ADJUST IF YOUR PATHS ARE DIFFERENT
+             { text: "Terms and Conditions", href: "/TermsAndConditions" }, // Example paths - ADJUST IF YOUR PATHS ARE DIFFERENT
+             { text: "Refund Policy", href: "/RefundPolicy" },      // Example paths - ADJUST IF YOUR PATHS ARE DIFFERENT
+             { text: "Privacy Policy", href: "/PrivacyPolicy" },    // Example paths - ADJUST IF YOUR PATHS ARE DIFFERENT
         ]
     },
     // Add more columns here if needed
